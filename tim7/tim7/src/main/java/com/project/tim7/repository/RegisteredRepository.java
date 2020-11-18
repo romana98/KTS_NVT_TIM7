@@ -1,5 +1,11 @@
 package com.project.tim7.repository;
 
-public interface RegisteredRepository {
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
+
+import com.project.tim7.model.Registered;
+
+@Repository
+public interface RegisteredRepository extends JpaRepository<Registered, Integer> {
 
 }
