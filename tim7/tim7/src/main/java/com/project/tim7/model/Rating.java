@@ -21,7 +21,7 @@ public class Rating {
 	@ManyToOne(cascade = CascadeType.REFRESH, fetch = FetchType.EAGER)
 	private Registered registered;
 	
-	@Column(name = "idRegistered", unique = false, nullable = false)
-	private int rating;
+	@Column(name = "rate", unique = false, nullable = false)
+	private int rate;
 
 }

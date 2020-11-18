@@ -1,8 +1,6 @@
 package com.project.tim7.model;
 
 import java.util.Date;
-import java.util.HashSet;
-import java.util.Map;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
@@ -60,10 +58,10 @@ public class CulturalOffer {
 	private Location location;
 	
 	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-	@JoinColumn(name = "commentId")
+	@JoinColumn(name = "culturalOfferId")
 	private Set<Comment> comments;
 	
 	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-	@JoinColumn(name = "ratingId")
+	@JoinColumn(name = "culturalOfferId")
 	private Set<Rating> ratings;
 }
