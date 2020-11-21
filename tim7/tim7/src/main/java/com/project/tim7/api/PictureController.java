@@ -4,7 +4,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping(value="/cultural-offers")
-public class CulturalOfferController {
+@RequestMapping(value="/pictures")
+public class PictureController {
 
 }

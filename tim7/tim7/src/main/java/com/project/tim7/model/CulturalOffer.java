@@ -33,14 +33,15 @@ public class CulturalOffer {
 	@Column(name = "description", unique = false, nullable = true)
 	private String description;
 	
-	@Column(name = "picture", unique = false, nullable = true)
-	private String picture;
-	
 	@Column(name = "startDate", unique = false, nullable = true)
 	private Date startDate;
 	
 	@Column(name = "endDate", unique = false, nullable = true)
 	private Date endDate;
+	
+	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@JoinColumn(name = "commentId")
+	private Set<Picture> pictures;
 	
 	@OneToMany(mappedBy = "culturalOffer", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	private Set<Newsletter> newsletters;
