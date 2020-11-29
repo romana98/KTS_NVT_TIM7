@@ -7,7 +7,8 @@ import javax.persistence.*;
 public abstract class Person {
 	
 	@Id
-	@GeneratedValue(strategy = GenerationType.TABLE)
+	@SequenceGenerator(name="jpaPkSeq", sequenceName="JPA_PK_SEQ", allocationSize=1, initialValue = 1)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "jpaPkSeq")
 	private int id;
 	
 	@Column(name = "username", unique = true, nullable = false)
