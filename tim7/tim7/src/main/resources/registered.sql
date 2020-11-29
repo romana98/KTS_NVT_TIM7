@@ -1,4 +1,4 @@
-insert into REGISTERED (username, email, password, verified) values ('grunge0', 'mstaines0@i2i.jp', 'o6ADWJFl', false);
+insert into REGISTERED (id, username, email, password, verified) values (NEXTVAL('person_seq'), 'grunge0', 'mstaines0@i2i.jp', 'o6ADWJFl', false);
 insert into REGISTERED (username, email, password, verified) values ('bnorthill1', 'dvinnicombe1@craigslist.org', 'Eb9c4ksWubme', false);
 insert into REGISTERED (username, email, password, verified) values ('lcupper2', 'mbridel2@nba.com', 'EcN0cWg1U', false);
 insert into REGISTERED (username, email, password, verified) values ('lboggers3', 'salkin3@tinypic.com', 'UI5QozR', true);
