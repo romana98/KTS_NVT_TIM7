@@ -30,7 +30,7 @@ public class CulturalOffer {
 	@Column(name = "name", unique = false, nullable = true)
 	private String name;
 	
-	@Column(name = "description", unique = false, nullable = true)
+	@Column(name = "description", unique = false, nullable = true, length=10485760)
 	private String description;
 	
 	@Column(name = "startDate", unique = false, nullable = true)
@@ -40,7 +40,7 @@ public class CulturalOffer {
 	private Date endDate;
 	
 	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-	@JoinColumn(name = "commentId")
+	@JoinColumn(name = "culturalOfferId")
 	private Set<Picture> pictures;
 	
 	@OneToMany(mappedBy = "culturalOffer", fetch = FetchType.LAZY, cascade = CascadeType.ALL)

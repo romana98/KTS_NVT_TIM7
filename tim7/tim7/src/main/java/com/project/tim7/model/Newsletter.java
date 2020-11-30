@@ -23,7 +23,7 @@ public class Newsletter {
 	@Column(name = "name", unique = false, nullable = true)
 	private String name;
 	
-	@Column(name = "description", unique = false, nullable = true)
+	@Column(name = "description", unique = false, nullable = true, length=10485760)
 	private String description;
 	
 	@Column(name = "publishedDate", unique = false, nullable = true)
@@ -31,6 +31,9 @@ public class Newsletter {
 	
 	@ManyToOne(cascade = CascadeType.REFRESH, fetch = FetchType.EAGER)
 	private CulturalOffer culturalOffer;
+
+	@ManyToOne(cascade = CascadeType.REFRESH, fetch = FetchType.EAGER)
+	private Picture picture;
 	
 
 }
