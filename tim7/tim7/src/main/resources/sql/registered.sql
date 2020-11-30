@@ -1,3 +1,7 @@
+insert into REGISTERED (id, username, email, password, verified) values (NEXTVAL('person_seq'), 'micoR', 'mico@reg.com', 'mico', false);
+insert into REGISTERED (id, username, email, password, verified) values (NEXTVAL('person_seq'), 'veraR', 'vera@reg.com', 'vera', false);
+insert into REGISTERED (id, username, email, password, verified) values (NEXTVAL('person_seq'), 'vuleR', 'vule@reg.com', 'vule', false);
+insert into REGISTERED (id, username, email, password, verified) values (NEXTVAL('person_seq'), 'romanaR', 'romana@reg.com', 'romana', false);
 insert into REGISTERED (id, username, email, password, verified) values (NEXTVAL('person_seq'), 'grunge0', 'mstaines0@i2i.jp', 'o6ADWJFl', false);
 insert into REGISTERED (id, username, email, password, verified) values (NEXTVAL('person_seq'), 'bnorthill1', 'dvinnicombe1@craigslist.org', 'Eb9c4ksWubme', false);
 insert into REGISTERED (id, username, email, password, verified) values (NEXTVAL('person_seq'), 'lcupper2', 'mbridel2@nba.com', 'EcN0cWg1U', false);

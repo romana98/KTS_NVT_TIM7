@@ -1,0 +1,14 @@
+insert into administrators (id, username, email, password, verified) values (nextval('person_seq'),'mico', 'mico@admin.com', 'mico', true);
+insert into administrators (id, username, email, password, verified) values (nextval('person_seq'),'vara', 'vera@admin.com', 'vera', true);
+insert into administrators (id, username, email, password, verified) values (nextval('person_seq'),'vule', 'vule@@admin.com', 'vule', true);
+insert into administrators (id, username, email, password, verified) values (nextval('person_seq'),'romana', 'romana@admin.com', 'romana', true);
+insert into administrators (id, username, email, password, verified) values (nextval('person_seq'),'rkenney0', 'sfossitt0@nasa.gov', 'prxDUMNLZx89', true);
+insert into administrators (id, username, email, password, verified) values (nextval('person_seq'),'sdinapoli1', 'satterbury1@columbia.edu', 'CRTkU4zm', true);
+insert into administrators (id, username, email, password, verified) values (nextval('person_seq'),'mdionsetto2', 'bmcmurdo2@wix.com', 'AUABGtUcUl', false);
+insert into administrators (id, username, email, password, verified) values (nextval('person_seq'),'mpickett3', 'mbillyard3@ebay.co.uk', 'kxX1J2tSjzKV', true);
+insert into administrators (id, username, email, password, verified) values (nextval('person_seq'),'aolongain4', 'cmarler4@noaa.gov', '4i1oxvKMJI', false);
+insert into administrators (id, username, email, password, verified) values (nextval('person_seq'),'divatts5', 'lsutherel5@nasa.gov', 'pg7iTGApJ', true);
+insert into administrators (id, username, email, password, verified) values (nextval('person_seq'),'gfeary6', 'mmabbitt6@soundcloud.com', '8mdkTiA6g1', false);
+insert into administrators (id, username, email, password, verified) values (nextval('person_seq'),'lmccardle7', 'hscholar7@whitehouse.gov', 'V4I2MuzSf', false);
+insert into administrators (id, username, email, password, verified) values (nextval('person_seq'),'jrabb8', 'tpester8@mozilla.org', '4KGKfM', true);
+insert into administrators (id, username, email, password, verified) values (nextval('person_seq'),'akender9', 'berrichelli9@yale.edu', 'xNq1WafE', true);
