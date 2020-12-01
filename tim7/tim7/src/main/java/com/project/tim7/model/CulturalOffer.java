@@ -65,5 +65,15 @@ public class CulturalOffer {
 	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@JoinColumn(name = "culturalOfferId")
 	private Set<Rating> ratings;
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
+	
+	
 	
 }

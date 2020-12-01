@@ -27,7 +27,12 @@ public class NewsletterService implements ServiceInterface<Newsletter> {
 
 	@Override
 	public List<Newsletter> findAll() {
-		return null;
+		return newsletterRepo.findAll();
+	}
+	
+	@Override
+	public Page<Newsletter> findAll(Pageable pageable) {
+		return newsletterRepo.findAll(pageable);
 	}
 
 	@Override
@@ -63,12 +68,6 @@ public class NewsletterService implements ServiceInterface<Newsletter> {
 		
 		newsletterRepo.save(entity);
 		return true;
-	}
-
-	@Override
-	public Page findAll(Pageable pageable) {
-		// TODO Auto-generated method stub
-		return null;
 	}
 
 }
