@@ -29,11 +29,11 @@ public class CategoryController  {
 	@Autowired
 	CategoryService categoryService;
 	
-	private CategoryMapper catmapper;
+	private CategoryMapper catMapper;
 	
 	public CategoryController() {
 		super();
-		this.catmapper = new CategoryMapper();
+		this.catMapper = new CategoryMapper();
 	}
 
 	@RequestMapping(method = RequestMethod.GET)
@@ -53,10 +53,10 @@ public class CategoryController  {
         return new ResponseEntity<>(pageCategoryDTOS, HttpStatus.OK);
     }
 	
-	@RequestMapping(method = RequestMethod.PUT)
+	@RequestMapping(method = RequestMethod.PUT, consumes = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<Object> updateCategory(@Valid @RequestBody CategoryDTO categoryDTO){
 		
-		Category newCategory = categoryService.update(catmapper.toEntity(categoryDTO));
+		Category newCategory = categoryService.update(catMapper.toEntity(categoryDTO));
 		if(newCategory != null) {
 			return new ResponseEntity<>(categoryDTO, HttpStatus.OK);
 		}else {
@@ -64,12 +64,22 @@ public class CategoryController  {
 		}
 		
 	}
+	
+	@RequestMapping(method= RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<String> createCategory(@Valid @RequestBody CategoryDTO category){
+		
+		if(categoryService.saveOne(catMapper.toEntity(category)) == true) {
+			return new ResponseEntity<>(HttpStatus.CREATED);
+		}else {
+			return new ResponseEntity<>("Category already exists.", HttpStatus.BAD_REQUEST);
+		}
+    }
 
 
 	private List<CategoryDTO> toCategoryDTOList(List<Category> categories) {
 		ArrayList<CategoryDTO> dtos = new ArrayList<CategoryDTO>();
 		for(Category category : categories) {
-			CategoryDTO dto = catmapper.toDto(category);
+			CategoryDTO dto = catMapper.toDto(category);
 			dtos.add(dto);
 		}
 		return dtos;

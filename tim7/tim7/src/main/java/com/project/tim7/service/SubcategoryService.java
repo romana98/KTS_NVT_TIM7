@@ -7,6 +7,8 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import com.project.tim7.dto.SubcategoryDTO;
+import com.project.tim7.helper.SubcategoryMapper;
 import com.project.tim7.model.Subcategory;
 import com.project.tim7.repository.SubcategoryRepository;
 
@@ -15,6 +17,9 @@ public class SubcategoryService implements ServiceInterface<Subcategory> {
 
 	@Autowired
 	SubcategoryRepository subcategoryRepo;
+	
+	@Autowired
+	CategoryService categoryService;
 
 	@Override
 	public List<Subcategory> findAll() {
@@ -33,8 +38,12 @@ public class SubcategoryService implements ServiceInterface<Subcategory> {
 
 	@Override
 	public boolean saveOne(Subcategory entity) {
-		subcategoryRepo.save(entity);
-		return true;
+		if(subcategoryRepo.findByName(entity.getName()) == null) {
+			subcategoryRepo.save(entity);
+			return true;
+		}else {
+			return false;
+		}
 	}
 
 	@Override
@@ -57,9 +66,19 @@ public class SubcategoryService implements ServiceInterface<Subcategory> {
 			return null;
 		}
 		subcategory.setName(entity.getName());
-		saveOne(subcategory);
-		return subcategory;
+		boolean check = saveOne(subcategory);
+		if(check == true) {
+			return subcategory;
+		}else {
+			return null;
+		}
 		
 	}
+	
+	public boolean addSubcategory(Subcategory subcategory, int categoryId) {
+		subcategory.setCategory(categoryService.findOne(categoryId));
+		return saveOne(subcategory);
+	}
+
 
 }

@@ -29,11 +29,11 @@ public class SubcategoryController {
 	@Autowired
 	SubcategoryService subcategoryService;
 	
-	private SubcategoryMapper subcatmapper;
+	private SubcategoryMapper subcatMapper;
 	
 	public SubcategoryController() {
 		super();
-		this.subcatmapper = new SubcategoryMapper();
+		this.subcatMapper = new SubcategoryMapper();
 	}
 
 	@RequestMapping(method = RequestMethod.GET)
@@ -56,7 +56,7 @@ public class SubcategoryController {
 	@RequestMapping(method = RequestMethod.PUT)
 	public ResponseEntity<Object> updateSubcategory(@Valid @RequestBody SubcategoryDTO subcategoryDTO){
 		
-		Subcategory newSubcategory = subcategoryService.update(subcatmapper.toEntity(subcategoryDTO));
+		Subcategory newSubcategory = subcategoryService.update(subcatMapper.toEntity(subcategoryDTO));
 		if(newSubcategory != null) {
 			return new ResponseEntity<>(subcategoryDTO, HttpStatus.OK);
 		}else {
@@ -64,12 +64,22 @@ public class SubcategoryController {
 		}
 		
 	}
+	
+	@RequestMapping(method= RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<String> createSubcategory(@Valid @RequestBody SubcategoryDTO subcategory){
+		
+		if(subcategoryService.addSubcategory(subcatMapper.toEntity(subcategory), subcategory.getCategoryId()) == true) {
+			return new ResponseEntity<>(HttpStatus.CREATED);
+		}else {
+			return new ResponseEntity<>("Subcategory already exists.", HttpStatus.BAD_REQUEST);
+		}
+    }
 
 
 	private List<SubcategoryDTO> toSubcategoryDTOList(List<Subcategory> subcategories) {
 		ArrayList<SubcategoryDTO> dtos = new ArrayList<SubcategoryDTO>();
 		for(Subcategory subcategory : subcategories) {
-			SubcategoryDTO dto = subcatmapper.toDto(subcategory);
+			SubcategoryDTO dto = subcatMapper.toDto(subcategory);
 			dtos.add(dto);
 		}
 		return dtos;

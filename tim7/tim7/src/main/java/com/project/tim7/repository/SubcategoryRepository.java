@@ -7,5 +7,7 @@ import com.project.tim7.model.Subcategory;
 
 @Repository
 public interface SubcategoryRepository extends JpaRepository<Subcategory, Integer> {
+	
+	Subcategory findByName(String name);
 
 }
