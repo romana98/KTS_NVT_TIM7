@@ -9,7 +9,10 @@ import org.hibernate.annotations.OnDeleteAction;
 @Table(name = "administrators")
 @OnDelete(action = OnDeleteAction.CASCADE)
 public class Administrator extends Person {
-	
-	
 
+    public Administrator(){}
+
+    public Administrator(String email, String username, String password) {
+        super(email, username, password);
+    }
 }

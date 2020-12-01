@@ -8,9 +8,6 @@ import javax.persistence.*;
 
 @Entity
 @Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
-//@GenericGenerator(name="PERSON_SEQ", strategy = "sequence",
-//		parameters = { @Parameter(name="sequence", value="PERSON_SEQ") } )
-
 public abstract class Person {
 	
 	@Id
@@ -29,5 +26,53 @@ public abstract class Person {
 	
 	@Column(name = "verified", unique = false, nullable = true)
 	private boolean verified;
-	
+
+	public Person() {
+	}
+
+	public Person(String email, String username, String password) {
+		this.email = email;
+		this.username = username;
+		this.password = password;
+	}
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
+
+	public String getUsername() {
+		return username;
+	}
+
+	public void setUsername(String username) {
+		this.username = username;
+	}
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
+	public String getPassword() {
+		return password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
+	}
+
+	public boolean isVerified() {
+		return verified;
+	}
+
+	public void setVerified(boolean verified) {
+		this.verified = verified;
+	}
 }
