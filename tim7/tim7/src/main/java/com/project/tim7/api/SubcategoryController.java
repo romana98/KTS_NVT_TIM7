@@ -26,11 +26,11 @@ public class SubcategoryController {
 	@Autowired
 	SubcategoryService subcategoryService;
 	
-	private SubcategoryMapper mapper;
+	private SubcategoryMapper subcatmapper;
 	
 	public SubcategoryController() {
 		super();
-		this.mapper = new SubcategoryMapper();
+		this.subcatmapper = new SubcategoryMapper();
 	}
 
 	@RequestMapping(method = RequestMethod.GET)
@@ -54,7 +54,7 @@ public class SubcategoryController {
 	private List<SubcategoryDTO> toSubcategoryDTOList(List<Subcategory> subcategories) {
 		ArrayList<SubcategoryDTO> dtos = new ArrayList<SubcategoryDTO>();
 		for(Subcategory subcategory : subcategories) {
-			SubcategoryDTO dto = mapper.toDto(subcategory);
+			SubcategoryDTO dto = subcatmapper.toDto(subcategory);
 			dtos.add(dto);
 		}
 		return dtos;

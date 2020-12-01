@@ -26,11 +26,11 @@ public class CategoryController  {
 	@Autowired
 	CategoryService categoryService;
 	
-	private CategoryMapper mapper;
+	private CategoryMapper catmapper;
 	
 	public CategoryController() {
 		super();
-		this.mapper = new CategoryMapper();
+		this.catmapper = new CategoryMapper();
 	}
 
 	@RequestMapping(method = RequestMethod.GET)
@@ -54,7 +54,7 @@ public class CategoryController  {
 	private List<CategoryDTO> toCategoryDTOList(List<Category> categories) {
 		ArrayList<CategoryDTO> dtos = new ArrayList<CategoryDTO>();
 		for(Category category : categories) {
-			CategoryDTO dto = mapper.toDto(category);
+			CategoryDTO dto = catmapper.toDto(category);
 			dtos.add(dto);
 		}
 		return dtos;
