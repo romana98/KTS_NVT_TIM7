@@ -8,7 +8,6 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import com.project.tim7.model.CulturalOffer;
 import com.project.tim7.repository.CulturalOfferRepository;
 
 @Service

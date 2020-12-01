@@ -64,7 +64,7 @@ public class NewsletterService implements ServiceInterface<Newsletter> {
 		newsletter.setDescription(entity.getDescription());
 		Picture updatedPicture = pictureService.findByPicture(pictureStr);
 		if (updatedPicture == null) 
-			updatedPicture = pictureService.saveAndGetOne(new Picture(pictureStr));
+			updatedPicture = pictureService.update(new Picture(pictureStr));
 		newsletter.setPicture(updatedPicture);
 		saveOne(newsletter);
 		return true;
@@ -93,7 +93,7 @@ public class NewsletterService implements ServiceInterface<Newsletter> {
 		
 		Picture picture = pictureService.findByPicture(pictureStr);
 		if (picture == null)
-			picture = pictureService.saveAndGetOne(new Picture(pictureStr));
+			picture = pictureService.update(new Picture(pictureStr));
 		entity.setPicture(picture);
 		
 		entity.setId(0);
