@@ -54,16 +54,6 @@ public class NewsletterService implements ServiceInterface<Newsletter> {
 		return false;
 	}
 
-	@Override
-	public Object update(Object entity) {
-		return false;
-	}
-
-	@Override
-	public Page findAll(Pageable pageable) {
-		// TODO Auto-generated method stub
-		return null;
-	
 	public boolean saveNewsletter(Newsletter entity, int culturalOfferId, String pictureStr) {
 		CulturalOffer culturalOffer = culturalOfferService.findOne(culturalOfferId);
 		if (culturalOffer == null) 
@@ -85,6 +75,11 @@ public class NewsletterService implements ServiceInterface<Newsletter> {
 	
 	public Page<Newsletter> findNewsletterForUser(int idRegisteredUser, Pageable pageable) {
 		return newsletterRepo.findNewsletterForUser(idRegisteredUser, pageable);
+	}
+
+	@Override
+	public Newsletter update(Newsletter entity) {
+		return null;
 	}
 
 
