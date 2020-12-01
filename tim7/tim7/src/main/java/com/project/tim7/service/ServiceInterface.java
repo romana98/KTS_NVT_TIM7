@@ -16,8 +16,6 @@ public interface ServiceInterface<T> {
 	
 	T findOne(int id);
 	
-	Page<T> findAll(Pageable pageable);
-	
 	boolean saveOne(T entity);
 	
 	boolean saveAll(List<T> entities);

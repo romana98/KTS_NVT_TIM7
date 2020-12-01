@@ -18,7 +18,7 @@ public class AdministratorService implements ServiceInterface<Administrator> {
 
 	@Override
 	public List<Administrator> findAll() {
-		return null;
+		return adminRepo.findAll();
 	}
 
 	@Override
@@ -59,9 +59,4 @@ public class AdministratorService implements ServiceInterface<Administrator> {
 		return adminRepo.countByEmailOrUsername(email, username);
 	}
 
-	@Override
-	public Page<Administrator> findAll(Pageable pageable) {
-		// TODO Auto-generated method stub
-		return null;
-	}
 }

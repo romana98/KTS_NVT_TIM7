@@ -3,6 +3,7 @@ package com.project.tim7.api;
 import com.project.tim7.dto.AdministratorDTO;
 import com.project.tim7.helper.AdministratorMapper;
 import com.project.tim7.model.Administrator;
+import com.project.tim7.model.Category;
 import com.project.tim7.service.AdministratorService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -49,12 +50,19 @@ public class AdministratorController {
     }
 
     @RequestMapping(value= "/by-page",method = RequestMethod.GET)
-    public ResponseEntity<Page<AdministratorDTO>> getAllCulturalContentCategories(Pageable pageable) {
+    public ResponseEntity<Page<AdministratorDTO>> getAllAdministrators(Pageable pageable) {
         Page<Administrator> page = adminService.findAll(pageable);
         List<AdministratorDTO> culturalContentCategoryDTOS = toAdminDTOList(page.toList());
         Page<AdministratorDTO> pageCulturalContentCategoryDTOS = new PageImpl<>(culturalContentCategoryDTOS,page.getPageable(),page.getTotalElements());
 
         return new ResponseEntity<>(pageCulturalContentCategoryDTOS, HttpStatus.OK);
+    }
+
+    @RequestMapping(method = RequestMethod.GET)
+    public ResponseEntity<List<AdministratorDTO>> getAllAdministrators() {
+        List<Administrator> admins = adminService.findAll();
+
+        return new ResponseEntity<>(toAdminDTOList(admins), HttpStatus.OK);
     }
 
     private List<AdministratorDTO> toAdminDTOList(List<Administrator> admins) {
