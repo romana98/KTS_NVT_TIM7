@@ -68,7 +68,7 @@ public class SubcategoryController {
 	@RequestMapping(method= RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<String> createSubcategory(@Valid @RequestBody SubcategoryDTO subcategory){
 		
-		if(subcategoryService.addSubcategory(subcategory) == true) {
+		if(subcategoryService.addSubcategory(subcatMapper.toEntity(subcategory), subcategory.getCategoryId()) == true) {
 			return new ResponseEntity<>(HttpStatus.CREATED);
 		}else {
 			return new ResponseEntity<>("Subcategory already exists.", HttpStatus.BAD_REQUEST);

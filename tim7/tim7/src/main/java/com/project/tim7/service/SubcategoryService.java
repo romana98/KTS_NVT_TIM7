@@ -20,8 +20,6 @@ public class SubcategoryService implements ServiceInterface<Subcategory> {
 	
 	@Autowired
 	CategoryService categoryService;
-	
-	SubcategoryMapper subcatMapper = new SubcategoryMapper();
 
 	@Override
 	public List<Subcategory> findAll() {
@@ -77,9 +75,8 @@ public class SubcategoryService implements ServiceInterface<Subcategory> {
 		
 	}
 	
-	public boolean addSubcategory(SubcategoryDTO dto) {
-		Subcategory subcategory = subcatMapper.toEntity(dto);
-		subcategory.setCategory(categoryService.findOne(dto.getCategoryId()));
+	public boolean addSubcategory(Subcategory subcategory, int categoryId) {
+		subcategory.setCategory(categoryService.findOne(categoryId));
 		return saveOne(subcategory);
 	}
 
