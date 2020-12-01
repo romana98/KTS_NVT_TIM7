@@ -11,7 +11,6 @@ import com.project.tim7.model.CulturalOffer;
 import com.project.tim7.model.Newsletter;
 import com.project.tim7.model.Picture;
 import com.project.tim7.repository.NewsletterRepository;
-import com.project.tim7.repository.PictureRepository;
 
 @Service
 public class NewsletterService implements ServiceInterface<Newsletter> {
@@ -69,5 +68,14 @@ public class NewsletterService implements ServiceInterface<Newsletter> {
 		newsletterRepo.save(entity);
 		return true;
 	}
+	
+	public List<Newsletter> findNewsletterForUser(int idRegisteredUser) {
+		return newsletterRepo.findNewsletterForUser(idRegisteredUser);
+	}
+	
+	public Page<Newsletter> findNewsletterForUser(int idRegisteredUser, Pageable pageable) {
+		return newsletterRepo.findNewsletterForUser(idRegisteredUser, pageable);
+	}
+
 
 }
