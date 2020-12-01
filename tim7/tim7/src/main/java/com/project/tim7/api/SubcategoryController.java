@@ -3,6 +3,8 @@ package com.project.tim7.api;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
@@ -10,6 +12,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
@@ -49,6 +52,18 @@ public class SubcategoryController {
 
         return new ResponseEntity<>(pageSubcategoryDTOS, HttpStatus.OK);
     }
+	
+	@RequestMapping(method = RequestMethod.PUT)
+	public ResponseEntity<Object> updateSubcategory(@Valid @RequestBody SubcategoryDTO subcategoryDTO){
+		
+		Subcategory newSubcategory = subcategoryService.update(subcatmapper.toEntity(subcategoryDTO));
+		if(newSubcategory != null) {
+			return new ResponseEntity<>(subcategoryDTO, HttpStatus.OK);
+		}else {
+			return new ResponseEntity<Object>("Editing failed.", HttpStatus.BAD_REQUEST);
+		}
+		
+	}
 
 
 	private List<SubcategoryDTO> toSubcategoryDTOList(List<Subcategory> subcategories) {

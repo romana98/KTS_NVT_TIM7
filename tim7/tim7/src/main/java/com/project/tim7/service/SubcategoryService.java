@@ -23,8 +23,7 @@ public class SubcategoryService implements ServiceInterface<Subcategory> {
 
 	@Override
 	public Subcategory findOne(int id) {
-		// TODO Auto-generated method stub
-		return null;
+		return subcategoryRepo.findById(id).orElse(null);
 	}
 
 	@Override
@@ -34,8 +33,12 @@ public class SubcategoryService implements ServiceInterface<Subcategory> {
 
 	@Override
 	public boolean saveOne(Subcategory entity) {
-		// TODO Auto-generated method stub
-		return false;
+		try{
+			subcategoryRepo.save(entity);
+			return true;
+		}catch(Exception e) {
+			return false;
+		}
 	}
 
 	@Override
@@ -48,6 +51,20 @@ public class SubcategoryService implements ServiceInterface<Subcategory> {
 	public boolean delete(int id) {
 		// TODO Auto-generated method stub
 		return false;
+	}
+
+	public Subcategory update(Subcategory entity) {
+		
+		Subcategory subcategory = findOne(entity.getId());
+		entity.setCategory(subcategory.getCategory());
+		entity.setCulturalOffers(subcategory.getCulturalOffers());
+		boolean verified = saveOne(entity);
+		if(verified == false) {
+			return null;
+		}else {
+			return entity;
+		}
+		
 	}
 	
 	

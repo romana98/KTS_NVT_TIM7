@@ -23,8 +23,7 @@ public class CategoryService implements ServiceInterface<Category> {
 
 	@Override
 	public Category findOne(int id) {
-		// TODO Auto-generated method stub
-		return null;
+		return categoryRepo.findById(id).orElse(null);
 	}
 
 	@Override
@@ -34,8 +33,12 @@ public class CategoryService implements ServiceInterface<Category> {
 
 	@Override
 	public boolean saveOne(Category entity) {
-		// TODO Auto-generated method stub
-		return false;
+		try {
+			categoryRepo.save(entity);
+			return true;
+		}catch(Exception e) {
+			return false;
+		}
 	}
 
 	@Override
@@ -48,6 +51,19 @@ public class CategoryService implements ServiceInterface<Category> {
 	public boolean delete(int id) {
 		// TODO Auto-generated method stub
 		return false;
+	}
+
+	public Category update(Category entity) {
+		
+		Category oldCategory = findOne(entity.getId());
+		entity.setSubcategories(oldCategory.getSubcategories());
+		boolean verified = saveOne(entity);
+		if(verified == false) {
+			return null;
+		}else {
+			return entity;
+		}
+		
 	}
 	
 	
