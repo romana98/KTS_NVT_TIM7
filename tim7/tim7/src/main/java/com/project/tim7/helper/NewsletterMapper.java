@@ -7,7 +7,7 @@ public class NewsletterMapper implements MapperInterface<Newsletter, NewsletterD
 
 	@Override
 	public Newsletter toEntity(NewsletterDTO dto) {
-		return new Newsletter(dto.getName(), dto.getDescription(), dto.getPublishedDate());
+		return new Newsletter(dto.getId(), dto.getName(), dto.getDescription(), dto.getPublishedDate());
 	}
 
 	@Override

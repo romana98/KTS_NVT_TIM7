@@ -41,19 +41,50 @@ public class NewsletterService implements ServiceInterface<Newsletter> {
 
 	@Override
 	public boolean saveOne(Newsletter entity) {
-		return false;
+		newsletterRepo.save(entity);
+		return true;
 	}
 
 	@Override
 	public boolean saveAll(List<Newsletter> entities) {
 		return false;
 	}
+	
+	@Override
+	public Newsletter update(Newsletter entity) {
+		return null;
+	}
+	
+	public boolean updateNewsletter(Newsletter entity, String pictureStr) {
+		Newsletter newsletter = findOne(entity.getId());
+		if(newsletter == null) {
+			return false;
+		}
+		newsletter.setName(entity.getName());
+		newsletter.setDescription(entity.getDescription());
+		Picture updatedPicture = pictureService.findByPicture(pictureStr);
+		if (updatedPicture == null) 
+			updatedPicture = pictureService.saveAndGetOne(new Picture(pictureStr));
+		newsletter.setPicture(updatedPicture);
+		saveOne(newsletter);
+		return true;
+	}
 
 	@Override
 	public boolean delete(int id) {
-		return false;
+		Newsletter newsletter = findOne(id);
+		if(newsletter == null) {
+			return false;
+		}
+		Picture picture = newsletter.getPicture();
+		
+		newsletterRepo.delete(newsletter);
+		if (pictureService.countPictureInNewsletters(picture.getId()) == 0) {
+			pictureService.delete(picture.getId());
+		}
+		return true;
 	}
-
+	
 	public boolean saveNewsletter(Newsletter entity, int culturalOfferId, String pictureStr) {
 		CulturalOffer culturalOffer = culturalOfferService.findOne(culturalOfferId);
 		if (culturalOffer == null) 
@@ -65,7 +96,8 @@ public class NewsletterService implements ServiceInterface<Newsletter> {
 			picture = pictureService.saveAndGetOne(new Picture(pictureStr));
 		entity.setPicture(picture);
 		
-		newsletterRepo.save(entity);
+		entity.setId(0);
+		saveOne(entity);
 		return true;
 	}
 	
@@ -75,11 +107,6 @@ public class NewsletterService implements ServiceInterface<Newsletter> {
 	
 	public Page<Newsletter> findNewsletterForUser(int idRegisteredUser, Pageable pageable) {
 		return newsletterRepo.findNewsletterForUser(idRegisteredUser, pageable);
-	}
-
-	@Override
-	public Newsletter update(Newsletter entity) {
-		return null;
 	}
 
 

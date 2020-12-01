@@ -46,8 +46,9 @@ public class Newsletter {
 		this.picture = picture;
 	}
 	
-	public Newsletter(String name, String description, Date publishedDate) {
+	public Newsletter(int id, String name, String description, Date publishedDate) {
 		super();
+		this.id = id;
 		this.name = name;
 		this.description = description;
 		this.publishedDate = publishedDate;
