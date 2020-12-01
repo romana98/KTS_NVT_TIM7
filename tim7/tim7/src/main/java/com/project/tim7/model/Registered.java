@@ -23,4 +23,11 @@ public class Registered extends Person {
 	@OneToMany(mappedBy = "registered", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	private Set<Rating> ratings;
 
+	public Registered(){
+		
+	}
+
+    public Registered(int id, String email, String username, String password) {
+    	super(id, email, username, password);
+    }
 }

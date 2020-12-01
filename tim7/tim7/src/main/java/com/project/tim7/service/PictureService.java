@@ -40,6 +40,11 @@ public class PictureService implements ServiceInterface {
 	}
 
 	@Override
+	public Object update(Object entity) {
+		return false;
+	}
+
+	@Override
 	public Page findAll(Pageable pageable) {
 		// TODO Auto-generated method stub
 		return null;

@@ -49,7 +49,11 @@ public class SubcategoryService implements ServiceInterface<Subcategory> {
 		// TODO Auto-generated method stub
 		return false;
 	}
-	
-	
+
+	@Override
+	public Subcategory update(Subcategory entity) {
+		return null;
+	}
+
 
 }

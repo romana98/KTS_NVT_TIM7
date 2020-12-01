@@ -2,12 +2,19 @@ package com.project.tim7.service;
 
 import java.util.List;
 
+import com.project.tim7.model.Administrator;
+import com.project.tim7.model.Registered;
+import com.project.tim7.repository.RegisteredRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 @Service
-public class RegisteredService implements ServiceInterface {
+public class RegisteredService implements ServiceInterface<Registered> {
+
+	@Autowired
+	RegisteredRepository regRepo;
 
 	@Override
 	public List findAll() {
@@ -16,33 +23,42 @@ public class RegisteredService implements ServiceInterface {
 	}
 
 	@Override
-	public Object findOne(int id) {
-		// TODO Auto-generated method stub
+	public Page<Registered> findAll(Pageable pageable) {
 		return null;
 	}
 
 	@Override
-	public boolean saveOne(Object entity) {
-		// TODO Auto-generated method stub
+	public Registered findOne(int id) {
+		return regRepo.findById(id).orElse(null);
+	}
+
+	@Override
+	public boolean saveOne(Registered entity) {
 		return false;
 	}
 
 	@Override
-	public boolean saveAll(List entities) {
-		// TODO Auto-generated method stub
+	public boolean saveAll(List<Registered> entities) {
 		return false;
 	}
 
 	@Override
 	public boolean delete(int id) {
-		// TODO Auto-generated method stub
 		return false;
 	}
 
 	@Override
-	public Page findAll(Pageable pageable) {
-		// TODO Auto-generated method stub
-		return null;
+	public Registered update(Registered entity) {
+		Registered reg = findOne(entity.getId());
+		if(entity.getUsername().compareTo(reg.getUsername()) != 0)
+			if (regRepo.findByUsername(entity.getUsername()) != null) {
+				return null;
+			}
+
+		reg.setUsername(entity.getUsername());
+		reg.setPassword(entity.getPassword());
+		return regRepo.save(reg);
 	}
+
 
 }

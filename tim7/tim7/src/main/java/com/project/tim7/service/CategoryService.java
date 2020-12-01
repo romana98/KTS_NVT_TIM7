@@ -49,7 +49,11 @@ public class CategoryService implements ServiceInterface<Category> {
 		// TODO Auto-generated method stub
 		return false;
 	}
-	
-	
+
+	@Override
+	public Category update(Category entity) {
+		return null;
+	}
+
 
 }

@@ -12,7 +12,7 @@ public class Administrator extends Person {
 
     public Administrator(){}
 
-    public Administrator(String email, String username, String password) {
-        super(email, username, password);
+    public Administrator(Integer id, String email, String username, String password) {
+        super(id, email, username, password);
     }
 }
