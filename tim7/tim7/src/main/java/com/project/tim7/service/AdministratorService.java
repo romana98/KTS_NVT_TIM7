@@ -40,6 +40,11 @@ public class AdministratorService implements ServiceInterface<Administrator> {
 
 	@Override
 	public boolean delete(int id) {
+		Administrator exsitingAdmin = findOne(id);
+		if(exsitingAdmin != null){
+			adminRepo.deleteById(id);
+			return true;
+		}
 		return false;
 	}
 
