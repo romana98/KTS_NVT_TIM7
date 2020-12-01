@@ -24,8 +24,7 @@ public class PictureService implements ServiceInterface<Picture> {
 
 	@Override
 	public Picture findOne(int id) {
-		// TODO Auto-generated method stub
-		return null;
+		return pictureRepo.findById(id).orElse(null);
 	}
 
 	@Override
@@ -44,8 +43,9 @@ public class PictureService implements ServiceInterface<Picture> {
 
 	@Override
 	public boolean delete(int id) {
-		// TODO Auto-generated method stub
-		return false;
+		Picture picture = findOne(id);
+		pictureRepo.delete(picture);
+		return true;
 	}
 	
 	public Picture findByPicture(String pictureStr) {
@@ -68,5 +68,8 @@ public class PictureService implements ServiceInterface<Picture> {
 		// TODO Auto-generated method stub
 		return null;
 	}
-
+	
+	public long countPictureInNewsletters(int id) {
+		return pictureRepo.countPictureInNewsletters(id);
+	}
 }

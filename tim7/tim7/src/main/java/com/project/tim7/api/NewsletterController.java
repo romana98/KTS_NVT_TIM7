@@ -56,6 +56,28 @@ public class NewsletterController {
         return new ResponseEntity<>(toNewsletterDTOList(newsletters), HttpStatus.OK);
 	}
     
+    @RequestMapping(method = RequestMethod.PUT, consumes = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<String> updateNewsletter(@Valid @RequestBody NewsletterDTO newsletterDTO){
+		
+		Newsletter updatedNewsletter = newsletterMapper.toEntity(newsletterDTO);
+
+        boolean updated = newsletterService.updateNewsletter(updatedNewsletter, newsletterDTO.getPicture());
+
+		if(updatedNewsletter != null) {
+			return new ResponseEntity<>("Successfully updated newsletter.", HttpStatus.OK);
+		}else {
+			return new ResponseEntity<>("Updating failed.", HttpStatus.BAD_REQUEST);
+		}
+	}
+    
+    @RequestMapping(value= "/{id}",method = RequestMethod.DELETE)
+   	public ResponseEntity<String> deleteNewsletter(@PathVariable("id") int id){
+    	if (newsletterService.delete(id) == true)
+            return new ResponseEntity<>("Successfully deleted.", HttpStatus.OK);
+    	else
+            return new ResponseEntity<>("Deleting failed.", HttpStatus.BAD_REQUEST);
+   	}
+    
     @RequestMapping(value= "/by-page",method = RequestMethod.GET)
     public ResponseEntity<Page<NewsletterDTO>> getAllNewsletters(Pageable pageable) {
         Page<Newsletter> page = newsletterService.findAll(pageable);
