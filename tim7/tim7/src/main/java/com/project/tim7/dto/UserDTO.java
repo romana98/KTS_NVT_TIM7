@@ -4,7 +4,7 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 
-public class AdministratorDTO {
+public class UserDTO {
 
     private int id;
 
@@ -21,10 +21,10 @@ public class AdministratorDTO {
 
     private boolean verified;
 
-    public AdministratorDTO() {
+    public UserDTO() {
     }
 
-    public AdministratorDTO(Integer id, String username, String email, String password) {
+    public UserDTO(Integer id, String username, String email, String password) {
         this.id = id;
         this.username = username;
         this.email = email;

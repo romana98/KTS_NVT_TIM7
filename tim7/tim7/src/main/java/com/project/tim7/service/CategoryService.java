@@ -49,6 +49,8 @@ public class CategoryService implements ServiceInterface<Category> {
 		return false;
 	}
 
+
+	@Override
 	public Category update(Category entity) {
 		
 		Category category = findOne(entity.getId());
@@ -60,7 +62,5 @@ public class CategoryService implements ServiceInterface<Category> {
 		return category;
 		
 	}
-	
-	
 
 }

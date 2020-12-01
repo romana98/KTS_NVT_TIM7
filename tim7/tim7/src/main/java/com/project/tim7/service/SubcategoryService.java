@@ -49,6 +49,7 @@ public class SubcategoryService implements ServiceInterface<Subcategory> {
 		return false;
 	}
 
+	@Override
 	public Subcategory update(Subcategory entity) {
 		
 		Subcategory subcategory = findOne(entity.getId());
@@ -60,7 +61,5 @@ public class SubcategoryService implements ServiceInterface<Subcategory> {
 		return subcategory;
 		
 	}
-	
-	
 
 }

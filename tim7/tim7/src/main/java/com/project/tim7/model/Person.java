@@ -30,7 +30,8 @@ public abstract class Person {
 	public Person() {
 	}
 
-	public Person(String email, String username, String password) {
+	public Person(Integer id, String email, String username, String password) {
+		this.id = id;
 		this.email = email;
 		this.username = username;
 		this.password = password;

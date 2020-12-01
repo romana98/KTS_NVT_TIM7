@@ -1,5 +1,5 @@
 insert into administrators (id, username, email, password, verified) values (nextval('person_seq'),'mico', 'mico@admin.com', 'mico', true);
-insert into administrators (id, username, email, password, verified) values (nextval('person_seq'),'vara', 'vera@admin.com', 'vera', true);
+insert into administrators (id, username, email, password, verified) values (nextval('person_seq'),'vera', 'vera@admin.com', 'vera', true);
 insert into administrators (id, username, email, password, verified) values (nextval('person_seq'),'vule', 'vule@@admin.com', 'vule', true);
 insert into administrators (id, username, email, password, verified) values (nextval('person_seq'),'romana', 'romana@admin.com', 'romana', true);
 insert into administrators (id, username, email, password, verified) values (nextval('person_seq'),'rkenney0', 'sfossitt0@nasa.gov', 'prxDUMNLZx89', true);

@@ -55,6 +55,19 @@ public class AdministratorService implements ServiceInterface<Administrator> {
 		return false;
 	}
 
+	@Override
+	public Administrator update(Administrator entity) {
+		Administrator admin = findOne(entity.getId());
+		if(entity.getUsername().compareTo(admin.getUsername()) != 0)
+			if (adminRepo.findByUsername(entity.getUsername()) != null) {
+				return null;
+			}
+
+		admin.setUsername(entity.getUsername());
+		admin.setPassword(entity.getPassword());
+		return adminRepo.save(admin);
+	}
+
 	public long countByEmailorUsername(String email, String username){
 		return adminRepo.countByEmailOrUsername(email, username);
 	}

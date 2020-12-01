@@ -7,5 +7,5 @@ import com.project.tim7.model.Registered;
 
 @Repository
 public interface RegisteredRepository extends JpaRepository<Registered, Integer> {
-
+    Registered findByUsername(String username);
 }
