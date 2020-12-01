@@ -6,6 +6,8 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.PastOrPresent;
 import javax.validation.constraints.Pattern;
 
+import com.sun.istack.NotNull;
+
 public class NewsletterDTO {
 	
 	private int id;
@@ -13,11 +15,13 @@ public class NewsletterDTO {
 	@NotBlank
 	private String name;
 	
+	@NotBlank
 	private String description;
 	
 	@PastOrPresent
 	private Date publishedDate;
 	
+	@NotNull
 	private int culturalOfferId;
 	
 	@Pattern(regexp="([^\\s]+(\\.(?i)(jpe?g|png|gif|bmp))$)")

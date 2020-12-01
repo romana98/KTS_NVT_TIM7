@@ -5,11 +5,9 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.project.tim7.dto.NewsletterDTO;
 import com.project.tim7.model.CulturalOffer;
 import com.project.tim7.model.Newsletter;
 import com.project.tim7.model.Picture;
-import com.project.tim7.repository.CulturalOfferRepository;
 import com.project.tim7.repository.NewsletterRepository;
 import com.project.tim7.repository.PictureRepository;
 
@@ -20,10 +18,10 @@ public class NewsletterService implements ServiceInterface<Newsletter> {
 	NewsletterRepository newsletterRepo;
 	
 	@Autowired 
-	CulturalOfferRepository culturalOfferRepo;
+	CulturalOfferService culturalOfferService;
 	
 	@Autowired
-	PictureRepository pictureRepo;
+	PictureService pictureService;
 
 	@Override
 	public List<Newsletter> findAll() {
@@ -37,10 +35,7 @@ public class NewsletterService implements ServiceInterface<Newsletter> {
 
 	@Override
 	public boolean saveOne(Newsletter entity) {
-		if (findOne(entity.getId()) != null) 
-			return false;		
-		newsletterRepo.save(entity);
-		return true;
+		return false;
 	}
 
 	@Override
@@ -54,22 +49,18 @@ public class NewsletterService implements ServiceInterface<Newsletter> {
 	}
 	
 	public boolean saveNewsletter(Newsletter entity, int culturalOfferId, String pictureStr) {
-		CulturalOffer culturalOffer = findOneCulturalOffer(culturalOfferId);
+		CulturalOffer culturalOffer = culturalOfferService.findOne(culturalOfferId);
 		if (culturalOffer == null) 
 			return false;
 		entity.setCulturalOffer(culturalOffer);
 		
-		Picture picture = new Picture(pictureStr);
-		pictureRepo.save(picture);
+		Picture picture = pictureService.findByPicture(pictureStr);
+		if (picture == null)
+			picture = pictureService.saveAndGetOne(new Picture(pictureStr));
 		entity.setPicture(picture);
 		
-		if (saveOne(entity))
-			return true;
-		return false;
+		newsletterRepo.save(entity);
+		return true;
 	}
 	
-	public CulturalOffer findOneCulturalOffer(int id) {
-		return culturalOfferRepo.findById(id).orElse(null);
-	}
-
 }
