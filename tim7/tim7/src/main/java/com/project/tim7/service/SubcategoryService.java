@@ -56,14 +56,12 @@ public class SubcategoryService implements ServiceInterface<Subcategory> {
 	public Subcategory update(Subcategory entity) {
 		
 		Subcategory subcategory = findOne(entity.getId());
-		entity.setCategory(subcategory.getCategory());
-		entity.setCulturalOffers(subcategory.getCulturalOffers());
-		boolean verified = saveOne(entity);
-		if(verified == false) {
+		if(subcategory == null) {
 			return null;
-		}else {
-			return entity;
 		}
+		subcategory.setName(entity.getName());
+		saveOne(subcategory);
+		return subcategory;
 		
 	}
 	

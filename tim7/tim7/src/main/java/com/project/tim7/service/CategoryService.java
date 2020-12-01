@@ -33,12 +33,8 @@ public class CategoryService implements ServiceInterface<Category> {
 
 	@Override
 	public boolean saveOne(Category entity) {
-		try {
-			categoryRepo.save(entity);
-			return true;
-		}catch(Exception e) {
-			return false;
-		}
+		categoryRepo.save(entity);
+		return true;
 	}
 
 	@Override
@@ -55,14 +51,13 @@ public class CategoryService implements ServiceInterface<Category> {
 
 	public Category update(Category entity) {
 		
-		Category oldCategory = findOne(entity.getId());
-		entity.setSubcategories(oldCategory.getSubcategories());
-		boolean verified = saveOne(entity);
-		if(verified == false) {
+		Category category = findOne(entity.getId());
+		if(category == null) {
 			return null;
-		}else {
-			return entity;
 		}
+		category.setName(entity.getName());
+		saveOne(category);
+		return category;
 		
 	}
 	
