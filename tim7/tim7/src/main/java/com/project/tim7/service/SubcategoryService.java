@@ -2,31 +2,44 @@ package com.project.tim7.service;
 
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import com.project.tim7.model.Subcategory;
+import com.project.tim7.repository.SubcategoryRepository;
+
 @Service
-public class SubcategoryService implements ServiceInterface {
+public class SubcategoryService implements ServiceInterface<Subcategory> {
+
+	@Autowired
+	SubcategoryRepository subcategoryRepo;
 
 	@Override
-	public List findAll() {
+	public List<Subcategory> findAll() {
+		return subcategoryRepo.findAll();
+	}
+
+	@Override
+	public Subcategory findOne(int id) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public Object findOne(int id) {
-		// TODO Auto-generated method stub
-		return null;
+	public Page<Subcategory> findAll(Pageable pageable) {
+		return subcategoryRepo.findAll(pageable);
 	}
 
 	@Override
-	public boolean saveOne(Object entity) {
+	public boolean saveOne(Subcategory entity) {
 		// TODO Auto-generated method stub
 		return false;
 	}
 
 	@Override
-	public boolean saveAll(List entities) {
+	public boolean saveAll(List<Subcategory> entities) {
 		// TODO Auto-generated method stub
 		return false;
 	}
@@ -36,5 +49,7 @@ public class SubcategoryService implements ServiceInterface {
 		// TODO Auto-generated method stub
 		return false;
 	}
+	
+	
 
 }
