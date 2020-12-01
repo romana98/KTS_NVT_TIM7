@@ -18,10 +18,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.project.tim7.dto.CategoryDTO;
 import com.project.tim7.dto.NewsletterDTO;
 import com.project.tim7.helper.NewsletterMapper;
-import com.project.tim7.model.Category;
 import com.project.tim7.model.Newsletter;
 import com.project.tim7.service.NewsletterService;
 
@@ -58,8 +56,8 @@ public class NewsletterController {
         return new ResponseEntity<>(toNewsletterDTOList(newsletters), HttpStatus.OK);
 	}
     
-    @RequestMapping(method = RequestMethod.PUT)
-	public ResponseEntity<Object> updateNewsletter(@Valid @RequestBody NewsletterDTO newsletterDTO){
+    @RequestMapping(method = RequestMethod.PUT, consumes = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<String> updateNewsletter(@Valid @RequestBody NewsletterDTO newsletterDTO){
 		
 		Newsletter updatedNewsletter = newsletterMapper.toEntity(newsletterDTO);
 
@@ -68,12 +66,12 @@ public class NewsletterController {
 		if(updatedNewsletter != null) {
 			return new ResponseEntity<>("Successfully updated newsletter.", HttpStatus.OK);
 		}else {
-			return new ResponseEntity<Object>("Updating failed.", HttpStatus.BAD_REQUEST);
+			return new ResponseEntity<>("Updating failed.", HttpStatus.BAD_REQUEST);
 		}
 	}
     
     @RequestMapping(value= "/{id}",method = RequestMethod.DELETE)
-   	public ResponseEntity<Object> updateNewsletter(@PathVariable("id") int id){
+   	public ResponseEntity<String> deleteNewsletter(@PathVariable("id") int id){
     	if (newsletterService.delete(id) == true)
             return new ResponseEntity<>("Successfully deleted.", HttpStatus.OK);
     	else
