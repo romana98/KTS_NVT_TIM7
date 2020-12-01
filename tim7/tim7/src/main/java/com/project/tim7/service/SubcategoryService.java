@@ -21,7 +21,7 @@ public class SubcategoryService implements ServiceInterface<Subcategory> {
 	@Autowired
 	CategoryService categoryService;
 	
-	SubcategoryMapper subcatmapper = new SubcategoryMapper();
+	SubcategoryMapper subcatMapper = new SubcategoryMapper();
 
 	@Override
 	public List<Subcategory> findAll() {
@@ -64,17 +64,21 @@ public class SubcategoryService implements ServiceInterface<Subcategory> {
 	public Subcategory update(Subcategory entity) {
 		
 		Subcategory subcategory = findOne(entity.getId());
-		if(subcategory == null || subcategoryRepo.findByName(entity.getName()) != null) {
+		if(subcategory == null) {
 			return null;
 		}
 		subcategory.setName(entity.getName());
-		saveOne(subcategory);
-		return subcategory;
+		boolean check = saveOne(subcategory);
+		if(check == true) {
+			return subcategory;
+		}else {
+			return null;
+		}
 		
 	}
 	
 	public boolean addSubcategory(SubcategoryDTO dto) {
-		Subcategory subcategory = subcatmapper.toEntity(dto);
+		Subcategory subcategory = subcatMapper.toEntity(dto);
 		subcategory.setCategory(categoryService.findOne(dto.getCategoryId()));
 		return saveOne(subcategory);
 	}
