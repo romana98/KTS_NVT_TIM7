@@ -5,6 +5,8 @@ import java.util.List;
 import com.project.tim7.model.Administrator;
 import com.project.tim7.repository.AdministratorRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -17,6 +19,11 @@ public class AdministratorService implements ServiceInterface<Administrator> {
 	@Override
 	public List<Administrator> findAll() {
 		return null;
+	}
+
+	@Override
+	public Page<Administrator> findAll(Pageable pageable) {
+		return adminRepo.findAll(pageable);
 	}
 
 	@Override
