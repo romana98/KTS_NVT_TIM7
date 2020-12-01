@@ -18,7 +18,6 @@ public class PictureService implements ServiceInterface<Picture> {
 
 	@Override
 	public List<Picture> findAll() {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
@@ -37,7 +36,6 @@ public class PictureService implements ServiceInterface<Picture> {
 
 	@Override
 	public boolean saveAll(List<Picture> entities) {
-		// TODO Auto-generated method stub
 		return false;
 	}
 
@@ -51,22 +49,15 @@ public class PictureService implements ServiceInterface<Picture> {
 	public Picture findByPicture(String pictureStr) {
 		return pictureRepo.findByPicture(pictureStr);
 	}
-	
-	public Picture saveAndGetOne(Picture entity) {
-		return pictureRepo.save(entity);
-	}
-
 
 	@Override
 	public Page<Picture> findAll(Pageable pageable) {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
 	public Picture update(Picture entity) {
-		// TODO Auto-generated method stub
-		return null;
+		return pictureRepo.save(entity);
 	}
 	
 	public long countPictureInNewsletters(int id) {
