@@ -55,5 +55,9 @@ public class CulturalOfferService implements ServiceInterface<CulturalOffer> {
 		return null;
 	}
 
+	public long getCulturalOfferReferencingCount(int id) {
+		return culturalOfferRepo.countBySubcategoryId(id);
+	}
+
 
 }

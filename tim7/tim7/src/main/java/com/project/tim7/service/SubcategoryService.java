@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import com.project.tim7.dto.SubcategoryDTO;
 import com.project.tim7.helper.SubcategoryMapper;
+import com.project.tim7.model.Category;
 import com.project.tim7.model.Subcategory;
 import com.project.tim7.repository.SubcategoryRepository;
 
@@ -20,6 +21,9 @@ public class SubcategoryService implements ServiceInterface<Subcategory> {
 	
 	@Autowired
 	CategoryService categoryService;
+	
+	@Autowired
+	CulturalOfferService culturalOfferService;
 
 	@Override
 	public List<Subcategory> findAll() {
@@ -54,8 +58,16 @@ public class SubcategoryService implements ServiceInterface<Subcategory> {
 
 	@Override
 	public boolean delete(int id) {
-		// TODO Auto-generated method stub
-		return false;
+		Subcategory subcategory = subcategoryRepo.findById(id).orElse(null);
+		if(culturalOfferService.getCulturalOfferReferencingCount(id) != 0) {
+			return false;
+		}
+		if(subcategory == null) {
+			return false;
+		}
+		subcategoryRepo.deleteById(id);
+		return true;
+		
 	}
 
 	@Override
@@ -78,6 +90,10 @@ public class SubcategoryService implements ServiceInterface<Subcategory> {
 	public boolean addSubcategory(Subcategory subcategory, int categoryId) {
 		subcategory.setCategory(categoryService.findOne(categoryId));
 		return saveOne(subcategory);
+	}
+
+	public long getSubcategoriesReferencingCount(int id) {
+		return subcategoryRepo.countByCategoryId(id);
 	}
 
 

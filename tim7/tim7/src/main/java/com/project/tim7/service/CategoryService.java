@@ -15,6 +15,9 @@ public class CategoryService implements ServiceInterface<Category> {
 
 	@Autowired
 	CategoryRepository categoryRepo;
+	
+	@Autowired
+	SubcategoryService subcategoryService;
 
 	@Override
 	public List<Category> findAll() {
@@ -49,10 +52,17 @@ public class CategoryService implements ServiceInterface<Category> {
 
 	@Override
 	public boolean delete(int id) {
-		// TODO Auto-generated method stub
-		return false;
+		Category category = categoryRepo.findById(id).orElse(null);
+		if(subcategoryService.getSubcategoriesReferencingCount(id) != 0) {
+			return false;
+		}
+		if(category == null) {
+			return false;
+		}else {
+			categoryRepo.deleteById(id);
+			return true;
+		}
 	}
-
 
 	@Override
 	public Category update(Category entity) {

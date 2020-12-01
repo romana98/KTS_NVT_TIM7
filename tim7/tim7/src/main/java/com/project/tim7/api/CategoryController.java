@@ -12,6 +12,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -73,6 +74,16 @@ public class CategoryController  {
 		}else {
 			return new ResponseEntity<>("Category already exists.", HttpStatus.BAD_REQUEST);
 		}
+    }
+	
+	@RequestMapping(value="/{id}", method=RequestMethod.DELETE)
+    public ResponseEntity<Void> deleteCategory(@PathVariable Integer id){
+
+        if(categoryService.delete(id)) {
+            return new ResponseEntity<>(HttpStatus.OK);
+        }
+
+        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 
 

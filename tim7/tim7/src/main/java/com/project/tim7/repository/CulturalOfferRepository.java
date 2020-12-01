@@ -7,5 +7,8 @@ import com.project.tim7.model.CulturalOffer;
 
 @Repository
 public interface CulturalOfferRepository extends JpaRepository<CulturalOffer, Integer> {
+	
+    Long countBySubcategoryId(int subcategoryId);
+
 
 }
