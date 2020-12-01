@@ -28,6 +28,11 @@ public class CategoryController  {
 	
 	private CategoryMapper mapper;
 	
+	public CategoryController() {
+		super();
+		this.mapper = new CategoryMapper();
+	}
+
 	@RequestMapping(method = RequestMethod.GET)
 	public ResponseEntity<List<CategoryDTO>> getAllCategories(){
 		List<Category> categories = categoryService.findAll();
@@ -48,8 +53,8 @@ public class CategoryController  {
 
 	private List<CategoryDTO> toCategoryDTOList(List<Category> categories) {
 		ArrayList<CategoryDTO> dtos = new ArrayList<CategoryDTO>();
-		for(Category c : categories) {
-			CategoryDTO dto = mapper.toDto(c);
+		for(Category category : categories) {
+			CategoryDTO dto = mapper.toDto(category);
 			dtos.add(dto);
 		}
 		return dtos;
