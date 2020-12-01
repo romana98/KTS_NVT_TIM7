@@ -33,12 +33,8 @@ public class SubcategoryService implements ServiceInterface<Subcategory> {
 
 	@Override
 	public boolean saveOne(Subcategory entity) {
-		try{
-			subcategoryRepo.save(entity);
-			return true;
-		}catch(Exception e) {
-			return false;
-		}
+		subcategoryRepo.save(entity);
+		return true;
 	}
 
 	@Override
