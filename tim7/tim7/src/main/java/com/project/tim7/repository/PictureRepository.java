@@ -8,4 +8,5 @@ import com.project.tim7.model.Picture;
 @Repository
 public interface PictureRepository extends JpaRepository<Picture, Integer>  {
 
+	Picture findByPicture(String picture);
 }

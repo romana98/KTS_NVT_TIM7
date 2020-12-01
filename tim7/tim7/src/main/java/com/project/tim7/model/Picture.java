@@ -17,4 +17,29 @@ public class Picture {
 	
 	@Column(name = "picture", unique = false, nullable = true)
 	private String picture;
+
+	public Picture(String picture) {
+		super();
+		this.picture = picture;
+	}
+	
+	public Picture() {}
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
+
+	public String getPicture() {
+		return picture;
+	}
+
+	public void setPicture(String picture) {
+		this.picture = picture;
+	}
+	
+	
 }
