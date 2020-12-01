@@ -7,6 +7,8 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import com.project.tim7.dto.SubcategoryDTO;
+import com.project.tim7.helper.SubcategoryMapper;
 import com.project.tim7.model.Subcategory;
 import com.project.tim7.repository.SubcategoryRepository;
 
@@ -15,6 +17,11 @@ public class SubcategoryService implements ServiceInterface<Subcategory> {
 
 	@Autowired
 	SubcategoryRepository subcategoryRepo;
+	
+	@Autowired
+	CategoryService categoryService;
+	
+	SubcategoryMapper subcatmapper = new SubcategoryMapper();
 
 	@Override
 	public List<Subcategory> findAll() {
@@ -33,8 +40,12 @@ public class SubcategoryService implements ServiceInterface<Subcategory> {
 
 	@Override
 	public boolean saveOne(Subcategory entity) {
-		subcategoryRepo.save(entity);
-		return true;
+		if(subcategoryRepo.findByName(entity.getName()) == null) {
+			subcategoryRepo.save(entity);
+			return true;
+		}else {
+			return false;
+		}
 	}
 
 	@Override
@@ -53,7 +64,7 @@ public class SubcategoryService implements ServiceInterface<Subcategory> {
 	public Subcategory update(Subcategory entity) {
 		
 		Subcategory subcategory = findOne(entity.getId());
-		if(subcategory == null) {
+		if(subcategory == null || subcategoryRepo.findByName(entity.getName()) != null) {
 			return null;
 		}
 		subcategory.setName(entity.getName());
@@ -61,5 +72,12 @@ public class SubcategoryService implements ServiceInterface<Subcategory> {
 		return subcategory;
 		
 	}
+	
+	public boolean addSubcategory(SubcategoryDTO dto) {
+		Subcategory subcategory = subcatmapper.toEntity(dto);
+		subcategory.setCategory(categoryService.findOne(dto.getCategoryId()));
+		return saveOne(subcategory);
+	}
+
 
 }

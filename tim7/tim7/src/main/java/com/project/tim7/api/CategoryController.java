@@ -53,7 +53,7 @@ public class CategoryController  {
         return new ResponseEntity<>(pageCategoryDTOS, HttpStatus.OK);
     }
 	
-	@RequestMapping(method = RequestMethod.PUT)
+	@RequestMapping(method = RequestMethod.PUT, consumes = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<Object> updateCategory(@Valid @RequestBody CategoryDTO categoryDTO){
 		
 		Category newCategory = categoryService.update(catmapper.toEntity(categoryDTO));
@@ -64,6 +64,16 @@ public class CategoryController  {
 		}
 		
 	}
+	
+	@RequestMapping(method= RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<String> createCategory(@Valid @RequestBody CategoryDTO category){
+		
+		if(categoryService.saveOne(catmapper.toEntity(category)) == true) {
+			return new ResponseEntity<>(HttpStatus.CREATED);
+		}else {
+			return new ResponseEntity<>("Category already exists.", HttpStatus.BAD_REQUEST);
+		}
+    }
 
 
 	private List<CategoryDTO> toCategoryDTOList(List<Category> categories) {

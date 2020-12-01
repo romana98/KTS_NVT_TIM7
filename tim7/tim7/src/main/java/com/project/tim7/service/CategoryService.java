@@ -33,8 +33,12 @@ public class CategoryService implements ServiceInterface<Category> {
 
 	@Override
 	public boolean saveOne(Category entity) {
-		categoryRepo.save(entity);
-		return true;
+		if(categoryRepo.findByName(entity.getName()) == null) {
+			categoryRepo.save(entity);
+			return true;
+		}else {
+			return false;
+		}
 	}
 
 	@Override
@@ -58,8 +62,12 @@ public class CategoryService implements ServiceInterface<Category> {
 			return null;
 		}
 		category.setName(entity.getName());
-		saveOne(category);
-		return category;
+		boolean check = saveOne(category);
+		if(check == true) {
+			return category;
+		}else {
+			return null;
+		}
 		
 	}
 
