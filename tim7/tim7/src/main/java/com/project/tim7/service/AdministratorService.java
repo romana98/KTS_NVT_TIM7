@@ -26,8 +26,7 @@ public class AdministratorService implements ServiceInterface<Administrator> {
 
 	@Override
 	public boolean saveOne(Administrator entity) {
-		System.out.println(findByEmailorUsername(entity.getEmail(), entity.getUsername()));
-		if(!findByEmailorUsername(entity.getEmail(), entity.getUsername()).isEmpty())
+		if(countByEmailorUsername(entity.getEmail(), entity.getUsername()) != 0)
 			return false;
 
 		adminRepo.save(entity);
@@ -44,7 +43,7 @@ public class AdministratorService implements ServiceInterface<Administrator> {
 		return false;
 	}
 
-	public List<Administrator> findByEmailorUsername(String email, String username){
-		return adminRepo.findByEmailOrUsername(email, username);
+	public long countByEmailorUsername(String email, String username){
+		return adminRepo.countByEmailOrUsername(email, username);
 	}
 }
