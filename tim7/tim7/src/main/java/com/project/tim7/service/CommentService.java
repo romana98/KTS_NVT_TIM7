@@ -8,6 +8,7 @@ import java.util.Set;
 import com.project.tim7.model.Comment;
 import com.project.tim7.model.CulturalOffer;
 import com.project.tim7.model.Picture;
+import com.project.tim7.model.Registered;
 import com.project.tim7.repository.CommentRepository;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -43,7 +44,7 @@ public class CommentService implements ServiceInterface<Comment> {
 
 	@Override
 	public Comment findOne(int id) {
-		return null;
+		return commentRepo.findById(id).orElse(null);
 	}
 
 	@Override
@@ -67,16 +68,28 @@ public class CommentService implements ServiceInterface<Comment> {
 		return null;
 	}
 
-	public boolean createComment(Comment entity, int registeredId, ArrayList<String> pictures, int culturalOfferId) {
+	public int createComment(Comment entity, int registeredId, ArrayList<String> pictures, int culturalOfferId) {
 		
-		entity.setRegistered(registeredService.findOne(registeredId));
-		entity.setPictures(getPictures(pictures));
-		saveOne(entity);
+		Registered registered = registeredService.findOne(registeredId);
+		if(registered == null) {
+			return -1;
+		}
 		CulturalOffer culturalOffer = culturalOfferService.findOne(culturalOfferId);
-		culturalOffer.getComments().add(entity);
+		if(culturalOffer == null) {
+			return -1;
+		}
+		entity.setRegistered(registered);
+		entity.setPictures(getPictures(pictures));
+		Comment newComment = saveAndReturn(entity);
+		culturalOffer.getComments().add(newComment);
 		culturalOfferService.saveOne(culturalOffer);
 		
-		return true;
+		return newComment.getId();
+	}
+
+	private Comment saveAndReturn(Comment entity) {
+		saveOne(entity);
+		return entity;
 	}
 
 	private Set<Picture> getPictures(ArrayList<String> pictures) {

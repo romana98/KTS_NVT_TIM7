@@ -66,7 +66,6 @@ public class PictureService implements ServiceInterface<Picture> {
 	
 	public Picture saveAndReturn(Picture entity) {
 		pictureRepo.save(entity);
-		Picture newPicture = pictureRepo.findByPicture(entity.getPicture());
-		return newPicture;
+		return entity;
 	}
 }

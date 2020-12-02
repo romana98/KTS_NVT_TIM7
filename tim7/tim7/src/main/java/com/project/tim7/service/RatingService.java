@@ -43,7 +43,8 @@ public class RatingService implements ServiceInterface<Rating> {
 
 	@Override
 	public boolean saveOne(Rating entity) {
-		return false;
+		ratingRepository.save(entity);
+		return true;
 	}
 
 	@Override
@@ -61,18 +62,28 @@ public class RatingService implements ServiceInterface<Rating> {
 		return null;
 	}
 
-	public boolean createRating(Rating entity, int culturalOfferId, int registeredId) {
+	public int createRating(Rating entity, int culturalOfferId, int registeredId) {
 		Registered registered = registeredService.findOne(registeredId);
-		entity.setRegistered(registered);
-		CulturalOffer culturalOffer = culturalOfferService.findOne(culturalOfferId);
-		if(alreadyRated(culturalOffer, registered)) {
-			return false;
+		if(registered == null) {
+			return -1;
 		}
-		culturalOffer.getRatings().add(entity);
-		ratingRepository.save(entity);
+		CulturalOffer culturalOffer = culturalOfferService.findOne(culturalOfferId);
+		if(culturalOffer == null) {
+			return -1;
+		}
+		if(alreadyRated(culturalOffer, registered)) {
+			return -1;
+		}
+		entity.setRegistered(registered);
+		Rating newRating = saveAndReturn(entity);
+		culturalOffer.getRatings().add(newRating);
 		culturalOfferService.saveOne(culturalOffer);
-		
-		return true;
+		return newRating.getId();
+	}
+
+	private Rating saveAndReturn(Rating entity) {
+		saveOne(entity);
+		return entity;
 	}
 
 	private boolean alreadyRated(CulturalOffer culturalOffer, Registered registered) {
@@ -82,15 +93,5 @@ public class RatingService implements ServiceInterface<Rating> {
 			}
 		}
 		return false;
-	}
-	
-	public int getRatingIdByDTO(RatingDTO ratingDTO) {
-		CulturalOffer culturalOffer = culturalOfferService.findOne(ratingDTO.getCulturalOfferId());
-		for(Rating rating : culturalOffer.getRatings()) {
-			if(rating.getRegistered().getId() == ratingDTO.getRegisteredId()) {
-				return rating.getId();
-			}
-		}
-		return 0;
 	}
 }

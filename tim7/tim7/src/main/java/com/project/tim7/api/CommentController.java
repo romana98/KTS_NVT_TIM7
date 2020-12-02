@@ -34,10 +34,12 @@ public class CommentController {
 	@RequestMapping(method= RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Object> createComment(@Valid @RequestBody CommentDTO commentDTO){
         
-		if(commentService.createComment(commentMapper.toEntity(commentDTO), commentDTO.getRegisteredId(), commentDTO.getPictures(), commentDTO.getCulturalOfferId())) {
-            return new ResponseEntity<>(commentDTO ,HttpStatus.CREATED);
+		int newCommentId = commentService.createComment(commentMapper.toEntity(commentDTO), commentDTO.getRegisteredId(), commentDTO.getPicturesId(), commentDTO.getCulturalOfferId());
+		if(newCommentId > 0) {
+            commentDTO.setId(newCommentId);
+			return new ResponseEntity<>(commentDTO, HttpStatus.CREATED);
 		}else {
-			return new ResponseEntity<Object>("Commenting failed!",HttpStatus.BAD_REQUEST);
+			return new ResponseEntity<Object>("Commenting failed!", HttpStatus.BAD_REQUEST);
 		}
     }
 

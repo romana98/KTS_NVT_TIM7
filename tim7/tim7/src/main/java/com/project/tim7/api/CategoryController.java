@@ -59,6 +59,7 @@ public class CategoryController  {
 		
 		Category newCategory = categoryService.update(catMapper.toEntity(categoryDTO));
 		if(newCategory != null) {
+			categoryDTO.setId(newCategory.getId());
 			return new ResponseEntity<>(categoryDTO, HttpStatus.OK);
 		}else {
 			return new ResponseEntity<Object>("Editing failed.", HttpStatus.BAD_REQUEST);

@@ -3,7 +3,10 @@ package com.project.tim7.dto;
 import java.util.ArrayList;
 import java.util.Date;
 
+import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 public class CommentDTO {
 	
@@ -11,14 +14,19 @@ public class CommentDTO {
 	
 	@NotBlank
 	private String description;
+	@NotNull
 	private Date publishedDate;
+	@NotNull
+	@Min(0)
 	private int registeredId;
-	private ArrayList<String> pictures;
+	private ArrayList<String> picturesId;
+	@NotNull
+	@Min(0)
 	private int culturalOfferId;
 	
 	public CommentDTO() {
 		super();
-		this.pictures = new ArrayList<String>();
+		this.picturesId = new ArrayList<String>();
 	}
 
 	public CommentDTO(int id, @NotBlank String description, Date publishedDate, int registeredId,
@@ -28,14 +36,16 @@ public class CommentDTO {
 		this.description = description;
 		this.publishedDate = publishedDate;
 		this.registeredId = registeredId;
-		this.pictures = pictures;
+		this.picturesId = pictures;
 	}
 
-	public CommentDTO(int id2, String description2, Date publishedDate2, int id3) {
-		this.id = id2;
-		this.description = description2;
-		this.publishedDate = publishedDate2;
-		this.registeredId = id3;
+	public CommentDTO(int id, @NotBlank String description, @NotNull Date publishedDate,
+			@NotNull @Min(0) int registeredId) {
+		super();
+		this.id = id;
+		this.description = description;
+		this.publishedDate = publishedDate;
+		this.registeredId = registeredId;
 	}
 
 	public int getId() {
@@ -70,12 +80,12 @@ public class CommentDTO {
 		this.registeredId = registeredId;
 	}
 
-	public ArrayList<String> getPictures() {
-		return pictures;
+	public ArrayList<String> getPicturesId() {
+		return picturesId;
 	}
 
 	public void setPictures(ArrayList<String> pictures) {
-		this.pictures = pictures;
+		this.picturesId = pictures;
 	}
 
 	public int getCulturalOfferId() {

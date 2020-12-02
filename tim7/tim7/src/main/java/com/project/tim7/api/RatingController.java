@@ -32,8 +32,9 @@ public class RatingController {
 	@RequestMapping(method= RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Object> createRating(@Valid @RequestBody RatingDTO ratingDTO){
         
-		if(ratingService.createRating(ratingMapper.toEntity(ratingDTO), ratingDTO.getCulturalOfferId(), ratingDTO.getRegisteredId())) {
-            ratingDTO.setId(ratingService.getRatingIdByDTO(ratingDTO));
+		int newRatingId = ratingService.createRating(ratingMapper.toEntity(ratingDTO), ratingDTO.getCulturalOfferId(), ratingDTO.getRegisteredId());
+		if(newRatingId > 0) {
+			ratingDTO.setId(newRatingId);
 			return new ResponseEntity<>(ratingDTO ,HttpStatus.CREATED);
 		}else {
 			return new ResponseEntity<Object>("Rating failed!",HttpStatus.BAD_REQUEST);

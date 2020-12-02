@@ -1,15 +1,25 @@
 package com.project.tim7.dto;
 
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.Size;
+
 import com.sun.istack.NotNull;
 
 public class RatingDTO {
 	
 	private int id;
 	
+	@NotNull
+	@Min(0)
 	private int registeredId;
 	
 	@NotNull
+	@Min(0)
+	@Max(5)
 	private int rate;
+	@NotNull
+	@Min(0)
 	private int culturalOfferId;
 	
 	public RatingDTO() {
@@ -21,9 +31,10 @@ public class RatingDTO {
 		this.rate = rate;
 	}
 
-	public RatingDTO(int id, int rate2) {
+	public RatingDTO(int id, @Min(0) @Max(5) int rate) {
+		super();
 		this.id = id;
-		this.rate = rate2;
+		this.rate = rate;
 	}
 
 	public int getRegisteredId() {
