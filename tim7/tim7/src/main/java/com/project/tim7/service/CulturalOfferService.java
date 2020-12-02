@@ -5,6 +5,7 @@ import java.util.List;
 import com.project.tim7.dto.CulturalOfferDTO;
 import com.project.tim7.model.CulturalOffer;
 import com.project.tim7.model.Location;
+import com.project.tim7.model.Newsletter;
 import com.project.tim7.model.Subcategory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -33,12 +34,11 @@ public class CulturalOfferService implements ServiceInterface<CulturalOffer> {
 
 	@Override
 	public Page<CulturalOffer> findAll(Pageable pageable) {
-		return null;
+		return culturalOfferRepo.findAll(pageable);
 	}
   
 	@Override
 	public CulturalOffer findOne(int id) {
-		//TODO izmeni kad budes radio ako bude trebalo, morao sam nesto da imam zbog testiranja :D 
 		return culturalOfferRepo.findById(id).orElse(null);
 	}
 
