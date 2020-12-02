@@ -18,6 +18,12 @@ public class CulturalOfferService implements ServiceInterface<CulturalOffer> {
 	@Autowired
 	CulturalOfferRepository culturalOfferRepo;
 
+	@Autowired
+	LocationService locationService;
+
+	@Autowired
+	SubcategoryService subcategoryService;
+
 	@Override
 	public List<CulturalOffer> findAll() {
 		// TODO Auto-generated method stub
@@ -40,6 +46,21 @@ public class CulturalOfferService implements ServiceInterface<CulturalOffer> {
 		if(entity.getLocation() == null || entity.getSubcategory() == null){
 			return false;
 		}
+		culturalOfferRepo.save(entity);
+		return true;
+	}
+
+	public boolean saveOne(CulturalOffer entity, int locationId, int subcategoryId) {
+		Location location = locationService.findOne(locationId);
+		Subcategory subcategory = subcategoryService.findOne(subcategoryId);
+
+		if(location == null || subcategory == null){
+			return false;
+		}
+
+		entity.setLocation(location);
+		entity.setSubcategory(subcategory);
+
 		culturalOfferRepo.save(entity);
 		return true;
 	}

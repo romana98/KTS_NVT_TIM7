@@ -30,25 +30,14 @@ public class CulturalOfferController {
     @Autowired
     private CulturalOfferService culturalOfferService;
 
-    @Autowired
-    LocationService locationService;
-
-    @Autowired
-    SubcategoryService subcategoryService;
 
 
     private CulturalOfferMapper culturalOfferMapper = new CulturalOfferMapper();
 
     @RequestMapping(method= RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<String> createCulturalOffer(@Valid @RequestBody CulturalOfferDTO culturalOfferDTO){
-        Location location = locationService.findOne(culturalOfferDTO.getLocation());
-        Subcategory subcategory = subcategoryService.findOne(culturalOfferDTO.getSubcategory());
-
         CulturalOffer culturalOffer = culturalOfferMapper.toEntity(culturalOfferDTO);
-        culturalOffer.setLocation(location);
-        culturalOffer.setSubcategory(subcategory);
-
-        boolean saved = culturalOfferService.saveOne(culturalOffer);
+        boolean saved = culturalOfferService.saveOne(culturalOffer,culturalOfferDTO.getLocation(),culturalOfferDTO.getSubcategory());
 
         if(!saved){
             return new ResponseEntity<>("Cultural offer can't be added.", HttpStatus.BAD_REQUEST);
