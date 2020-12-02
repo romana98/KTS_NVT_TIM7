@@ -2,7 +2,13 @@ package com.project.tim7.service;
 
 import java.util.List;
 
+import com.project.tim7.dto.RatingDTO;
+import com.project.tim7.model.CulturalOffer;
 import com.project.tim7.model.Rating;
+import com.project.tim7.model.Registered;
+import com.project.tim7.repository.RatingRepository;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -10,6 +16,15 @@ import org.springframework.stereotype.Service;
 @Service
 public class RatingService implements ServiceInterface<Rating> {
 
+	@Autowired
+	RatingRepository ratingRepository;
+	
+	@Autowired
+	RegisteredService registeredService;
+	
+	@Autowired
+	CulturalOfferService culturalOfferService;
+	
 	@Override
 	public List findAll() {
 		// TODO Auto-generated method stub
@@ -46,5 +61,36 @@ public class RatingService implements ServiceInterface<Rating> {
 		return null;
 	}
 
+	public boolean createRating(Rating entity, int culturalOfferId, int registeredId) {
+		Registered registered = registeredService.findOne(registeredId);
+		entity.setRegistered(registered);
+		CulturalOffer culturalOffer = culturalOfferService.findOne(culturalOfferId);
+		if(alreadyRated(culturalOffer, registered)) {
+			return false;
+		}
+		culturalOffer.getRatings().add(entity);
+		ratingRepository.save(entity);
+		culturalOfferService.saveOne(culturalOffer);
+		
+		return true;
+	}
 
+	private boolean alreadyRated(CulturalOffer culturalOffer, Registered registered) {
+		for(Rating rating : culturalOffer.getRatings()) {
+			if(rating.getRegistered().getId() == registered.getId()) {
+				return true;
+			}
+		}
+		return false;
+	}
+	
+	public int getRatingIdByDTO(RatingDTO ratingDTO) {
+		CulturalOffer culturalOffer = culturalOfferService.findOne(ratingDTO.getCulturalOfferId());
+		for(Rating rating : culturalOffer.getRatings()) {
+			if(rating.getRegistered().getId() == ratingDTO.getRegisteredId()) {
+				return rating.getId();
+			}
+		}
+		return 0;
+	}
 }
