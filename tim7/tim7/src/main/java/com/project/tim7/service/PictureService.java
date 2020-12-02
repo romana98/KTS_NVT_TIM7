@@ -63,4 +63,10 @@ public class PictureService implements ServiceInterface<Picture> {
 	public long countPictureInNewsletters(int id) {
 		return pictureRepo.countPictureInNewsletters(id);
 	}
+	
+	public Picture saveAndReturn(Picture entity) {
+		pictureRepo.save(entity);
+		Picture newPicture = pictureRepo.findByPicture(entity.getPicture());
+		return newPicture;
+	}
 }

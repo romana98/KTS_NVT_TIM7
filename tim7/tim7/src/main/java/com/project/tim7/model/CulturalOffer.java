@@ -66,6 +66,8 @@ public class CulturalOffer {
 	@JoinColumn(name = "culturalOfferId")
 	private Set<Rating> ratings;
 
+	
+	
 	public int getId() {
 		return id;
 	}
@@ -73,7 +75,13 @@ public class CulturalOffer {
 	public void setId(int id) {
 		this.id = id;
 	}
-	
-	
+
+	public Set<Comment> getComments() {
+		return comments;
+	}
+
+	public void setComments(Set<Comment> comments) {
+		this.comments = comments;
+	}
 	
 }
