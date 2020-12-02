@@ -1,5 +1,8 @@
 package com.project.tim7.model;
 
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
+
 import java.util.Date;
 import java.util.Set;
 
@@ -54,7 +57,7 @@ public class CulturalOffer {
 	@JoinColumn(name = "RegisteredId") })
 	private Set<Registered> subscribed;
 	
-	@OneToOne(cascade = CascadeType.ALL)
+	@OneToOne(cascade = CascadeType.PERSIST)
 	@JoinColumn(name = "locationId", referencedColumnName = "id")
 	private Location location;
 	
@@ -74,6 +77,8 @@ public class CulturalOffer {
 		this.startDate = startDate;
 	}
 
+	public CulturalOffer() {
+	}
 
 	public int getId() {
 		return id;
