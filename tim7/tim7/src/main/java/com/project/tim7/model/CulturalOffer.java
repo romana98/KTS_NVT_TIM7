@@ -66,6 +66,15 @@ public class CulturalOffer {
 	@JoinColumn(name = "culturalOfferId")
 	private Set<Rating> ratings;
 
+	public CulturalOffer(int id, String description, Date endDate, String name, Date startDate) {
+		this.id = id;
+		this.description =description;
+		this.endDate = endDate;
+		this.name = name;
+		this.startDate = startDate;
+	}
+
+
 	public int getId() {
 		return id;
 	}
@@ -89,5 +98,20 @@ public class CulturalOffer {
 	public void setRatings(Set<Rating> ratings) {
 		this.ratings = ratings;
 	}
-	
+
+	public Subcategory getSubcategory() {
+		return subcategory;
+	}
+
+	public void setSubcategory(Subcategory subcategory) {
+		this.subcategory = subcategory;
+	}
+
+	public Location getLocation() {
+		return location;
+	}
+
+	public void setLocation(Location location) {
+		this.location = location;
+	}
 }

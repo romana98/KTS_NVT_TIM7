@@ -3,6 +3,8 @@ package com.project.tim7.service;
 import java.util.List;
 
 import com.project.tim7.model.CulturalOffer;
+import com.project.tim7.model.Location;
+import com.project.tim7.model.Subcategory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -13,7 +15,7 @@ import com.project.tim7.repository.CulturalOfferRepository;
 @Service
 public class CulturalOfferService implements ServiceInterface<CulturalOffer> {
 	
-  @Autowired
+	@Autowired
 	CulturalOfferRepository culturalOfferRepo;
 
 	@Override
@@ -35,7 +37,9 @@ public class CulturalOfferService implements ServiceInterface<CulturalOffer> {
 
 	@Override
 	public boolean saveOne(CulturalOffer entity) {
-		//TODO izmeni kad budes radio ako bude trebalo, morao sam nesto da imam zbog testiranja :D 
+		if(entity.getLocation() == null || entity.getSubcategory() == null){
+			return false;
+		}
 		culturalOfferRepo.save(entity);
 		return true;
 	}

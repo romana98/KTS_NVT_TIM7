@@ -8,4 +8,6 @@ import com.project.tim7.model.Location;
 @Repository
 public interface LocationRepository extends JpaRepository<Location, Integer> {
 
+
+
 }
