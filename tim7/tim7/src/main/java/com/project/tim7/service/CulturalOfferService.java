@@ -2,6 +2,7 @@ package com.project.tim7.service;
 
 import java.util.List;
 
+import com.project.tim7.dto.CulturalOfferDTO;
 import com.project.tim7.model.CulturalOffer;
 import com.project.tim7.model.Location;
 import com.project.tim7.model.Subcategory;
@@ -84,6 +85,28 @@ public class CulturalOfferService implements ServiceInterface<CulturalOffer> {
 			return true;
 		}
 		return false;
+	}
+
+	public boolean update(CulturalOfferDTO entity){
+		CulturalOffer culturalOffer = culturalOfferRepo.findById(entity.getId()).orElse(null);
+		if(culturalOffer == null){
+			return false;
+		}
+		Location location = locationService.findOne(entity.getLocation());
+		Subcategory subcategory = subcategoryService.findOne(entity.getSubcategory());
+
+		if(location == null || subcategory == null || (culturalOfferRepo.findByName(entity.getName()) != null)){
+			return false;
+		}
+
+		culturalOffer.setName(entity.getName());
+		culturalOffer.setDescription(entity.getDescription());
+		culturalOffer.setEndDate(entity.getEndDate());
+		culturalOffer.setStartDate(entity.getStartDate());
+		culturalOffer.setLocation(location);
+		culturalOffer.setSubcategory(subcategory);
+		culturalOfferRepo.save(culturalOffer);
+		return true;
 	}
 
 	@Override
