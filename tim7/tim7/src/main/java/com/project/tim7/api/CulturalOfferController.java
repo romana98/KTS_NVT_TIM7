@@ -43,12 +43,24 @@ public class CulturalOfferController {
     }
 
     @RequestMapping(value= "/{id}",method = RequestMethod.DELETE)
-    public ResponseEntity<String> deleteNewsletter(@PathVariable("id") int id){
+    public ResponseEntity<String> deleteCulturalOffer(@PathVariable("id") int id){
         if(culturalOfferService.delete(id)){
             return new ResponseEntity<>("Successfully deleted cultural offer.", HttpStatus.OK);
         }
         else{
             return new ResponseEntity<>("Removal of cultural offer failed.", HttpStatus.BAD_REQUEST);
+        }
+    }
+
+    @RequestMapping(method = RequestMethod.PUT, consumes = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<String> updateCulturalOffer(@Valid @RequestBody CulturalOfferDTO culturalOfferDTO){
+
+        boolean updated = culturalOfferService.update(culturalOfferDTO);
+
+        if(updated) {
+            return new ResponseEntity<>("Successfully updated newsletter.", HttpStatus.OK);
+        }else {
+            return new ResponseEntity<>("Updating failed.", HttpStatus.BAD_REQUEST);
         }
     }
 
