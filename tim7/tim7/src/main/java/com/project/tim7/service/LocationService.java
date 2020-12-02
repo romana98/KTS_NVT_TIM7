@@ -33,6 +33,11 @@ public class LocationService implements ServiceInterface<Location> {
 
 	@Override
 	public boolean saveOne(Location entity) {
+		int count = locationRepository.findByLatitudeAndLongitude(entity.getLatitude(),entity.getLongitude()).size();
+		if(count == 0){
+			locationRepository.save(entity);
+			return true;
+		}
 		return false;
 	}
 
