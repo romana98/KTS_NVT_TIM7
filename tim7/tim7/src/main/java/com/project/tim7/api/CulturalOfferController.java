@@ -12,6 +12,9 @@ import com.project.tim7.service.CulturalOfferService;
 import com.project.tim7.service.LocationService;
 import com.project.tim7.service.SubcategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -62,6 +65,17 @@ public class CulturalOfferController {
         }else {
             return new ResponseEntity<>("Updating failed.", HttpStatus.BAD_REQUEST);
         }
+    }
+
+    @RequestMapping(value= "/by-page",method = RequestMethod.GET)
+    public ResponseEntity<Page<CulturalOfferDTO>> getAllCulturalOffersPaged(Pageable pageable) {
+        Page<CulturalOffer> page = culturalOfferService.findAll(pageable);
+
+        List<CulturalOfferDTO> culturalOfferDTOS = culturalOfferMapper.toCulturalOfferDTOList(page.toList());
+
+        Page<CulturalOfferDTO> culturalOfferDTOPage = new PageImpl<>(culturalOfferDTOS,page.getPageable(),page.getTotalElements());
+
+        return new ResponseEntity<>(culturalOfferDTOPage, HttpStatus.OK);
     }
 
 
