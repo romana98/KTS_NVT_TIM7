@@ -50,6 +50,9 @@ public class RegisteredService implements ServiceInterface<Registered> {
 	@Override
 	public Registered update(Registered entity) {
 		Registered reg = findOne(entity.getId());
+		if(reg == null){
+			return null;
+		}
 		if(entity.getUsername().compareTo(reg.getUsername()) != 0)
 			if (regRepo.findByUsername(entity.getUsername()) != null) {
 				return null;

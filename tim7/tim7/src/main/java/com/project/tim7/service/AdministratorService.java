@@ -58,6 +58,9 @@ public class AdministratorService implements ServiceInterface<Administrator> {
 	@Override
 	public Administrator update(Administrator entity) {
 		Administrator admin = findOne(entity.getId());
+		if(admin == null){
+			return null;
+		}
 		if(entity.getUsername().compareTo(admin.getUsername()) != 0)
 			if (adminRepo.findByUsername(entity.getUsername()) != null) {
 				return null;
