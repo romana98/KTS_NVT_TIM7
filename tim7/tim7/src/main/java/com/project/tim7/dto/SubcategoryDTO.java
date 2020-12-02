@@ -1,6 +1,8 @@
 package com.project.tim7.dto;
 
+import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 
 public class SubcategoryDTO {
 	
@@ -9,6 +11,8 @@ private int id;
 	@NotBlank
 	private String name;
 	
+	@NotNull
+	@Min(0)
 	private int categoryId;
 
 	public SubcategoryDTO() {

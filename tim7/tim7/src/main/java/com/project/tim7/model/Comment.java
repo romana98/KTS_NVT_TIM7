@@ -1,6 +1,7 @@
 package com.project.tim7.model;
 
 import java.util.Date;
+import java.util.HashSet;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
@@ -35,5 +36,58 @@ public class Comment {
 	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@JoinColumn(name = "commentId")
 	private Set<Picture> pictures;
+	
+	public Comment(int id2, String description2, Date publishedDate2) {
+		this.id = id2;
+		this.description = description2;
+		this.publishedDate = publishedDate2;
+	}
+
+	public Comment() {
+		super();
+		this.pictures = new HashSet<Picture>();
+	}
+
+
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
+
+	public String getDescription() {
+		return description;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
+	}
+
+	public Date getPublishedDate() {
+		return publishedDate;
+	}
+
+	public void setPublishedDate(Date publishedDate) {
+		this.publishedDate = publishedDate;
+	}
+
+	public Registered getRegistered() {
+		return registered;
+	}
+
+	public void setRegistered(Registered registered) {
+		this.registered = registered;
+	}
+
+	public Set<Picture> getPictures() {
+		return pictures;
+	}
+
+	public void setPictures(Set<Picture> pictures) {
+		this.pictures = pictures;
+	}
 
 }

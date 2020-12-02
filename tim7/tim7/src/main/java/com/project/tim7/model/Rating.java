@@ -24,4 +24,43 @@ public class Rating {
 	@Column(name = "rate", unique = false, nullable = false)
 	private int rate;
 
+	public Rating() {
+		super();
+	}
+
+	public Rating(int rate) {
+		super();
+		this.rate = rate;
+	}
+
+	public Rating(int id, int rate) {
+		super();
+		this.id = id;
+		this.rate = rate;
+	}
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
+
+	public Registered getRegistered() {
+		return registered;
+	}
+
+	public void setRegistered(Registered registered) {
+		this.registered = registered;
+	}
+
+	public int getRate() {
+		return rate;
+	}
+
+	public void setRate(int rate) {
+		this.rate = rate;
+	}
+
 }

@@ -29,13 +29,15 @@ public class CulturalOfferService implements ServiceInterface<CulturalOffer> {
   
 	@Override
 	public CulturalOffer findOne(int id) {
+		//TODO izmeni kad budes radio ako bude trebalo, morao sam nesto da imam zbog testiranja :D 
 		return culturalOfferRepo.findById(id).orElse(null);
 	}
 
 	@Override
 	public boolean saveOne(CulturalOffer entity) {
-		// TODO Auto-generated method stub
-		return false;
+		//TODO izmeni kad budes radio ako bude trebalo, morao sam nesto da imam zbog testiranja :D 
+		culturalOfferRepo.save(entity);
+		return true;
 	}
 
 	@Override
