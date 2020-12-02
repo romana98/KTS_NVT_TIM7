@@ -3,12 +3,17 @@ package com.project.tim7.service;
 import java.util.List;
 
 import com.project.tim7.model.Location;
+import com.project.tim7.repository.LocationRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 @Service
 public class LocationService implements ServiceInterface<Location> {
+
+	@Autowired
+	LocationRepository locationRepository;
 
 	@Override
 	public List findAll() {
@@ -23,7 +28,7 @@ public class LocationService implements ServiceInterface<Location> {
 
 	@Override
 	public Location findOne(int id) {
-		return null;
+		return locationRepository.findById(id).orElse(null);
 	}
 
 	@Override
