@@ -51,6 +51,11 @@ public class CulturalOfferService implements ServiceInterface<CulturalOffer> {
 	}
 
 	public boolean saveOne(CulturalOffer entity, int locationId, int subcategoryId) {
+
+		if(culturalOfferRepo.findByName(entity.getName()) != null){
+			return false;
+		}
+
 		Location location = locationService.findOne(locationId);
 		Subcategory subcategory = subcategoryService.findOne(subcategoryId);
 
