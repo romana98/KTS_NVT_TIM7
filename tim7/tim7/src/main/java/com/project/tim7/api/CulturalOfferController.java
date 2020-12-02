@@ -55,6 +55,18 @@ public class CulturalOfferController {
         }
     }
 
+    @RequestMapping(value= "/{id}",method = RequestMethod.GET)
+    public ResponseEntity<CulturalOfferDTO> getCulturalOffer(@PathVariable("id") int id){
+        CulturalOffer culturalOffer = culturalOfferService.findOne(id);
+        if(culturalOffer == null){
+            return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
+        }
+        CulturalOfferDTO payload = culturalOfferMapper.toDto(culturalOffer);
+        return new ResponseEntity<>(payload, HttpStatus.OK);
+
+
+    }
+
     @RequestMapping(method = RequestMethod.PUT, consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<String> updateCulturalOffer(@Valid @RequestBody CulturalOfferDTO culturalOfferDTO){
 
