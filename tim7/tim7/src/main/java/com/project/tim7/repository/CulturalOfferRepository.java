@@ -1,5 +1,6 @@
 package com.project.tim7.repository;
 
+import com.project.tim7.model.Picture;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
@@ -10,5 +11,6 @@ public interface CulturalOfferRepository extends JpaRepository<CulturalOffer, In
 	
     Long countBySubcategoryId(int subcategoryId);
 
+    CulturalOffer findByName(String name);
 
 }
