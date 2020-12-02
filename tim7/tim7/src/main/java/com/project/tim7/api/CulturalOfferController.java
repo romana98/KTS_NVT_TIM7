@@ -15,10 +15,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.List;
@@ -43,6 +40,16 @@ public class CulturalOfferController {
             return new ResponseEntity<>("Cultural offer can't be added.", HttpStatus.BAD_REQUEST);
         }
         return new ResponseEntity<>("Successfully added cultural offer.", HttpStatus.CREATED);
+    }
+
+    @RequestMapping(value= "/{id}",method = RequestMethod.DELETE)
+    public ResponseEntity<String> deleteNewsletter(@PathVariable("id") int id){
+        if(culturalOfferService.delete(id)){
+            return new ResponseEntity<>("Successfully deleted cultural offer.", HttpStatus.OK);
+        }
+        else{
+            return new ResponseEntity<>("Removal of cultural offer failed.", HttpStatus.BAD_REQUEST);
+        }
     }
 
 

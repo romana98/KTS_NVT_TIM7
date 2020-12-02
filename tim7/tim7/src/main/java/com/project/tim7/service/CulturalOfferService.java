@@ -73,6 +73,11 @@ public class CulturalOfferService implements ServiceInterface<CulturalOffer> {
 
 	@Override
 	public boolean delete(int id) {
+		CulturalOffer culturalOffer = findOne(id);
+		if(culturalOffer != null){
+			culturalOfferRepo.delete(culturalOffer);
+			return true;
+		}
 		return false;
 	}
 
