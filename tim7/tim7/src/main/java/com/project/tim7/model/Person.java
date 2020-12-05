@@ -1,14 +1,16 @@
 package com.project.tim7.model;
 
-import org.hibernate.annotations.GenericGenerator;
-import org.hibernate.annotations.Parameter;
+import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
+import java.sql.Timestamp;
+import java.util.ArrayList;
+import java.util.List;
 
 
 @Entity
 @Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
-public abstract class Person {
+public abstract class Person implements UserDetails {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "PERSON_SEQ")
@@ -27,7 +29,17 @@ public abstract class Person {
 	@Column(name = "verified", unique = false, nullable = true)
 	private boolean verified;
 
+	@Column(name = "last_password_reset_date")
+	private Timestamp lastPasswordResetDate;
+
+	@ManyToMany(fetch = FetchType.EAGER)
+	@JoinTable(name = "user_authority",
+			joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id"),
+			inverseJoinColumns = @JoinColumn(name = "authority_id", referencedColumnName = "id"))
+	private List<Authority> authorities;
+
 	public Person() {
+		authorities = new ArrayList<>();
 	}
 
 	public Person(Integer id, String email, String username, String password) {
@@ -75,5 +87,22 @@ public abstract class Person {
 
 	public void setVerified(boolean verified) {
 		this.verified = verified;
+	}
+
+	public Timestamp getLastPasswordResetDate() {
+		return lastPasswordResetDate;
+	}
+
+	public void setLastPasswordResetDate(Timestamp lastPasswordResetDate) {
+		this.lastPasswordResetDate = lastPasswordResetDate;
+	}
+
+	@Override
+	public List<Authority> getAuthorities() {
+		return authorities;
+	}
+
+	public void setAuthorities(List<Authority> authorities) {
+		this.authorities = authorities;
 	}
 }

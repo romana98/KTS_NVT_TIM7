@@ -2,7 +2,7 @@ package com.project.tim7.service;
 
 import java.util.List;
 
-import com.project.tim7.model.Administrator;
+
 import com.project.tim7.model.Registered;
 import com.project.tim7.repository.RegisteredRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,11 +10,16 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import javax.jws.Oneway;
+
 @Service
 public class RegisteredService implements ServiceInterface<Registered> {
 
 	@Autowired
 	RegisteredRepository regRepo;
+
+	@Autowired
+	AdministratorService adminService;
 
 	@Override
 	public List findAll() {
@@ -61,6 +66,23 @@ public class RegisteredService implements ServiceInterface<Registered> {
 		reg.setUsername(entity.getUsername());
 		reg.setPassword(entity.getPassword());
 		return regRepo.save(reg);
+	}
+
+	public Registered save(Registered entity){
+		if(countByEmailOrUsername(entity.getEmail(), entity.getUsername()) != 0 ||
+		adminService.countByEmailOrUsername(entity.getEmail(), entity.getUsername()) != 0)
+			return null;
+
+		return regRepo.save(entity);
+
+	}
+
+	public long countByEmailOrUsername(String email, String username){
+		return regRepo.countByEmailOrUsername(email, username);
+	}
+
+	public Registered findByUsernameOrEmail(String username, String email){
+		return regRepo.findByUsernameOrEmail(username, email);
 	}
 
 
