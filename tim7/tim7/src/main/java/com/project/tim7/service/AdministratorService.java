@@ -15,6 +15,9 @@ public class AdministratorService implements ServiceInterface<Administrator> {
 	@Autowired
 	AdministratorRepository adminRepo;
 
+	@Autowired
+	RegisteredService regService;
+
 
 	@Override
 	public List<Administrator> findAll() {
@@ -33,7 +36,8 @@ public class AdministratorService implements ServiceInterface<Administrator> {
 
 	@Override
 	public boolean saveOne(Administrator entity) {
-		if(countByEmailorUsername(entity.getEmail(), entity.getUsername()) != 0)
+		if(countByEmailOrUsername(entity.getEmail(), entity.getUsername()) != 0 ||
+		  regService.countByEmailOrUsername(entity.getEmail(), entity.getUsername())!= 0)
 			return false;
 
 		adminRepo.save(entity);
@@ -71,8 +75,12 @@ public class AdministratorService implements ServiceInterface<Administrator> {
 		return adminRepo.save(admin);
 	}
 
-	public long countByEmailorUsername(String email, String username){
+	public long countByEmailOrUsername(String email, String username){
 		return adminRepo.countByEmailOrUsername(email, username);
+	}
+
+	public Administrator findByUsernameOrEmail(String username, String email){
+		return adminRepo.findByUsernameOrEmail(username, email);
 	}
 
 }

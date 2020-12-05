@@ -11,4 +11,5 @@ import java.util.List;
 public interface AdministratorRepository extends JpaRepository<Administrator, Integer> {
       Long countByEmailOrUsername(String email, String username);
       Administrator findByUsername(String username);
+      Administrator findByUsernameOrEmail(String username, String email);
 }
