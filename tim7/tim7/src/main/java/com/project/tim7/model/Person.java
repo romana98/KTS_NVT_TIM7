@@ -105,4 +105,13 @@ public abstract class Person implements UserDetails {
 	public void setAuthorities(List<Authority> authorities) {
 		this.authorities = authorities;
 	}
+
+	@Override
+	public String toString() {
+		return "Person [id=" + id + ", username=" + username + ", email=" + email + ", password=" + password
+				+ ", verified=" + verified + ", lastPasswordResetDate=" + lastPasswordResetDate + ", authorities="
+				+ authorities + "]";
+	}
+	
+	
 }

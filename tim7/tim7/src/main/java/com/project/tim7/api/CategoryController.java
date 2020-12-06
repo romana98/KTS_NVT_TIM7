@@ -12,6 +12,10 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -21,8 +25,10 @@ import org.springframework.web.bind.annotation.RestController;
 import com.project.tim7.dto.CategoryDTO;
 import com.project.tim7.helper.CategoryMapper;
 import com.project.tim7.model.Category;
+import com.project.tim7.model.Person;
 import com.project.tim7.service.CategoryService;
 
+@CrossOrigin(origins = "https://localhost:4200")
 @RestController
 @RequestMapping(value="/categories", produces = MediaType.APPLICATION_JSON_VALUE)
 public class CategoryController  {
@@ -37,8 +43,14 @@ public class CategoryController  {
 		this.catMapper = new CategoryMapper();
 	}
 
+	@PreAuthorize("hasRole('ROLE_ADMINISTRATOR')")
 	@RequestMapping(method = RequestMethod.GET)
 	public ResponseEntity<List<CategoryDTO>> getAllCategories(){
+		
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+		Person person = (Person) authentication.getPrincipal();
+		System.out.println(person);
+		
 		List<Category> categories = categoryService.findAll();
 		
         return new ResponseEntity<>(toCategoryDTOList(categories), HttpStatus.OK);
