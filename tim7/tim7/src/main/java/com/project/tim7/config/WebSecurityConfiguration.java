@@ -71,13 +71,12 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .authorizeRequests().antMatchers("/auth/**").permitAll()
 
                 // umesto anotacija iynad svake metode, moze i ovde da se proveravaju prava pristupa ya odredjeni URL
-                //.antMatchers(HttpMethod.GET, "/api/cultural-content-category").hasRole("ROLE_ADMIN")
+                //.antMatchers(HttpMethod.GET, "/categories").hasRole("ADMINISTRATOR")
 
                 // za svaki drugi zahtev korisnik mora biti autentifikovan
                 .anyRequest().authenticated().and()
                 // za development svrhe ukljuci konfiguraciju za CORS iz WebConfig klase
                 .cors().and()
-
                 // umetni custom filter TokenAuthenticationFilter kako bi se vrsila provera JWT tokena umesto cistih korisnickog imena i lozinke (koje radi BasicAuthenticationFilter)
                 .addFilterBefore(new TokenAuthenticationFilter(tokenUtils, jwtUserDetailsService),
                         BasicAuthenticationFilter.class);

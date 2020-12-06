@@ -1,2 +1,2 @@
-insert into authorities (name) values ('ADMINISTRATOR');
-insert into authorities (name) values ('REGISTERED');
+insert into authorities (name) values ('ROLE_ADMINISTRATOR');
+insert into authorities (name) values ('ROLE_REGISTERED');

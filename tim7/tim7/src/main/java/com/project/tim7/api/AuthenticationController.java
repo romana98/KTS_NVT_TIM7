@@ -20,6 +20,7 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
@@ -64,9 +65,15 @@ public class AuthenticationController {
 
         // Kreiraj token za tog korisnika
         Person person = (Person) authentication.getPrincipal();
-        String jwt = tokenUtils.generateToken(person.getEmail()); // prijavljujemo se na sistem sa email adresom
+        String jwt = tokenUtils.generateToken(person.getUsername()); // prijavljujemo se na sistem sa email adresom
         int expiresIn = tokenUtils.getExpiredIn();
-
+        
+        String role = "";
+		for (GrantedAuthority e : person.getAuthorities()) {
+			 role = e.getAuthority();
+		}
+		System.out.println("IMAM ROLE: "+role);
+        
         // Vrati token kao odgovor na uspesnu autentifikaciju
         return ResponseEntity.ok(new UserTokenStateDTO(jwt, expiresIn));
     }
