@@ -54,7 +54,7 @@ public class NewsletterService implements ServiceInterface<Newsletter> {
 	public Newsletter update(Newsletter entity) {
 		return null;
 	}
-	
+
 	public boolean updateNewsletter(Newsletter entity, String pictureStr) {
 		Newsletter newsletter = findOne(entity.getId());
 		if(newsletter == null) {

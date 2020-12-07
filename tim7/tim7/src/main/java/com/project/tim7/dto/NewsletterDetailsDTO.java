@@ -8,28 +8,37 @@ import javax.validation.constraints.Pattern;
 
 import com.sun.istack.NotNull;
 
-public class NewsletterDTO {
+public class NewsletterDetailsDTO {
 	
 	private int id;
 	
 	@NotBlank
 	private String name;
 	
+	@NotBlank
+	private String description;
+	
 	@PastOrPresent
 	private Date publishedDate;
 	
 	@NotNull
 	private int culturalOfferId;
+	
+	@Pattern(regexp="([^\\s]+(\\.(?i)(jpe?g|png|gif|bmp))$)")
+	private String picture;
 
-	public NewsletterDTO(int id, @NotBlank String name, @PastOrPresent Date publishedDate, int culturalOfferId) {
+	public NewsletterDetailsDTO(int id, @NotBlank String name, String description, @NotBlank @PastOrPresent Date publishedDate,
+			@NotBlank int culturalOfferId, @Pattern(regexp = "([^\\s]+(\\.(?i)(jpe?g|png|gif|bmp))$)") String picture) {
 		super();
 		this.id = id;
 		this.name = name;
+		this.description = description;
 		this.publishedDate = publishedDate;
 		this.culturalOfferId = culturalOfferId;
+		this.picture = picture;
 	}
 	
-	public NewsletterDTO() {}
+	public NewsletterDetailsDTO() {}
 
 	public int getId() {
 		return id;
@@ -47,6 +56,14 @@ public class NewsletterDTO {
 		this.name = name;
 	}
 
+	public String getDescription() {
+		return description;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
+	}
+
 	public Date getPublishedDate() {
 		return publishedDate;
 	}
@@ -62,7 +79,15 @@ public class NewsletterDTO {
 	public void setCulturalOfferId(int culturalOfferId) {
 		this.culturalOfferId = culturalOfferId;
 	}
-	
-	
-}
 
+	public String getPicture() {
+		return picture;
+	}
+
+	public void setPicture(String picture) {
+		this.picture = picture;
+	}
+	
+	
+
+}

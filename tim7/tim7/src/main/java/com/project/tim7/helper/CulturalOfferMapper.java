@@ -1,7 +1,7 @@
 package com.project.tim7.helper;
 
 import com.project.tim7.dto.CulturalOfferDTO;
-import com.project.tim7.dto.NewsletterDTO;
+import com.project.tim7.dto.NewsletterDetailsDTO;
 import com.project.tim7.model.CulturalOffer;
 import com.project.tim7.model.Newsletter;
 
