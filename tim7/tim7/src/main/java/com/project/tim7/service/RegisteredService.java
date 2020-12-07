@@ -58,12 +58,13 @@ public class RegisteredService implements ServiceInterface<Registered> {
 		if(reg == null){
 			return null;
 		}
-		if(entity.getUsername().compareTo(reg.getUsername()) != 0)
-			if (regRepo.findByUsername(entity.getUsername()) != null) {
+		if(entity.getEmail().compareTo(reg.getEmail()) != 0)
+			if (regRepo.findByEmail(entity.getEmail()) != null ||
+					adminService.findByEmail(entity.getEmail()) != null) {
 				return null;
 			}
 
-		reg.setUsername(entity.getUsername());
+		reg.setEmail(entity.getEmail());
 		reg.setPassword(entity.getPassword());
 		return regRepo.save(reg);
 	}
@@ -83,6 +84,10 @@ public class RegisteredService implements ServiceInterface<Registered> {
 
 	public Registered findByUsernameOrEmail(String username, String email){
 		return regRepo.findByUsernameOrEmail(username, email);
+	}
+
+	public Registered findByEmail(String email){
+		return regRepo.findByEmail(email);
 	}
 
 	public Registered activateAccount(int id, String email) {

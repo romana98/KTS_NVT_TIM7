@@ -12,6 +12,6 @@ public class AdministratorMapper implements MapperInterface<Administrator, UserD
 
     @Override
     public UserDTO toDto(Administrator entity) {
-        return new UserDTO(entity.getId(), entity.getUsername(), entity.getEmail(), entity.getPassword());
+        return new UserDTO(entity.getId(), entity.getUsername(), entity.getEmail());
     }
 }

@@ -75,12 +75,6 @@ public class AuthenticationController {
         String jwt = tokenUtils.generateToken(person.getUsername()); // prijavljujemo se na sistem sa email adresom
         int expiresIn = tokenUtils.getExpiredIn();
         
-        String role = "";
-		for (GrantedAuthority e : person.getAuthorities()) {
-			 role = e.getAuthority();
-		}
-		System.out.println("IMAM ROLE: "+role);
-        
         // Vrati token kao odgovor na uspesnu autentifikaciju
         return ResponseEntity.ok(new UserTokenStateDTO(jwt, expiresIn));
     }
@@ -143,7 +137,7 @@ public class AuthenticationController {
     }
 
     @RequestMapping(value = "/change-password", method = RequestMethod.POST)
-    @PreAuthorize("hasRole('ROLE_USER')")
+    @PreAuthorize("hasRole('ROLE_REGISTERED')")
     public ResponseEntity<?> changePassword(@RequestBody PasswordChanger passwordChanger) {
         userDetailsService.changePassword(passwordChanger.oldPassword, passwordChanger.newPassword);
 
@@ -155,6 +149,15 @@ public class AuthenticationController {
     static class PasswordChanger {
         public String oldPassword;
         public String newPassword;
+    }
+
+    @PreAuthorize("hasRole('ROLE_ADMINISTRATOR') || hasRole('ROLE_REGISTERED')")
+    public void updatedLoggedIn(String username, String password){
+
+        Authentication authentication = authenticationManager
+                .authenticate(new UsernamePasswordAuthenticationToken(username, password));
+
+        SecurityContextHolder.getContext().setAuthentication(authentication);
     }
 
     public AuthenticationController() {
