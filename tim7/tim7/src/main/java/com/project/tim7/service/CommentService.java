@@ -7,6 +7,7 @@ import java.util.Set;
 
 import com.project.tim7.model.Comment;
 import com.project.tim7.model.CulturalOffer;
+import com.project.tim7.model.Person;
 import com.project.tim7.model.Picture;
 import com.project.tim7.model.Registered;
 import com.project.tim7.repository.CommentRepository;
@@ -14,7 +15,10 @@ import com.project.tim7.repository.CommentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
+import org.springframework.security.core.Authentication;
+
 
 @Service
 public class CommentService implements ServiceInterface<Comment> {
