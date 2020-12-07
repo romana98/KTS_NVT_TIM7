@@ -12,6 +12,10 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -19,11 +23,13 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.project.tim7.dto.NewsletterDTO;
+import com.project.tim7.dto.NewsletterDetailsDTO;
 import com.project.tim7.helper.NewsletterMapper;
 import com.project.tim7.model.Newsletter;
+import com.project.tim7.model.Person;
 import com.project.tim7.service.NewsletterService;
 
-
+@CrossOrigin(origins = "https://localhost:4200")
 @RestController
 @RequestMapping(value="/newsletter", produces = MediaType.APPLICATION_JSON_VALUE)
 public class NewsletterController {
@@ -37,8 +43,9 @@ public class NewsletterController {
     	newsletterMapper = new NewsletterMapper();
     }
 
+	@PreAuthorize("hasRole('ROLE_ADMINISTRATOR')")
     @RequestMapping(method= RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<String> createNewsletter(@Valid @RequestBody NewsletterDTO newsletterDTO){
+    public ResponseEntity<String> createNewsletter(@Valid @RequestBody NewsletterDetailsDTO newsletterDTO){
     	
     	Newsletter newNewsletter = newsletterMapper.toEntity(newsletterDTO);
         boolean saved = newsletterService.saveNewsletter(newNewsletter, newsletterDTO.getCulturalOfferId(), newsletterDTO.getPicture());
@@ -49,6 +56,7 @@ public class NewsletterController {
         return new ResponseEntity<>("Successfully added newsletter.", HttpStatus.CREATED);
     }
     
+	@PreAuthorize("hasRole('ROLE_ADMINISTRATOR')")
     @RequestMapping(method = RequestMethod.GET)
 	public ResponseEntity<List<NewsletterDTO>> getAllNewsletters(){
 		List<Newsletter> newsletters = newsletterService.findAll();
@@ -56,8 +64,9 @@ public class NewsletterController {
         return new ResponseEntity<>(toNewsletterDTOList(newsletters), HttpStatus.OK);
 	}
     
+	@PreAuthorize("hasRole('ROLE_ADMINISTRATOR')")
     @RequestMapping(method = RequestMethod.PUT, consumes = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<String> updateNewsletter(@Valid @RequestBody NewsletterDTO newsletterDTO){
+	public ResponseEntity<String> updateNewsletter(@Valid @RequestBody NewsletterDetailsDTO newsletterDTO){
 		
 		Newsletter updatedNewsletter = newsletterMapper.toEntity(newsletterDTO);
 
@@ -70,6 +79,7 @@ public class NewsletterController {
 		}
 	}
     
+	@PreAuthorize("hasRole('ROLE_ADMINISTRATOR')")
     @RequestMapping(value= "/{id}",method = RequestMethod.DELETE)
    	public ResponseEntity<String> deleteNewsletter(@PathVariable("id") int id){
     	if (newsletterService.delete(id) == true)
@@ -78,6 +88,7 @@ public class NewsletterController {
             return new ResponseEntity<>("Deleting failed.", HttpStatus.BAD_REQUEST);
    	}
     
+	@PreAuthorize("hasRole('ROLE_ADMINISTRATOR')")
     @RequestMapping(value= "/by-page",method = RequestMethod.GET)
     public ResponseEntity<Page<NewsletterDTO>> getAllNewsletters(Pageable pageable) {
         Page<Newsletter> page = newsletterService.findAll(pageable);
@@ -87,26 +98,52 @@ public class NewsletterController {
         return new ResponseEntity<>(pageNewsletterDTOS, HttpStatus.OK);
     }
     
+	@PreAuthorize("hasRole('ROLE_REGISTERED')")
     @RequestMapping(value= "/subscribed/{id-user}", method = RequestMethod.GET)
-	public ResponseEntity<List<NewsletterDTO>> findNewsletterForUser(@PathVariable("id-user") int idUser){
+	public ResponseEntity<?> findNewsletterForUser(@PathVariable("id-user") int idUser){
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+		Person person = (Person) authentication.getPrincipal();
+		if(person.getId() != idUser) {
+			return new ResponseEntity<String>("Authentication failed!", HttpStatus.BAD_REQUEST);
+		}
+		
 		List<Newsletter> newsletters = newsletterService.findNewsletterForUser(idUser);
 		
-        return new ResponseEntity<>(toNewsletterDTOList(newsletters), HttpStatus.OK);
+        return new ResponseEntity<List<NewsletterDTO>>(toNewsletterDTOList(newsletters), HttpStatus.OK);
 	}
     
+	@PreAuthorize("hasRole('ROLE_REGISTERED')")
     @RequestMapping(value= "/subscribed/{id-user}/by-page",method = RequestMethod.GET)
-    public ResponseEntity<Page<NewsletterDTO>> findNewsletterForUser(@PathVariable("id-user") Integer idUser, Pageable pageable) {
+    public ResponseEntity<?> findNewsletterForUser(@PathVariable("id-user") Integer idUser, Pageable pageable) {
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+		Person person = (Person) authentication.getPrincipal();
+		if(person.getId() != idUser) {
+			return new ResponseEntity<String>("Authentication failed!", HttpStatus.BAD_REQUEST);
+		}
+		
         Page<Newsletter> page = newsletterService.findNewsletterForUser(idUser, pageable);
         List<NewsletterDTO> dtos = toNewsletterDTOList(page.toList());
         Page<NewsletterDTO> pageNewsletterDTOS = new PageImpl<>(dtos,page.getPageable(),page.getTotalElements());
 
-        return new ResponseEntity<>(pageNewsletterDTOS, HttpStatus.OK);
+        return new ResponseEntity<Page<NewsletterDTO>>(pageNewsletterDTOS, HttpStatus.OK);
     }
-
+	
+	@PreAuthorize("hasRole('ROLE_ADMINISTRATOR') || hasRole('ROLE_REGISTERED')")
+    @RequestMapping(value= "/{id}",method = RequestMethod.GET)
+    public ResponseEntity<NewsletterDetailsDTO> getNewsletter(@PathVariable("id") Integer id) {
+        Newsletter newsletter = newsletterService.findOne(id);
+        if (newsletter == null) {
+        	return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        } else {
+        	NewsletterDetailsDTO dto = newsletterMapper.toNewsletterDetailsDto(newsletter);
+            return new ResponseEntity<NewsletterDetailsDTO>(dto, HttpStatus.OK);
+        }
+    }
+	
 	private List<NewsletterDTO> toNewsletterDTOList(List<Newsletter> newsletters) {
 		ArrayList<NewsletterDTO> dtos = new ArrayList<NewsletterDTO>();
 		for(Newsletter newsletter : newsletters) {
-			NewsletterDTO dto = newsletterMapper.toDto(newsletter);
+			NewsletterDTO dto = newsletterMapper.toNewsletterDto(newsletter);
 			dtos.add(dto);
 		}
 		return dtos;
