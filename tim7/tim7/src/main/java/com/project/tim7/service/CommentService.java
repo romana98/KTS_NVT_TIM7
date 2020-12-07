@@ -74,10 +74,8 @@ public class CommentService implements ServiceInterface<Comment> {
 
 	public int createComment(Comment entity, int registeredId, ArrayList<String> pictures, int culturalOfferId) {
 		
-		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-		Person person = (Person) authentication.getPrincipal();
-		Registered registered = registeredService.findOne(person.getId());
-		if(registered == null || registered.getId() != registeredId) {
+		Registered registered = registeredService.findOne(registeredId);
+		if(registered == null) {
 			return -1;
 		}
 		CulturalOffer culturalOffer = culturalOfferService.findOne(culturalOfferId);
