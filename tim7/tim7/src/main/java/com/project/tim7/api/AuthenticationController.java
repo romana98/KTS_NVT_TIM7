@@ -10,6 +10,7 @@ import com.project.tim7.model.Registered;
 import com.project.tim7.security.TokenUtils;
 import com.project.tim7.service.AdministratorService;
 import com.project.tim7.service.CustomUserDetailsService;
+import com.project.tim7.service.EmailService;
 import com.project.tim7.service.PersonService;
 import com.project.tim7.service.RegisteredService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,6 +23,7 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
@@ -47,6 +49,12 @@ public class AuthenticationController {
 
     @Autowired
     private AdministratorService adminService;
+    
+    @Autowired
+	private PasswordEncoder passwordEncoder;
+    
+    @Autowired
+    private EmailService emailService;
 
     private RegisteredMapper regMapper;
 
@@ -87,13 +95,16 @@ public class AuthenticationController {
         if (existReg != null || existAdmin != null) {
             throw new Exception("Username already exists");
         }
-
+        Registered newReg = null;
         try {
-            existReg = regService.save(regMapper.toEntity(userRequest));
+        	existReg = regMapper.toEntity(userRequest);
+        	existReg.setPassword(passwordEncoder.encode(userRequest.getPassword()));
+            newReg = regService.save(existReg);
+            emailService.sendVerificationMail(newReg.getEmail(), newReg.getId());
         } catch (Exception e) {
             return new ResponseEntity<>(e, HttpStatus.BAD_REQUEST);
         }
-        return new ResponseEntity<>(regMapper.toDto(existReg), HttpStatus.CREATED);
+        return new ResponseEntity<>("Successfully sent registration request.", HttpStatus.CREATED);
     }
 
     // U slucaju isteka vazenja JWT tokena, endpoint koji se poziva da se token osvezi
