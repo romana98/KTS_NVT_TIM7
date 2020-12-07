@@ -3,6 +3,7 @@ package com.project.tim7.service;
 import java.util.List;
 
 import com.project.tim7.model.Administrator;
+import com.project.tim7.model.Registered;
 import com.project.tim7.repository.AdministratorRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -65,18 +66,23 @@ public class AdministratorService implements ServiceInterface<Administrator> {
 		if(admin == null){
 			return null;
 		}
-		if(entity.getUsername().compareTo(admin.getUsername()) != 0)
-			if (adminRepo.findByUsername(entity.getUsername()) != null) {
+		if(entity.getEmail().compareTo(admin.getEmail()) != 0)
+			if (adminRepo.findByEmail(entity.getEmail()) != null ||
+					regService.findByEmail(entity.getEmail()) != null) {
 				return null;
 			}
 
-		admin.setUsername(entity.getUsername());
+		admin.setEmail(entity.getEmail());
 		admin.setPassword(entity.getPassword());
 		return adminRepo.save(admin);
 	}
 
 	public long countByEmailOrUsername(String email, String username){
 		return adminRepo.countByEmailOrUsername(email, username);
+	}
+
+	public Administrator findByEmail(String email){
+		return adminRepo.findByUsername(email);
 	}
 
 	public Administrator findByUsernameOrEmail(String username, String email){

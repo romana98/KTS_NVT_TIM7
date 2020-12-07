@@ -14,6 +14,6 @@ public class RegisteredMapper implements MapperInterface<Registered, UserDTO> {
 
     @Override
     public UserDTO toDto(Registered entity) {
-        return new UserDTO(entity.getId(), entity.getUsername(), entity.getEmail(), entity.getPassword());
+        return new UserDTO(entity.getId(), entity.getUsername(), entity.getEmail());
     }
 }

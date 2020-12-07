@@ -9,5 +9,6 @@ import com.project.tim7.model.Registered;
 public interface RegisteredRepository extends JpaRepository<Registered, Integer> {
     Long countByEmailOrUsername(String email, String username);
     Registered findByUsername(String username);
+    Registered findByEmail(String email);
     Registered findByUsernameOrEmail(String username, String email);
 }
