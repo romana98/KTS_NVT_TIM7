@@ -47,16 +47,13 @@ public class CategoryController  {
 	@RequestMapping(method = RequestMethod.GET)
 	public ResponseEntity<List<CategoryDTO>> getAllCategories(){
 		
-		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-		Person person = (Person) authentication.getPrincipal();
-		System.out.println(person);
-		
 		List<Category> categories = categoryService.findAll();
 		
         return new ResponseEntity<>(toCategoryDTOList(categories), HttpStatus.OK);
 
 	}
 	
+	@PreAuthorize("hasRole('ROLE_ADMINISTRATOR')")
 	@RequestMapping(value= "/by-page",method = RequestMethod.GET)
     public ResponseEntity<Page<CategoryDTO>> getAllCategories(Pageable pageable) {
         Page<Category> page = categoryService.findAll(pageable);
@@ -66,6 +63,7 @@ public class CategoryController  {
         return new ResponseEntity<>(pageCategoryDTOS, HttpStatus.OK);
     }
 	
+	@PreAuthorize("hasRole('ROLE_ADMINISTRATOR')")
 	@RequestMapping(method = RequestMethod.PUT, consumes = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<Object> updateCategory(@Valid @RequestBody CategoryDTO categoryDTO){
 		
@@ -79,24 +77,28 @@ public class CategoryController  {
 		
 	}
 	
+	@PreAuthorize("hasRole('ROLE_ADMINISTRATOR')")
 	@RequestMapping(method= RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<String> createCategory(@Valid @RequestBody CategoryDTO category){
+    public ResponseEntity<Object> createCategory(@Valid @RequestBody CategoryDTO category){
 		
-		if(categoryService.saveOne(catMapper.toEntity(category)) == true) {
-			return new ResponseEntity<>(HttpStatus.CREATED);
+		Category newCategory = categoryService.createCategory(catMapper.toEntity(category));
+		if(newCategory != null) {
+			category.setId(newCategory.getId());
+			return new ResponseEntity<>(category, HttpStatus.CREATED);
 		}else {
 			return new ResponseEntity<>("Category already exists.", HttpStatus.BAD_REQUEST);
 		}
     }
 	
+	@PreAuthorize("hasRole('ROLE_ADMINISTRATOR')")
 	@RequestMapping(value="/{id}", method=RequestMethod.DELETE)
-    public ResponseEntity<Void> deleteCategory(@PathVariable Integer id){
+    public ResponseEntity<String> deleteCategory(@PathVariable Integer id){
 
         if(categoryService.delete(id)) {
-            return new ResponseEntity<>(HttpStatus.OK);
+            return new ResponseEntity<>("Deleting successful.", HttpStatus.OK);
         }
 
-        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        return new ResponseEntity<>("Deleting failed.", HttpStatus.NOT_FOUND);
     }
 
 

@@ -1,7 +1,7 @@
-insert into REGISTERED (id, username, email, password, verified) values (NEXTVAL('person_seq'), 'micoR', 'mico@reg.com', '$2y$12$NFN7DJUX1lFfaDX1tc9/6uBtgls9SZOU9iwjhrlXJc0xr471vgKAK', false); 
-insert into REGISTERED (id, username, email, password, verified) values (NEXTVAL('person_seq'), 'veraR', 'vera@reg.com', '$2y$12$NFN7DJUX1lFfaDX1tc9/6uBtgls9SZOU9iwjhrlXJc0xr471vgKAK', false); 
-insert into REGISTERED (id, username, email, password, verified) values (NEXTVAL('person_seq'), 'vuleR', 'vule@reg.com', '$2y$12$NFN7DJUX1lFfaDX1tc9/6uBtgls9SZOU9iwjhrlXJc0xr471vgKAK', false); 
-insert into REGISTERED (id, username, email, password, verified) values (NEXTVAL('person_seq'), 'romanaR', 'romana@reg.com', '$2y$12$NFN7DJUX1lFfaDX1tc9/6uBtgls9SZOU9iwjhrlXJc0xr471vgKAK', false); 
+insert into REGISTERED (id, username, email, password, verified) values (NEXTVAL('person_seq'), 'micoR', 'mico@reg.com', '$2y$12$NFN7DJUX1lFfaDX1tc9/6uBtgls9SZOU9iwjhrlXJc0xr471vgKAK', true); 
+insert into REGISTERED (id, username, email, password, verified) values (NEXTVAL('person_seq'), 'veraR', 'vera@reg.com', '$2y$12$NFN7DJUX1lFfaDX1tc9/6uBtgls9SZOU9iwjhrlXJc0xr471vgKAK', true); 
+insert into REGISTERED (id, username, email, password, verified) values (NEXTVAL('person_seq'), 'vuleR', 'vule@reg.com', '$2y$12$NFN7DJUX1lFfaDX1tc9/6uBtgls9SZOU9iwjhrlXJc0xr471vgKAK', true); 
+insert into REGISTERED (id, username, email, password, verified) values (NEXTVAL('person_seq'), 'romanaR', 'romana@reg.com', '$2y$12$NFN7DJUX1lFfaDX1tc9/6uBtgls9SZOU9iwjhrlXJc0xr471vgKAK', true); 
 insert into REGISTERED (id, username, email, password, verified) values (NEXTVAL('person_seq'), 'grunge0', 'mstaines0@i2i.jp', '$2y$12$NFN7DJUX1lFfaDX1tc9/6uBtgls9SZOU9iwjhrlXJc0xr471vgKAK', false); 
 insert into REGISTERED (id, username, email, password, verified) values (NEXTVAL('person_seq'), 'bnorthill1', 'dvinnicombe1@craigslist.org', '$2y$12$NFN7DJUX1lFfaDX1tc9/6uBtgls9SZOU9iwjhrlXJc0xr471vgKAK', false); 
 insert into REGISTERED (id, username, email, password, verified) values (NEXTVAL('person_seq'), 'lcupper2', 'mbridel2@nba.com', '$2y$12$NFN7DJUX1lFfaDX1tc9/6uBtgls9SZOU9iwjhrlXJc0xr471vgKAK', false); 
