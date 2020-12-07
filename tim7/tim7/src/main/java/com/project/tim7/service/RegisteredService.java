@@ -85,5 +85,15 @@ public class RegisteredService implements ServiceInterface<Registered> {
 		return regRepo.findByUsernameOrEmail(username, email);
 	}
 
+	public Registered activateAccount(int id, String email) {
+		Registered regUser = findOne(id);
+		regUser.setVerified(true);
+		Registered activatedReg = regRepo.save(regUser);
+		if (activatedReg != null) 
+			return activatedReg;
+		else
+			return null;
+	}
+
 
 }
