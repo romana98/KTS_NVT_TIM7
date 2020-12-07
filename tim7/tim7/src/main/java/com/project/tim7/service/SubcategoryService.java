@@ -42,12 +42,10 @@ public class SubcategoryService implements ServiceInterface<Subcategory> {
 
 	@Override
 	public boolean saveOne(Subcategory entity) {
-		if(subcategoryRepo.findByName(entity.getName()) == null) {
-			subcategoryRepo.save(entity);
-			return true;
-		}else {
-			return false;
-		}
+		
+		subcategoryRepo.save(entity);
+		return true;
+		
 	}
 
 	@Override
@@ -73,23 +71,48 @@ public class SubcategoryService implements ServiceInterface<Subcategory> {
 	@Override
 	public Subcategory update(Subcategory entity) {
 		
+		saveOne(entity);
+		return entity;
+		
+	}
+	
+	public Subcategory update(Subcategory entity, int categoryId) {
+		
 		Subcategory subcategory = findOne(entity.getId());
 		if(subcategory == null) {
 			return null;
 		}
-		subcategory.setName(entity.getName());
-		boolean check = saveOne(subcategory);
-		if(check == true) {
-			return subcategory;
-		}else {
+		Category category = categoryService.findOne(categoryId);
+		if(category == null) {
 			return null;
 		}
+		if(entity.getName().equals(subcategory.getName()) == false) {
+			Subcategory subcategory2 = subcategoryRepo.findByName(entity.getName());
+			if(subcategory2 != null) {
+				return null;
+			}
+		}
+		
+		subcategory.setName(entity.getName());
+		subcategory.setCategory(category);
+		return update(subcategory);
+		
 		
 	}
 	
-	public boolean addSubcategory(Subcategory subcategory, int categoryId) {
-		subcategory.setCategory(categoryService.findOne(categoryId));
-		return saveOne(subcategory);
+	public Subcategory addSubcategory(Subcategory subcategory, int categoryId) {
+		
+		Category category = categoryService.findOne(categoryId);
+		if(category == null) {
+			return null;
+		}
+		Subcategory subcatName = subcategoryRepo.findByName(subcategory.getName());
+		if(subcatName != null) {
+			return null;
+		}
+		subcategory.setCategory(category);
+		saveOne(subcategory);
+		return subcategory;
 	}
 
 	public long getSubcategoriesReferencingCount(int id) {

@@ -12,6 +12,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -37,6 +38,7 @@ public class SubcategoryController {
 		this.subcatMapper = new SubcategoryMapper();
 	}
 
+	@PreAuthorize("hasRole('ROLE_ADMINISTRATOR')")
 	@RequestMapping(method = RequestMethod.GET)
 	public ResponseEntity<List<SubcategoryDTO>> getAllSubcategories(){
 		List<Subcategory> subcategories = subcategoryService.findAll();
@@ -45,6 +47,7 @@ public class SubcategoryController {
 
 	}
 	
+	@PreAuthorize("hasRole('ROLE_ADMINISTRATOR')")
 	@RequestMapping(value= "/by-page",method = RequestMethod.GET)
     public ResponseEntity<Page<SubcategoryDTO>> getAllSubcategories(Pageable pageable) {
         Page<Subcategory> page = subcategoryService.findAll(pageable);
@@ -54,10 +57,11 @@ public class SubcategoryController {
         return new ResponseEntity<>(pageSubcategoryDTOS, HttpStatus.OK);
     }
 	
+	@PreAuthorize("hasRole('ROLE_ADMINISTRATOR')")
 	@RequestMapping(method = RequestMethod.PUT)
 	public ResponseEntity<Object> updateSubcategory(@Valid @RequestBody SubcategoryDTO subcategoryDTO){
 		
-		Subcategory newSubcategory = subcategoryService.update(subcatMapper.toEntity(subcategoryDTO));
+		Subcategory newSubcategory = subcategoryService.update(subcatMapper.toEntity(subcategoryDTO), subcategoryDTO.getCategoryId());
 		if(newSubcategory != null) {
 			return new ResponseEntity<>(subcategoryDTO, HttpStatus.OK);
 		}else {
@@ -66,24 +70,29 @@ public class SubcategoryController {
 		
 	}
 	
+	@PreAuthorize("hasRole('ROLE_ADMINISTRATOR')")
 	@RequestMapping(method= RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<String> createSubcategory(@Valid @RequestBody SubcategoryDTO subcategory){
+    public ResponseEntity<Object> createSubcategory(@Valid @RequestBody SubcategoryDTO subcategory){
 		
-		if(subcategoryService.addSubcategory(subcatMapper.toEntity(subcategory), subcategory.getCategoryId()) == true) {
-			return new ResponseEntity<>(HttpStatus.CREATED);
+		Subcategory newSubcategory = subcategoryService.addSubcategory(subcatMapper.toEntity(subcategory), subcategory.getCategoryId());
+		
+		if(newSubcategory != null) {
+			subcategory.setId(newSubcategory.getId());
+			return new ResponseEntity<>(subcategory, HttpStatus.CREATED);
 		}else {
 			return new ResponseEntity<>("Subcategory already exists.", HttpStatus.BAD_REQUEST);
 		}
     }
 	
+	@PreAuthorize("hasRole('ROLE_ADMINISTRATOR')")
 	@RequestMapping(value="/{id}", method=RequestMethod.DELETE)
-    public ResponseEntity<Void> deleteSubcategory(@PathVariable Integer id){
+    public ResponseEntity<Object> deleteSubcategory(@PathVariable Integer id){
 
         if(subcategoryService.delete(id)) {
-            return new ResponseEntity<>(HttpStatus.OK);
+            return new ResponseEntity<>("Subcategory deleted.", HttpStatus.OK);
         }
 
-        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        return new ResponseEntity<>("Subcategory deleting failed.", HttpStatus.NOT_FOUND);
     }
 
 
