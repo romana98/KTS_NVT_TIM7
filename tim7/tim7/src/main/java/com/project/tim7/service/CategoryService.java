@@ -43,6 +43,17 @@ public class CategoryService implements ServiceInterface<Category> {
 			return false;
 		}
 	}
+	
+	public Category createCategory(Category entity) {
+		
+		boolean successful = saveOne(entity);
+		if(successful == true) {
+			return entity;
+		}else {
+			return null;
+		}
+		
+	}
 
 	@Override
 	public boolean saveAll(List<Category> entities) {
@@ -52,7 +63,7 @@ public class CategoryService implements ServiceInterface<Category> {
 
 	@Override
 	public boolean delete(int id) {
-		Category category = categoryRepo.findById(id).orElse(null);
+		Category category = findOne(id);
 		if(subcategoryService.getSubcategoriesReferencingCount(id) != 0) {
 			return false;
 		}
