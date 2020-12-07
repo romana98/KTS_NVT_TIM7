@@ -2,7 +2,6 @@ package com.project.tim7.service;
 
 import java.util.List;
 
-import com.project.tim7.dto.RatingDTO;
 import com.project.tim7.model.CulturalOffer;
 import com.project.tim7.model.Rating;
 import com.project.tim7.model.Registered;
