@@ -11,7 +11,6 @@ import com.project.tim7.security.TokenUtils;
 import com.project.tim7.service.AdministratorService;
 import com.project.tim7.service.CustomUserDetailsService;
 import com.project.tim7.service.EmailService;
-import com.project.tim7.service.PersonService;
 import com.project.tim7.service.RegisteredService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -93,7 +92,7 @@ public class AuthenticationController {
         Registered existReg = this.regService.findByUsernameOrEmail(userRequest.getUsername(), userRequest.getEmail());
         Administrator existAdmin = this.adminService.findByUsernameOrEmail(userRequest.getUsername(), userRequest.getEmail());
         if (existReg != null || existAdmin != null) {
-            throw new Exception("Username already exists");
+        	return new ResponseEntity<>("Username or email already exists.", HttpStatus.BAD_REQUEST);
         }
         Registered newReg = null;
         try {
@@ -102,9 +101,26 @@ public class AuthenticationController {
             newReg = regService.save(existReg);
             emailService.sendVerificationMail(newReg.getEmail(), newReg.getId());
         } catch (Exception e) {
-            return new ResponseEntity<>(e, HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>("Username or email already exists.", HttpStatus.BAD_REQUEST);
         }
         return new ResponseEntity<>("Successfully sent registration request.", HttpStatus.CREATED);
+    }
+    
+    static class activateAccount {
+    	public int id;
+    	public String email;
+    }
+    
+    // Endpoint za aktivaciju naloga
+    @PostMapping("/activate")
+    public ResponseEntity<?> activate(@RequestBody activateAccount activationData) {
+    	Registered regUser = null;
+    	try {
+    		regUser = regService.activateAccount(activationData.id, activationData.email);
+        } catch (Exception e) {
+        	return new ResponseEntity<>("Activation failed.", HttpStatus.BAD_REQUEST);
+        }
+    	return new ResponseEntity<>("Activation succeeded.", HttpStatus.OK);
     }
 
     // U slucaju isteka vazenja JWT tokena, endpoint koji se poziva da se token osvezi
