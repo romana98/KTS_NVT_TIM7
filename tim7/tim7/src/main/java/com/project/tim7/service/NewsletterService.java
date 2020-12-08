@@ -1,11 +1,11 @@
 package com.project.tim7.service;
-
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.project.tim7.model.CulturalOffer;
 import com.project.tim7.model.Newsletter;
@@ -55,16 +55,19 @@ public class NewsletterService implements ServiceInterface<Newsletter> {
 		return null;
 	}
 
-	public boolean updateNewsletter(Newsletter entity, String pictureStr) {
+	public boolean updateNewsletter(Newsletter entity, MultipartFile multipartFile) {
 		Newsletter newsletter = findOne(entity.getId());
-		if(newsletter == null) {
+		if(newsletter == null)
 			return false;
-		}
+
 		newsletter.setName(entity.getName());
 		newsletter.setDescription(entity.getDescription());
-		Picture updatedPicture = pictureService.findByPicture(pictureStr);
-		if (updatedPicture == null) 
-			updatedPicture = pictureService.update(new Picture(pictureStr));
+		
+		Picture updatedPicture = null;
+		if (!multipartFile.isEmpty()) {
+			updatedPicture = pictureService.upload(multipartFile, newsletter.getCulturalOffer().getId());
+		}
+		
 		newsletter.setPicture(updatedPicture);
 		saveOne(newsletter);
 		return true;
@@ -85,17 +88,18 @@ public class NewsletterService implements ServiceInterface<Newsletter> {
 		return true;
 	}
 	
-	public boolean saveNewsletter(Newsletter entity, int culturalOfferId, String pictureStr) {
+	public boolean saveNewsletter(Newsletter entity, int culturalOfferId, MultipartFile multipartFile) {
 		CulturalOffer culturalOffer = culturalOfferService.findOne(culturalOfferId);
 		if (culturalOffer == null) 
 			return false;
 		entity.setCulturalOffer(culturalOffer);
-		
-		Picture picture = pictureService.findByPicture(pictureStr);
-		if (picture == null)
-			picture = pictureService.update(new Picture(pictureStr));
+				
+		Picture picture = null;		
+		if (!multipartFile.isEmpty()) {
+			picture = pictureService.upload(multipartFile, culturalOfferId);
+		}
 		entity.setPicture(picture);
-		
+				
 		entity.setId(0);
 		saveOne(entity);
 		return true;
@@ -108,6 +112,7 @@ public class NewsletterService implements ServiceInterface<Newsletter> {
 	public Page<Newsletter> findNewsletterForUser(int idRegisteredUser, Pageable pageable) {
 		return newsletterRepo.findNewsletterForUser(idRegisteredUser, pageable);
 	}
+	
 
 
 }

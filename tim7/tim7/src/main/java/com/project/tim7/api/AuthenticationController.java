@@ -51,9 +51,6 @@ public class AuthenticationController {
     
     @Autowired
 	private PasswordEncoder passwordEncoder;
-    
-    @Autowired
-    private EmailService emailService;
 
     private RegisteredMapper regMapper;
 
@@ -92,8 +89,7 @@ public class AuthenticationController {
         try {
         	existReg = regMapper.toEntity(userRequest);
         	existReg.setPassword(passwordEncoder.encode(userRequest.getPassword()));
-            newReg = regService.save(existReg);
-            emailService.sendVerificationMail(newReg.getEmail(), newReg.getId());
+            newReg = regService.addRegistered(existReg);
         } catch (Exception e) {
             return new ResponseEntity<>("Username or email already exists.", HttpStatus.BAD_REQUEST);
         }

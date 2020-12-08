@@ -17,10 +17,11 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.project.tim7.dto.NewsletterDTO;
 import com.project.tim7.dto.NewsletterDetailsDTO;
@@ -44,11 +45,11 @@ public class NewsletterController {
     }
 
 	@PreAuthorize("hasRole('ROLE_ADMINISTRATOR')")
-    @RequestMapping(method= RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<String> createNewsletter(@Valid @RequestBody NewsletterDetailsDTO newsletterDTO){
+    @RequestMapping(method= RequestMethod.POST, consumes = {MediaType.MULTIPART_FORM_DATA_VALUE, MediaType.APPLICATION_JSON_VALUE})
+    public ResponseEntity<String> createNewsletter(@Valid @RequestPart("newsletter") NewsletterDetailsDTO newsletterDTO, @RequestPart(name="image", required=false) MultipartFile multipartFile){
     	
     	Newsletter newNewsletter = newsletterMapper.toEntity(newsletterDTO);
-        boolean saved = newsletterService.saveNewsletter(newNewsletter, newsletterDTO.getCulturalOfferId(), newsletterDTO.getPicture());
+        boolean saved = newsletterService.saveNewsletter(newNewsletter, newsletterDTO.getCulturalOfferId(), multipartFile);
 
         if(!saved){
             return new ResponseEntity<>("Cultural offer does not exist.",HttpStatus.BAD_REQUEST);
@@ -65,14 +66,14 @@ public class NewsletterController {
 	}
     
 	@PreAuthorize("hasRole('ROLE_ADMINISTRATOR')")
-    @RequestMapping(method = RequestMethod.PUT, consumes = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<String> updateNewsletter(@Valid @RequestBody NewsletterDetailsDTO newsletterDTO){
+    @RequestMapping(method = RequestMethod.PUT, consumes = {MediaType.MULTIPART_FORM_DATA_VALUE, MediaType.APPLICATION_JSON_VALUE})
+	public ResponseEntity<String> updateNewsletter(@Valid @RequestPart("newsletter") NewsletterDetailsDTO newsletterDTO, @RequestPart(name="image", required=false) MultipartFile multipartFile){
 		
 		Newsletter updatedNewsletter = newsletterMapper.toEntity(newsletterDTO);
+		
+        boolean updated = newsletterService.updateNewsletter(updatedNewsletter, multipartFile);
 
-        boolean updated = newsletterService.updateNewsletter(updatedNewsletter, newsletterDTO.getPicture());
-
-		if(updatedNewsletter != null) {
+		if(updated) {
 			return new ResponseEntity<>("Successfully updated newsletter.", HttpStatus.OK);
 		}else {
 			return new ResponseEntity<>("Updating failed.", HttpStatus.BAD_REQUEST);
