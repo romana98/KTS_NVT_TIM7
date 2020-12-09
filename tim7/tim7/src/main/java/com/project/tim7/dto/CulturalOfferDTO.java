@@ -29,7 +29,7 @@ public class CulturalOfferDTO {
     @NotNull
     private int location;
 
-    private List<String> pictures;
+    private ArrayList<String> pictures;
 
     public CulturalOfferDTO(int id, @NotBlank String name,
                             @NotBlank String description,
@@ -46,6 +46,9 @@ public class CulturalOfferDTO {
         this.subcategory = subcategory;
         this.location = location;
         this.pictures = pictures;
+    }
+
+    public CulturalOfferDTO() {
     }
 
     public int getId() {
@@ -104,11 +107,11 @@ public class CulturalOfferDTO {
         this.location = location;
     }
 
-    public List<String> getPictures() {
+    public ArrayList<String> getPictures() {
         return pictures;
     }
 
-    public void setPictures(List<String> pictures) {
+    public void setPictures(ArrayList<String> pictures) {
         this.pictures = pictures;
     }
 

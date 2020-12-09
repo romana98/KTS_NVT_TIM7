@@ -15,7 +15,7 @@ public class Picture {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 	
-	@Column(name = "picture", unique = true, nullable = true)
+	@Column(name = "picture", unique = false, nullable = false)
 	private String picture;
 
 	public Picture(String picture) {
@@ -40,6 +40,11 @@ public class Picture {
 	public void setPicture(String picture) {
 		this.picture = picture;
 	}
-	
-	
+
+	@Override
+	public String toString() {
+		return "Picture{" +
+				"picture='" + picture + '\'' +
+				'}';
+	}
 }
