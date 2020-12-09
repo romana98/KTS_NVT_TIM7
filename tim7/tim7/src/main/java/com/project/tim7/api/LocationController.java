@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -26,6 +27,7 @@ public class LocationController {
 
     private LocationMapper locationMapper = new LocationMapper();
 
+    @PreAuthorize("hasRole('ROLE_ADMINISTRATOR')")
     @RequestMapping(method= RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<String> createLocation(@Valid @RequestBody LocationDTO location){
         System.out.println(location);
@@ -36,13 +38,6 @@ public class LocationController {
         }
         return new ResponseEntity<>("Successfully added location.", HttpStatus.CREATED);
 
-        /*CulturalOffer culturalOffer = culturalOfferMapper.toEntity(culturalOfferDTO);
-        boolean saved = culturalOfferService.saveOne(culturalOffer,culturalOfferDTO.getLocation(),culturalOfferDTO.getSubcategory());
-
-        if(!saved){
-            return new ResponseEntity<>("Cultural offer can't be added.", HttpStatus.BAD_REQUEST);
-        }
-        return new ResponseEntity<>("Successfully added cultural offer.", HttpStatus.CREATED);*/
     }
 
 }

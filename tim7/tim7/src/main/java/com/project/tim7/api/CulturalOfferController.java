@@ -31,6 +31,7 @@ public class CulturalOfferController {
 
     private CulturalOfferMapper culturalOfferMapper = new CulturalOfferMapper();
 
+    @PreAuthorize("hasRole('ROLE_ADMINISTRATOR')")
     @RequestMapping(method= RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<String> createCulturalOffer(@Valid @RequestBody CulturalOfferDTO culturalOfferDTO){
         CulturalOffer culturalOffer = culturalOfferMapper.toEntity(culturalOfferDTO);
@@ -42,6 +43,8 @@ public class CulturalOfferController {
         return new ResponseEntity<>("Successfully added cultural offer.", HttpStatus.CREATED);
     }
 
+
+    @PreAuthorize("hasRole('ROLE_ADMINISTRATOR')")
     @RequestMapping(value= "/{id}",method = RequestMethod.DELETE)
     public ResponseEntity<String> deleteCulturalOffer(@PathVariable("id") int id){
         if(culturalOfferService.delete(id)){
@@ -64,6 +67,7 @@ public class CulturalOfferController {
 
     }
 
+    @PreAuthorize("hasRole('ROLE_ADMINISTRATOR')")
     @RequestMapping(method = RequestMethod.PUT, consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<String> updateCulturalOffer(@Valid @RequestBody CulturalOfferDTO culturalOfferDTO){
 
@@ -76,6 +80,7 @@ public class CulturalOfferController {
         }
     }
 
+    @PreAuthorize("hasRole('ROLE_ADMINISTRATOR')")
     @RequestMapping(value= "/by-page",method = RequestMethod.GET)
     public ResponseEntity<Page<CulturalOfferDTO>> getAllCulturalOffersPaged(Pageable pageable) {
         Page<CulturalOffer> page = culturalOfferService.findAll(pageable);
