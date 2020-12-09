@@ -31,7 +31,6 @@ public class CulturalOfferController {
     private CulturalOfferService culturalOfferService;
 
 
-
     private CulturalOfferMapper culturalOfferMapper = new CulturalOfferMapper();
 
     @RequestMapping(method= RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)

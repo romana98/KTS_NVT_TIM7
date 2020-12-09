@@ -1,7 +1,11 @@
 package com.project.tim7.service;
 
+import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
+import com.project.tim7.helper.PictureMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -15,6 +19,8 @@ public class PictureService implements ServiceInterface<Picture> {
 	
 	@Autowired 
 	PictureRepository pictureRepo;
+
+	private PictureMapper pictureMapper = new PictureMapper();
 
 	@Override
 	public List<Picture> findAll() {
@@ -68,4 +74,13 @@ public class PictureService implements ServiceInterface<Picture> {
 		pictureRepo.save(entity);
 		return entity;
 	}
+
+	public Set<Picture> getPictures(ArrayList<String> pictures) {
+		Set<Picture> commentPictures = new HashSet<Picture>();
+		for(String picture : pictures) {
+			commentPictures.add(pictureMapper.toEntity(picture));
+		}
+		return commentPictures;
+	}
+
 }

@@ -83,33 +83,16 @@ public class CommentService implements ServiceInterface<Comment> {
 			return -1;
 		}
 		entity.setRegistered(registered);
-		entity.setPictures(getPictures(pictures));
+		entity.setPictures(pictureService.getPictures(pictures));
 		Comment newComment = saveAndReturn(entity);
 		culturalOffer.getComments().add(newComment);
 		culturalOfferService.saveOne(culturalOffer);
-		
 		return newComment.getId();
 	}
 
 	private Comment saveAndReturn(Comment entity) {
 		saveOne(entity);
 		return entity;
-	}
-
-	private Set<Picture> getPictures(ArrayList<String> pictures) {
-		
-		Set<Picture> commentPictures = new HashSet<Picture>();
-		for(String picture : pictures) {
-			Picture p = pictureService.findByPicture(picture);
-			if(p == null) {
-				Picture newPicture = new Picture(picture);
-				Picture pictureComment = pictureService.saveAndReturn(newPicture);
-				commentPictures.add(pictureComment);
-			}else {
-				commentPictures.add(p);
-			}
-		}
-		return commentPictures;
 	}
 
 }

@@ -2,7 +2,9 @@ package com.project.tim7.dto;
 import com.sun.istack.NotNull;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.PastOrPresent;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 
 public class CulturalOfferDTO {
@@ -27,12 +29,15 @@ public class CulturalOfferDTO {
     @NotNull
     private int location;
 
+    private List<String> pictures;
+
     public CulturalOfferDTO(int id, @NotBlank String name,
                             @NotBlank String description,
                             @PastOrPresent Date startDate,
                             @PastOrPresent Date endDate,
                             int subcategory,
-                            int location) {
+                            int location,
+                            ArrayList<String> pictures) {
         this.id = id;
         this.name = name;
         this.description = description;
@@ -40,6 +45,7 @@ public class CulturalOfferDTO {
         this.endDate = endDate;
         this.subcategory = subcategory;
         this.location = location;
+        this.pictures = pictures;
     }
 
     public int getId() {
@@ -98,6 +104,14 @@ public class CulturalOfferDTO {
         this.location = location;
     }
 
+    public List<String> getPictures() {
+        return pictures;
+    }
+
+    public void setPictures(List<String> pictures) {
+        this.pictures = pictures;
+    }
+
     @Override
     public String toString() {
         return "CulturalOfferDTO{" +
@@ -110,4 +124,6 @@ public class CulturalOfferDTO {
                 ", location=" + location +
                 '}';
     }
+
+
 }
