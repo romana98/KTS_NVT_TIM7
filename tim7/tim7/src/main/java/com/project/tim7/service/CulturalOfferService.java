@@ -1,12 +1,14 @@
 package com.project.tim7.service;
 
+import java.lang.reflect.Array;
+import java.sql.SQLOutput;
+import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import com.project.tim7.dto.CulturalOfferDTO;
-import com.project.tim7.model.CulturalOffer;
-import com.project.tim7.model.Location;
-import com.project.tim7.model.Newsletter;
-import com.project.tim7.model.Subcategory;
+import com.project.tim7.model.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -25,6 +27,9 @@ public class CulturalOfferService implements ServiceInterface<CulturalOffer> {
 
 	@Autowired
 	SubcategoryService subcategoryService;
+
+	@Autowired
+	PictureService pictureService;
 
 	@Override
 	public List<CulturalOffer> findAll() {
@@ -51,7 +56,7 @@ public class CulturalOfferService implements ServiceInterface<CulturalOffer> {
 		return true;
 	}
 
-	public boolean saveOne(CulturalOffer entity, int locationId, int subcategoryId) {
+	public boolean saveOne(CulturalOffer entity, int locationId, int subcategoryId, ArrayList<String> pictures) {
 
 		if(culturalOfferRepo.findByName(entity.getName()) != null){
 			return false;
@@ -64,6 +69,9 @@ public class CulturalOfferService implements ServiceInterface<CulturalOffer> {
 			return false;
 		}
 
+		Set<Picture> pictureSet = pictureService.getPictures(pictures);
+
+		entity.setPictures(pictureSet);
 		entity.setLocation(location);
 		entity.setSubcategory(subcategory);
 

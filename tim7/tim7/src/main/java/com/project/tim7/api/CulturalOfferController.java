@@ -4,10 +4,7 @@ import com.project.tim7.dto.CulturalOfferDTO;
 import com.project.tim7.dto.NewsletterDetailsDTO;
 import com.project.tim7.helper.CulturalOfferMapper;
 import com.project.tim7.helper.NewsletterMapper;
-import com.project.tim7.model.CulturalOffer;
-import com.project.tim7.model.Location;
-import com.project.tim7.model.Newsletter;
-import com.project.tim7.model.Subcategory;
+import com.project.tim7.model.*;
 import com.project.tim7.service.CulturalOfferService;
 import com.project.tim7.service.LocationService;
 import com.project.tim7.service.SubcategoryService;
@@ -18,6 +15,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -36,7 +34,7 @@ public class CulturalOfferController {
     @RequestMapping(method= RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<String> createCulturalOffer(@Valid @RequestBody CulturalOfferDTO culturalOfferDTO){
         CulturalOffer culturalOffer = culturalOfferMapper.toEntity(culturalOfferDTO);
-        boolean saved = culturalOfferService.saveOne(culturalOffer,culturalOfferDTO.getLocation(),culturalOfferDTO.getSubcategory());
+        boolean saved = culturalOfferService.saveOne(culturalOffer,culturalOfferDTO.getLocation(),culturalOfferDTO.getSubcategory(),culturalOfferDTO.getPictures());
 
         if(!saved){
             return new ResponseEntity<>("Cultural offer can't be added.", HttpStatus.BAD_REQUEST);

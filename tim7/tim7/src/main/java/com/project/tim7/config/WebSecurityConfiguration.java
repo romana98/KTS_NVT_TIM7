@@ -70,7 +70,8 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
 
                 // svim korisnicima dopusti da pristupe putanji /auth/**
                 .authorizeRequests().antMatchers("/auth/**").permitAll()
-
+                .antMatchers(HttpMethod.POST,"/cultural-offers").permitAll()
+                .antMatchers(HttpMethod.GET,"/cultural-offers/**").permitAll()
                 // umesto anotacija iynad svake metode, moze i ovde da se proveravaju prava pristupa ya odredjeni URL
                 //.antMatchers(HttpMethod.GET, "/categories").hasRole("ADMINISTRATOR")
 
