@@ -51,4 +51,22 @@ public class Registered extends Person {
 	public boolean isEnabled() {
 		return super.isVerified();
 	}
+
+	public Set<CulturalOffer> getSubscribedCulturalOffers() {
+		return subscribedCulturalOffers;
+	}
+
+	public void setSubscribedCulturalOffers(Set<CulturalOffer> subscribedCulturalOffers) {
+		this.subscribedCulturalOffers = subscribedCulturalOffers;
+	}
+
+	public Set<Rating> getRatings() {
+		return ratings;
+	}
+
+	public void setRatings(Set<Rating> ratings) {
+		this.ratings = ratings;
+	}
+	
+	
 }

@@ -3,12 +3,10 @@ package com.project.tim7.api;
 import com.project.tim7.dto.CulturalOfferDTO;
 import com.project.tim7.dto.FilterDTO;
 import com.project.tim7.dto.NewsletterDetailsDTO;
+
 import com.project.tim7.helper.CulturalOfferMapper;
-import com.project.tim7.helper.NewsletterMapper;
 import com.project.tim7.model.*;
 import com.project.tim7.service.CulturalOfferService;
-import com.project.tim7.service.LocationService;
-import com.project.tim7.service.SubcategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
@@ -17,6 +15,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -101,6 +101,25 @@ public class CulturalOfferController {
     	return new ResponseEntity<>(culturalOfferDTOPage, HttpStatus.OK);
     }
 
-
+    static class Subscribe {
+    	public int idOffer;
+    	public int idUser;
+    }
+    
+    @PreAuthorize("hasRole('ROLE_REGISTERED')")
+    @RequestMapping(value= "/subscribe", method = RequestMethod.POST)
+	public ResponseEntity<?> subscribe(@RequestBody Subscribe subscribeData){
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+		Person person = (Person) authentication.getPrincipal();
+		if(person.getId() != subscribeData.idUser) {
+			return new ResponseEntity<String>("Authentication failed!", HttpStatus.BAD_REQUEST);
+		}
+		
+		boolean subscribed = culturalOfferService.subscribe(subscribeData.idOffer, subscribeData.idUser);
+		if (subscribed)
+	        return new ResponseEntity<String>("Successflly subscribed!", HttpStatus.OK);
+		else
+			return new ResponseEntity<String>("Subscription failed!", HttpStatus.BAD_REQUEST);
+	}
 
 }
