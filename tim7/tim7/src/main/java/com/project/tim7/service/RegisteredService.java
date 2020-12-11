@@ -1,5 +1,6 @@
 package com.project.tim7.service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -98,6 +99,15 @@ public class RegisteredService implements ServiceInterface<Registered> {
 			return activatedReg;
 		else
 			return null;
+	}
+
+	public List<String> findRegisteredForSubscribedCulturalOffers(int id){
+		List<String> emails = new ArrayList<>();
+		List<Registered> regs = regRepo.findRegisteredForSubscribedCulturalOffers(id);
+		for (Registered reg: regs) {
+			emails.add(reg.getEmail());
+		}
+		return emails;
 	}
 
 

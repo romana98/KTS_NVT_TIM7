@@ -1,5 +1,6 @@
 package com.project.tim7.service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +13,8 @@ import com.project.tim7.model.Newsletter;
 import com.project.tim7.model.Picture;
 import com.project.tim7.repository.NewsletterRepository;
 
+import javax.mail.MessagingException;
+
 @Service
 public class NewsletterService implements ServiceInterface<Newsletter> {
 	
@@ -23,6 +26,12 @@ public class NewsletterService implements ServiceInterface<Newsletter> {
 	
 	@Autowired
 	PictureService pictureService;
+
+	@Autowired
+	EmailService emailService;
+
+	@Autowired
+	RegisteredService regService;
 
 	@Override
 	public List<Newsletter> findAll() {
@@ -42,6 +51,13 @@ public class NewsletterService implements ServiceInterface<Newsletter> {
 	@Override
 	public boolean saveOne(Newsletter entity) {
 		newsletterRepo.save(entity);
+		List<String> emails = regService.findRegisteredForSubscribedCulturalOffers(entity.getCulturalOffer().getId());
+
+		try {
+			emailService.sendNewsletterToSubscribed(emails, entity.getCulturalOffer().getName(), entity.getName(), entity.getDescription());
+		} catch (MessagingException e) {
+			return false;
+		}
 		return true;
 	}
 

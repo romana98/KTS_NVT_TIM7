@@ -1,3 +1,4 @@
+insert into subscribed_cultural_offers (cultural_offer_id, registered_id) values (1, 1);
 insert into subscribed_cultural_offers (cultural_offer_id, registered_id) values (778, 4187);
 insert into subscribed_cultural_offers (cultural_offer_id, registered_id) values (708, 3789);
 insert into subscribed_cultural_offers (cultural_offer_id, registered_id) values (928, 1706);
