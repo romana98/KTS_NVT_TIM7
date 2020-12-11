@@ -46,7 +46,7 @@ public class CommentController {
         
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 		Person person = (Person) authentication.getPrincipal();
-		if(person.getId() != commentDTO.getId()) {
+		if(person.getId() != commentDTO.getRegisteredId()) {
 			return new ResponseEntity<Object>("Authentication failed!", HttpStatus.BAD_REQUEST);
 		}
 		

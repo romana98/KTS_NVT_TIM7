@@ -74,6 +74,10 @@ public class CommentService implements ServiceInterface<Comment> {
 
 	public int createComment(Comment entity, int registeredId, ArrayList<String> pictures, int culturalOfferId) {
 		
+		if(pictureService.checkDuplicates(pictures) == true) {
+			return -1;
+		}
+		
 		Registered registered = registeredService.findOne(registeredId);
 		if(registered == null) {
 			return -1;

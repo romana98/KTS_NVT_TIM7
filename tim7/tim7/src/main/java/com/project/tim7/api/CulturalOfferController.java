@@ -1,6 +1,7 @@
 package com.project.tim7.api;
 
 import com.project.tim7.dto.CulturalOfferDTO;
+import com.project.tim7.dto.FilterDTO;
 import com.project.tim7.dto.NewsletterDetailsDTO;
 import com.project.tim7.helper.CulturalOfferMapper;
 import com.project.tim7.helper.NewsletterMapper;
@@ -90,6 +91,14 @@ public class CulturalOfferController {
         Page<CulturalOfferDTO> culturalOfferDTOPage = new PageImpl<>(culturalOfferDTOS,page.getPageable(),page.getTotalElements());
 
         return new ResponseEntity<>(culturalOfferDTOPage, HttpStatus.OK);
+    }
+    
+    @RequestMapping(method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE, value="/filter")
+    public ResponseEntity<Page<CulturalOfferDTO>> filterCulturalOffers(@RequestBody FilterDTO filterDTO, Pageable pageable){
+    	Page<CulturalOffer> page = culturalOfferService.filter(filterDTO, pageable);
+    	List<CulturalOfferDTO> culturalOfferDTOs = culturalOfferMapper.toCulturalOfferDTOList(page.toList());
+    	Page<CulturalOfferDTO> culturalOfferDTOPage = new PageImpl<>(culturalOfferDTOs, page.getPageable(), page.getTotalElements());
+    	return new ResponseEntity<>(culturalOfferDTOPage, HttpStatus.OK);
     }
 
 
