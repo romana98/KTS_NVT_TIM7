@@ -1,9 +1,6 @@
 package com.project.tim7.service;
 
-import java.lang.reflect.Array;
-import java.sql.SQLOutput;
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -30,6 +27,9 @@ public class CulturalOfferService implements ServiceInterface<CulturalOffer> {
 
 	@Autowired
 	PictureService pictureService;
+	
+	@Autowired
+	RegisteredService registeredService;
 
 	@Override
 	public List<CulturalOffer> findAll() {
@@ -124,6 +124,16 @@ public class CulturalOfferService implements ServiceInterface<CulturalOffer> {
 
 	public long getCulturalOfferReferencingCount(int id) {
 		return culturalOfferRepo.countBySubcategoryId(id);
+	}
+	
+	public boolean subscribe(int idOffer, int idUser) {
+		CulturalOffer culturalOffer = findOne(idOffer);
+		Registered registered = registeredService.findOne(idUser);
+		if (culturalOffer.getSubscribed().contains(registered) || registered.getSubscribedCulturalOffers().contains(culturalOffer))
+			return false;
+		culturalOffer.getSubscribed().add(registered);
+		registered.getSubscribedCulturalOffers().add(culturalOffer);
+		return saveOne(culturalOffer);	
 	}
 
 

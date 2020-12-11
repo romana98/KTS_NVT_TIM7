@@ -124,6 +124,14 @@ public class NewsletterService implements ServiceInterface<Newsletter> {
 	public Page<Newsletter> findNewsletterForUser(int idRegisteredUser, Pageable pageable) {
 		return newsletterRepo.findNewsletterForUser(idRegisteredUser, pageable);
 	}
+	
+	public List<Newsletter> findNewsletterForCulturalOffer(int idCulturalOffer) {
+		return newsletterRepo.findNewsletterForCulturalOffer(idCulturalOffer);
+	}
+	
+	public Page<Newsletter> findNewsletterForCulturalOffer(int idCulturalOffer, Pageable pageable) {
+		return newsletterRepo.findNewsletterForCulturalOffer(idCulturalOffer, pageable);
+	}
 
 
 }
