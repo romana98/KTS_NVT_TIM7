@@ -91,8 +91,4 @@ public class CategoryService implements ServiceInterface<Category> {
 		
 	}
 
-	public List<Category> findByNameContaining(String value) {
-		return categoryRepo.findByNameContaining(value);
-	}
-
 }
