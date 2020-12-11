@@ -5,9 +5,11 @@ import java.util.List;
 import java.util.Set;
 
 import com.project.tim7.dto.CulturalOfferDTO;
+import com.project.tim7.dto.FilterDTO;
 import com.project.tim7.model.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
@@ -29,6 +31,9 @@ public class CulturalOfferService implements ServiceInterface<CulturalOffer> {
 	PictureService pictureService;
 	
 	@Autowired
+	CategoryService categoryService;
+
+  @Autowired
 	RegisteredService registeredService;
 
 	@Override
@@ -134,6 +139,26 @@ public class CulturalOfferService implements ServiceInterface<CulturalOffer> {
 		culturalOffer.getSubscribed().add(registered);
 		registered.getSubscribedCulturalOffers().add(culturalOffer);
 		return saveOne(culturalOffer);	
+	}
+
+	public Page<CulturalOffer> filter(FilterDTO filterDTO, Pageable pageable) {
+		
+		if(filterDTO.getValue().equals("")) {
+			return findAll(pageable);
+		}else if(filterDTO.getParameter().equals("category")) {
+			return culturalOfferRepo.filterByCategory(filterDTO.getValue(), pageable);
+		}else if(filterDTO.getParameter().equals("subcategory")) {
+			return culturalOfferRepo.filterBySubcategory(filterDTO.getValue(), pageable);
+		}else if(filterDTO.getParameter().equals("location")) {
+			//TODO vuki tvoje :)
+		}else if(filterDTO.getParameter().equals("name")) {
+			//TODO vuki tvoje :)
+		}else { //parameter input is empty, search by all
+			return culturalOfferRepo.filterByAll(filterDTO.getValue(), pageable);
+		}
+		return null;
+		
+		
 	}
 
 

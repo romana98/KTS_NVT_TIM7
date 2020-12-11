@@ -1,6 +1,9 @@
 package com.project.tim7.api;
 
 import com.project.tim7.dto.CulturalOfferDTO;
+import com.project.tim7.dto.FilterDTO;
+import com.project.tim7.dto.NewsletterDetailsDTO;
+
 import com.project.tim7.helper.CulturalOfferMapper;
 import com.project.tim7.model.*;
 import com.project.tim7.service.CulturalOfferService;
@@ -90,6 +93,14 @@ public class CulturalOfferController {
         return new ResponseEntity<>(culturalOfferDTOPage, HttpStatus.OK);
     }
     
+    @RequestMapping(method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE, value="/filter")
+    public ResponseEntity<Page<CulturalOfferDTO>> filterCulturalOffers(@RequestBody FilterDTO filterDTO, Pageable pageable){
+    	Page<CulturalOffer> page = culturalOfferService.filter(filterDTO, pageable);
+    	List<CulturalOfferDTO> culturalOfferDTOs = culturalOfferMapper.toCulturalOfferDTOList(page.toList());
+    	Page<CulturalOfferDTO> culturalOfferDTOPage = new PageImpl<>(culturalOfferDTOs, page.getPageable(), page.getTotalElements());
+    	return new ResponseEntity<>(culturalOfferDTOPage, HttpStatus.OK);
+    }
+
     static class Subscribe {
     	public int idOffer;
     	public int idUser;
@@ -110,7 +121,5 @@ public class CulturalOfferController {
 		else
 			return new ResponseEntity<String>("Subscription failed!", HttpStatus.BAD_REQUEST);
 	}
-
-
 
 }

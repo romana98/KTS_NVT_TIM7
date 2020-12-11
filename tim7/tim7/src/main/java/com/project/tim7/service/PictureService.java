@@ -88,4 +88,17 @@ public class PictureService implements ServiceInterface<Picture> {
 		return commentPictures;
 	}
 
+	public boolean checkDuplicates(ArrayList<String> pictures) {
+		
+		for(int i = 0; i < pictures.size()-1; i++) {
+			for(int j = i+1; j < pictures.size(); j++) {
+				if(pictures.get(i).equals(pictures.get(j))) {
+					return true;
+				}
+			}
+		}
+		
+		return false;
+	}
+
 }
