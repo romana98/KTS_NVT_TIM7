@@ -109,7 +109,7 @@ public class NewsletterController {
 		
 		List<Newsletter> newsletters = newsletterService.findNewsletterForUser(idUser);
 		
-        return new ResponseEntity<List<NewsletterDTO>>(toNewsletterDTOList(newsletters), HttpStatus.OK);
+        return new ResponseEntity<List<NewsletterDetailsDTO>>(toNewsletterDetailsDTOList(newsletters), HttpStatus.OK);
 	}
     
 	@PreAuthorize("hasRole('ROLE_REGISTERED')")
@@ -122,11 +122,27 @@ public class NewsletterController {
 		}
 		
         Page<Newsletter> page = newsletterService.findNewsletterForUser(idUser, pageable);
+        List<NewsletterDetailsDTO> dtos = toNewsletterDetailsDTOList(page.toList());
+        Page<NewsletterDetailsDTO> pageNewsletterDTOS = new PageImpl<>(dtos,page.getPageable(),page.getTotalElements());
+
+        return new ResponseEntity<Page<NewsletterDetailsDTO>>(pageNewsletterDTOS, HttpStatus.OK);
+    }
+	
+    @RequestMapping(value= "/cultural-offer/{id-offer}", method = RequestMethod.GET)
+	public ResponseEntity<?> findNewsletterForCulturalOffer(@PathVariable("id-offer") int idOffer){
+		List<Newsletter> newsletters = newsletterService.findNewsletterForCulturalOffer(idOffer);
+		
+        return new ResponseEntity<List<NewsletterDTO>>(toNewsletterDTOList(newsletters), HttpStatus.OK);
+	}
+    
+    @RequestMapping(value= "/cultural-offer/{id-offer}/by-page", method = RequestMethod.GET)
+	public ResponseEntity<?> findNewsletterForCulturalOffer(@PathVariable("id-offer") int idOffer, Pageable pageable){
+		Page<Newsletter> page = newsletterService.findNewsletterForCulturalOffer(idOffer, pageable);
         List<NewsletterDTO> dtos = toNewsletterDTOList(page.toList());
         Page<NewsletterDTO> pageNewsletterDTOS = new PageImpl<>(dtos,page.getPageable(),page.getTotalElements());
 
         return new ResponseEntity<Page<NewsletterDTO>>(pageNewsletterDTOS, HttpStatus.OK);
-    }
+	}
 	
 	@PreAuthorize("hasRole('ROLE_ADMINISTRATOR') || hasRole('ROLE_REGISTERED')")
     @RequestMapping(value= "/{id}",method = RequestMethod.GET)
@@ -144,6 +160,15 @@ public class NewsletterController {
 		ArrayList<NewsletterDTO> dtos = new ArrayList<NewsletterDTO>();
 		for(Newsletter newsletter : newsletters) {
 			NewsletterDTO dto = newsletterMapper.toNewsletterDto(newsletter);
+			dtos.add(dto);
+		}
+		return dtos;
+	}
+	
+	private List<NewsletterDetailsDTO> toNewsletterDetailsDTOList(List<Newsletter> newsletters) {
+		ArrayList<NewsletterDetailsDTO> dtos = new ArrayList<NewsletterDetailsDTO>();
+		for(Newsletter newsletter : newsletters) {
+			NewsletterDetailsDTO dto = newsletterMapper.toNewsletterDetailsDto(newsletter);
 			dtos.add(dto);
 		}
 		return dtos;

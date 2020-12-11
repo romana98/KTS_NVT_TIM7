@@ -8,9 +8,8 @@ import com.project.tim7.repository.RegisteredRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.mail.MailException;
 import org.springframework.stereotype.Service;
-
-import javax.jws.Oneway;
 
 @Service
 public class RegisteredService implements ServiceInterface<Registered> {
@@ -20,6 +19,9 @@ public class RegisteredService implements ServiceInterface<Registered> {
 
 	@Autowired
 	AdministratorService adminService;
+	
+	@Autowired
+	EmailService emailService;
 
 	@Override
 	public List findAll() {
@@ -75,7 +77,6 @@ public class RegisteredService implements ServiceInterface<Registered> {
 			return null;
 
 		return regRepo.save(entity);
-
 	}
 
 	public long countByEmailOrUsername(String email, String username){
@@ -98,6 +99,18 @@ public class RegisteredService implements ServiceInterface<Registered> {
 			return activatedReg;
 		else
 			return null;
+	}
+	
+	public Registered addUser(Registered existReg) {
+		Registered newReg = save(existReg);
+        try {
+			emailService.sendVerificationMail(newReg.getEmail(), newReg.getId());
+		} catch (MailException e) {
+			e.printStackTrace();
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+        return newReg;
 	}
 
 
