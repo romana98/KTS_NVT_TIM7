@@ -27,5 +27,8 @@ public interface CulturalOfferRepository extends JpaRepository<CulturalOffer, In
 
 	@Query(value = "SELECT * from cultural_offers where upper(name) LIKE upper(CONCAT('%', :value, '%')) or location_id in (SELECT id from locations where name LIKE upper(CONCAT('%', :value, '%'))) or subcategory_id in (SELECT id from subcategories where upper(name) LIKE upper(CONCAT('%', :value, '%'))) or subcategory_id in (SELECT id from subcategories where category_id in (SELECT id from categories where upper(name) like upper(CONCAT('%', :value, '%'))))", nativeQuery = true)
     Page<CulturalOffer> filterByAll(String value, Pageable pageable);
+	
+	@Query("SELECT COUNT(co.id) FROM CulturalOffer co JOIN co.subscribed s WHERE co.id = ?1 AND s.id = ?2")
+	Long checkIfsubscriptionExists(int idOffer, int idUser);
 
 }

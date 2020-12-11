@@ -134,7 +134,7 @@ public class CulturalOfferService implements ServiceInterface<CulturalOffer> {
 	public boolean subscribe(int idOffer, int idUser) {
 		CulturalOffer culturalOffer = findOne(idOffer);
 		Registered registered = registeredService.findOne(idUser);
-		if (culturalOffer.getSubscribed().contains(registered) || registered.getSubscribedCulturalOffers().contains(culturalOffer))
+		if (culturalOfferRepo.checkIfsubscriptionExists(idOffer, idUser) != 0)
 			return false;
 		culturalOffer.getSubscribed().add(registered);
 		registered.getSubscribedCulturalOffers().add(culturalOffer);

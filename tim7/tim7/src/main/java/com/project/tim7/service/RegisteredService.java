@@ -108,8 +108,6 @@ public class RegisteredService implements ServiceInterface<Registered> {
 			emailService.sendVerificationMail(newReg.getEmail(), newReg.getId());
 		} catch (MailException e) {
 			e.printStackTrace();
-		} catch (InterruptedException e) {
-			e.printStackTrace();
 		}
         return newReg;
 	}
