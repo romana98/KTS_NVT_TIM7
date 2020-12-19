@@ -15,7 +15,6 @@ import org.hibernate.annotations.OnDeleteAction;
 
 @Entity
 @Table(name = "registered")
-@OnDelete(action = OnDeleteAction.CASCADE)
 public class Registered extends Person {
 	
 	@ManyToMany(mappedBy = "subscribed",cascade = CascadeType.MERGE)

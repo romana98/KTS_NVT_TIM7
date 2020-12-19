@@ -9,7 +9,6 @@ import java.util.List;
 
 @Entity
 @Table(name = "administrators")
-@OnDelete(action = OnDeleteAction.CASCADE)
 public class Administrator extends Person {
 
     public Administrator(){}
