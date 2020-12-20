@@ -24,7 +24,6 @@ public class NewsletterDetailsDTO {
 	@NotNull
 	private int culturalOfferId;
 	
-	@Pattern(regexp="([^\\s]+(\\.(?i)(jpe?g|png|gif|bmp))$)")
 	private String picture;
 
 	public NewsletterDetailsDTO(int id, @NotBlank String name, String description, @NotBlank @PastOrPresent Date publishedDate,

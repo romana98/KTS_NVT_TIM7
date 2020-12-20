@@ -1,6 +1,5 @@
 package com.project.tim7.service;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -47,34 +46,24 @@ public class NewsletterService implements ServiceInterface<Newsletter> {
 	public Newsletter findOne(int id) {
 		return newsletterRepo.findById(id).orElse(null);
 	}
-
-	@Override
-	public boolean saveOne(Newsletter entity) {
-		newsletterRepo.save(entity);
+	
+	public Newsletter saveNewsletter(Newsletter entity) {
+		Newsletter newsletter = newsletterRepo.save(entity);
 		List<String> emails = regService.findRegisteredForSubscribedCulturalOffers(entity.getCulturalOffer().getId());
 
 		try {
 			emailService.sendNewsletterToSubscribed(emails, entity.getCulturalOffer().getName(), entity.getName(), entity.getDescription());
 		} catch (MessagingException e) {
-			return false;
+			return null;
 		}
-		return true;
+		return newsletter;
+
 	}
 
-	@Override
-	public boolean saveAll(List<Newsletter> entities) {
-		return false;
-	}
-	
-	@Override
-	public Newsletter update(Newsletter entity) {
-		return null;
-	}
-
-	public boolean updateNewsletter(Newsletter entity, String pictureStr) {
+	public Newsletter update(Newsletter entity, String pictureStr) {
 		Newsletter newsletter = findOne(entity.getId());
 		if(newsletter == null) {
-			return false;
+			return null;
 		}
 		newsletter.setName(entity.getName());
 		newsletter.setDescription(entity.getDescription());
@@ -82,8 +71,7 @@ public class NewsletterService implements ServiceInterface<Newsletter> {
 		if (updatedPicture == null) 
 			updatedPicture = pictureService.update(new Picture(pictureStr));
 		newsletter.setPicture(updatedPicture);
-		saveOne(newsletter);
-		return true;
+		return saveNewsletter(newsletter);
 	}
 
 	@Override
@@ -101,10 +89,10 @@ public class NewsletterService implements ServiceInterface<Newsletter> {
 		return true;
 	}
 	
-	public boolean saveNewsletter(Newsletter entity, int culturalOfferId, String pictureStr) {
+	public Newsletter save(Newsletter entity, int culturalOfferId, String pictureStr) {
 		CulturalOffer culturalOffer = culturalOfferService.findOne(culturalOfferId);
 		if (culturalOffer == null) 
-			return false;
+			return null;
 		entity.setCulturalOffer(culturalOffer);
 		
 		Picture picture = pictureService.findByPicture(pictureStr);
@@ -113,8 +101,7 @@ public class NewsletterService implements ServiceInterface<Newsletter> {
 		entity.setPicture(picture);
 		
 		entity.setId(0);
-		saveOne(entity);
-		return true;
+		return saveNewsletter(entity);
 	}
 	
 	public List<Newsletter> findNewsletterForUser(int idRegisteredUser) {
@@ -131,6 +118,49 @@ public class NewsletterService implements ServiceInterface<Newsletter> {
 	
 	public Page<Newsletter> findNewsletterForCulturalOffer(int idCulturalOffer, Pageable pageable) {
 		return newsletterRepo.findNewsletterForCulturalOffer(idCulturalOffer, pageable);
+	}
+	
+	
+	//moze se brisati
+	@Override
+	public boolean saveOne(Newsletter entity) {
+		newsletterRepo.save(entity);
+		List<String> emails = regService.findRegisteredForSubscribedCulturalOffers(entity.getCulturalOffer().getId());
+
+		try {
+			emailService.sendNewsletterToSubscribed(emails, entity.getCulturalOffer().getName(), entity.getName(), entity.getDescription());
+		} catch (MessagingException e) {
+			return false;
+		}
+		return true;
+	}
+	
+	//moze se brisati
+	@Override
+	public boolean saveAll(List<Newsletter> entities) {
+		return false;
+	}
+	
+	//moze se brisati
+	@Override
+	public Newsletter update(Newsletter entity) {
+		return null;
+	}
+
+	//moze se brisati
+	public boolean updateNewsletter(Newsletter entity, String pictureStr) {
+		Newsletter newsletter = findOne(entity.getId());
+		if(newsletter == null) {
+			return false;
+		}
+		newsletter.setName(entity.getName());
+		newsletter.setDescription(entity.getDescription());
+		Picture updatedPicture = pictureService.findByPicture(pictureStr);
+		if (updatedPicture == null) 
+			updatedPicture = pictureService.update(new Picture(pictureStr));
+		newsletter.setPicture(updatedPicture);
+		saveOne(newsletter);
+		return true;
 	}
 
 

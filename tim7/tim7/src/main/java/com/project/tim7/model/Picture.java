@@ -47,4 +47,12 @@ public class Picture {
 				"picture='" + picture + '\'' +
 				'}';
 	}
+
+	public Picture(int id, String picture) {
+		super();
+		this.id = id;
+		this.picture = picture;
+	}
+	
+	
 }

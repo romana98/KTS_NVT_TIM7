@@ -45,15 +45,15 @@ public class NewsletterController {
 
 	@PreAuthorize("hasRole('ROLE_ADMINISTRATOR')")
     @RequestMapping(method= RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<String> createNewsletter(@Valid @RequestBody NewsletterDetailsDTO newsletterDTO){
+    public ResponseEntity<NewsletterDetailsDTO> createNewsletter(@Valid @RequestBody NewsletterDetailsDTO newsletterDTO){
     	
     	Newsletter newNewsletter = newsletterMapper.toEntity(newsletterDTO);
-        boolean saved = newsletterService.saveNewsletter(newNewsletter, newsletterDTO.getCulturalOfferId(), newsletterDTO.getPicture());
+        Newsletter saved = newsletterService.save(newNewsletter, newsletterDTO.getCulturalOfferId(), newsletterDTO.getPicture());
 
-        if(!saved){
-            return new ResponseEntity<>("Cultural offer does not exist.",HttpStatus.BAD_REQUEST);
+        if(saved==null){
+            return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
         }
-        return new ResponseEntity<>("Successfully added newsletter.", HttpStatus.CREATED);
+        return new ResponseEntity<>(newsletterMapper.toNewsletterDetailsDto(saved), HttpStatus.CREATED);
     }
     
 	@PreAuthorize("hasRole('ROLE_ADMINISTRATOR')")
