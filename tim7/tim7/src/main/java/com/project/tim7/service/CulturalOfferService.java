@@ -142,24 +142,20 @@ public class CulturalOfferService implements ServiceInterface<CulturalOffer> {
 	}
 
 	public Page<CulturalOffer> filter(FilterDTO filterDTO, Pageable pageable) {
-		
-		if(filterDTO.getValue().equals("")) {
-			return findAll(pageable);
-		}else if(filterDTO.getParameter().equals("category")) {
-			return culturalOfferRepo.filterByCategory(filterDTO.getValue(), pageable);
-		}else if(filterDTO.getParameter().equals("subcategory")) {
-			return culturalOfferRepo.filterBySubcategory(filterDTO.getValue(), pageable);
-		}else if(filterDTO.getParameter().equals("location")) {
-			//TODO vuki tvoje :)
-		}else if(filterDTO.getParameter().equals("name")) {
-			//TODO vuki tvoje :)
-		}else { //parameter input is empty, search by all
-			return culturalOfferRepo.filterByAll(filterDTO.getValue(), pageable);
+
+		if(filterDTO.getValue().equals("")) { return findAll(pageable);}
+
+		switch (filterDTO.getParameter()){
+			case "category":
+				return culturalOfferRepo.filterByCategory(filterDTO.getValue(), pageable);
+			case "subcategory" :
+				return culturalOfferRepo.filterBySubcategory(filterDTO.getValue(), pageable);
+			case "location" :
+				return culturalOfferRepo.filterByLocation(filterDTO.getValue(), pageable);
+			case "name" :
+				return culturalOfferRepo.filterByName(filterDTO.getValue(), pageable);
+			default:
+				return culturalOfferRepo.filterByAll(filterDTO.getValue(), pageable);
 		}
-		return null;
-		
-		
 	}
-
-
 }
