@@ -82,7 +82,7 @@ public class NewsletterController {
 	@PreAuthorize("hasRole('ROLE_ADMINISTRATOR')")
     @RequestMapping(value= "/{id}",method = RequestMethod.DELETE)
    	public ResponseEntity<String> deleteNewsletter(@PathVariable("id") int id){
-    	if (newsletterService.delete(id) == true)
+    	if (newsletterService.delete(id))
             return new ResponseEntity<>("Successfully deleted.", HttpStatus.OK);
     	else
             return new ResponseEntity<>("Deleting failed.", HttpStatus.BAD_REQUEST);

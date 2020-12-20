@@ -52,6 +52,17 @@ public class CommentService implements ServiceInterface<Comment> {
 	}
 
 	@Override
+	public Comment saveOne(Comment entity) {
+		return null;
+	}
+
+	@Override
+	public Comment saveAll(List<Comment> entities) {
+		return null;
+	}
+
+	/*
+	@Override
 	public boolean saveOne(Comment entity) {
 		commentRepo.save(entity);
 		return true;
@@ -61,7 +72,7 @@ public class CommentService implements ServiceInterface<Comment> {
 	public boolean saveAll(List<Comment> entities) {
 		return false;
 	}
-
+*/
 	@Override
 	public boolean delete(int id) {
 		return false;

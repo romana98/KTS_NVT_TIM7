@@ -13,9 +13,9 @@ public interface ServiceInterface<T> {
 	
 	T findOne(int id);
 	
-	boolean saveOne(T entity);
+	T saveOne(T entity);
 	
-	boolean saveAll(List<T> entities);
+	T saveAll(List<T> entities);
 	
 	boolean delete(int id);
 

@@ -30,10 +30,23 @@ public class CategoryService implements ServiceInterface<Category> {
 	}
 
 	@Override
+	public Category saveOne(Category entity) {
+		return null;
+	}
+
+	@Override
+	public Category saveAll(List<Category> entities) {
+		return null;
+	}
+
+	@Override
 	public Page<Category> findAll(Pageable pageable) {
 		return categoryRepo.findAll(pageable);
 	}
 
+
+
+	/*
 	@Override
 	public boolean saveOne(Category entity) {
 	
@@ -41,7 +54,7 @@ public class CategoryService implements ServiceInterface<Category> {
 		return true;
 		
 	}
-	
+	*/
 	public Category createCategory(Category entity) {
 		
 		Category category = categoryRepo.findByName(entity.getName());
@@ -53,13 +66,13 @@ public class CategoryService implements ServiceInterface<Category> {
 		}
 		
 	}
-
+/*
 	@Override
 	public boolean saveAll(List<Category> entities) {
 		// TODO Auto-generated method stub
 		return false;
 	}
-
+*/
 	@Override
 	public boolean delete(int id) {
 		Category category = findOne(id);

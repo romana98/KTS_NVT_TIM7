@@ -41,19 +41,29 @@ public class RegisteredService implements ServiceInterface<Registered> {
 	}
 
 	@Override
-	public boolean saveOne(Registered entity) {
-		return false;
+	public Registered saveOne(Registered entity) {
+		return null;
 	}
 
 	@Override
-	public boolean saveAll(List<Registered> entities) {
-		return false;
+	public Registered saveAll(List<Registered> entities) {
+		return null;
 	}
+	/*
+        @Override
+        public boolean saveOne(Registered entity) {
+            return false;
+        }
 
-	@Override
-	public boolean delete(int id) {
-		return false;
-	}
+        @Override
+        public boolean saveAll(List<Registered> entities) {
+            return false;
+        }
+*/
+        @Override
+        public boolean delete(int id) {
+            return false;
+        }
 
 	@Override
 	public Registered update(Registered entity) {

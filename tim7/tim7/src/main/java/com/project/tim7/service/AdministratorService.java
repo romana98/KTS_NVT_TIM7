@@ -36,6 +36,17 @@ public class AdministratorService implements ServiceInterface<Administrator> {
 	}
 
 	@Override
+	public Administrator saveOne(Administrator entity) {
+		return null;
+	}
+
+	@Override
+	public Administrator saveAll(List<Administrator> entities) {
+		return null;
+	}
+
+	/*
+	@Override
 	public boolean saveOne(Administrator entity) {
 		if(countByEmailOrUsername(entity.getEmail(), entity.getUsername()) != 0 ||
 		  regService.countByEmailOrUsername(entity.getEmail(), entity.getUsername())!= 0)
@@ -49,6 +60,7 @@ public class AdministratorService implements ServiceInterface<Administrator> {
 	public boolean saveAll(List<Administrator> entities) {
 		return false;
 	}
+	*/
 
 	@Override
 	public boolean delete(int id) {

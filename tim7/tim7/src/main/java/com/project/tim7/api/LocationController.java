@@ -31,9 +31,9 @@ public class LocationController {
     @RequestMapping(method= RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<String> createLocation(@Valid @RequestBody LocationDTO location){
         System.out.println(location);
-        boolean saved = locationService.saveOne(locationMapper.toEntity(location));
+        Location saved = locationService.saveOne(locationMapper.toEntity(location));
 
-        if(!saved){
+        if(saved == null){
             return new ResponseEntity<>("Location can't be added.", HttpStatus.BAD_REQUEST);
         }
         return new ResponseEntity<>("Successfully added location.", HttpStatus.CREATED);

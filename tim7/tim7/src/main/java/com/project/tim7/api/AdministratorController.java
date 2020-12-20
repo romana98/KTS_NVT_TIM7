@@ -48,7 +48,7 @@ public class AdministratorController {
 
         adminDTO.setPassword(passwordEncoder.encode(adminDTO.getPassword()));
 
-        if(!adminService.saveOne(adminMapper.toEntity(adminDTO))){
+        if(adminService.saveOne(adminMapper.toEntity(adminDTO)) == null){
             return new ResponseEntity<>("Username or email already exists.",HttpStatus.BAD_REQUEST);
         }
         return new ResponseEntity<>("Administrator created.", HttpStatus.CREATED);

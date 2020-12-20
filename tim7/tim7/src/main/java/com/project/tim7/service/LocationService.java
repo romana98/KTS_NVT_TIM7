@@ -32,24 +32,35 @@ public class LocationService implements ServiceInterface<Location> {
 	}
 
 	@Override
-	public boolean saveOne(Location entity) {
-		int count = locationRepository.findByLatitudeAndLongitude(entity.getLatitude(),entity.getLongitude()).size();
-		if(count == 0){
-			locationRepository.save(entity);
-			return true;
-		}
-		return false;
+	public Location saveOne(Location entity) {
+		return null;
 	}
 
 	@Override
-	public boolean saveAll(List<Location> entities) {
-		return false;
+	public Location saveAll(List<Location> entities) {
+		return null;
 	}
 
-	@Override
-	public boolean delete(int id) {
-		return false;
-	}
+	/*
+        @Override
+        public boolean saveOne(Location entity) {
+            int count = locationRepository.findByLatitudeAndLongitude(entity.getLatitude(),entity.getLongitude()).size();
+            if(count == 0){
+                locationRepository.save(entity);
+                return true;
+            }
+            return false;
+        }
+
+        @Override
+        public boolean saveAll(List<Location> entities) {
+            return false;
+        }
+*/
+        @Override
+        public boolean delete(int id) {
+            return false;
+        }
 
 	@Override
 	public Location update(Location entity) {

@@ -41,20 +41,30 @@ public class RatingService implements ServiceInterface<Rating> {
 	}
 
 	@Override
-	public boolean saveOne(Rating entity) {
-		ratingRepository.save(entity);
-		return true;
+	public Rating saveOne(Rating entity) {
+		return null;
 	}
 
 	@Override
-	public boolean saveAll(List<Rating> entities) {
-		return false;
+	public Rating saveAll(List<Rating> entities) {
+		return null;
 	}
+	/*
+        @Override
+        public boolean saveOne(Rating entity) {
+            ratingRepository.save(entity);
+            return true;
+        }
 
-	@Override
-	public boolean delete(int id) {
-		return false;
-	}
+        @Override
+        public boolean saveAll(List<Rating> entities) {
+            return false;
+        }
+*/
+        @Override
+        public boolean delete(int id) {
+            return false;
+        }
 
 	@Override
 	public Rating update(Rating entity) {

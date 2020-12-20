@@ -30,25 +30,36 @@ public class PictureService implements ServiceInterface<Picture> {
 	}
 
 	@Override
-	public boolean saveOne(Picture entity) {
-		if (findByPicture(entity.getPicture()) != null)
-			return false;
-		pictureRepo.save(entity);
-		return true;
+	public Picture saveOne(Picture entity) {
+		return null;
 	}
 
 	@Override
-	public boolean saveAll(List<Picture> entities) {
-		return false;
+	public Picture saveAll(List<Picture> entities) {
+		return null;
 	}
 
-	@Override
-	public boolean delete(int id) {
-		Picture picture = findOne(id);
-		pictureRepo.delete(picture);
-		return true;
-	}
-	
+	/*
+        @Override
+        public boolean saveOne(Picture entity) {
+            if (findByPicture(entity.getPicture()) != null)
+                return false;
+            pictureRepo.save(entity);
+            return true;
+        }
+
+        @Override
+        public boolean saveAll(List<Picture> entities) {
+            return false;
+        }
+*/
+        @Override
+        public boolean delete(int id) {
+            Picture picture = findOne(id);
+            pictureRepo.delete(picture);
+            return true;
+        }
+
 	public Picture findByPicture(String pictureStr) {
 		return pictureRepo.findByPicture(pictureStr);
 	}

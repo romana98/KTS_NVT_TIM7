@@ -115,8 +115,8 @@ public class CulturalOfferController {
 			return new ResponseEntity<String>("Authentication failed!", HttpStatus.BAD_REQUEST);
 		}
 		
-		boolean subscribed = culturalOfferService.subscribe(subscribeData.idOffer, subscribeData.idUser);
-		if (subscribed)
+		CulturalOffer subscribed = culturalOfferService.subscribe(subscribeData.idOffer, subscribeData.idUser);
+		if (subscribed != null)
 	        return new ResponseEntity<String>("Successflly subscribed!", HttpStatus.OK);
 		else
 			return new ResponseEntity<String>("Subscription failed!", HttpStatus.BAD_REQUEST);

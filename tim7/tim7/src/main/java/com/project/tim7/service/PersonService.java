@@ -27,13 +27,13 @@ public class PersonService implements ServiceInterface<Person> {
 	}
 
 	@Override
-	public boolean saveOne(Person entity) {
-		return false;
+	public Person saveOne(Person entity) {
+		return null;
 	}
 
 	@Override
-	public boolean saveAll(List<Person> entities) {
-		return false;
+	public Person saveAll(List<Person> entities) {
+		return null;
 	}
 
 	@Override

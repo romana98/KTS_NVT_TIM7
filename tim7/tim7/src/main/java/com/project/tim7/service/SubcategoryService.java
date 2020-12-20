@@ -36,10 +36,26 @@ public class SubcategoryService implements ServiceInterface<Subcategory> {
 	}
 
 	@Override
+	public Subcategory saveOne(Subcategory entity) {
+		return null;
+	}
+
+	@Override
+	public Subcategory saveAll(List<Subcategory> entities) {
+		return null;
+	}
+
+	@Override
+	public boolean delete(int id) {
+		return false;
+	}
+
+	@Override
 	public Page<Subcategory> findAll(Pageable pageable) {
 		return subcategoryRepo.findAll(pageable);
 	}
 
+/*
 	@Override
 	public boolean saveOne(Subcategory entity) {
 		
@@ -67,7 +83,7 @@ public class SubcategoryService implements ServiceInterface<Subcategory> {
 		return true;
 		
 	}
-
+*/
 	@Override
 	public Subcategory update(Subcategory entity) {
 		

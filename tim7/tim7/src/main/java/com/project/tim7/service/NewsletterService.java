@@ -46,7 +46,17 @@ public class NewsletterService implements ServiceInterface<Newsletter> {
 	public Newsletter findOne(int id) {
 		return newsletterRepo.findById(id).orElse(null);
 	}
-	
+
+	@Override
+	public Newsletter saveOne(Newsletter entity) {
+		return null;
+	}
+
+	@Override
+	public Newsletter saveAll(List<Newsletter> entities) {
+		return null;
+	}
+
 	public Newsletter saveNewsletter(Newsletter entity) {
 		Newsletter newsletter = newsletterRepo.save(entity);
 		List<String> emails = regService.findRegisteredForSubscribedCulturalOffers(entity.getCulturalOffer().getId());
@@ -88,7 +98,7 @@ public class NewsletterService implements ServiceInterface<Newsletter> {
 		}
 		return true;
 	}
-	
+
 	public Newsletter save(Newsletter entity, int culturalOfferId, String pictureStr) {
 		CulturalOffer culturalOffer = culturalOfferService.findOne(culturalOfferId);
 		if (culturalOffer == null) 
@@ -103,7 +113,7 @@ public class NewsletterService implements ServiceInterface<Newsletter> {
 		entity.setId(0);
 		return saveNewsletter(entity);
 	}
-	
+
 	public List<Newsletter> findNewsletterForUser(int idRegisteredUser) {
 		return newsletterRepo.findNewsletterForUser(idRegisteredUser);
 	}
@@ -120,7 +130,7 @@ public class NewsletterService implements ServiceInterface<Newsletter> {
 		return newsletterRepo.findNewsletterForCulturalOffer(idCulturalOffer, pageable);
 	}
 	
-	
+	/*
 	//moze se brisati
 	@Override
 	public boolean saveOne(Newsletter entity) {
@@ -140,7 +150,7 @@ public class NewsletterService implements ServiceInterface<Newsletter> {
 	public boolean saveAll(List<Newsletter> entities) {
 		return false;
 	}
-	
+	*/
 	//moze se brisati
 	@Override
 	public Newsletter update(Newsletter entity) {

@@ -53,14 +53,25 @@ public class CulturalOfferService implements ServiceInterface<CulturalOffer> {
 	}
 
 	@Override
-	public boolean saveOne(CulturalOffer entity) {
-		if(entity.getLocation() == null || entity.getSubcategory() == null){
-			return false;
-		}
-		culturalOfferRepo.save(entity);
-		return true;
+	public CulturalOffer saveOne(CulturalOffer entity) {
+		return null;
 	}
 
+	@Override
+	public CulturalOffer saveAll(List<CulturalOffer> entities) {
+		return null;
+	}
+
+	/*
+        @Override
+        public boolean saveOne(CulturalOffer entity) {
+            if(entity.getLocation() == null || entity.getSubcategory() == null){
+                return false;
+            }
+            culturalOfferRepo.save(entity);
+            return true;
+        }
+    */
 	public boolean saveOne(CulturalOffer entity, int locationId, int subcategoryId, ArrayList<String> pictures) {
 
 		if(culturalOfferRepo.findByName(entity.getName()) != null){
@@ -83,13 +94,13 @@ public class CulturalOfferService implements ServiceInterface<CulturalOffer> {
 		culturalOfferRepo.save(entity);
 		return true;
 	}
-
+/*
 	@Override
 	public boolean saveAll(List<CulturalOffer> entities) {
 		// TODO Auto-generated method stub
 		return false;
 	}
-
+*/
 	@Override
 	public boolean delete(int id) {
 		CulturalOffer culturalOffer = findOne(id);
@@ -130,12 +141,12 @@ public class CulturalOfferService implements ServiceInterface<CulturalOffer> {
 	public long getCulturalOfferReferencingCount(int id) {
 		return culturalOfferRepo.countBySubcategoryId(id);
 	}
-	
-	public boolean subscribe(int idOffer, int idUser) {
+
+	public CulturalOffer subscribe(int idOffer, int idUser) {
 		CulturalOffer culturalOffer = findOne(idOffer);
 		Registered registered = registeredService.findOne(idUser);
 		if (culturalOfferRepo.checkIfsubscriptionExists(idOffer, idUser) != 0)
-			return false;
+			return null;
 		culturalOffer.getSubscribed().add(registered);
 		registered.getSubscribedCulturalOffers().add(culturalOffer);
 		return saveOne(culturalOffer);	
