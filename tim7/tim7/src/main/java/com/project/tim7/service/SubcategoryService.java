@@ -41,11 +41,6 @@ public class SubcategoryService implements ServiceInterface<Subcategory> {
 	}
 
 	@Override
-	public Subcategory saveAll(List<Subcategory> entities) {
-		return null;
-	}
-
-	@Override
 	public boolean delete(int id) {
 		return false;
 	}

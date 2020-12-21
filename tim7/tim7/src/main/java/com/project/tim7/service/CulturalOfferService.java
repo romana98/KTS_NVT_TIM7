@@ -57,11 +57,6 @@ public class CulturalOfferService implements ServiceInterface<CulturalOffer> {
 		return null;
 	}
 
-	@Override
-	public CulturalOffer saveAll(List<CulturalOffer> entities) {
-		return null;
-	}
-
 	/*
         @Override
         public boolean saveOne(CulturalOffer entity) {

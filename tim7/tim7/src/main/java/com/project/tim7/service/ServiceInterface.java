@@ -15,8 +15,6 @@ public interface ServiceInterface<T> {
 	
 	T saveOne(T entity);
 	
-	T saveAll(List<T> entities);
-	
 	boolean delete(int id);
 
 	T update(T entity);

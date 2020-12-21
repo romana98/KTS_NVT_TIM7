@@ -35,11 +35,6 @@ public class CategoryService implements ServiceInterface<Category> {
 	}
 
 	@Override
-	public Category saveAll(List<Category> entities) {
-		return null;
-	}
-
-	@Override
 	public Page<Category> findAll(Pageable pageable) {
 		return categoryRepo.findAll(pageable);
 	}
@@ -66,13 +61,7 @@ public class CategoryService implements ServiceInterface<Category> {
 		}
 		
 	}
-/*
-	@Override
-	public boolean saveAll(List<Category> entities) {
-		// TODO Auto-generated method stub
-		return false;
-	}
-*/
+
 	@Override
 	public boolean delete(int id) {
 		Category category = findOne(id);

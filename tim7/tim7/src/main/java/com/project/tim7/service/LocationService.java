@@ -36,11 +36,6 @@ public class LocationService implements ServiceInterface<Location> {
 		return null;
 	}
 
-	@Override
-	public Location saveAll(List<Location> entities) {
-		return null;
-	}
-
 	/*
         @Override
         public boolean saveOne(Location entity) {
