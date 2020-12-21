@@ -28,8 +28,12 @@ public class Registered extends Person {
 	}
 
     public Registered(int id, String email, String username, String password) {
-    	super(id, email, username, password);
+		super(id, email, username, password);
     }
+
+	public Registered(String email, String username, String password) {
+		super(email, username, password);
+	}
 
     public Registered(int registeredId) {
 		super(registeredId);

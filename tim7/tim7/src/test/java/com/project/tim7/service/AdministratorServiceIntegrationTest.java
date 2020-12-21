@@ -8,10 +8,9 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
-import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.TestPropertySource;
+import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.context.junit4.SpringRunner;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -25,9 +24,6 @@ public class AdministratorServiceIntegrationTest {
 
     @Autowired
     AdministratorService administratorService;
-
-    @Autowired
-    AdministratorService adminService;
 
     @Test
     public void testFindAll() {
@@ -68,7 +64,7 @@ public class AdministratorServiceIntegrationTest {
 
     @Test
     public void testSaveOne() {
-        Administrator admin = new Administrator(ADMIN_ID, NEW_EMAIL, NEW_USERNAME, NEW_PASSWORD);
+        Administrator admin = new Administrator(NEW_EMAIL, NEW_USERNAME, NEW_PASSWORD);
         Administrator saved = administratorService.saveOne(admin);
 
         assertEquals(NEW_EMAIL, saved.getEmail());
@@ -76,13 +72,13 @@ public class AdministratorServiceIntegrationTest {
         assertEquals(NEW_PASSWORD, saved.getPassword());
 
         //returning db to original state
-        administratorService.delete(saved.getId());
-
+        boolean isSaved = administratorService.delete(saved.getId());
+        assertTrue(isSaved);
     }
 
     @Test
     public void testSaveOneInvalidEmail() {
-        Administrator admin = new Administrator(ADMIN_ID, DB_EMAIL, NEW_USERNAME, NEW_PASSWORD);
+        Administrator admin = new Administrator(DB_EMAIL, NEW_USERNAME, NEW_PASSWORD);
         Administrator saved = administratorService.saveOne(admin);
 
         assertNull(saved);
@@ -97,8 +93,7 @@ public class AdministratorServiceIntegrationTest {
     }
 
     @Test
-    @Transactional
-    @Rollback
+    @Sql(scripts = "classpath:insert-service-admin-data-h2.sql", executionPhase = Sql.ExecutionPhase.AFTER_TEST_METHOD)
     public void testDelete() {
         boolean deleted = administratorService.delete(ADMIN_ID);
 
@@ -199,6 +194,20 @@ public class AdministratorServiceIntegrationTest {
     @Test
     public void testFindByEmailInvalid(){
         Administrator found = administratorService.findByEmail(DB_EMAIL_NONEXIST);
+
+        assertNull(found);
+    }
+
+    @Test
+    public void testFindByUsername(){
+        Administrator found = administratorService.findByUsername(DB_USERNAME);
+
+        assertEquals(DB_USERNAME, found.getUsername());
+    }
+
+    @Test
+    public void testFindByUsernameInvalid(){
+        Administrator found = administratorService.findByUsername(DB_USERNAME_NONEXIST);
 
         assertNull(found);
     }

@@ -3,7 +3,6 @@ package com.project.tim7.service;
 import java.util.ArrayList;
 import java.util.List;
 
-
 import com.project.tim7.model.Registered;
 import com.project.tim7.repository.RegisteredRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,45 +24,48 @@ public class RegisteredService implements ServiceInterface<Registered> {
 	EmailService emailService;
 
 	@Override
-	public List findAll() {
-		// TODO Auto-generated method stub
-		return null;
+	public List<Registered> findAll() {
+		return regRepo.findAll();
 	}
 
 	@Override
 	public Page<Registered> findAll(Pageable pageable) {
-		return null;
+		return regRepo.findAll(pageable);
 	}
 
 	@Override
 	public Registered findOne(int id) {
+
 		return regRepo.findById(id).orElse(null);
 	}
 
 	@Override
 	public Registered saveOne(Registered entity) {
-		return null;
+		if(countByEmailOrUsername(entity.getEmail(), entity.getUsername()) != 0 ||
+				adminService.countByEmailOrUsername(entity.getEmail(), entity.getUsername()) != 0)
+			return null;
+
+		return regRepo.save(entity);
 	}
 
-	/*
-        @Override
-        public boolean saveOne(Registered entity) {
-            return false;
-        }
+	@Override
+	public boolean delete(int id) {
+		Registered existingReg = findOne(id);
+		if(existingReg  != null){
+			try {
+				regRepo.deleteById(id);
+			}catch (Exception e){
+				return false;
+			}
 
-        @Override
-        public boolean saveAll(List<Registered> entities) {
-            return false;
-        }
-*/
-        @Override
-        public boolean delete(int id) {
-            return false;
-        }
+			return true;
+		}
+		return false;
+	}
 
 	@Override
 	public Registered update(Registered entity) {
-		Registered reg = findOne(entity.getId());
+		Registered reg = findByUsername(entity.getUsername());
 		if(reg == null){
 			return null;
 		}
@@ -78,14 +80,6 @@ public class RegisteredService implements ServiceInterface<Registered> {
 		return regRepo.save(reg);
 	}
 
-	public Registered save(Registered entity){
-		if(countByEmailOrUsername(entity.getEmail(), entity.getUsername()) != 0 ||
-		adminService.countByEmailOrUsername(entity.getEmail(), entity.getUsername()) != 0)
-			return null;
-
-		return regRepo.save(entity);
-	}
-
 	public long countByEmailOrUsername(String email, String username){
 		return regRepo.countByEmailOrUsername(email, username);
 	}
@@ -98,18 +92,23 @@ public class RegisteredService implements ServiceInterface<Registered> {
 		return regRepo.findByEmail(email);
 	}
 
-	public Registered activateAccount(int id, String email) {
+	public Registered findByUsername(String username){
+		return regRepo.findByUsername(username);
+	}
+
+	public Registered activateAccount(int id) {
 		Registered regUser = findOne(id);
-		regUser.setVerified(true);
-		Registered activatedReg = regRepo.save(regUser);
-		if (activatedReg != null) 
-			return activatedReg;
-		else
+		if(regUser == null)
 			return null;
+		regUser.setVerified(true);
+		return regRepo.save(regUser);
 	}
 	
-	public Registered addUser(Registered existReg) {
-		Registered newReg = save(existReg);
+	public Registered registerUser(Registered existReg) {
+		Registered newReg = saveOne(existReg);
+		if(newReg == null)
+			return null;
+
         try {
 			emailService.sendVerificationMail(newReg.getEmail(), newReg.getId());
 		} catch (MailException e) {
@@ -126,6 +125,4 @@ public class RegisteredService implements ServiceInterface<Registered> {
 		}
 		return emails;
 	}
-
-
 }

@@ -17,6 +17,10 @@ public class Administrator extends Person {
         super(id, email, username, password);
     }
 
+    public Administrator(String email, String username, String password) {
+        super(email, username, password);
+    }
+
     @Override
     public boolean isAccountNonExpired() {
         return true;

@@ -20,7 +20,6 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
@@ -72,7 +71,6 @@ public class AuthenticationController {
 
         // Kreiraj token za tog korisnika
         Person person = (Person) authentication.getPrincipal();
-        System.out.println(person.getEmail() + "EMAILLLL");
         String jwt = tokenUtils.generateToken(person.getUsername()); // prijavljujemo se na sistem sa email adresom
         int expiresIn = tokenUtils.getExpiredIn();
         
@@ -89,13 +87,11 @@ public class AuthenticationController {
         if (existReg != null || existAdmin != null) {
         	return new ResponseEntity<>("Username or email already exists.", HttpStatus.BAD_REQUEST);
         }
-        Registered newReg = null;
-        try {
-        	existReg = regMapper.toEntity(userRequest);
-        	existReg.setPassword(passwordEncoder.encode(userRequest.getPassword()));
-        	newReg = regService.addUser(existReg);
-            
-        } catch (Exception e) {
+        existReg = regMapper.toEntity(userRequest);
+        existReg.setPassword(passwordEncoder.encode(userRequest.getPassword()));
+        Registered newReg = regService.registerUser(existReg);
+
+        if(newReg == null){
             return new ResponseEntity<>("Username or email already exists.", HttpStatus.BAD_REQUEST);
         }
         return new ResponseEntity<>("Successfully sent registration request.", HttpStatus.CREATED);
@@ -111,7 +107,7 @@ public class AuthenticationController {
     public ResponseEntity<?> activate(@RequestBody activateAccount activationData) {
     	Registered regUser = null;
     	try {
-    		regUser = regService.activateAccount(activationData.id, activationData.email);
+    		regUser = regService.activateAccount(activationData.id);
         } catch (Exception e) {
         	return new ResponseEntity<>("Activation failed.", HttpStatus.BAD_REQUEST);
         }

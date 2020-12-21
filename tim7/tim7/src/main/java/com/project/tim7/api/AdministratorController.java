@@ -106,14 +106,14 @@ public class AdministratorController {
         Administrator admin = adminService.findOne(id);
 
         if(admin == null) {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+            return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
         }
         else if(admin.getUsername().equals(adminLogged.getUsername())){
             UserDTO adminDTO = adminMapper.toDto(admin);
             return new ResponseEntity<>(adminDTO, HttpStatus.OK);
         }
 
-        return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
 
     }
 
