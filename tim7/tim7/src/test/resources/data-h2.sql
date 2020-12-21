@@ -27,7 +27,6 @@ insert into administrators (id, username, email, password, verified) values (nex
 
 insert into registered (id, username, email, password, verified) values (NEXTVAL('person_seq'), 'vuleR', 'vule@reg.com', '$2y$12$NFN7DJUX1lFfaDX1tc9/6uBtgls9SZOU9iwjhrlXJc0xr471vgKAK', true);
 
-
 insert into authorities (name) values ('ROLE_ADMINISTRATOR');
 insert into authorities (name) values ('ROLE_REGISTERED');
 insert into user_authority (user_id, authority_id) values (1, 1);
@@ -39,4 +38,3 @@ insert into pictures (picture, cultural_offer_id) values ('http://dummyimage.com
 insert into pictures (picture, comment_id) values ('http://dummyimage.com/500x500.bmp', 1);
 insert into pictures (picture, comment_id) values ('http://dummyimage.com/600x600.bmp', 1);
 insert into pictures (picture) values ('http://dummyimage.com.bmp');
-
