@@ -30,14 +30,14 @@ public class AdministratorServiceIntegrationTest {
     AdministratorService adminService;
 
     @Test
-    public void findAll() {
+    public void testFindAll() {
         List<Administrator> found = administratorService.findAll();
 
         assertEquals(FIND_ALL_NUMBER_OF_ITEMS, found.size());
     }
 
     @Test
-    public void findAllPageable() {
+    public void testFindAllPageable() {
         Pageable pageable = PageRequest.of(PAGEABLE_PAGE,PAGEABLE_SIZE);
         Page<Administrator> found = administratorService.findAll(pageable);
 
@@ -45,7 +45,7 @@ public class AdministratorServiceIntegrationTest {
     }
 
     @Test
-    public void findAllPageableInvalid() {
+    public void testFindAllPageableInvalid() {
         Pageable pageable = PageRequest.of(2,PAGEABLE_SIZE);
         Page<Administrator> found = administratorService.findAll(pageable);
 
@@ -53,21 +53,21 @@ public class AdministratorServiceIntegrationTest {
     }
 
     @Test
-    public void findOne() {
+    public void testFindOne() {
         Administrator found = administratorService.findOne(ADMIN_ID);
 
         assertEquals(ADMIN_ID, found.getId());
     }
 
     @Test
-    public void findOneInvalid() {
+    public void testFindOneInvalid() {
         Administrator found = administratorService.findOne(ADMIN_ID_NONEXIST);
 
         assertNull(found);
     }
 
     @Test
-    public void saveOne() {
+    public void testSaveOne() {
         Administrator admin = new Administrator(ADMIN_ID, NEW_EMAIL, NEW_USERNAME, NEW_PASSWORD);
         Administrator saved = administratorService.saveOne(admin);
 
@@ -81,7 +81,7 @@ public class AdministratorServiceIntegrationTest {
     }
 
     @Test
-    public void saveOneInvalidEmail() {
+    public void testSaveOneInvalidEmail() {
         Administrator admin = new Administrator(ADMIN_ID, DB_EMAIL, NEW_USERNAME, NEW_PASSWORD);
         Administrator saved = administratorService.saveOne(admin);
 
@@ -89,7 +89,7 @@ public class AdministratorServiceIntegrationTest {
     }
 
     @Test
-    public void saveOneInvalidUsername() {
+    public void testSaveOneInvalidUsername() {
         Administrator admin = new Administrator(ADMIN_ID, NEW_EMAIL, DB_USERNAME, NEW_PASSWORD);
         Administrator saved = administratorService.saveOne(admin);
 
@@ -99,21 +99,21 @@ public class AdministratorServiceIntegrationTest {
     @Test
     @Transactional
     @Rollback
-    public void delete() {
+    public void testDelete() {
         boolean deleted = administratorService.delete(ADMIN_ID);
 
         assertTrue(deleted);
     }
 
     @Test
-    public void deleteInvalid() {
+    public void testDeleteInvalid() {
         boolean deleted = administratorService.delete(ADMIN_ID_NONEXIST);
 
         assertFalse(deleted);
     }
 
     @Test
-    public void update() {
+    public void testUpdate() {
         Administrator admin = new Administrator(ADMIN_ID, NEW_EMAIL, DB_USERNAME, NEW_PASSWORD);
         Administrator updated = administratorService.update(admin);
 
@@ -126,7 +126,7 @@ public class AdministratorServiceIntegrationTest {
     }
 
     @Test
-    public void updateNewEmail() {
+    public void testUpdateNewEmail() {
         Administrator admin = new Administrator(ADMIN_ID, NEW_EMAIL, DB_USERNAME, DB_PASSWORD);
         Administrator updated = administratorService.update(admin);
 
@@ -139,7 +139,7 @@ public class AdministratorServiceIntegrationTest {
     }
 
     @Test
-    public void updateNewPassword() {
+    public void testUpdateNewPassword() {
         Administrator admin = new Administrator(ADMIN_ID, DB_EMAIL, DB_USERNAME, NEW_PASSWORD);
         Administrator updated = administratorService.update(admin);
 
@@ -152,7 +152,7 @@ public class AdministratorServiceIntegrationTest {
     }
 
     @Test
-    public void updateExistAdminEmail() {
+    public void testUpdateExistAdminEmail() {
         Administrator admin = new Administrator(ADMIN_ID, NEW_EMAIL_EXIST, DB_USERNAME, DB_PASSWORD);
         Administrator updated = administratorService.update(admin);
 
@@ -160,7 +160,7 @@ public class AdministratorServiceIntegrationTest {
     }
 
     @Test
-    public void updateExistRegEmail() {
+    public void testUpdateExistRegEmail() {
         Administrator admin = new Administrator(ADMIN_ID, NEW_EMAIL_EXIST_REG, DB_USERNAME, DB_PASSWORD);
         Administrator updated = administratorService.update(admin);
 
@@ -168,7 +168,7 @@ public class AdministratorServiceIntegrationTest {
     }
 
     @Test
-    public void updateInvalidUsername() {
+    public void testUpdateInvalidUsername() {
         Administrator admin = new Administrator(ADMIN_ID, NEW_EMAIL, DB_USERNAME_NONEXIST, DB_PASSWORD);
         Administrator updated = administratorService.update(admin);
 
@@ -176,35 +176,35 @@ public class AdministratorServiceIntegrationTest {
     }
 
     @Test
-    public void countByEmailOrUsername(){
+    public void testCountByEmailOrUsername(){
         long count = administratorService.countByEmailOrUsername(DB_EMAIL, DB_USERNAME_NONEXIST);
 
         assertEquals(DB_COUNT, count);
     }
 
     @Test
-    public void countByEmailOrUsernameInvalid(){
+    public void testCountByEmailOrUsernameInvalid(){
         long count = administratorService.countByEmailOrUsername(DB_EMAIL_NONEXIST, DB_USERNAME_NONEXIST);
 
         assertEquals(DB_COUNT_INVALID, count);
     }
 
     @Test
-    public void findByEmail(){
+    public void testFindByEmail(){
         Administrator found = administratorService.findByEmail(DB_EMAIL);
 
         assertEquals(DB_EMAIL, found.getEmail());
     }
 
     @Test
-    public void findByEmailInvalid(){
+    public void testFindByEmailInvalid(){
         Administrator found = administratorService.findByEmail(DB_EMAIL_NONEXIST);
 
         assertNull(found);
     }
 
     @Test
-    public void findByUsernameOrEmail(){
+    public void testFindByUsernameOrEmail(){
         Administrator found = administratorService.findByUsernameOrEmail(DB_USERNAME, DB_EMAIL_NONEXIST);
 
         assertEquals(DB_USERNAME, found.getUsername());
@@ -212,7 +212,7 @@ public class AdministratorServiceIntegrationTest {
     }
 
     @Test
-    public void findByUsernameOrEmailInvalid(){
+    public void testFindByUsernameOrEmailInvalid(){
         Administrator found = administratorService.findByUsernameOrEmail(DB_USERNAME_NONEXIST, DB_EMAIL_NONEXIST);
 
         assertNull(found);

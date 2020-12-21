@@ -68,7 +68,7 @@ public class AdministratorServiceUnitTest {
     }
 
     @Test
-    public void update(){
+    public void testUpdate(){
         Administrator admin = new Administrator(ADMIN_ID, NEW_EMAIL, DB_USERNAME, NEW_PASSWORD);
         Administrator updated = administratorService.update(admin);
 
@@ -82,7 +82,7 @@ public class AdministratorServiceUnitTest {
     }
 
     @Test
-    public void updateNewEmail(){
+    public void testUpdateNewEmail(){
         Administrator admin = new Administrator(ADMIN_ID, NEW_EMAIL, DB_USERNAME, DB_PASSWORD);
         Administrator updated = administratorService.update(admin);
 
@@ -96,7 +96,7 @@ public class AdministratorServiceUnitTest {
     }
 
     @Test
-    public void updateNewPassword(){
+    public void testUpdateNewPassword(){
         Administrator admin = new Administrator(ADMIN_ID, DB_EMAIL, DB_USERNAME, NEW_PASSWORD);
         Administrator updated = administratorService.update(admin);
 
@@ -108,7 +108,7 @@ public class AdministratorServiceUnitTest {
     }
 
     @Test
-    public void updateExistAdminEmail(){
+    public void testUpdateExistAdminEmail(){
         Administrator admin = new Administrator(ADMIN_ID, NEW_EMAIL_EXIST, DB_USERNAME, DB_PASSWORD);
         Administrator updated = administratorService.update(admin);
 
@@ -119,7 +119,7 @@ public class AdministratorServiceUnitTest {
     }
 
     @Test
-    public void updateExistRegEmail(){
+    public void testUpdateExistRegEmail(){
         Administrator admin = new Administrator(ADMIN_ID, NEW_EMAIL_EXIST_REG, DB_USERNAME, DB_PASSWORD);
         Administrator updated = administratorService.update(admin);
 
@@ -131,7 +131,7 @@ public class AdministratorServiceUnitTest {
     }
 
     @Test
-    public void updateInvalidUsername() {
+    public void testUpdateInvalidUsername() {
         Administrator admin = new Administrator(ADMIN_ID, NEW_EMAIL, DB_USERNAME_NONEXIST, DB_PASSWORD);
         Administrator updated = administratorService.update(admin);
 

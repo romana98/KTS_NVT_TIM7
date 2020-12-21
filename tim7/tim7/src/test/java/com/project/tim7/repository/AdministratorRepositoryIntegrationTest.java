@@ -20,63 +20,63 @@ public class AdministratorRepositoryIntegrationTest {
     private AdministratorRepository administratorRepository;
 
     @Test
-    public void countByEmailOrUsername(){
+    public void testCountByEmailOrUsername(){
         long count = administratorRepository.countByEmailOrUsername(NEW_EMAIL_EXIST, DB_USERNAME);
 
         assertEquals(DB_COUNT_TWO, count);
     }
 
     @Test
-    public void countByEmailOrUsernameInvalidEmail(){
+    public void testCountByEmailOrUsernameInvalidEmail(){
         long count = administratorRepository.countByEmailOrUsername(DB_EMAIL_NONEXIST, DB_USERNAME);
 
         assertEquals(DB_COUNT, count);
     }
 
     @Test
-    public void countByEmailOrUsernameInvalidUsername(){
+    public void testCountByEmailOrUsernameInvalidUsername(){
         long count = administratorRepository.countByEmailOrUsername(DB_EMAIL, DB_USERNAME_NONEXIST);
 
         assertEquals(DB_COUNT, count);
     }
 
     @Test
-    public void countByEmailOrUsernameInvalid(){
+    public void testCountByEmailOrUsernameInvalid(){
         long count = administratorRepository.countByEmailOrUsername(DB_EMAIL_NONEXIST, DB_USERNAME_NONEXIST);
 
         assertEquals(DB_COUNT_INVALID, count);
     }
 
     @Test
-    public void findByUsername(){
+    public void testFindByUsername(){
         Administrator found = administratorRepository.findByUsername(DB_USERNAME);
 
         assertEquals(DB_USERNAME, found.getUsername());
     }
 
     @Test
-    public void findByUsernameInvalid(){
+    public void testFindByUsernameInvalid(){
         Administrator found = administratorRepository.findByUsername(DB_USERNAME_NONEXIST);
 
         assertNull(found);
     }
 
     @Test
-    public void findByEmail(){
+    public void testFindByEmail(){
         Administrator found = administratorRepository.findByEmail(DB_EMAIL);
 
         assertEquals(DB_EMAIL, found.getEmail());
     }
 
     @Test
-    public void findByEmailInvalid(){
+    public void testFindByEmailInvalid(){
         Administrator found = administratorRepository.findByEmail(DB_EMAIL_NONEXIST);
 
         assertNull(found);
     }
 
     @Test
-    public void findByUsernameOrEmail(){
+    public void testFindByUsernameOrEmail(){
         Administrator found = administratorRepository.findByUsernameOrEmail(DB_USERNAME, DB_EMAIL_NONEXIST);
 
         assertEquals(DB_USERNAME, found.getUsername());
@@ -85,7 +85,7 @@ public class AdministratorRepositoryIntegrationTest {
     }
 
     @Test
-    public void findByUsernameOrEmailInvalid(){
+    public void testFindByUsernameOrEmailInvalid(){
         Administrator found = administratorRepository.findByUsernameOrEmail(DB_USERNAME_NONEXIST, DB_EMAIL_NONEXIST);
 
         assertNull(found);
