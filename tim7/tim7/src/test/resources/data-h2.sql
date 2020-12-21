@@ -7,6 +7,9 @@ insert into pictures (picture, cultural_offer_id) values ('http://dummyimage.com
 insert into pictures (picture, cultural_offer_id) values ('http://dummyimage.com/219x161.bmp', null);
 
 insert into categories (name) values ('Category1');
+insert into categories (name) values ('Category2');
+insert into categories (name) values ('Category3');
+insert into categories (name) values ('Category4');
 insert into subcategories (name, category_id) values ('Subcategory1', 1);
 insert into locations (name, latitude, longitude) values ('Novi Sad', 45.25167, 19.83694);
 

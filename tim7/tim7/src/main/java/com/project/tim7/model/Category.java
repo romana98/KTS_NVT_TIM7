@@ -31,6 +31,11 @@ public class Category {
 		super();
 	}
 
+	public Category(int id){
+		super();
+		this.id = id;
+	}
+
 	public Category(int id, String name) {
 		super();
 		this.id = id;
