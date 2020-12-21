@@ -30,3 +30,9 @@ insert into user_authority (user_id, authority_id) values (1, 1);
 
 insert into authorities (name) values ('ROLE_REGISTERED');
 insert into user_authority (user_id, authority_id) values (2, 2);
+
+insert into comments (published_date, cultural_offer_id, registered_id, description) values ('2018-11-11', 1, 2, 'comment description');
+insert into pictures (picture, cultural_offer_id) values ('http://dummyimage.com/200x200.bmp', 1);
+insert into pictures (picture, comment_id) values ('http://dummyimage.com/500x500.bmp', 1);
+insert into pictures (picture, comment_id) values ('http://dummyimage.com/600x600.bmp', 1);
+insert into pictures (picture) values ('http://dummyimage.com.bmp');
