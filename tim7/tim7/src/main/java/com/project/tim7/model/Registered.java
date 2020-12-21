@@ -35,6 +35,10 @@ public class Registered extends Person {
 		super(email, username, password);
 	}
 
+    public Registered(int registeredId) {
+		super(registeredId);
+    }
+
     @Override
 	public boolean isAccountNonExpired() {
 		return true;

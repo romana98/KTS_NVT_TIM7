@@ -103,6 +103,36 @@ public class Newsletter {
 	public void setPicture(Picture picture) {
 		this.picture = picture;
 	}
+
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Newsletter other = (Newsletter) obj;
+		if (description == null) {
+			if (other.description != null)
+				return false;
+		} else if (!description.equals(other.description))
+			return false;
+		if (id != other.id)
+			return false;
+		if (name == null) {
+			if (other.name != null)
+				return false;
+		} else if (!name.equals(other.name))
+			return false;
+		if (publishedDate == null) {
+			if (other.publishedDate != null)
+				return false;
+		} else if (!publishedDate.equals(other.publishedDate))
+			return false;
+		return true;
+	}
 	
 	
 	

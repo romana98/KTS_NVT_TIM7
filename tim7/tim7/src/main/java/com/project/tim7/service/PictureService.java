@@ -25,43 +25,35 @@ public class PictureService implements ServiceInterface<Picture> {
 	}
 
 	@Override
+	public Page<Picture> findAll(Pageable pageable) {
+		return null;
+	}
+	
+	@Override
 	public Picture findOne(int id) {
 		return pictureRepo.findById(id).orElse(null);
 	}
 
 	@Override
 	public Picture saveOne(Picture entity) {
-		return null;
+		if (findByPicture(entity.getPicture()) != null)
+            return null;
+        return pictureRepo.save(entity);
 	}
 
-	/*
-        @Override
-        public boolean saveOne(Picture entity) {
-            if (findByPicture(entity.getPicture()) != null)
-                return false;
-            pictureRepo.save(entity);
-            return true;
-        }
-
-        @Override
-        public boolean saveAll(List<Picture> entities) {
-            return false;
-        }
-*/
-        @Override
-        public boolean delete(int id) {
-            Picture picture = findOne(id);
+    @Override
+    public boolean delete(int id) {
+        Picture picture = findOne(id);
+        try {
             pictureRepo.delete(picture);
-            return true;
+        } catch (Exception e) {
+        	return false;
         }
+        return true;
+    }
 
 	public Picture findByPicture(String pictureStr) {
 		return pictureRepo.findByPicture(pictureStr);
-	}
-
-	@Override
-	public Page<Picture> findAll(Pageable pageable) {
-		return null;
 	}
 
 	@Override
@@ -80,8 +72,7 @@ public class PictureService implements ServiceInterface<Picture> {
 
 	public Set<Picture> getPictures(ArrayList<String> pictures) {
 
-		Set<Picture> commentPictures = new HashSet<Picture>();
-		for(String picture : pictures) {
+		Set<Picture> commentPictures = new HashSet<Picture>();		for(String picture : pictures) {
 			Picture p = findByPicture(picture);
 			if(p == null) {
 				Picture newPicture = new Picture(picture);

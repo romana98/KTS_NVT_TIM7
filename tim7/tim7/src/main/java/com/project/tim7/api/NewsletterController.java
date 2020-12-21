@@ -66,16 +66,17 @@ public class NewsletterController {
     
 	@PreAuthorize("hasRole('ROLE_ADMINISTRATOR')")
     @RequestMapping(method = RequestMethod.PUT, consumes = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<String> updateNewsletter(@Valid @RequestBody NewsletterDetailsDTO newsletterDTO){
+	public ResponseEntity<NewsletterDetailsDTO> updateNewsletter(@Valid @RequestBody NewsletterDetailsDTO newsletterDTO){
 		
 		Newsletter updatedNewsletter = newsletterMapper.toEntity(newsletterDTO);
 
-        boolean updated = newsletterService.updateNewsletter(updatedNewsletter, newsletterDTO.getPicture());
-
-		if(updatedNewsletter != null) {
-			return new ResponseEntity<>("Successfully updated newsletter.", HttpStatus.OK);
+        Newsletter updated = newsletterService.update(updatedNewsletter, newsletterDTO.getPicture());
+        
+		if(updated != null) {
+	        NewsletterDetailsDTO updatedNewsletterDTO = newsletterMapper.toNewsletterDetailsDto(updated);
+			return new ResponseEntity<>(updatedNewsletterDTO, HttpStatus.OK);
 		}else {
-			return new ResponseEntity<>("Updating failed.", HttpStatus.BAD_REQUEST);
+			return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
 		}
 	}
     
@@ -114,7 +115,7 @@ public class NewsletterController {
     
 	@PreAuthorize("hasRole('ROLE_REGISTERED')")
     @RequestMapping(value= "/subscribed/{id-user}/by-page",method = RequestMethod.GET)
-    public ResponseEntity<?> findNewsletterForUser(@PathVariable("id-user") Integer idUser, Pageable pageable) {
+    public ResponseEntity<?> findNewsletterForUser(@PathVariable("id-user") int idUser, Pageable pageable) {
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 		Person person = (Person) authentication.getPrincipal();
 		if(person.getId() != idUser) {

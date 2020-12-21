@@ -7,6 +7,9 @@ insert into pictures (picture, cultural_offer_id) values ('http://dummyimage.com
 insert into pictures (picture, cultural_offer_id) values ('http://dummyimage.com/219x161.bmp', null);
 
 insert into categories (name) values ('Category1');
+insert into categories (name) values ('Category2');
+insert into categories (name) values ('Category3');
+insert into categories (name) values ('Category4');
 insert into subcategories (name, category_id) values ('Subcategory1', 1);
 insert into locations (name, latitude, longitude) values ('Novi Sad', 45.25167, 19.83694);
 
@@ -29,3 +32,11 @@ insert into authorities (name) values ('ROLE_ADMINISTRATOR');
 insert into authorities (name) values ('ROLE_REGISTERED');
 insert into user_authority (user_id, authority_id) values (1, 1);
 insert into user_authority (user_id, authority_id) values (6, 2);
+insert into user_authority (user_id, authority_id) values (2, 2);
+
+insert into comments (published_date, cultural_offer_id, registered_id, description) values ('2018-11-11', 1, 2, 'comment description');
+insert into pictures (picture, cultural_offer_id) values ('http://dummyimage.com/200x200.bmp', 1);
+insert into pictures (picture, comment_id) values ('http://dummyimage.com/500x500.bmp', 1);
+insert into pictures (picture, comment_id) values ('http://dummyimage.com/600x600.bmp', 1);
+insert into pictures (picture) values ('http://dummyimage.com.bmp');
+

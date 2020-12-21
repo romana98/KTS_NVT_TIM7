@@ -61,7 +61,7 @@ public class SubcategoryController {
 	@RequestMapping(method = RequestMethod.PUT)
 	public ResponseEntity<Object> updateSubcategory(@Valid @RequestBody SubcategoryDTO subcategoryDTO){
 		
-		Subcategory newSubcategory = subcategoryService.update(subcatMapper.toEntity(subcategoryDTO), subcategoryDTO.getCategoryId());
+		Subcategory newSubcategory = subcategoryService.update(subcatMapper.toEntity(subcategoryDTO));
 		if(newSubcategory != null) {
 			return new ResponseEntity<>(subcategoryDTO, HttpStatus.OK);
 		}else {
@@ -74,7 +74,7 @@ public class SubcategoryController {
 	@RequestMapping(method= RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Object> createSubcategory(@Valid @RequestBody SubcategoryDTO subcategory){
 		
-		Subcategory newSubcategory = subcategoryService.addSubcategory(subcatMapper.toEntity(subcategory), subcategory.getCategoryId());
+		Subcategory newSubcategory = subcategoryService.saveOne(subcatMapper.toEntity(subcategory));
 		
 		if(newSubcategory != null) {
 			subcategory.setId(newSubcategory.getId());
@@ -95,6 +95,15 @@ public class SubcategoryController {
         return new ResponseEntity<>("Subcategory deleting failed.", HttpStatus.NOT_FOUND);
     }
 
+    @PreAuthorize("hasRole('ROLE_ADMINISTRATOR')")
+	@RequestMapping(value="/{id}/by-page", method = RequestMethod.GET)
+	public ResponseEntity<Page<SubcategoryDTO>> getAllSubcategories(@PathVariable int id, Pageable pageable){
+		Page<Subcategory> page = subcategoryService.findSubcategoriesByCategory(id, pageable);
+		List<SubcategoryDTO> dtos = toSubcategoryDTOList(page.toList());
+		Page<SubcategoryDTO> pageSubcategoryDTOS = new PageImpl<>(dtos,page.getPageable(),page.getTotalElements());
+
+		return new ResponseEntity<>(pageSubcategoryDTOS, HttpStatus.OK);
+	}
 
 	private List<SubcategoryDTO> toSubcategoryDTOList(List<Subcategory> subcategories) {
 		ArrayList<SubcategoryDTO> dtos = new ArrayList<SubcategoryDTO>();

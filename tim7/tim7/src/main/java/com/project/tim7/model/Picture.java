@@ -53,6 +53,27 @@ public class Picture {
 		this.id = id;
 		this.picture = picture;
 	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Picture other = (Picture) obj;
+		if (id != other.id)
+			return false;
+		if (picture == null) {
+			if (other.picture != null)
+				return false;
+		} else if (!picture.equals(other.picture))
+			return false;
+		return true;
+	}
+	
+	
 	
 	
 }

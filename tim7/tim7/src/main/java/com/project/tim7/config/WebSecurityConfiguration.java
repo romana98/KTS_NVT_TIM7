@@ -73,6 +73,7 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .antMatchers(HttpMethod.GET,"/cultural-offers/**").permitAll()
                 .antMatchers(HttpMethod.POST, "/cultural-offers/filter").permitAll()
                 .antMatchers(HttpMethod.GET,"/newsletter/cultural-offer/{id-offer}/**").permitAll()
+                .antMatchers(HttpMethod.GET, "/comments//{culturalOfferId}/**").permitAll()
 
                 // umesto anotacija iynad svake metode, moze i ovde da se proveravaju prava pristupa ya odredjeni URL
                 //.antMatchers(HttpMethod.GET, "/categories").hasRole("ADMINISTRATOR")

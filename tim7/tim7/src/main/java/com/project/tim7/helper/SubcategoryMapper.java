@@ -7,7 +7,7 @@ public class SubcategoryMapper implements MapperInterface<Subcategory, Subcatego
 
 	@Override
 	public Subcategory toEntity(SubcategoryDTO dto) {
-		return new Subcategory(dto.getId(), dto.getName());
+		return new Subcategory(dto.getId(), dto.getName(), dto.getCategoryId());
 	}
 
 	@Override

@@ -39,6 +39,13 @@ public class Rating {
 		this.rate = rate;
 	}
 
+	public Rating(int id, int rate, int registeredId) {
+		super();
+		this.id = id;
+		this.rate = rate;
+		this.registered = new Registered(registeredId);
+	}
+
 	public int getId() {
 		return id;
 	}

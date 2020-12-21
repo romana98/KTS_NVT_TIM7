@@ -43,6 +43,10 @@ public abstract class Person implements UserDetails {
 		authorities = new ArrayList<>();
 	}
 
+	public Person(int id){
+		this.id = id;
+	}
+
 	public Person(Integer id, String email, String username, String password) {
 		this.id = id;
 		this.email = email;

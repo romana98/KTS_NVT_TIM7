@@ -1,5 +1,6 @@
 package com.project.tim7.service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -49,24 +50,31 @@ public class NewsletterService implements ServiceInterface<Newsletter> {
 
 	@Override
 	public Newsletter saveOne(Newsletter entity) {
-		return null;
-	}
-
-	public Newsletter saveNewsletter(Newsletter entity) {
 		Newsletter newsletter = newsletterRepo.save(entity);
-		List<String> emails = regService.findRegisteredForSubscribedCulturalOffers(entity.getCulturalOffer().getId());
-
-		try {
-			emailService.sendNewsletterToSubscribed(emails, entity.getCulturalOffer().getName(), entity.getName(), entity.getDescription());
-		} catch (MessagingException e) {
-			return null;
+		List<String> emails = new ArrayList<String>();
+		if (entity.getCulturalOffer() != null) {
+			emails = regService.findRegisteredForSubscribedCulturalOffers(entity.getCulturalOffer().getId());
+			try {
+				emailService.sendNewsletterToSubscribed(emails, entity.getCulturalOffer().getName(), entity.getName(), entity.getDescription());
+			} catch (MessagingException e) {
+				return null;
+			}
 		}
 		return newsletter;
-
 	}
-
+	
+	@Override
+	public Newsletter update(Newsletter entity) {
+		return null;
+	}
+	
 	public Newsletter update(Newsletter entity, String pictureStr) {
-		Newsletter newsletter = findOne(entity.getId());
+		Newsletter newsletter = null;
+		try {
+			newsletter = newsletterRepo.findById(entity.getId()).orElse(null);
+		} catch (Exception e) {
+			return null;
+		}
 		if(newsletter == null) {
 			return null;
 		}
@@ -76,12 +84,17 @@ public class NewsletterService implements ServiceInterface<Newsletter> {
 		if (updatedPicture == null) 
 			updatedPicture = pictureService.update(new Picture(pictureStr));
 		newsletter.setPicture(updatedPicture);
-		return saveNewsletter(newsletter);
+		return saveOne(newsletter);
 	}
 
 	@Override
 	public boolean delete(int id) {
-		Newsletter newsletter = findOne(id);
+		Newsletter newsletter = null;
+		try {
+			newsletter = newsletterRepo.findById(id).orElse(null);
+		} catch (Exception e) {
+			return false;
+		}
 		if(newsletter == null) {
 			return false;
 		}
@@ -106,7 +119,7 @@ public class NewsletterService implements ServiceInterface<Newsletter> {
 		entity.setPicture(picture);
 		
 		entity.setId(0);
-		return saveNewsletter(entity);
+		return saveOne(entity);
 	}
 
 	public List<Newsletter> findNewsletterForUser(int idRegisteredUser) {
@@ -125,48 +138,4 @@ public class NewsletterService implements ServiceInterface<Newsletter> {
 		return newsletterRepo.findNewsletterForCulturalOffer(idCulturalOffer, pageable);
 	}
 	
-	/*
-	//moze se brisati
-	@Override
-	public boolean saveOne(Newsletter entity) {
-		newsletterRepo.save(entity);
-		List<String> emails = regService.findRegisteredForSubscribedCulturalOffers(entity.getCulturalOffer().getId());
-
-		try {
-			emailService.sendNewsletterToSubscribed(emails, entity.getCulturalOffer().getName(), entity.getName(), entity.getDescription());
-		} catch (MessagingException e) {
-			return false;
-		}
-		return true;
-	}
-	
-	//moze se brisati
-	@Override
-	public boolean saveAll(List<Newsletter> entities) {
-		return false;
-	}
-	*/
-	//moze se brisati
-	@Override
-	public Newsletter update(Newsletter entity) {
-		return null;
-	}
-
-	//moze se brisati
-	public boolean updateNewsletter(Newsletter entity, String pictureStr) {
-		Newsletter newsletter = findOne(entity.getId());
-		if(newsletter == null) {
-			return false;
-		}
-		newsletter.setName(entity.getName());
-		newsletter.setDescription(entity.getDescription());
-		Picture updatedPicture = pictureService.findByPicture(pictureStr);
-		if (updatedPicture == null) 
-			updatedPicture = pictureService.update(new Picture(pictureStr));
-		newsletter.setPicture(updatedPicture);
-		saveOne(newsletter);
-		return true;
-	}
-
-
 }

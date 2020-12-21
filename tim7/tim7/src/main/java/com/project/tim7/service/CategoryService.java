@@ -21,45 +21,32 @@ public class CategoryService implements ServiceInterface<Category> {
 
 	@Override
 	public List<Category> findAll() {
+
 		return categoryRepo.findAll();
 	}
 
 	@Override
 	public Category findOne(int id) {
+
 		return categoryRepo.findById(id).orElse(null);
 	}
 
 	@Override
 	public Category saveOne(Category entity) {
-		return null;
-	}
 
-	@Override
-	public Page<Category> findAll(Pageable pageable) {
-		return categoryRepo.findAll(pageable);
-	}
-
-
-
-	/*
-	@Override
-	public boolean saveOne(Category entity) {
-	
-		categoryRepo.save(entity);
-		return true;
-		
-	}
-	*/
-	public Category createCategory(Category entity) {
-		
 		Category category = categoryRepo.findByName(entity.getName());
 		if(category == null) {
-			saveOne(entity);
+			categoryRepo.save(entity);
 			return entity;
 		}else {
 			return null;
 		}
-		
+	}
+
+	@Override
+	public Page<Category> findAll(Pageable pageable) {
+
+		return categoryRepo.findAll(pageable);
 	}
 
 	@Override
@@ -86,11 +73,14 @@ public class CategoryService implements ServiceInterface<Category> {
 		if(category.getName().equals(entity.getName())) {
 			return category;
 		}else {
-			category.setName(entity.getName());
-			saveOne(category);
-			return category;
+			if(categoryRepo.findByName(entity.getName()) == null){
+				category.setName(entity.getName());
+				categoryRepo.save(category);
+				return category;
+			}else{
+				return null;
+			}
 		}
-		
 	}
 
 }
