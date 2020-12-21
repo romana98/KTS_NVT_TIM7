@@ -56,11 +56,6 @@ public class CommentService implements ServiceInterface<Comment> {
 		return null;
 	}
 
-	@Override
-	public Comment saveAll(List<Comment> entities) {
-		return null;
-	}
-
 	/*
 	@Override
 	public boolean saveOne(Comment entity) {

@@ -45,10 +45,6 @@ public class RegisteredService implements ServiceInterface<Registered> {
 		return null;
 	}
 
-	@Override
-	public Registered saveAll(List<Registered> entities) {
-		return null;
-	}
 	/*
         @Override
         public boolean saveOne(Registered entity) {

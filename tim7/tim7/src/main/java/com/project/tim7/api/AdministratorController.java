@@ -12,14 +12,13 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import javax.validation.constraints.Min;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -44,19 +43,20 @@ public class AdministratorController {
 
     @PreAuthorize("hasRole('ROLE_ADMINISTRATOR')")
     @RequestMapping(method= RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<String> createAdministrator(@Valid @RequestBody UserDTO adminDTO){
+    public ResponseEntity<UserDTO> createAdministrator(@Valid @RequestBody UserDTO adminDTO){
 
         adminDTO.setPassword(passwordEncoder.encode(adminDTO.getPassword()));
 
-        if(adminService.saveOne(adminMapper.toEntity(adminDTO)) == null){
-            return new ResponseEntity<>("Username or email already exists.",HttpStatus.BAD_REQUEST);
+        Administrator savedAdmin = adminService.saveOne(adminMapper.toEntity(adminDTO));
+        if(savedAdmin == null){
+            return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
         }
-        return new ResponseEntity<>("Administrator created.", HttpStatus.CREATED);
+        return new ResponseEntity<>(adminMapper.toDto(savedAdmin), HttpStatus.CREATED);
     }
 
     @PreAuthorize("hasRole('ROLE_ADMINISTRATOR')")
     @RequestMapping(value="/{id}", method=RequestMethod.DELETE)
-    public ResponseEntity<String> deleteAdministrator(@PathVariable Integer id){
+    public ResponseEntity<String> deleteAdministrator(@PathVariable @Min(1) Integer id){
 
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         Administrator adminLogged = (Administrator) authentication.getPrincipal();
@@ -73,13 +73,13 @@ public class AdministratorController {
 
     @PreAuthorize("hasRole('ROLE_ADMINISTRATOR')")
     @RequestMapping(method=RequestMethod.PUT, consumes = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<UserDTO> updateAdministrator(@RequestBody UserDTO adminDTO){
+    public ResponseEntity<UserDTO> updateAdministrator(@Valid @RequestBody UserDTO adminDTO){
 
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         Administrator adminLogged = (Administrator) authentication.getPrincipal();
 
-        if(adminDTO.getId() != adminLogged.getId()) {
-            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        if(!adminDTO.getUsername().equals(adminLogged.getUsername()) || adminDTO.getId() != adminLogged.getId()) {
+            return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
         }
 
         String password = adminDTO.getPassword();

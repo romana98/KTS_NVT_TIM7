@@ -1,5 +1,6 @@
 insert into administrators (id, username, email, password, verified) values (nextval('person_seq'),'mico', 'mico@admin.com', '$2y$12$NFN7DJUX1lFfaDX1tc9/6uBtgls9SZOU9iwjhrlXJc0xr471vgKAK', true);
-insert into registered (id, username, email, password, verified) values (NEXTVAL('person_seq'), 'micoR', 'mico@reg.com', '$2y$12$NFN7DJUX1lFfaDX1tc9/6uBtgls9SZOU9iwjhrlXJc0xr471vgKAK', true); 
+
+insert into registered (id, username, email, password, verified) values (NEXTVAL('person_seq'), 'micoR', 'mico@reg.com', '$2y$12$NFN7DJUX1lFfaDX1tc9/6uBtgls9SZOU9iwjhrlXJc0xr471vgKAK', true);
 insert into registered (id, username, email, password, verified) values (NEXTVAL('person_seq'), 'nijeMico', 'notmico@reg.com', '$2y$12$NFN7DJUX1lFfaDX1tc9/6uBtgls9SZOU9iwjhrlXJc0xr471vgKAK', true); 
 
 insert into pictures (picture, cultural_offer_id) values ('http://dummyimage.com/129x140.bmp', null);
@@ -18,6 +19,8 @@ insert into newsletters (name, published_date, cultural_offer_id, picture_id, de
 
 insert into subscribed_cultural_offers (cultural_offer_id, registered_id) values (1, 2);
 
+insert into administrators (id, username, email, password, verified) values (nextval('person_seq'),'vera', 'vera@admin.com', '$2y$12$NFN7DJUX1lFfaDX1tc9/6uBtgls9SZOU9iwjhrlXJc0xr471vgKAK', true);
+insert into administrators (id, username, email, password, verified) values (nextval('person_seq'),'vule', 'vule@admin.com', '$2y$12$NFN7DJUX1lFfaDX1tc9/6uBtgls9SZOU9iwjhrlXJc0xr471vgKAK', true);
 
-
-
+insert into authorities (name) values ('ROLE_ADMINISTRATOR');
+insert into user_authority (user_id, authority_id) values (1, 1);

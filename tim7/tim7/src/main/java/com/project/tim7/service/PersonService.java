@@ -32,11 +32,6 @@ public class PersonService implements ServiceInterface<Person> {
 	}
 
 	@Override
-	public Person saveAll(List<Person> entities) {
-		return null;
-	}
-
-	@Override
 	public boolean delete(int id) {
 		return false;
 	}

@@ -1,5 +1,6 @@
 package com.project.tim7.dto;
 
+import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
@@ -12,7 +13,7 @@ public class UserDTO {
     private String username;
 
     @NotBlank
-    @Pattern(regexp="[a-z]+[a-z0-9._]*[a-z0-9]+@[a-z]*.com")
+    @Email
     private String email;
 
     @NotBlank
@@ -28,6 +29,19 @@ public class UserDTO {
         this.id = id;
         this.username = username;
         this.email = email;
+    }
+
+    public UserDTO(String username, String email, String password) {
+        this.username = username;
+        this.email = email;
+        this.password = password;
+    }
+
+    public UserDTO(Integer id, String username, String email, String password) {
+        this.id = id;
+        this.username = username;
+        this.email = email;
+        this.password = password;
     }
 
     public int getId() {

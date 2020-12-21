@@ -67,14 +67,11 @@ public class NewsletterService implements ServiceInterface<Newsletter> {
 	public Newsletter update(Newsletter entity) {
 		return null;
 	}
-
-	@Override
-	public Newsletter saveAll(List<Newsletter> entities) {
-		return null;
-	}
-
+	
 	public Newsletter update(Newsletter entity, String pictureStr) {
-		Newsletter newsletter = null;
+		Newsletter newsletter = newsletterRepo.save(entity);
+		List<String> emails = regService.findRegisteredForSubscribedCulturalOffers(entity.getCulturalOffer().getId());
+
 		try {
 			newsletter = newsletterRepo.findById(entity.getId()).orElse(null);
 		} catch (Exception e) {

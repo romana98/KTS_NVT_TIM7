@@ -28,11 +28,6 @@ public class PictureService implements ServiceInterface<Picture> {
 	public Page<Picture> findAll(Pageable pageable) {
 		return null;
 	}
-
-	@Override
-	public Picture saveAll(List<Picture> entities) {
-		return null;
-	}
 	
 	@Override
 	public Picture findOne(int id) {

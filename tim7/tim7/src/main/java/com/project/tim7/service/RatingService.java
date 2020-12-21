@@ -44,11 +44,6 @@ public class RatingService implements ServiceInterface<Rating> {
 	public Rating saveOne(Rating entity) {
 		return null;
 	}
-
-	@Override
-	public Rating saveAll(List<Rating> entities) {
-		return null;
-	}
 	/*
         @Override
         public boolean saveOne(Rating entity) {
