@@ -27,28 +27,41 @@ public class NewsletterConstants {
 	public static final String NEWSLETTER_PUBLISHED_DATE_CREATE = "2020-03-01";
 	public static final int PICTURE_ID_CREATE = 1;
 	public static final String PICTURE_PICTURE_CREATE = "http://dummyimage.com/129x140.bmp";
-	/*public static final int CATEGORY_ID_CREATE = 1;
-	public static final int SUBCATEGORY_ID_CREATE = 1;
-	public static final String CATEGORY_NAME_CREATE = "Category1";
-	public static final String SUBCATEGORY_NAME_CREATE = "Subcategory1";
-	public static final int LOCATION_ID_CREATE = 1;
-	public static final String LOCATION_NAME_CREATE = "Novi Sad";
-	public static final double LOCATION_LATITUDE_CREATE = 45.25167;
-	public static final double LOCATION_LONGITUDE_CREATE = 19.83694;*/
 	public static final int OFFER_ID_CREATE = 1;
 	public static final String OFFER_NAME_CREATE = "Exit";
 	public static final String OFFER_DESCRIPTION_CREATE = "Proslava 20. godišnjice EXIT festivala biće održana u njegovom poznatom punom formatu od 8. do 11. jula 2021. na Petrovaradinskoj tvrđavi.";
 	public static final String OFFER_STARTDATE_CREATE = "2020-07-08";
 	public static final String OFFER_ENDDATE_CREATE = "2020-07-11";
-	public static final int NEWSLETTER_CREATED_EXPECTED_ID = 4;
 
 	public static final int NEWSLETTER_ID_UPDATE = 1;
 	public static final String NEWSLETTER_NAME_UPDATE = "new newsletter";
-	public static final String NEWSLETTER_OLD_NAME = "Exit";
+	public static final String NEWSLETTER_OLD_NAME = "Newsletter1";
 	public static final int NEWSLETTER_ID_DELETE = 2;
-	public static final String DELETED_NAME = "Exit1";
+	public static final String DELETED_NAME = "Newsletter2";
 	
 	public static final int OFFER_ID_NOT_EXIST = 888;
+	
+	//JUnit
+	public static final int REGISTERED_ID_CREATE = 0;
+	public static final String REGISTERED_EMAIL_CREATE = "mico@reg.com";
+	public static final String REGISTERED_USERNAME_CREATE = "micoR";
+	public static final String REGISTERED_PASSWORD_CREATE = "$2y$12$NFN7DJUX1lFfaDX1tc9/6uBtgls9SZOU9iwjhrlXJc0xr471vgKAK";
+	public static final String REGISTERED_NOT_SUBSCRIBED_EMAIL_CREATE = "mico1@reg.com";
+	public static final String REGISTERED_NOT_SUBSCRIBED_USERNAME_CREATE = "micoR1";
+	
+	public static final String NEWSLETTER_NAME_CREATE_1 = "Newsletter1";
+	public static final String NEWSLETTER_DESCRIPTION_CREATE_1 = "Nulla ac enim.";
+	public static final String NEWSLETTER_PUBLISHED_DATE_CREATE_1 = "2020-03-01";
+	
+	public static final String NEWSLETTER_NAME_CREATE_2 = "Newsletter2";
+	public static final String NEWSLETTER_DESCRIPTION_CREATE_2 = "Pellentesque ultrices mattis odio.";
+	public static final String NEWSLETTER_PUBLISHED_DATE_CREATE_2 = "2020-11-19";
+	
+	public static final int PICTURE_ID_CREATE_NEW = 2;
+	public static final String PICTURE_PICTURE_CREATE_NEW = "http://dummyimage.com/100x100.bmp";
+
+	
+	
 
 
 }

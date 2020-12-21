@@ -66,16 +66,19 @@ public class NewsletterController {
     
 	@PreAuthorize("hasRole('ROLE_ADMINISTRATOR')")
     @RequestMapping(method = RequestMethod.PUT, consumes = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<String> updateNewsletter(@Valid @RequestBody NewsletterDetailsDTO newsletterDTO){
+	public ResponseEntity<NewsletterDetailsDTO> updateNewsletter(@Valid @RequestBody NewsletterDetailsDTO newsletterDTO){
 		
 		Newsletter updatedNewsletter = newsletterMapper.toEntity(newsletterDTO);
+		System.out.println(updatedNewsletter);
 
-        boolean updated = newsletterService.updateNewsletter(updatedNewsletter, newsletterDTO.getPicture());
+        Newsletter updated = newsletterService.update(updatedNewsletter, newsletterDTO.getPicture());
+        
+        NewsletterDetailsDTO updatedNewsletterDTO = newsletterMapper.toNewsletterDetailsDto(updated);
 
-		if(updatedNewsletter != null) {
-			return new ResponseEntity<>("Successfully updated newsletter.", HttpStatus.OK);
+		if(updated != null) {
+			return new ResponseEntity<>(updatedNewsletterDTO, HttpStatus.OK);
 		}else {
-			return new ResponseEntity<>("Updating failed.", HttpStatus.BAD_REQUEST);
+			return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
 		}
 	}
     

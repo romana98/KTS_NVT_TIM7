@@ -27,7 +27,7 @@ public class NewsletterDetailsDTO {
 	private String picture;
 
 	public NewsletterDetailsDTO(int id, @NotBlank String name, String description, @NotBlank @PastOrPresent Date publishedDate,
-			@NotBlank int culturalOfferId, @Pattern(regexp = "([^\\s]+(\\.(?i)(jpe?g|png|gif|bmp))$)") String picture) {
+			@NotBlank int culturalOfferId, String picture) {
 		super();
 		this.id = id;
 		this.name = name;

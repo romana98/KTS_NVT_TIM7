@@ -60,13 +60,13 @@ public class NewsletterServiceIntegrationTest {
 	}
 	
 	@Test
-	public void testSaveNewsletter() throws ParseException{
+	public void testSaveOne() throws ParseException{
 		Newsletter newEntity = new Newsletter(NEWSLETTER_ID_CREATE, NEWSLETTER_NAME_CREATE, NEWSLETTER_DESCRIPTION_CREATE, sdf.parse(NEWSLETTER_PUBLISHED_DATE_CREATE), 
 				new CulturalOffer(OFFER_ID_CREATE, OFFER_DESCRIPTION_CREATE, sdf.parse(OFFER_ENDDATE_CREATE), OFFER_NAME_CREATE, sdf.parse(OFFER_STARTDATE_CREATE)), 
 				new Picture(PICTURE_ID_CREATE, PICTURE_PICTURE_CREATE));
-		Newsletter created = newsletterService.saveNewsletter(newEntity);
+		Newsletter created = newsletterService.saveOne(newEntity);
 		assertEquals(NEWSLETTER_NAME_CREATE, created.getName());
-		boolean deleted = newsletterService.delete(created.getId());
+		newsletterService.delete(created.getId());
 	}
 
 	@Test
@@ -75,7 +75,7 @@ public class NewsletterServiceIntegrationTest {
 		Newsletter updated = newsletterService.update(update, PICTURE_PICTURE_CREATE);
 		assertEquals(NEWSLETTER_NAME_UPDATE, updated.getName());
 		update.setName(NEWSLETTER_OLD_NAME);
-		Newsletter restored = newsletterService.update(update, PICTURE_PICTURE_CREATE);
+		newsletterService.update(update, PICTURE_PICTURE_CREATE);
 	}
 	
 	@Test
@@ -93,7 +93,7 @@ public class NewsletterServiceIntegrationTest {
 		Newsletter newEntity = new Newsletter(NEWSLETTER_ID_CREATE, DELETED_NAME, NEWSLETTER_DESCRIPTION_CREATE, sdf.parse(NEWSLETTER_PUBLISHED_DATE_CREATE), 
 				new CulturalOffer(OFFER_ID_CREATE, OFFER_DESCRIPTION_CREATE, sdf.parse(OFFER_ENDDATE_CREATE), OFFER_NAME_CREATE, sdf.parse(OFFER_STARTDATE_CREATE)), 
 				new Picture(PICTURE_ID_CREATE, PICTURE_PICTURE_CREATE));
-		Newsletter newsletter = newsletterService.saveNewsletter(newEntity);
+		newsletterService.saveOne(newEntity);
 	}
 	
 	@Test
@@ -109,8 +109,7 @@ public class NewsletterServiceIntegrationTest {
 		Newsletter created = newsletterService.save(create, OFFER_ID_CREATE, PICTURE_PICTURE_CREATE);
 		assertEquals(NEWSLETTER_NAME_UPDATE, created.getName());
 		assertEquals(FIND_ALL_NUMBER_OF_ITEMS+1, newsletterService.findAll().size());
-		boolean deleted = newsletterService.delete(created.getId());
-		System.out.println(newsletterService.findAll().size());
+		newsletterService.delete(created.getId());
 	}
 	
 	@Test

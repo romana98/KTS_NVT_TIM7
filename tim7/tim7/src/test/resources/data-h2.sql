@@ -17,3 +17,7 @@ insert into newsletters (name, published_date, cultural_offer_id, picture_id, de
 insert into newsletters (name, published_date, cultural_offer_id, picture_id, description) values ('Newsletter3', '2020-01-31', 1, 2, 'Etiam faucibus cursus urna. Ut tellus.');
 
 insert into subscribed_cultural_offers (cultural_offer_id, registered_id) values (1, 2);
+
+
+
+
