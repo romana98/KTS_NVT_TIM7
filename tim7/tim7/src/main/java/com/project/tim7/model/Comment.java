@@ -1,5 +1,6 @@
 package com.project.tim7.model;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
@@ -37,18 +38,16 @@ public class Comment {
 	@JoinColumn(name = "commentId")
 	private Set<Picture> pictures;
 	
-	public Comment(int id2, String description2, Date publishedDate2) {
-		this.id = id2;
-		this.description = description2;
-		this.publishedDate = publishedDate2;
+	public Comment(int id, String description, Date publishedDate) {
+		this.id = id;
+		this.description = description;
+		this.publishedDate = publishedDate;
 	}
 
 	public Comment() {
 		super();
 		this.pictures = new HashSet<Picture>();
 	}
-
-
 
 	public int getId() {
 		return id;

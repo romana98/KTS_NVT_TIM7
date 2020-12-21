@@ -43,7 +43,8 @@ public class CommentService implements ServiceInterface<Comment> {
 
 	@Override
 	public Page<Comment> findAll(Pageable pageable) {
-		return null;
+
+		return commentRepo.findAll(pageable);
 	}
 
 	@Override
@@ -53,7 +54,9 @@ public class CommentService implements ServiceInterface<Comment> {
 
 	@Override
 	public Comment saveOne(Comment entity) {
-		return null;
+
+		commentRepo.save(entity);
+		return entity;
 	}
 
 	@Override
@@ -61,18 +64,6 @@ public class CommentService implements ServiceInterface<Comment> {
 		return null;
 	}
 
-	/*
-	@Override
-	public boolean saveOne(Comment entity) {
-		commentRepo.save(entity);
-		return true;
-	}
-
-	@Override
-	public boolean saveAll(List<Comment> entities) {
-		return false;
-	}
-*/
 	@Override
 	public boolean delete(int id) {
 		return false;
@@ -83,31 +74,31 @@ public class CommentService implements ServiceInterface<Comment> {
 		return null;
 	}
 
-	public int createComment(Comment entity, int registeredId, ArrayList<String> pictures, int culturalOfferId) {
+	public Comment createComment(Comment entity, int registeredId, ArrayList<String> pictures, int culturalOfferId) {
 		
-		if(pictureService.checkDuplicates(pictures) == true) {
-			return -1;
+		if(pictureService.checkDuplicates(pictures)) {
+			return null;
 		}
 		
 		Registered registered = registeredService.findOne(registeredId);
 		if(registered == null) {
-			return -1;
+			return null;
 		}
 		CulturalOffer culturalOffer = culturalOfferService.findOne(culturalOfferId);
 		if(culturalOffer == null) {
-			return -1;
+			return null;
 		}
 		entity.setRegistered(registered);
 		entity.setPictures(pictureService.getPictures(pictures));
-		Comment newComment = saveAndReturn(entity);
+		Comment newComment = saveOne(entity);
 		culturalOffer.getComments().add(newComment);
 		culturalOfferService.saveOne(culturalOffer);
-		return newComment.getId();
+		return newComment;
 	}
 
-	private Comment saveAndReturn(Comment entity) {
-		saveOne(entity);
-		return entity;
-	}
+    public Page<Comment> findCommentsByCulturalOffer(int culturalOfferId, Pageable pageable) {
 
+		return commentRepo.findCommentsOfCulturalOffer(culturalOfferId, pageable);
+
+    }
 }

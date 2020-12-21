@@ -37,37 +37,23 @@ public class SubcategoryService implements ServiceInterface<Subcategory> {
 
 	@Override
 	public Subcategory saveOne(Subcategory entity) {
-		return null;
+
+		Category category = categoryService.findOne(entity.getCategory().getId());
+		if(category == null) {
+			return null;
+		}
+		Subcategory subcatName = subcategoryRepo.findByName(entity.getName());
+		if(subcatName != null) {
+			return null;
+		}
+		entity.setCategory(category);
+		subcategoryRepo.save(entity);
+		return entity;
 	}
 
 	@Override
 	public Subcategory saveAll(List<Subcategory> entities) {
 		return null;
-	}
-
-	@Override
-	public boolean delete(int id) {
-		return false;
-	}
-
-	@Override
-	public Page<Subcategory> findAll(Pageable pageable) {
-		return subcategoryRepo.findAll(pageable);
-	}
-
-/*
-	@Override
-	public boolean saveOne(Subcategory entity) {
-		
-		subcategoryRepo.save(entity);
-		return true;
-		
-	}
-
-	@Override
-	public boolean saveAll(List<Subcategory> entities) {
-		// TODO Auto-generated method stub
-		return false;
 	}
 
 	@Override
@@ -81,59 +67,46 @@ public class SubcategoryService implements ServiceInterface<Subcategory> {
 		}
 		subcategoryRepo.deleteById(id);
 		return true;
-		
 	}
-*/
+
+	@Override
+	public Page<Subcategory> findAll(Pageable pageable) {
+
+		return subcategoryRepo.findAll(pageable);
+	}
+
 	@Override
 	public Subcategory update(Subcategory entity) {
-		
-		saveOne(entity);
-		return entity;
-		
-	}
-	
-	public Subcategory update(Subcategory entity, int categoryId) {
-		
+
 		Subcategory subcategory = findOne(entity.getId());
 		if(subcategory == null) {
 			return null;
 		}
-		Category category = categoryService.findOne(categoryId);
+		Category category = categoryService.findOne(entity.getCategory().getId());
 		if(category == null) {
 			return null;
 		}
-		if(entity.getName().equals(subcategory.getName()) == false) {
-			Subcategory subcategory2 = subcategoryRepo.findByName(entity.getName());
-			if(subcategory2 != null) {
+
+		if(entity.getName().equals(subcategory.getName())){
+			return subcategory;
+		}else{
+			if(subcategoryRepo.findByName(entity.getName()) == null){
+				subcategory.setName(entity.getName());
+				subcategoryRepo.save(subcategory);
+				return subcategory;
+			}else{
 				return null;
 			}
 		}
-		
-		subcategory.setName(entity.getName());
-		subcategory.setCategory(category);
-		return update(subcategory);
-		
-		
-	}
-	
-	public Subcategory addSubcategory(Subcategory subcategory, int categoryId) {
-		
-		Category category = categoryService.findOne(categoryId);
-		if(category == null) {
-			return null;
-		}
-		Subcategory subcatName = subcategoryRepo.findByName(subcategory.getName());
-		if(subcatName != null) {
-			return null;
-		}
-		subcategory.setCategory(category);
-		saveOne(subcategory);
-		return subcategory;
 	}
 
 	public long getSubcategoriesReferencingCount(int id) {
+
 		return subcategoryRepo.countByCategoryId(id);
 	}
 
+    public Page<Subcategory> findSubcategoriesByCategory(int id, Pageable pageable) {
 
+		return subcategoryRepo.findByCategoryId(id, pageable);
+    }
 }

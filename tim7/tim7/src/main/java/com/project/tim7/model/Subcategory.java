@@ -40,6 +40,13 @@ public class Subcategory {
 		this.name = name;
 	}
 
+	public Subcategory(int id, String name, int categoryId){
+		super();
+		this.id = id;
+		this.name = name;
+		this.category = new Category(categoryId);
+	}
+
 	public Subcategory(int id, String name, Category category, Set<CulturalOffer> culturalOffers) {
 		super();
 		this.id = id;

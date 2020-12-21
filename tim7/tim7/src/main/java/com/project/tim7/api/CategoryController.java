@@ -81,7 +81,7 @@ public class CategoryController  {
 	@RequestMapping(method= RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Object> createCategory(@Valid @RequestBody CategoryDTO category){
 		
-		Category newCategory = categoryService.createCategory(catMapper.toEntity(category));
+		Category newCategory = categoryService.saveOne(catMapper.toEntity(category));
 		if(newCategory != null) {
 			category.setId(newCategory.getId());
 			return new ResponseEntity<>(category, HttpStatus.CREATED);

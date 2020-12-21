@@ -2,6 +2,7 @@ package com.project.tim7.service;
 
 import java.util.List;
 
+import com.project.tim7.model.Administrator;
 import com.project.tim7.model.CulturalOffer;
 import com.project.tim7.model.Rating;
 import com.project.tim7.model.Registered;
@@ -23,6 +24,9 @@ public class RatingService implements ServiceInterface<Rating> {
 	
 	@Autowired
 	CulturalOfferService culturalOfferService;
+
+	@Autowired
+	AdministratorService administratorService;
 	
 	@Override
 	public List findAll() {
@@ -37,32 +41,23 @@ public class RatingService implements ServiceInterface<Rating> {
 
 	@Override
 	public Rating findOne(int id) {
-		return null;
+
+		return ratingRepository.findById(id).orElse(null);
 	}
 
 	@Override
 	public Rating saveOne(Rating entity) {
-		return null;
+
+		return ratingRepository.save(entity);
 	}
 
 	@Override
 	public Rating saveAll(List<Rating> entities) {
 		return null;
 	}
-	/*
-        @Override
-        public boolean saveOne(Rating entity) {
-            ratingRepository.save(entity);
-            return true;
-        }
 
-        @Override
-        public boolean saveAll(List<Rating> entities) {
-            return false;
-        }
-*/
-        @Override
-        public boolean delete(int id) {
+	@Override
+	public boolean delete(int id) {
             return false;
         }
 
@@ -71,28 +66,23 @@ public class RatingService implements ServiceInterface<Rating> {
 		return null;
 	}
 
-	public int createRating(Rating entity, int culturalOfferId, int registeredId) {
-		Registered registered = registeredService.findOne(registeredId);
+	public Rating createRating(Rating entity, int culturalOfferId) {
+		Registered registered = registeredService.findOne(entity.getRegistered().getId());
 		if(registered == null) {
-			return -1;
+			return null;
 		}
 		CulturalOffer culturalOffer = culturalOfferService.findOne(culturalOfferId);
 		if(culturalOffer == null) {
-			return -1;
+			return null;
 		}
 		if(alreadyRated(culturalOffer, registered)) {
-			return -1;
+			return null;
 		}
 		entity.setRegistered(registered);
-		Rating newRating = saveAndReturn(entity);
+		Rating newRating = saveOne(entity);
 		culturalOffer.getRatings().add(newRating);
 		culturalOfferService.saveOne(culturalOffer);
-		return newRating.getId();
-	}
-
-	private Rating saveAndReturn(Rating entity) {
-		saveOne(entity);
-		return entity;
+		return newRating;
 	}
 
 	private boolean alreadyRated(CulturalOffer culturalOffer, Registered registered) {
@@ -103,4 +93,15 @@ public class RatingService implements ServiceInterface<Rating> {
 		}
 		return false;
 	}
+
+    public int getRating(int culturalOfferId, int id) {
+
+		Administrator administrator = administratorService.findOne(id);
+		if(administrator != null){
+			return ratingRepository.findAverageRate(culturalOfferId);
+		}else{
+			return ratingRepository.findRateRegistered(id);
+		}
+
+    }
 }
