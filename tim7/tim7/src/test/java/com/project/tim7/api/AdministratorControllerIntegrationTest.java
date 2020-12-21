@@ -87,6 +87,34 @@ public class AdministratorControllerIntegrationTest {
     }
 
     @Test
+    public void testGetAdministratorInvalid() {
+        HttpEntity<Object> httpEntity = new HttpEntity<>(headers);
+
+        ResponseEntity<UserDTO> responseEntity =
+                restTemplate.exchange("/administrators/4", HttpMethod.GET, httpEntity,
+                        UserDTO.class);
+
+        UserDTO admin = responseEntity.getBody();
+
+        assertEquals(HttpStatus.BAD_REQUEST, responseEntity.getStatusCode());
+        assertNull(admin);
+    }
+
+    @Test
+    public void testGetAdministratorInvalidNonExist() {
+        HttpEntity<Object> httpEntity = new HttpEntity<>(headers);
+
+        ResponseEntity<UserDTO> responseEntity =
+                restTemplate.exchange("/administrators/-1", HttpMethod.GET, httpEntity,
+                        UserDTO.class);
+
+        UserDTO admin = responseEntity.getBody();
+
+        assertEquals(HttpStatus.NOT_FOUND, responseEntity.getStatusCode());
+        assertNull(admin);
+    }
+
+    @Test
     public void testUpdateAdministrator(){
         HttpEntity<Object> httpEntity = new HttpEntity<>(new UserDTO(ADMIN_ID, DB_USERNAME, NEW_EMAIL, NEW_PASSWORD), headers);
 
@@ -172,7 +200,7 @@ public class AdministratorControllerIntegrationTest {
     }
 
     @Test
-    public void testUpdateInvalidUsername() {
+    public void testUpdateAdministratorInvalidUsername() {
         HttpEntity<Object> httpEntity = new HttpEntity<>(new UserDTO(ADMIN_ID, DB_USERNAME_NONEXIST, DB_EMAIL, DB_PASSWORD), headers);
 
         ResponseEntity<UserDTO> responseEntity =
@@ -187,7 +215,7 @@ public class AdministratorControllerIntegrationTest {
     }
 
     @Test
-    public void testUpdateInvalidPassword() {
+    public void testUpdateAdministratorPassword() {
         HttpEntity<Object> httpEntity = new HttpEntity<>(new UserDTO(ADMIN_ID, DB_USERNAME, DB_EMAIL, BAD_PASSWORD), headers);
 
         ResponseEntity<UserDTO> responseEntity =
@@ -204,7 +232,7 @@ public class AdministratorControllerIntegrationTest {
     }
 
     @Test
-    public void testUpdateInvalidEmail() {
+    public void testUpdateAdministratorInvalidEmail() {
         HttpEntity<Object> httpEntity = new HttpEntity<>(new UserDTO(ADMIN_ID, DB_USERNAME, BAD_EMAIL, DB_PASSWORD), headers);
 
         ResponseEntity<UserDTO> responseEntity =
@@ -221,7 +249,7 @@ public class AdministratorControllerIntegrationTest {
     }
 
     @Test
-    public void testUpdateInvalidUsernameEmpty() {
+    public void testUpdateAdministratorInvalidUsernameEmpty() {
         HttpEntity<Object> httpEntity = new HttpEntity<>(new UserDTO(ADMIN_ID, "", DB_EMAIL, DB_PASSWORD), headers);
 
         ResponseEntity<UserDTO> responseEntity =
@@ -238,7 +266,7 @@ public class AdministratorControllerIntegrationTest {
     }
 
     @Test
-    public void testUpdateInvalidEmailEmpty() {
+    public void testUpdateAdministratorInvalidEmailEmpty() {
         HttpEntity<Object> httpEntity = new HttpEntity<>(new UserDTO(ADMIN_ID, DB_USERNAME, "", DB_PASSWORD), headers);
 
         ResponseEntity<UserDTO> responseEntity =

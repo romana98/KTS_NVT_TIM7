@@ -50,6 +50,12 @@ public abstract class Person implements UserDetails {
 		this.password = password;
 	}
 
+	public Person(String email, String username, String password) {
+		this.email = email;
+		this.username = username;
+		this.password = password;
+	}
+
     public int getId() {
 		return id;
 	}

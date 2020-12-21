@@ -28,10 +28,14 @@ public class Registered extends Person {
 	}
 
     public Registered(int id, String email, String username, String password) {
-    	super(id, email, username, password);
+		super(id, email, username, password);
     }
 
-	@Override
+	public Registered(String email, String username, String password) {
+		super(email, username, password);
+	}
+
+    @Override
 	public boolean isAccountNonExpired() {
 		return true;
 	}

@@ -16,7 +16,10 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+
+import javax.validation.Valid;
 
 @RestController
 @RequestMapping(value="/registered-users")
@@ -39,14 +42,14 @@ public class RegisteredController {
 
     @PreAuthorize("hasRole('ROLE_REGISTERED')")
     @RequestMapping(method= RequestMethod.PUT, consumes = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<UserDTO> updateRegistered(@RequestBody UserDTO regDTO){
+    public ResponseEntity<UserDTO> updateRegistered(@Valid @RequestBody UserDTO regDTO){
 
 
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         Registered regLogged = (Registered) authentication.getPrincipal();
 
-        if(regDTO.getId() != regLogged.getId()) {
-            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        if(!regDTO.getUsername().equals(regLogged.getUsername()) || regDTO.getId() != regLogged.getId()) {
+            return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
         }
 
         String password = regDTO.getPassword();
@@ -74,14 +77,14 @@ public class RegisteredController {
         Registered reg = regService.findOne(id);
 
         if(reg == null) {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+            return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
 
         }else if(reg.getUsername().equals(regLogged.getUsername())){
             UserDTO regDTO = regMapper.toDto(reg);
             return new ResponseEntity<>(regDTO, HttpStatus.OK);
         }
 
-        return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
 
     }
 

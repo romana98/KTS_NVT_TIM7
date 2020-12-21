@@ -15,6 +15,7 @@ import java.util.List;
 public interface RegisteredRepository extends JpaRepository<Registered, Integer> {
     Long countByEmailOrUsername(String email, String username);
     Registered findByEmail(String email);
+    Registered findByUsername(String username);
     Registered findByUsernameOrEmail(String username, String email);
 
     @Query("SELECT r FROM Registered r JOIN r.subscribedCulturalOffers co WHERE co.id = ?1")

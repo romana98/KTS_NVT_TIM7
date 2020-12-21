@@ -37,7 +37,8 @@ public class AdministratorService implements ServiceInterface<Administrator> {
 
 	@Override
 	public Administrator saveOne(Administrator entity) {
-		if(countByEmailOrUsername(entity.getEmail(), entity.getUsername()) != 0)
+		if(countByEmailOrUsername(entity.getEmail(), entity.getUsername()) != 0 ||
+				regService.countByEmailOrUsername(entity.getEmail(), entity.getUsername()) != 0)
 			return null;
 		
 		return adminRepo.save(entity);
@@ -71,7 +72,7 @@ public class AdministratorService implements ServiceInterface<Administrator> {
 	}
 
 	public long countByEmailOrUsername(String email, String username){
-		return adminRepo.countByEmailOrUsername(email, username) + regService.countByEmailOrUsername(email, username);
+		return adminRepo.countByEmailOrUsername(email, username);
 	}
 
 	public Administrator findByEmail(String email){
