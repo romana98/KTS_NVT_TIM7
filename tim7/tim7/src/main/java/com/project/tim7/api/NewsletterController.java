@@ -69,13 +69,11 @@ public class NewsletterController {
 	public ResponseEntity<NewsletterDetailsDTO> updateNewsletter(@Valid @RequestBody NewsletterDetailsDTO newsletterDTO){
 		
 		Newsletter updatedNewsletter = newsletterMapper.toEntity(newsletterDTO);
-		System.out.println(updatedNewsletter);
 
         Newsletter updated = newsletterService.update(updatedNewsletter, newsletterDTO.getPicture());
         
-        NewsletterDetailsDTO updatedNewsletterDTO = newsletterMapper.toNewsletterDetailsDto(updated);
-
 		if(updated != null) {
+	        NewsletterDetailsDTO updatedNewsletterDTO = newsletterMapper.toNewsletterDetailsDto(updated);
 			return new ResponseEntity<>(updatedNewsletterDTO, HttpStatus.OK);
 		}else {
 			return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
@@ -117,7 +115,7 @@ public class NewsletterController {
     
 	@PreAuthorize("hasRole('ROLE_REGISTERED')")
     @RequestMapping(value= "/subscribed/{id-user}/by-page",method = RequestMethod.GET)
-    public ResponseEntity<?> findNewsletterForUser(@PathVariable("id-user") Integer idUser, Pageable pageable) {
+    public ResponseEntity<?> findNewsletterForUser(@PathVariable("id-user") int idUser, Pageable pageable) {
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 		Person person = (Person) authentication.getPrincipal();
 		if(person.getId() != idUser) {

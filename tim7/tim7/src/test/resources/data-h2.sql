@@ -27,3 +27,6 @@ insert into administrators (id, username, email, password, verified) values (nex
 
 insert into authorities (name) values ('ROLE_ADMINISTRATOR');
 insert into user_authority (user_id, authority_id) values (1, 1);
+
+insert into authorities (name) values ('ROLE_REGISTERED');
+insert into user_authority (user_id, authority_id) values (2, 2);

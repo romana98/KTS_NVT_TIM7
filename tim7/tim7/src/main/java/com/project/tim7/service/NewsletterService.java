@@ -69,9 +69,7 @@ public class NewsletterService implements ServiceInterface<Newsletter> {
 	}
 	
 	public Newsletter update(Newsletter entity, String pictureStr) {
-		Newsletter newsletter = newsletterRepo.save(entity);
-		List<String> emails = regService.findRegisteredForSubscribedCulturalOffers(entity.getCulturalOffer().getId());
-
+		Newsletter newsletter = null;
 		try {
 			newsletter = newsletterRepo.findById(entity.getId()).orElse(null);
 		} catch (Exception e) {
