@@ -52,14 +52,9 @@ public class RatingService implements ServiceInterface<Rating> {
 	}
 
 	@Override
-	public Rating saveAll(List<Rating> entities) {
-		return null;
-	}
-
-	@Override
 	public boolean delete(int id) {
-            return false;
-        }
+		return false;
+	}
 
 	@Override
 	public Rating update(Rating entity) {

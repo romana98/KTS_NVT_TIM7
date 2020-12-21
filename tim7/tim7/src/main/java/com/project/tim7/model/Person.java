@@ -6,6 +6,7 @@ import javax.persistence.*;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 
 @Entity
@@ -53,7 +54,7 @@ public abstract class Person implements UserDetails {
 		this.password = password;
 	}
 
-	public int getId() {
+    public int getId() {
 		return id;
 	}
 
@@ -116,6 +117,18 @@ public abstract class Person implements UserDetails {
 				+ ", verified=" + verified + ", lastPasswordResetDate=" + lastPasswordResetDate + ", authorities="
 				+ authorities + "]";
 	}
-	
-	
+
+	@Override
+	public boolean equals(Object o) {
+		if (this == o) return true;
+
+		if (o == null || getClass() != o.getClass()) return false;
+
+		Person person = (Person) o;
+		return id == person.id &&
+				Objects.equals(username, person.username) &&
+				Objects.equals(email, person.email) &&
+				Objects.equals(password, person.password);
+	}
+
 }

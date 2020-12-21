@@ -38,24 +38,19 @@ public class SubcategoryService implements ServiceInterface<Subcategory> {
 	@Override
 	public Subcategory saveOne(Subcategory entity) {
 
-		Category category = categoryService.findOne(entity.getCategory().getId());
-		if(category == null) {
-			return null;
-		}
 		Subcategory subcatName = subcategoryRepo.findByName(entity.getName());
 		if(subcatName != null) {
 			return null;
 		}
-		entity.setCategory(category);
 		subcategoryRepo.save(entity);
 		return entity;
 	}
 
 	@Override
-	public Subcategory saveAll(List<Subcategory> entities) {
-		return null;
+	public Page<Subcategory> findAll(Pageable pageable) {
+		return subcategoryRepo.findAll(pageable);
 	}
-
+	
 	@Override
 	public boolean delete(int id) {
 		Subcategory subcategory = subcategoryRepo.findById(id).orElse(null);
@@ -67,12 +62,6 @@ public class SubcategoryService implements ServiceInterface<Subcategory> {
 		}
 		subcategoryRepo.deleteById(id);
 		return true;
-	}
-
-	@Override
-	public Page<Subcategory> findAll(Pageable pageable) {
-
-		return subcategoryRepo.findAll(pageable);
 	}
 
 	@Override

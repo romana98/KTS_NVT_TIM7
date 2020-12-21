@@ -34,11 +34,6 @@ public class PictureService implements ServiceInterface<Picture> {
 		return null;
 	}
 
-	@Override
-	public Picture saveAll(List<Picture> entities) {
-		return null;
-	}
-
 	/*
         @Override
         public boolean saveOne(Picture entity) {

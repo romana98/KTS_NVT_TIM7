@@ -44,11 +44,6 @@ public class CategoryService implements ServiceInterface<Category> {
 	}
 
 	@Override
-	public Category saveAll(List<Category> entities) {
-		return null;
-	}
-
-	@Override
 	public Page<Category> findAll(Pageable pageable) {
 
 		return categoryRepo.findAll(pageable);
