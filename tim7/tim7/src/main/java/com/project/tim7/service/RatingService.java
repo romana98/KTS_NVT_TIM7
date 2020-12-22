@@ -91,12 +91,12 @@ public class RatingService implements ServiceInterface<Rating> {
 
     public int getRating(int culturalOfferId, int id) {
 
-		Administrator administrator = administratorService.findOne(id);
-		if(administrator != null){
+		//Administrator administrator = administratorService.findOne(id);
+		//if(administrator != null){
 			return ratingRepository.findAverageRate(culturalOfferId);
-		}else{
-			return ratingRepository.findRateRegistered(id);
-		}
+		//}else{
+			//return ratingRepository.findRateRegistered(id);
+		//}
 
     }
 }

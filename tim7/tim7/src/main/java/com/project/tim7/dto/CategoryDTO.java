@@ -14,6 +14,11 @@ public class CategoryDTO {
 		super();
 	}
 
+	public CategoryDTO(String name){
+		super();
+		this.name = name;
+	}
+
 	public CategoryDTO(int id, String name) {
 		super();
 		this.id = id;

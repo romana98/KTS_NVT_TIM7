@@ -65,7 +65,7 @@ public class SubcategoryController {
 		if(newSubcategory != null) {
 			return new ResponseEntity<>(subcategoryDTO, HttpStatus.OK);
 		}else {
-			return new ResponseEntity<Object>("Editing failed.", HttpStatus.BAD_REQUEST);
+			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 		}
 		
 	}
@@ -80,7 +80,7 @@ public class SubcategoryController {
 			subcategory.setId(newSubcategory.getId());
 			return new ResponseEntity<>(subcategory, HttpStatus.CREATED);
 		}else {
-			return new ResponseEntity<>("Subcategory already exists.", HttpStatus.BAD_REQUEST);
+			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 		}
     }
 	

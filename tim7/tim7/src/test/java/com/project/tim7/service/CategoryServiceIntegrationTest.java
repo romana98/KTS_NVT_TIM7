@@ -1,6 +1,5 @@
 package com.project.tim7.service;
 
-import com.project.tim7.constants.CategoryConstants;
 import com.project.tim7.model.Category;
 import com.project.tim7.repository.CategoryRepository;
 import org.junit.Test;
@@ -81,7 +80,6 @@ public class CategoryServiceIntegrationTest {
         assertNull(saved);
     }
 
-    //delete
     @Test
     @Transactional
     @Rollback
@@ -105,7 +103,6 @@ public class CategoryServiceIntegrationTest {
         assertFalse(deleted);
     }
 
-    //update
     @Test
     public void testUpdateValid(){
         Category updatedCategory = new Category();

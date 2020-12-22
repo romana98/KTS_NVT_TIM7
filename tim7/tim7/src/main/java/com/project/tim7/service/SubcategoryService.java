@@ -42,6 +42,11 @@ public class SubcategoryService implements ServiceInterface<Subcategory> {
 		if(subcatName != null) {
 			return null;
 		}
+		Category category = categoryService.findOne(entity.getCategory().getId());
+		if(category == null){
+			return null;
+		}
+		entity.setCategory(category);
 		subcategoryRepo.save(entity);
 		return entity;
 	}
