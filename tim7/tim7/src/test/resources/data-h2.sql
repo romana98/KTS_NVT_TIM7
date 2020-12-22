@@ -11,6 +11,11 @@ insert into categories (name) values ('Category2');
 insert into categories (name) values ('Category3');
 insert into categories (name) values ('Category4');
 insert into subcategories (name, category_id) values ('Subcategory1', 1);
+insert into subcategories (name, category_id) values ('Subcategory2', 1);
+insert into subcategories (name, category_id) values ('Subcategory3', 3);
+insert into subcategories (name, category_id) values ('Subcategory4', 3);
+insert into subcategories (name, category_id) values ('Subcategory5', 3);
+
 insert into locations (name, latitude, longitude) values ('Novi Sad', 45.25167, 19.83694);
 
 insert into cultural_offers (name, start_date, end_date, location_id, subcategory_id, description) values ('Exit', '2020-07-08', '2020-07-11 22:34:31 UTC', 1, 1, 'Proslava 20. godišnjice EXIT festivala biće održana u njegovom poznatom punom formatu od 8. do 11. jula 2021. na Petrovaradinskoj tvrđavi.');

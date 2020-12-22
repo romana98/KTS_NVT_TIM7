@@ -18,6 +18,11 @@ public class CategoryConstants {
     public static final String CATEGORY_NAME_FIND = "Category1";
     public static final String CATEGORY_NAME_FIND_INVALID = "Category1000";
 
+    public static final String DB_USERNAME = "mico";
+    public static final String DB_PASSWORD = "$2y$12$NFN7DJUX1lFfaDX1tc9/6uBtgls9SZOU9iwjhrlXJc0xr471vgKAK";
+    public static final String DB_PASSWORD_RAW = "123qweASD";
+
+
 
 
 }

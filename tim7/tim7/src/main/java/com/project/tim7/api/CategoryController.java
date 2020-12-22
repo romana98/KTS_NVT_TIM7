@@ -72,7 +72,7 @@ public class CategoryController  {
 			categoryDTO.setId(newCategory.getId());
 			return new ResponseEntity<>(categoryDTO, HttpStatus.OK);
 		}else {
-			return new ResponseEntity<Object>("Editing failed.", HttpStatus.BAD_REQUEST);
+			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 		}
 		
 	}
@@ -86,7 +86,7 @@ public class CategoryController  {
 			category.setId(newCategory.getId());
 			return new ResponseEntity<>(category, HttpStatus.CREATED);
 		}else {
-			return new ResponseEntity<>("Category already exists.", HttpStatus.BAD_REQUEST);
+			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 		}
     }
 	
@@ -98,7 +98,7 @@ public class CategoryController  {
             return new ResponseEntity<>("Deleting successful.", HttpStatus.OK);
         }
 
-        return new ResponseEntity<>("Deleting failed.", HttpStatus.NOT_FOUND);
+        return new ResponseEntity<>("Deleting failed.", HttpStatus.BAD_REQUEST);
     }
 
 
