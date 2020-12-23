@@ -48,7 +48,7 @@ public class SubcategoryControllerIntegrationTest {
     @Before
     public void login() {
         ResponseEntity<UserTokenStateDTO> responseEntity = restTemplate.postForEntity("/auth/log-in",
-                new UserLoginDTO(DB_USERNAME, DB_PASSWORD_RAW), UserTokenStateDTO.class);
+                new UserLoginDTO(CONTROLLER_DB_USERNAME, CONTROLLER_DB_PASSWORD), UserTokenStateDTO.class);
 
         String accessToken = "Bearer " + responseEntity.getBody().getAccessToken();
 
@@ -71,7 +71,7 @@ public class SubcategoryControllerIntegrationTest {
 
         List<SubcategoryDTO> subcategories = objectMapper.readValue(responseEntity.getBody(), new TypeReference<List<SubcategoryDTO>>() {});
         assertEquals(HttpStatus.OK, responseEntity.getStatusCode());
-        assertEquals(SUBCATEGORIES_COUNT, subcategories.size());
+        assertEquals(CONTROLLER_COUNT_SUBCATEGORIES_ALL, subcategories.size());
     }
 
     @Test
@@ -87,26 +87,26 @@ public class SubcategoryControllerIntegrationTest {
         Page<SubcategoryDTO> subcategories = objectMapper.readValue(responseEntity.getBody(), new TypeReference<RestResponsePage<SubcategoryDTO>>() {});
 
         assertEquals(HttpStatus.OK, responseEntity.getStatusCode());
-        assertEquals(SUBCATEGORIES_COUNT, subcategories.getTotalElements());
+        assertEquals(CONTROLLER_COUNT_SUBCATEGORIES_ALL, subcategories.getTotalElements());
     }
 
     @Test
     public void testUpdateValid(){
-        HttpEntity<Object> httpEntity = new HttpEntity<>(new SubcategoryDTO(EXIST_SUBCATEGORY_ID, NEW_VALID_SUBCATEGORY_NAME, EXIST_CATEGORY_ID), headers);
+        HttpEntity<Object> httpEntity = new HttpEntity<>(new SubcategoryDTO(CONTROLLER_VALID_SUBCATEGORY_ID, CONTROLLER_NEW_VALID_SUBCATEGORY_NAME, CONTROLLER_VALID_CATEGORY_ID), headers);
         ResponseEntity<SubcategoryDTO> responseEntity =
                 restTemplate.exchange("/subcategories", HttpMethod.PUT, httpEntity, SubcategoryDTO.class);
         SubcategoryDTO updated = responseEntity.getBody();
 
         assertEquals(HttpStatus.OK, responseEntity.getStatusCode());
-        assertEquals(NEW_VALID_SUBCATEGORY_NAME, updated.getName());
+        assertEquals(CONTROLLER_NEW_VALID_SUBCATEGORY_NAME, updated.getName());
 
-        Subcategory subcategory_restore = new Subcategory(EXIST_SUBCATEGORY_ID, OLD_SUBCATEGORY_NAME, EXIST_CATEGORY_ID);
+        Subcategory subcategory_restore = new Subcategory(CONTROLLER_VALID_SUBCATEGORY_ID, CONTROLLER_OLD_SUBCATEGORY_NAME, CONTROLLER_VALID_CATEGORY_ID);
         subcategoryService.update(subcategory_restore);
     }
 
     @Test
     public void testUpdateInvalidId(){
-        HttpEntity<Object> httpEntity = new HttpEntity<>(new SubcategoryDTO(NONEXIST_SUBCATEGORY_ID, NEW_VALID_SUBCATEGORY_NAME, EXIST_CATEGORY_ID), headers);
+        HttpEntity<Object> httpEntity = new HttpEntity<>(new SubcategoryDTO(CONTROLLER_INVALID_SUBCATEGORY_ID, CONTROLLER_NEW_VALID_SUBCATEGORY_NAME, CONTROLLER_VALID_CATEGORY_ID), headers);
         ResponseEntity<SubcategoryDTO> responseEntity =
                 restTemplate.exchange("/subcategories", HttpMethod.PUT, httpEntity, SubcategoryDTO.class);
         SubcategoryDTO updated = responseEntity.getBody();
@@ -117,7 +117,7 @@ public class SubcategoryControllerIntegrationTest {
 
     @Test
     public void testUpdateInvalidCategory(){
-        HttpEntity<Object> httpEntity = new HttpEntity<>(new SubcategoryDTO(EXIST_SUBCATEGORY_ID, NEW_VALID_SUBCATEGORY_NAME, NONEXIST_CATEGORY_ID), headers);
+        HttpEntity<Object> httpEntity = new HttpEntity<>(new SubcategoryDTO(CONTROLLER_VALID_SUBCATEGORY_ID, CONTROLLER_NEW_VALID_SUBCATEGORY_NAME, CONTROLLER_INVALID_CATEGORY_ID), headers);
         ResponseEntity<SubcategoryDTO> responseEntity =
                 restTemplate.exchange("/subcategories", HttpMethod.PUT, httpEntity, SubcategoryDTO.class);
         SubcategoryDTO updated = responseEntity.getBody();
@@ -128,7 +128,7 @@ public class SubcategoryControllerIntegrationTest {
 
     @Test
     public void testUpdateInvalidName(){
-        HttpEntity<Object> httpEntity = new HttpEntity<>(new SubcategoryDTO(EXIST_SUBCATEGORY_ID, NEW_INVALID_SUBCATEGORY_NAME, EXIST_CATEGORY_ID), headers);
+        HttpEntity<Object> httpEntity = new HttpEntity<>(new SubcategoryDTO(CONTROLLER_VALID_SUBCATEGORY_ID, CONTROLLER_NEW_INVALID_SUBCATEGORY_NAME, CONTROLLER_VALID_CATEGORY_ID), headers);
         ResponseEntity<SubcategoryDTO> responseEntity =
                 restTemplate.exchange("/subcategories", HttpMethod.PUT, httpEntity, SubcategoryDTO.class);
         SubcategoryDTO updated = responseEntity.getBody();
@@ -138,14 +138,14 @@ public class SubcategoryControllerIntegrationTest {
     }
 
     @Test
-    public void testCreateCategoryValid(){
-        HttpEntity<Object> httpEntity = new HttpEntity<>(new SubcategoryDTO(NEW_VALID_SUBCATEGORY_NAME, EXIST_CATEGORY_ID), headers);
+    public void testCreateSubcategoryValid(){
+        HttpEntity<Object> httpEntity = new HttpEntity<>(new SubcategoryDTO(CONTROLLER_NEW_VALID_SUBCATEGORY_NAME, CONTROLLER_VALID_CATEGORY_ID), headers);
 
         ResponseEntity<SubcategoryDTO> responseEntity =
                 restTemplate.exchange("/subcategories", HttpMethod.POST, httpEntity, SubcategoryDTO.class);
         SubcategoryDTO created = responseEntity.getBody();
         assertEquals(HttpStatus.CREATED, responseEntity.getStatusCode());
-        assertEquals(created.getName(), NEW_VALID_SUBCATEGORY_NAME);
+        assertEquals(CONTROLLER_NEW_VALID_SUBCATEGORY_NAME, created.getName());
 
         boolean isDeleted = subcategoryService.delete(created.getId());
         assertTrue(isDeleted);
@@ -153,7 +153,7 @@ public class SubcategoryControllerIntegrationTest {
 
     @Test
     public void testCreateSubcategoryInvalidName(){
-        HttpEntity<Object> httpEntity = new HttpEntity<>(new SubcategoryDTO(NEW_INVALID_SUBCATEGORY_NAME, EXIST_CATEGORY_ID), headers);
+        HttpEntity<Object> httpEntity = new HttpEntity<>(new SubcategoryDTO(CONTROLLER_NEW_INVALID_SUBCATEGORY_NAME, CONTROLLER_VALID_CATEGORY_ID), headers);
 
         ResponseEntity<SubcategoryDTO> responseEntity =
                 restTemplate.exchange("/subcategories", HttpMethod.POST, httpEntity, SubcategoryDTO.class);
@@ -164,7 +164,7 @@ public class SubcategoryControllerIntegrationTest {
 
     @Test
     public void testCreateSubcategoryInvalidCategory(){
-        HttpEntity<Object> httpEntity = new HttpEntity<>(new SubcategoryDTO(NEW_VALID_SUBCATEGORY_NAME, NONEXIST_CATEGORY_ID), headers);
+        HttpEntity<Object> httpEntity = new HttpEntity<>(new SubcategoryDTO(CONTROLLER_NEW_VALID_SUBCATEGORY_NAME, CONTROLLER_INVALID_CATEGORY_ID), headers);
 
         ResponseEntity<SubcategoryDTO> responseEntity =
                 restTemplate.exchange("/subcategories", HttpMethod.POST, httpEntity, SubcategoryDTO.class);
@@ -198,8 +198,6 @@ public class SubcategoryControllerIntegrationTest {
         assertThat(message).isNotBlank();
     }
 
-
-    //getAllSubcategoriesByCategory
     @Test
     public void testGetAllSubcategoriesByCategory() throws JsonProcessingException {
         HttpEntity<Object> httpEntity = new HttpEntity<>(headers);
@@ -213,7 +211,7 @@ public class SubcategoryControllerIntegrationTest {
         Page<SubcategoryDTO> subcategories = objectMapper.readValue(responseEntity.getBody(), new TypeReference<RestResponsePage<SubcategoryDTO>>() {});
 
         assertEquals(HttpStatus.OK, responseEntity.getStatusCode());
-        assertEquals(COUNT_REFERENCING_CATEGORIES, subcategories.getTotalElements());
+        assertEquals(CONTROLLER_COUNT_SUBCATEGORIES_BY_CATEGORY, subcategories.getTotalElements());
     }
 
     @Test

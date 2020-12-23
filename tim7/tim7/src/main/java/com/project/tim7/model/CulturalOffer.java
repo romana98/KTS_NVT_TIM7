@@ -4,6 +4,7 @@ import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
 import java.util.Date;
+import java.util.HashSet;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
@@ -65,7 +66,7 @@ public class CulturalOffer {
 	@JoinColumn(name = "culturalOfferId")
 	private Set<Comment> comments;
 	
-	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
 	@JoinColumn(name = "culturalOfferId")
 	private Set<Rating> ratings;
 
@@ -75,9 +76,23 @@ public class CulturalOffer {
 		this.endDate = endDate;
 		this.name = name;
 		this.startDate = startDate;
+		this.pictures = new HashSet<>();
+		this.newsletters = new HashSet<>();
+		this.subscribed = new HashSet<>();
+		this.comments = new HashSet<>();
+		this.ratings = new HashSet<>();
 	}
 
 	public CulturalOffer() {
+		this.pictures = new HashSet<>();
+		this.newsletters = new HashSet<>();
+		this.subscribed = new HashSet<>();
+		this.comments = new HashSet<>();
+		this.ratings = new HashSet<>();
+	}
+
+	public CulturalOffer(int culturalOfferId) {
+		this.id = culturalOfferId;
 	}
 
 	public int getId() {

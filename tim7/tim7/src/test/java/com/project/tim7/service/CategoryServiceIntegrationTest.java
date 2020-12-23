@@ -35,7 +35,7 @@ public class CategoryServiceIntegrationTest {
     @Test
     public void testFindAll(){
         List<Category> found = categoryService.findAll();
-        assertEquals(FIND_ALL_NUMBER_OF_ITEMS, found.size());
+        assertEquals(SERVICE_COUNT_CATEGORIES_ALL, found.size());
     }
 
     @Test
@@ -43,29 +43,27 @@ public class CategoryServiceIntegrationTest {
         Pageable pageable = PageRequest.of(PAGEABLE_PAGE,PAGEABLE_SIZE);
         Page<Category> found = categoryService.findAll(pageable);
 
-        assertEquals(FIND_ALL_NUMBER_OF_ITEMS, found.getNumberOfElements());
+        assertEquals(SERVICE_COUNT_CATEGORIES_ALL, found.getNumberOfElements());
     }
 
-    //findOne
     @Test
     public void testFindOneValid(){
-        Category found = categoryService.findOne(VALID_CATEGORY_ID);
-        assertEquals(VALID_CATEGORY_ID, found.getId());
+        Category found = categoryService.findOne(SERVICE_VALID_CATEGORY_ID);
+        assertEquals(SERVICE_VALID_CATEGORY_ID, found.getId());
     }
 
     @Test
     public void testFindOneInvalid(){
-        Category found = categoryService.findOne(INVALID_CATEGORY_ID);
+        Category found = categoryService.findOne(SERVICE_INVALID_CATEGORY_ID);
         assertNull(found);
     }
 
-    //saveOne
     @Test
     public void testSaveOneValid(){
         Category newCategory = new Category();
-        newCategory.setName(NEW_VALID_CATEGORY_NAME);
+        newCategory.setName(SERVICE_NEW_VALID_CATEGORY_NAME);
         Category saved = categoryService.saveOne(newCategory);
-        assertEquals(saved.getName(), NEW_VALID_CATEGORY_NAME);
+        assertEquals(SERVICE_NEW_VALID_CATEGORY_NAME, saved.getName());
 
         categoryService.delete(saved.getId());
     }
@@ -73,7 +71,7 @@ public class CategoryServiceIntegrationTest {
     @Test
     public void testSaveOneInvalid(){
         Category newCategory = new Category();
-        newCategory.setName(NEW_INVALID_CATEGORY_NAME);
+        newCategory.setName(SERVICE_NEW_INVALID_CATEGORY_NAME);
         Category saved = categoryService.saveOne(newCategory);
         assertNull(saved);
     }
@@ -82,21 +80,21 @@ public class CategoryServiceIntegrationTest {
     @Transactional
     @Rollback
     public void testDeleteValid(){
-        boolean deleted = categoryService.delete(VALID_CATEGORY_ID);
+        boolean deleted = categoryService.delete(SERVICE_VALID_CATEGORY_ID);
 
         assertTrue(deleted);
     }
 
     @Test
     public void testDeleteInvalidId(){
-        boolean deleted = categoryService.delete(INVALID_CATEGORY_ID);
+        boolean deleted = categoryService.delete(SERVICE_INVALID_CATEGORY_ID);
 
         assertFalse(deleted);
     }
 
     @Test
     public void testDeleteInvalidReferencing(){
-        boolean deleted = categoryService.delete(INVALID_CATEGORY_REFERENCING);
+        boolean deleted = categoryService.delete(SERVICE_INVALID_CATEGORY_ID_REFERENCING);
 
         assertFalse(deleted);
     }
@@ -104,15 +102,15 @@ public class CategoryServiceIntegrationTest {
     @Test
     public void testUpdateValid(){
         Category updatedCategory = new Category();
-        updatedCategory.setId(VALID_CATEGORY_ID);
-        updatedCategory.setName(NEW_VALID_CATEGORY_NAME);
+        updatedCategory.setId(SERVICE_VALID_CATEGORY_ID);
+        updatedCategory.setName(SERVICE_NEW_VALID_CATEGORY_NAME);
         Category update = categoryService.update(updatedCategory);
-        assertEquals(update.getId(), VALID_CATEGORY_ID);
-        assertEquals(update.getName(), NEW_VALID_CATEGORY_NAME);
+        assertEquals(SERVICE_VALID_CATEGORY_ID, update.getId());
+        assertEquals(SERVICE_NEW_VALID_CATEGORY_NAME, update.getName());
 
         Category categoryRestore = new Category();
-        categoryRestore.setId(VALID_CATEGORY_ID);
-        categoryRestore.setName(OLD_CATEGORY_NAME);
+        categoryRestore.setId(SERVICE_VALID_CATEGORY_ID);
+        categoryRestore.setName(SERVICE_OLD_CATEGORY_NAME);
         categoryService.update(categoryRestore);
 
     }
@@ -120,8 +118,8 @@ public class CategoryServiceIntegrationTest {
     @Test
     public void testUpdateInvalidNameValidId(){
         Category updatedCategory = new Category();
-        updatedCategory.setId(VALID_CATEGORY_ID);
-        updatedCategory.setName(NEW_INVALID_CATEGORY_NAME);
+        updatedCategory.setId(SERVICE_VALID_CATEGORY_ID);
+        updatedCategory.setName(SERVICE_NEW_INVALID_CATEGORY_NAME);
         Category update = categoryService.update(updatedCategory);
         assertNull(update);
     }
@@ -129,8 +127,8 @@ public class CategoryServiceIntegrationTest {
     @Test
     public void testUpdateInvalidIdValidName(){
         Category updatedCategory = new Category();
-        updatedCategory.setId(INVALID_CATEGORY_ID);
-        updatedCategory.setName(NEW_VALID_CATEGORY_NAME);
+        updatedCategory.setId(SERVICE_INVALID_CATEGORY_ID);
+        updatedCategory.setName(SERVICE_NEW_VALID_CATEGORY_NAME);
         Category update = categoryService.update(updatedCategory);
         assertNull(update);
     }
@@ -138,8 +136,8 @@ public class CategoryServiceIntegrationTest {
     @Test
     public void testUpdateInvalidIdInvalidName(){
         Category updatedCategory = new Category();
-        updatedCategory.setId(INVALID_CATEGORY_ID);
-        updatedCategory.setName(NEW_INVALID_CATEGORY_NAME);
+        updatedCategory.setId(SERVICE_INVALID_CATEGORY_ID);
+        updatedCategory.setName(SERVICE_NEW_INVALID_CATEGORY_NAME);
         Category update = categoryService.update(updatedCategory);
         assertNull(update);
     }

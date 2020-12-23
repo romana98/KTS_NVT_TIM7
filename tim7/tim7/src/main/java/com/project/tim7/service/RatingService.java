@@ -2,6 +2,7 @@ package com.project.tim7.service;
 
 import java.util.List;
 
+import com.project.tim7.dto.RatingDTO;
 import com.project.tim7.model.Administrator;
 import com.project.tim7.model.CulturalOffer;
 import com.project.tim7.model.Rating;
@@ -29,7 +30,7 @@ public class RatingService implements ServiceInterface<Rating> {
 	AdministratorService administratorService;
 	
 	@Override
-	public List findAll() {
+	public List<Rating> findAll() {
 		// TODO Auto-generated method stub
 		return null;
 	}
@@ -48,12 +49,19 @@ public class RatingService implements ServiceInterface<Rating> {
 	@Override
 	public Rating saveOne(Rating entity) {
 
-		return ratingRepository.save(entity);
+		return null;
 	}
 
 	@Override
 	public boolean delete(int id) {
-		return false;
+
+		Rating rating = findOne(id);
+		if(rating == null){
+			return false;
+		}else{
+			ratingRepository.delete(rating);
+			return true;
+		}
 	}
 
 	@Override
@@ -70,33 +78,53 @@ public class RatingService implements ServiceInterface<Rating> {
 		if(culturalOffer == null) {
 			return null;
 		}
-		if(alreadyRated(culturalOffer, registered)) {
+		if(alreadyRated(culturalOffer, registered) != 0) {
 			return null;
 		}
 		entity.setRegistered(registered);
-		Rating newRating = saveOne(entity);
-		culturalOffer.getRatings().add(newRating);
+		ratingRepository.save(entity);
+		culturalOffer.getRatings().add(entity);
 		culturalOfferService.saveOne(culturalOffer);
-		return newRating;
+		return entity;
 	}
 
-	private boolean alreadyRated(CulturalOffer culturalOffer, Registered registered) {
-		for(Rating rating : culturalOffer.getRatings()) {
-			if(rating.getRegistered().getId() == registered.getId()) {
-				return true;
-			}
-		}
-		return false;
+	public long alreadyRated(CulturalOffer culturalOffer, Registered registered) {
+
+		return ratingRepository.alreadyRated(culturalOffer.getId(), registered.getId());
+		//return ratingRepository.countByCultural_Offer_IdAndRegistered_Id(culturalOffer.getId(), registered.getId());
 	}
 
-    public int getRating(int culturalOfferId, int id) {
+    public double getAverageRating(int culturalOfferId) {
 
-		//Administrator administrator = administratorService.findOne(id);
-		//if(administrator != null){
+		CulturalOffer culturalOffer = culturalOfferService.findOne(culturalOfferId);
+		if(culturalOffer == null){
+			return -1.0;
+		}else{
 			return ratingRepository.findAverageRate(culturalOfferId);
-		//}else{
-			//return ratingRepository.findRateRegistered(id);
-		//}
-
+		}
     }
+
+	public double getRating(int culturalOfferId, int userId) {
+
+		if(culturalOfferService.findOne(culturalOfferId) == null){
+			//offer doesn't exist
+			return -1.0;
+		}else if(registeredService.findOne(userId) == null){
+			//if user is not registered, check if it's admin
+			if(administratorService.findOne(userId) == null){
+				//if user doesn't exist at all, return -2
+				return -2.0;
+			}else{
+				//if it's admin, return -3
+				return -3.0;
+			}
+		}else if(alreadyRated(new CulturalOffer(culturalOfferId), new Registered(userId)) == 0){
+			//registered didn't leave a rate, return -4
+			return -4.0;
+		}else{
+			//registered already left a rate, return it
+			return ratingRepository.findRateRegistered(culturalOfferId, userId);
+		}
+
+	}
 }

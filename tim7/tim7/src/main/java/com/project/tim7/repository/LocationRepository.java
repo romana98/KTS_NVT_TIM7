@@ -12,6 +12,6 @@ import java.util.List;
 @Repository
 public interface LocationRepository extends JpaRepository<Location, Integer> {
 
-    public List<Location> findByLatitudeAndLongitude(double latitude,double longitude);
+    List<Location> findByLatitudeAndLongitude(double latitude,double longitude);
 
 }

@@ -1,5 +1,6 @@
 package com.project.tim7.api;
 
+import javax.validation.ReportAsSingleViolation;
 import javax.validation.Valid;
 
 import com.project.tim7.model.Rating;
@@ -37,7 +38,7 @@ public class RatingController {
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 		Person person = (Person) authentication.getPrincipal();
 		if(person.getId() != ratingDTO.getRegisteredId()) {
-			return new ResponseEntity<Object>("Authentication failed!",HttpStatus.BAD_REQUEST);
+			return new ResponseEntity<Object>(HttpStatus.UNAUTHORIZED);
 		}
 		
 		Rating newRating = ratingService.createRating(ratingMapper.toEntity(ratingDTO), ratingDTO.getCulturalOfferId());
@@ -45,7 +46,7 @@ public class RatingController {
 			ratingDTO.setId(newRating.getId());
 			return new ResponseEntity<>(ratingDTO ,HttpStatus.CREATED);
 		}else {
-			return new ResponseEntity<Object>("Rating failed!",HttpStatus.BAD_REQUEST);
+			return new ResponseEntity<Object>(HttpStatus.BAD_REQUEST);
 		}
     }
 
@@ -53,11 +54,48 @@ public class RatingController {
 	public ResponseEntity<RatingDTO> getRating(@PathVariable int culturalOfferId){
 
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+		if(authentication.getPrincipal().equals("anonymousUser")){
+			return new ResponseEntity<RatingDTO>(new RatingDTO(0.0), HttpStatus.UNAUTHORIZED);
+		}
 		Person person = (Person) authentication.getPrincipal();
 		if(person == null){
-			return new ResponseEntity<RatingDTO>(new RatingDTO(0), HttpStatus.OK);
+			return new ResponseEntity<RatingDTO>(new RatingDTO(0.0), HttpStatus.UNAUTHORIZED);
 		}else{
-			int rating = ratingService.getRating(culturalOfferId, person.getId());
+			double rating = ratingService.getRating(culturalOfferId, person.getId());
+			if(rating < 0) {
+				if(rating == -3){ //admin
+					 return new ResponseEntity<RatingDTO>(new RatingDTO(0.0), HttpStatus.PRECONDITION_FAILED);
+				}else if(rating == -4){ //didn't leave a rate
+					return new ResponseEntity<RatingDTO>(new RatingDTO(0.0), HttpStatus.NOT_FOUND);
+				}
+				//offer doesn't exist or user doesn't exist
+				return new ResponseEntity<RatingDTO>(new RatingDTO(0.0), HttpStatus.BAD_REQUEST);
+			}
+			//returns the rate registered left
+			return new ResponseEntity<RatingDTO>(new RatingDTO(rating), HttpStatus.OK);
+		}
+
+	}
+
+	@RequestMapping(method = RequestMethod.GET, value = "/getRating/average/{culturalOfferId}")
+	public ResponseEntity<RatingDTO> getAverageRating(@PathVariable int culturalOfferId){
+
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+		if(authentication.getPrincipal().equals("anonymousUser")){
+			double rating = ratingService.getAverageRating(culturalOfferId);
+			if(rating < 0){
+				return new ResponseEntity<RatingDTO>(new RatingDTO(rating), HttpStatus.NOT_FOUND);
+			}
+			return new ResponseEntity<RatingDTO>(new RatingDTO(rating), HttpStatus.OK);
+		}
+		Person person = (Person) authentication.getPrincipal();
+		if(person == null){
+			return new ResponseEntity<RatingDTO>(new RatingDTO(0), HttpStatus.UNAUTHORIZED);
+		}else{
+			double rating = ratingService.getAverageRating(culturalOfferId);
+			if(rating < 0){
+				return new ResponseEntity<RatingDTO>(new RatingDTO(rating), HttpStatus.NOT_FOUND);
+			}
 			return new ResponseEntity<RatingDTO>(new RatingDTO(rating), HttpStatus.OK);
 		}
 

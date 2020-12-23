@@ -48,3 +48,7 @@ insert into pictures (picture, cultural_offer_id) values ('http://dummyimage.com
 insert into pictures (picture, comment_id) values ('http://dummyimage.com/500x500.bmp', 1);
 insert into pictures (picture, comment_id) values ('http://dummyimage.com/600x600.bmp', 1);
 insert into pictures (picture) values ('http://dummyimage.com.bmp');
+
+insert into ratings (rate, registered_id, cultural_offer_id) values (1.0, 2, 1);
+insert into ratings (rate, registered_id, cultural_offer_id) values (2.3, 2, 2);
+insert into ratings (rate, registered_id, cultural_offer_id) values (4.5, 3, 2);

@@ -61,7 +61,13 @@ public class CommentService implements ServiceInterface<Comment> {
 	@Override
 	public boolean delete(int id) {
 
-		return false;
+		Comment comment = findOne(id);
+		if(comment == null){
+			return false;
+		}else{
+			commentRepo.delete(comment);
+			return true;
+		}
 	}
 
 	@Override

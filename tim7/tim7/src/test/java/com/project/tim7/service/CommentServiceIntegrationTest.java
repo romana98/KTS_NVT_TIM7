@@ -43,7 +43,7 @@ public class CommentServiceIntegrationTest {
     @Test
     public void testFindAll(){
         List<Comment> found = commentService.findAll();
-        assertEquals(COUNT_COMMENTS, found.size());
+        assertEquals(SERVICE_COUNT_COMMENTS_ALL, found.size());
     }
 
     @Test
@@ -51,7 +51,7 @@ public class CommentServiceIntegrationTest {
         Pageable pageable = PageRequest.of(PAGEABLE_PAGE,PAGEABLE_SIZE);
         Page<Comment> found = commentService.findAll(pageable);
 
-        assertEquals(COUNT_COMMENTS, found.getNumberOfElements());
+        assertEquals(SERVICE_COUNT_COMMENTS_ALL, found.getNumberOfElements());
     }
 
     @Test
@@ -64,43 +64,45 @@ public class CommentServiceIntegrationTest {
 
     @Test
     public void testFindOneValid(){
-        Comment found = commentService.findOne(EXIST_COMMENT_ID);
-        assertEquals(found.getId(), EXIST_COMMENT_ID);
+        Comment found = commentService.findOne(SERVICE_VALID_COMMENT_ID);
+        assertEquals(SERVICE_VALID_COMMENT_ID, found.getId());
     }
 
     @Test
     public void testFindOneNotFound(){
-        Comment found = commentService.findOne(NONEXIST_COMMENT_ID);
+        Comment found = commentService.findOne(SERVICE_INVALID_COMMENT_ID);
         assertNull(found);
     }
 
     @Test
     public void testSaveOneValid() throws ParseException {
         Comment comment = new Comment();
-        comment.setDescription(NEW_COMMENT_DESCRIPTION);
-        comment.setPublishedDate(new SimpleDateFormat("yyyy-MM-dd").parse(DATE_STRING));
+        comment.setDescription(SERVICE_NEW_COMMENT_DESCRIPTION);
+        comment.setPublishedDate(new SimpleDateFormat("yyyy-MM-dd").parse(SERVICE_NEW_COMMENT_DATE));
         ArrayList<String> pictures = new ArrayList<>();
-        pictures.add("http://dummyimage.com/600x600.bmp");
-        Comment saved = commentService.createComment(comment, EXIST_REGISTERED_ID, pictures, EXIST_CULTURAL_OFFER_ID);
+        pictures.add(SERVICE_NEW_COMMENT_PICTURE);
+        Comment saved = commentService.createComment(comment, SERVICE_NEW_COMMENT_REGISTERED, pictures, SERVICE_NEW_COMMENT_CULTURAL_OFFER);
         assertNotNull(saved);
-        assertEquals(saved.getDescription(), NEW_COMMENT_DESCRIPTION);
+        assertEquals(SERVICE_NEW_COMMENT_DESCRIPTION, saved.getDescription());
+        boolean deleted = commentService.delete(saved.getId());
+        assertTrue(deleted);
     }
 
     @Test
     public void testSaveOneInvalidRegistered() throws ParseException {
         Comment comment = new Comment();
-        comment.setDescription(NEW_COMMENT_DESCRIPTION);
-        comment.setPublishedDate(new SimpleDateFormat("yyyy-MM-dd").parse(DATE_STRING));
+        comment.setDescription(SERVICE_NEW_COMMENT_DESCRIPTION);
+        comment.setPublishedDate(new SimpleDateFormat("yyyy-MM-dd").parse(SERVICE_NEW_COMMENT_DATE));
         ArrayList<String> pictures = new ArrayList<>();
-        pictures.add("http://dummyimage.com/600x600.bmp");
-        Comment saved = commentService.createComment(comment, NONEXIST_REGISTERED_ID, pictures, EXIST_CULTURAL_OFFER_ID);
+        pictures.add(SERVICE_NEW_COMMENT_PICTURE);
+        Comment saved = commentService.createComment(comment, SERVICE_NEW_COMMENT_INVALID_REGISTERED, pictures, SERVICE_NEW_COMMENT_CULTURAL_OFFER);
         assertNull(saved);
     }
 
     @Test
     public void testFindCommentsByCulturalOffer(){
         Pageable pageable = PageRequest.of(PAGEABLE_PAGE, PAGEABLE_SIZE);
-        Page<Comment> found = commentService.findCommentsByCulturalOffer(EXIST_CULTURAL_OFFER_ID, pageable);
-        assertEquals(2, found.getTotalElements());
+        Page<Comment> found = commentService.findCommentsByCulturalOffer(SERVICE_NEW_COMMENT_CULTURAL_OFFER, pageable);
+        assertEquals(SERVICE_COUNT_COMMENTS_BY_CULTURAL_OFFER, found.getTotalElements());
     }
 }

@@ -2,27 +2,31 @@ package com.project.tim7.constants;
 
 public class CategoryConstants {
 
-    public static final long FIND_ALL_NUMBER_OF_ITEMS = 4;
-
+    //GENERAL
     public static final Integer PAGEABLE_PAGE = 0;
     public static final Integer PAGEABLE_SIZE = 4;
 
-    public static final int VALID_CATEGORY_ID = 2;
-    public static final int INVALID_CATEGORY_ID = 100;
-    public static final int INVALID_CATEGORY_REFERENCING = 1;
+    //SERVICE CONSTANTS
+    public static final int SERVICE_COUNT_CATEGORIES_ALL = 4;
+    public static final int SERVICE_VALID_CATEGORY_ID = 2;
+    public static final int SERVICE_INVALID_CATEGORY_ID = 100;
+    public static final String SERVICE_NEW_VALID_CATEGORY_NAME = "New category";
+    public static final String SERVICE_NEW_INVALID_CATEGORY_NAME = "Category1";
+    public static final int SERVICE_INVALID_CATEGORY_ID_REFERENCING = 1;
+    public static final String SERVICE_OLD_CATEGORY_NAME = "Category2";
 
-    public static final String NEW_VALID_CATEGORY_NAME = "NewCategory";
-    public static final String NEW_INVALID_CATEGORY_NAME = "Category1";
-    public static final String OLD_CATEGORY_NAME = "Category2";
+    //REPO CONSTANTS
+    public static final String REPO_CATEGORY_NAME_FIND = "Category1";
+    public static final String REPO_CATEGORY_NAME_NOT_FOUND = "Categoryyyyy";
 
-    public static final String CATEGORY_NAME_FIND = "Category1";
-    public static final String CATEGORY_NAME_FIND_INVALID = "Category1000";
-
-    public static final String DB_USERNAME = "mico";
-    public static final String DB_PASSWORD = "$2y$12$NFN7DJUX1lFfaDX1tc9/6uBtgls9SZOU9iwjhrlXJc0xr471vgKAK";
-    public static final String DB_PASSWORD_RAW = "123qweASD";
-
-
-
+    //CONTROLLER CONSTANTS
+    public static final String CONTROLLER_DB_USERNAME = "mico";
+    public static final String CONTROLLER_DB_PASSWORD = "123qweASD";
+    public static final int CONTROLLER_COUNT_CATEGORIES_ALL = 4;
+    public static final int CONTROLLER_VALID_CATEGORY_ID = 2;
+    public static final String CONTROLLER_NEW_VALID_CATEGORY_NAME = "New category";
+    public static final String CONTROLLER_OLD_CATEGORY_NAME = "Category2";
+    public static final String CONTROLLER_NEW_INVALID_CATEGORY_NAME = "Category1";
+    public static final int CONTROLLER_INVALID_CATEGORY_ID = 100;
 
 }

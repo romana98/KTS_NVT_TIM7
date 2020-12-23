@@ -46,7 +46,7 @@ public class CategoryControllerIntegrationTest {
     @Before
     public void login() {
         ResponseEntity<UserTokenStateDTO> responseEntity = restTemplate.postForEntity("/auth/log-in",
-                new UserLoginDTO(DB_USERNAME, DB_PASSWORD_RAW), UserTokenStateDTO.class);
+                new UserLoginDTO(CONTROLLER_DB_USERNAME, CONTROLLER_DB_PASSWORD), UserTokenStateDTO.class);
 
         String accessToken = "Bearer " + responseEntity.getBody().getAccessToken();
 
@@ -69,7 +69,7 @@ public class CategoryControllerIntegrationTest {
 
         List<CategoryDTO> categories = objectMapper.readValue(responseEntity.getBody(), new TypeReference<List<CategoryDTO>>() {});
         assertEquals(HttpStatus.OK, responseEntity.getStatusCode());
-        assertEquals(FIND_ALL_NUMBER_OF_ITEMS, categories.size());
+        assertEquals(CONTROLLER_COUNT_CATEGORIES_ALL, categories.size());
 
     }
 
@@ -86,28 +86,27 @@ public class CategoryControllerIntegrationTest {
         Page<CategoryDTO> categories = objectMapper.readValue(responseEntity.getBody(), new TypeReference<RestResponsePage<CategoryDTO>>() {});
 
         assertEquals(HttpStatus.OK, responseEntity.getStatusCode());
-        assertEquals(FIND_ALL_NUMBER_OF_ITEMS, categories.getTotalElements());
+        assertEquals(CONTROLLER_COUNT_CATEGORIES_ALL, categories.getTotalElements());
     }
 
-    //updateCategory
     @Test
     public void testUpdateCategoryValid(){
-        HttpEntity<Object> httpEntity = new HttpEntity<>(new CategoryDTO(VALID_CATEGORY_ID, NEW_VALID_CATEGORY_NAME), headers);
+        HttpEntity<Object> httpEntity = new HttpEntity<>(new CategoryDTO(CONTROLLER_VALID_CATEGORY_ID, CONTROLLER_NEW_VALID_CATEGORY_NAME), headers);
         ResponseEntity<CategoryDTO> responseEntity =
                 restTemplate.exchange("/categories", HttpMethod.PUT, httpEntity, CategoryDTO.class);
         CategoryDTO updatedCategory = responseEntity.getBody();
 
         assertEquals(HttpStatus.OK, responseEntity.getStatusCode());
-        assertEquals(NEW_VALID_CATEGORY_NAME, updatedCategory.getName());
+        assertEquals(CONTROLLER_NEW_VALID_CATEGORY_NAME, updatedCategory.getName());
 
-        Category category_restore = new Category(VALID_CATEGORY_ID, OLD_CATEGORY_NAME);
+        Category category_restore = new Category(CONTROLLER_VALID_CATEGORY_ID, CONTROLLER_OLD_CATEGORY_NAME);
         categoryService.update(category_restore);
     }
 
     @Test
     public void testUpdateCategoryValidIdInvalidName(){
 
-        HttpEntity<Object> httpEntity = new HttpEntity<>(new CategoryDTO(VALID_CATEGORY_ID, NEW_INVALID_CATEGORY_NAME), headers);
+        HttpEntity<Object> httpEntity = new HttpEntity<>(new CategoryDTO(CONTROLLER_VALID_CATEGORY_ID, CONTROLLER_NEW_INVALID_CATEGORY_NAME), headers);
 
         ResponseEntity<CategoryDTO> responseEntity =
                 restTemplate.exchange("/categories", HttpMethod.PUT, httpEntity, CategoryDTO.class);
@@ -121,7 +120,7 @@ public class CategoryControllerIntegrationTest {
     @Test
     public void testUpdateCategoryInvalidIdValidName(){
 
-        HttpEntity<Object> httpEntity = new HttpEntity<>(new CategoryDTO(INVALID_CATEGORY_ID, NEW_VALID_CATEGORY_NAME), headers);
+        HttpEntity<Object> httpEntity = new HttpEntity<>(new CategoryDTO(CONTROLLER_INVALID_CATEGORY_ID, CONTROLLER_NEW_VALID_CATEGORY_NAME), headers);
 
         ResponseEntity<CategoryDTO> responseEntity =
                 restTemplate.exchange("/categories", HttpMethod.PUT, httpEntity, CategoryDTO.class);
@@ -136,7 +135,7 @@ public class CategoryControllerIntegrationTest {
     @Test
     public void testUpdateCategoryInvalidIdInvalidName(){
 
-        HttpEntity<Object> httpEntity = new HttpEntity<>(new CategoryDTO(INVALID_CATEGORY_ID, NEW_INVALID_CATEGORY_NAME), headers);
+        HttpEntity<Object> httpEntity = new HttpEntity<>(new CategoryDTO(CONTROLLER_INVALID_CATEGORY_ID, CONTROLLER_NEW_INVALID_CATEGORY_NAME), headers);
 
         ResponseEntity<CategoryDTO> responseEntity =
                 restTemplate.exchange("/categories", HttpMethod.PUT, httpEntity, CategoryDTO.class);
@@ -150,13 +149,13 @@ public class CategoryControllerIntegrationTest {
 
     @Test
     public void testCreateCategoryValid(){
-        HttpEntity<Object> httpEntity = new HttpEntity<>(new CategoryDTO(NEW_VALID_CATEGORY_NAME), headers);
+        HttpEntity<Object> httpEntity = new HttpEntity<>(new CategoryDTO(CONTROLLER_NEW_VALID_CATEGORY_NAME), headers);
 
         ResponseEntity<CategoryDTO> responseEntity =
                 restTemplate.exchange("/categories", HttpMethod.POST, httpEntity, CategoryDTO.class);
         CategoryDTO created = responseEntity.getBody();
         assertEquals(HttpStatus.CREATED, responseEntity.getStatusCode());
-        assertEquals(created.getName(), NEW_VALID_CATEGORY_NAME);
+        assertEquals(CONTROLLER_NEW_VALID_CATEGORY_NAME, created.getName());
 
         boolean isDeleted = categoryService.delete(created.getId());
         assertTrue(isDeleted);
@@ -164,7 +163,7 @@ public class CategoryControllerIntegrationTest {
 
     @Test
     public void testCreateCategoryInvalid(){
-        HttpEntity<Object> httpEntity = new HttpEntity<>(new CategoryDTO(NEW_INVALID_CATEGORY_NAME), headers);
+        HttpEntity<Object> httpEntity = new HttpEntity<>(new CategoryDTO(CONTROLLER_NEW_INVALID_CATEGORY_NAME), headers);
 
         ResponseEntity<CategoryDTO> responseEntity =
                 restTemplate.exchange("/categories", HttpMethod.POST, httpEntity, CategoryDTO.class);

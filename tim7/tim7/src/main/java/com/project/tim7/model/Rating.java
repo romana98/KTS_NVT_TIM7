@@ -22,24 +22,24 @@ public class Rating {
 	private Registered registered;
 	
 	@Column(name = "rate", unique = false, nullable = false)
-	private int rate;
+	private double rate;
 
 	public Rating() {
 		super();
 	}
 
-	public Rating(int rate) {
+	public Rating(double rate) {
 		super();
 		this.rate = rate;
 	}
 
-	public Rating(int id, int rate) {
+	public Rating(int id, double rate) {
 		super();
 		this.id = id;
 		this.rate = rate;
 	}
 
-	public Rating(int id, int rate, int registeredId) {
+	public Rating(int id, double rate, int registeredId) {
 		super();
 		this.id = id;
 		this.rate = rate;
@@ -62,11 +62,11 @@ public class Rating {
 		this.registered = registered;
 	}
 
-	public int getRate() {
+	public double getRate() {
 		return rate;
 	}
 
-	public void setRate(int rate) {
+	public void setRate(double rate) {
 		this.rate = rate;
 	}
 

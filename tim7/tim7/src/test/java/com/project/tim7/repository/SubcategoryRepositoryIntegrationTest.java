@@ -25,39 +25,39 @@ public class SubcategoryRepositoryIntegrationTest {
 
     @Test
     public void testFindByName(){
-        Subcategory found = subcategoryRepository.findByName(OLD_SUBCATEGORY_NAME);
-        assertEquals(found.getName(), OLD_SUBCATEGORY_NAME);
+        Subcategory found = subcategoryRepository.findByName(REPO_SUBCATEGORY_NAME_FIND);
+        assertEquals(REPO_SUBCATEGORY_NAME_FIND, found.getName());
     }
 
     @Test
     public void testFindByNameNotFound(){
-        Subcategory found = subcategoryRepository.findByName(NEW_VALID_SUBCATEGORY_NAME);
+        Subcategory found = subcategoryRepository.findByName(REPO_SUBCATEGORY_NAME_NOT_FOUND);
         assertNull(found);
     }
 
     @Test
     public void testCountByCategoryId(){
-        long count = subcategoryRepository.countByCategoryId(REFERENCING_CATEGORY_ID);
-        assertEquals(count, COUNT_REFERENCING_CATEGORIES);
+        long count = subcategoryRepository.countByCategoryId(REPO_REFERENCING_CATEGORY_ID);
+        assertEquals(REPO_COUNT_REFERENCING_CATEGORIES, count);
     }
 
     @Test
     public void testCountByCategoryIdNone(){
-        long count = subcategoryRepository.countByCategoryId(NOT_REFERENCING_CATEGORY_ID);
-        assertEquals(count, 0);
+        long count = subcategoryRepository.countByCategoryId(REPO_NOT_REFERENCING_CATEGORY_ID);
+        assertEquals(0, count);
     }
 
     @Test
     public void testFindByCategoryId(){
         Pageable pageable = PageRequest.of(PAGEABLE_PAGE, PAGEABLE_SIZE);
-        Page<Subcategory> found = subcategoryRepository.findByCategoryId(REFERENCING_CATEGORY_ID, pageable);
-        assertEquals(COUNT_REFERENCING_CATEGORIES, found.getTotalElements());
+        Page<Subcategory> found = subcategoryRepository.findByCategoryId(REPO_REFERENCING_CATEGORY_ID, pageable);
+        assertEquals(REPO_COUNT_REFERENCING_CATEGORIES, found.getTotalElements());
     }
 
     @Test
     public void testFindByCategoryIdEmpty(){
         Pageable pageable = PageRequest.of(PAGEABLE_PAGE, PAGEABLE_SIZE);
-        Page<Subcategory> found = subcategoryRepository.findByCategoryId(NOT_REFERENCING_CATEGORY_ID, pageable);
+        Page<Subcategory> found = subcategoryRepository.findByCategoryId(REPO_NOT_REFERENCING_CATEGORY_ID, pageable);
         assertEquals(0, found.getTotalElements());
     }
 }

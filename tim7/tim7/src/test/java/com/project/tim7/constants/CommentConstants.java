@@ -2,24 +2,36 @@ package com.project.tim7.constants;
 
 public class CommentConstants {
 
-    public static final int COUNT_COMMENTS = 2;
-
+    //GENERAL
     public static final int PAGEABLE_PAGE = 0;
     public static final int PAGEABLE_SIZE = 3;
-    public static final int COUNT_COMMENTS_PAGEABLE = 3;
 
-    public static final int EXIST_COMMENT_ID = 1;
-    public static final int NONEXIST_COMMENT_ID = 6;
+    //SERVICE
+    public static final int SERVICE_COUNT_COMMENTS_ALL = 2;
+    public static final int SERVICE_VALID_COMMENT_ID = 1;
+    public static final int SERVICE_INVALID_COMMENT_ID = 6;
+    public static final String SERVICE_NEW_COMMENT_DESCRIPTION = "New comment description";
+    public static final String SERVICE_NEW_COMMENT_DATE = "2018-11-11";
+    public static final String SERVICE_NEW_COMMENT_PICTURE = "http://dummyimage.com/600x600.bmp";
+    public static final int SERVICE_NEW_COMMENT_REGISTERED = 2;
+    public static final int SERVICE_NEW_COMMENT_CULTURAL_OFFER = 1;
+    public static final int SERVICE_NEW_COMMENT_INVALID_REGISTERED = 100;
+    public static final int SERVICE_COUNT_COMMENTS_BY_CULTURAL_OFFER = 2;
 
-    public static final String NEW_COMMENT_DESCRIPTION = "New comment description";
+    //REPO
+    public static final int REPO_VALID_CULTURAL_OFFER = 1;
+    public static final int REPO_VALID_COUNT_COMMENTS_BY_CULTURAL_OFFER = 2;
 
-    public static final int PICTURE_ID = 4;
-    public static final String DATE_STRING = "2018-11-11";
-    public static final int EXIST_REGISTERED_ID = 2;
-    public static final int NONEXIST_REGISTERED_ID = 100;
-    public static final int EXIST_CULTURAL_OFFER_ID = 1;
+    //CONTROLLER
+    public static final String CONTROLLER_DB_USERNAME = "nijeMico";
+    public static final String CONTROLLER_DB_PASSWORD = "123qweASD";
+    public static final String CONTROLLER_NEW_COMMENT_DESCRIPTION = "New comment description";
+    public static final String CONTROLLER_NEW_COMMENT_DATE = "2018-11-11";
+    public static final String CONTROLLER_NEW_COMMENT_PICTURE = "http://dummyimage.com/600x600.bmp";
+    public static final int CONTROLLER_NEW_COMMENT_CULTURAL_OFFER = 1;
+    public static final int CONTROLLER_NEW_COMMENT_REGISTERED = 3;
+    public static final int CONTROLLER_NEW_COMMENT_REGISTERED_NOT_LOGGED_IN = 2;
+    public static final int CONTROLLER_NEW_COMMENT_CULTURAL_OFFER_INVALID = 100;
+    public static final int CONTROLLER_COUNT_COMMENTS_BY_CULTURAL_OFFER = 2;
 
-    public static final String DB_USERNAME = "nijeMico";
-    public static final String DB_PASSWORD = "$2y$12$NFN7DJUX1lFfaDX1tc9/6uBtgls9SZOU9iwjhrlXJc0xr471vgKAK";
-    public static final String DB_PASSWORD_RAW = "123qweASD";
 }

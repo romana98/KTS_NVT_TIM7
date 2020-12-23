@@ -10,8 +10,6 @@ import org.springframework.test.context.junit4.SpringRunner;
 import static com.project.tim7.constants.CategoryConstants.*;
 import static org.junit.jupiter.api.Assertions.*;
 
-
-
 @RunWith(SpringRunner.class)
 @SpringBootTest(webEnvironment= SpringBootTest.WebEnvironment.RANDOM_PORT)
 @TestPropertySource("classpath:test.properties")
@@ -22,13 +20,13 @@ public class CategoryRepositoryIntegrationTest {
 
     @Test
     public void testFindByNameFound(){
-        Category found = categoryRepository.findByName(CATEGORY_NAME_FIND);
-        assertEquals(found.getName(), CATEGORY_NAME_FIND);
+        Category found = categoryRepository.findByName(REPO_CATEGORY_NAME_FIND);
+        assertEquals(REPO_CATEGORY_NAME_FIND, found.getName());
     }
 
     @Test
     public void testFindByNameNotFound(){
-        Category found = categoryRepository.findByName(CATEGORY_NAME_FIND_INVALID);
+        Category found = categoryRepository.findByName(REPO_CATEGORY_NAME_NOT_FOUND);
         assertNull(found);
     }
 

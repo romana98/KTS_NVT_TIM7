@@ -17,7 +17,7 @@ public class RatingDTO {
 	@NotNull
 	@Min(0)
 	@Max(5)
-	private int rate;
+	private double rate;
 	@NotNull
 	@Min(0)
 	private int culturalOfferId;
@@ -26,12 +26,12 @@ public class RatingDTO {
 		super();
 	}
 
-	public RatingDTO(int rate) {
+	public RatingDTO(double rate) {
 		super();
 		this.rate = rate;
 	}
 
-	public RatingDTO(int id, @Min(0) @Max(5) int rate) {
+	public RatingDTO(int id, @Min(0) @Max(5) double rate) {
 		super();
 		this.id = id;
 		this.rate = rate;
@@ -45,11 +45,11 @@ public class RatingDTO {
 		this.registeredId = registeredId;
 	}
 
-	public int getRate() {
+	public double getRate() {
 		return rate;
 	}
 
-	public void setRate(int rate) {
+	public void setRate(double rate) {
 		this.rate = rate;
 	}
 

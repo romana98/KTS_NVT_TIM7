@@ -27,7 +27,7 @@ public class CommentRepositoryIntegrationTest {
     @Test
     public void testFindAllCommentsByCulturalOffer(){
         Pageable pageable = PageRequest.of(PAGEABLE_PAGE, PAGEABLE_SIZE);
-        Page<Comment> found = commentRepository.findCommentsOfCulturalOffer(EXIST_CULTURAL_OFFER_ID, pageable);
-        assertEquals(COUNT_COMMENTS, found.getTotalElements());
+        Page<Comment> found = commentRepository.findCommentsOfCulturalOffer(REPO_VALID_CULTURAL_OFFER, pageable);
+        assertEquals(REPO_VALID_COUNT_COMMENTS_BY_CULTURAL_OFFER, found.getTotalElements());
     }
 }
