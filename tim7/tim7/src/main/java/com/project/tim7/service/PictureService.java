@@ -38,7 +38,7 @@ public class PictureService implements ServiceInterface<Picture> {
 	public Picture saveOne(Picture entity) {
 		if (findByPicture(entity.getPicture()) != null)
             return null;
-        return pictureRepo.save(entity);
+        return pictureRepo.saveAndFlush(entity);
 	}
 
     @Override
@@ -72,11 +72,12 @@ public class PictureService implements ServiceInterface<Picture> {
 
 	public Set<Picture> getPictures(ArrayList<String> pictures) {
 
-		Set<Picture> commentPictures = new HashSet<Picture>();		for(String picture : pictures) {
+		Set<Picture> commentPictures = new HashSet<Picture>();
+		for(String picture : pictures) {
 			Picture p = findByPicture(picture);
 			if(p == null) {
 				Picture newPicture = new Picture(picture);
-				Picture pictureComment = saveAndReturn(newPicture);
+				Picture pictureComment = saveOne(newPicture);
 				commentPictures.add(pictureComment);
 			}else {
 				commentPictures.add(p);

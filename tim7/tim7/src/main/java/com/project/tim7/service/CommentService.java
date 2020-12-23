@@ -36,9 +36,8 @@ public class CommentService implements ServiceInterface<Comment> {
 	CulturalOfferService culturalOfferService;
 	
 	@Override
-	public List findAll() {
-		// TODO Auto-generated method stub
-		return null;
+	public List<Comment> findAll() {
+		return commentRepo.findAll();
 	}
 
 	@Override
@@ -55,18 +54,20 @@ public class CommentService implements ServiceInterface<Comment> {
 	@Override
 	public Comment saveOne(Comment entity) {
 
-		commentRepo.save(entity);
-		return entity;
+		return null;
 	}
 
 	@Override
 	public boolean delete(int id) {
+
 		return false;
 	}
 
 	@Override
 	public Comment update(Comment entity) {
+
 		return null;
+
 	}
 
 	public Comment createComment(Comment entity, int registeredId, ArrayList<String> pictures, int culturalOfferId) {
@@ -74,21 +75,20 @@ public class CommentService implements ServiceInterface<Comment> {
 		if(pictureService.checkDuplicates(pictures)) {
 			return null;
 		}
-		
-		Registered registered = registeredService.findOne(registeredId);
-		if(registered == null) {
-			return null;
-		}
 		CulturalOffer culturalOffer = culturalOfferService.findOne(culturalOfferId);
 		if(culturalOffer == null) {
 			return null;
 		}
+		Registered registered = registeredService.findOne(registeredId);
+		if(registered == null) {
+			return null;
+		}
 		entity.setRegistered(registered);
 		entity.setPictures(pictureService.getPictures(pictures));
-		Comment newComment = saveOne(entity);
-		culturalOffer.getComments().add(newComment);
+		commentRepo.save(entity);
+		culturalOffer.getComments().add(entity);
 		culturalOfferService.saveOne(culturalOffer);
-		return newComment;
+		return entity;
 	}
 
     public Page<Comment> findCommentsByCulturalOffer(int culturalOfferId, Pageable pageable) {

@@ -51,7 +51,7 @@ public class CommentController {
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 		Person person = (Person) authentication.getPrincipal();
 		if(person.getId() != commentDTO.getRegisteredId()) {
-			return new ResponseEntity<Object>("Authentication failed!", HttpStatus.BAD_REQUEST);
+			return new ResponseEntity<>(HttpStatus.PRECONDITION_FAILED);
 		}
 		
 		Comment newComment = commentService.createComment(commentMapper.toEntity(commentDTO), commentDTO.getRegisteredId(), commentDTO.getPicturesId(), commentDTO.getCulturalOfferId());
@@ -59,7 +59,7 @@ public class CommentController {
             commentDTO.setId(newComment.getId());
 			return new ResponseEntity<>(commentDTO, HttpStatus.CREATED);
 		}else {
-			return new ResponseEntity<Object>("Commenting failed!", HttpStatus.BAD_REQUEST);
+			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 		}
     }
 

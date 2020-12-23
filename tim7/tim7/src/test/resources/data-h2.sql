@@ -1,10 +1,10 @@
 insert into administrators (id, username, email, password, verified) values (nextval('person_seq'),'mico', 'mico@admin.com', '$2y$12$NFN7DJUX1lFfaDX1tc9/6uBtgls9SZOU9iwjhrlXJc0xr471vgKAK', true);
 
 insert into registered (id, username, email, password, verified) values (NEXTVAL('person_seq'), 'micoR', 'mico@reg.com', '$2y$12$NFN7DJUX1lFfaDX1tc9/6uBtgls9SZOU9iwjhrlXJc0xr471vgKAK', false);
-insert into registered (id, username, email, password, verified) values (NEXTVAL('person_seq'), 'nijeMico', 'notmico@reg.com', '$2y$12$NFN7DJUX1lFfaDX1tc9/6uBtgls9SZOU9iwjhrlXJc0xr471vgKAK', true); 
+insert into registered (id, username, email, password, verified) values (NEXTVAL('person_seq'), 'nijeMico', 'notmico@reg.com', '$2y$12$NFN7DJUX1lFfaDX1tc9/6uBtgls9SZOU9iwjhrlXJc0xr471vgKAK', true);
 
-insert into pictures (picture, cultural_offer_id) values ('http://dummyimage.com/129x140.bmp', null);
-insert into pictures (picture, cultural_offer_id) values ('http://dummyimage.com/219x161.bmp', null);
+insert into pictures (picture) values ('http://dummyimage.com/129x140.bmp');
+insert into pictures (picture) values ('http://dummyimage.com/219x161.bmp');
 
 insert into categories (name) values ('Category1');
 insert into categories (name) values ('Category2');
@@ -39,6 +39,8 @@ insert into user_authority (user_id, authority_id) values (6, 2);
 insert into user_authority (user_id, authority_id) values (2, 2);
 
 insert into comments (published_date, cultural_offer_id, registered_id, description) values ('2018-11-11', 1, 2, 'comment description');
+
+
 insert into pictures (picture, cultural_offer_id) values ('http://dummyimage.com/200x200.bmp', 1);
 insert into pictures (picture, comment_id) values ('http://dummyimage.com/500x500.bmp', 1);
 insert into pictures (picture, comment_id) values ('http://dummyimage.com/600x600.bmp', 1);
