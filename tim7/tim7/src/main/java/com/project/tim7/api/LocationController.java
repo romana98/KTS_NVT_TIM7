@@ -29,14 +29,13 @@ public class LocationController {
 
     @PreAuthorize("hasRole('ROLE_ADMINISTRATOR')")
     @RequestMapping(method= RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<String> createLocation(@Valid @RequestBody LocationDTO location){
-        System.out.println(location);
+    public ResponseEntity<LocationDTO> createLocation(@Valid @RequestBody LocationDTO location){
         Location saved = locationService.saveOne(locationMapper.toEntity(location));
 
         if(saved == null){
-            return new ResponseEntity<>("Location can't be added.", HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
-        return new ResponseEntity<>("Successfully added location.", HttpStatus.CREATED);
+        return new ResponseEntity<LocationDTO>(locationMapper.toDto(saved), HttpStatus.CREATED);
 
     }
 

@@ -14,7 +14,6 @@ import static com.project.tim7.constants.SubcategoryConstants.*;
 import static org.junit.jupiter.api.Assertions.*;
 
 
-
 @RunWith(SpringRunner.class)
 @SpringBootTest(webEnvironment= SpringBootTest.WebEnvironment.RANDOM_PORT)
 @TestPropertySource("classpath:test.properties")

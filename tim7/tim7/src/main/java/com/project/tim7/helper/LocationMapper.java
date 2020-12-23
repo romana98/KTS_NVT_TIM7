@@ -11,6 +11,12 @@ public class LocationMapper implements MapperInterface<Location, LocationDTO> {
 
     @Override
     public LocationDTO toDto(Location entity) {
-        return null;
+
+        LocationDTO dto = new LocationDTO();
+        dto.setName(entity.getName());
+        dto.setLongitude(entity.getLongitude());
+        dto.setLatitude(entity.getLatitude());
+        dto.setId(entity.getId());
+        return dto;
     }
 }
