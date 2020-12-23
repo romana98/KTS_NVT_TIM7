@@ -4,7 +4,7 @@ public class PictureConstants {
 	public static final int PICTURE_ID = 1;
 	public static final String PICTURE_STRING = "http://dummyimage.com/129x140.bmp";
 	public static final String PICTURE_STRING_FAIL = "http://dummyimage.com/129x140";
-	public static final int PICTURE_ID_EXPECTED_IN_NEWSLETTERS = 2;
+	public static final int PICTURE_ID_EXPECTED_IN_NEWSLETTERS = 3;
 	public static final int PICTURE_ID_OFFER = 3;
 	public static final int PICTURE_ID_OFFER_EXPECTED_IN_NEWSLETTERS = 0;
 	public static final int PICTURE_ID_NOT_EXIST = 888;
