@@ -1,9 +1,6 @@
 package com.project.tim7.service;
 
-import com.project.tim7.model.Category;
-import com.project.tim7.model.Comment;
-import com.project.tim7.model.Picture;
-import com.project.tim7.model.Registered;
+import com.project.tim7.model.*;
 import com.project.tim7.repository.CommentRepository;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -54,7 +51,15 @@ public class CommentServiceIntegrationTest {
         Pageable pageable = PageRequest.of(PAGEABLE_PAGE,PAGEABLE_SIZE);
         Page<Comment> found = commentService.findAll(pageable);
 
-        assertEquals(COUNT_COMMENTS_PAGEABLE, found.getNumberOfElements());
+        assertEquals(COUNT_COMMENTS, found.getNumberOfElements());
+    }
+
+    @Test
+    public void testFindAllPageableNOTALL(){
+        Pageable pageable = PageRequest.of(0,1);
+        Page<Comment> found = commentService.findAll(pageable);
+
+        assertEquals(1, found.getNumberOfElements());
     }
 
     @Test
@@ -82,13 +87,20 @@ public class CommentServiceIntegrationTest {
     }
 
     @Test
-    public void testSaveOneInvalidRegistered(){
-
+    public void testSaveOneInvalidRegistered() throws ParseException {
+        Comment comment = new Comment();
+        comment.setDescription(NEW_COMMENT_DESCRIPTION);
+        comment.setPublishedDate(new SimpleDateFormat("yyyy-MM-dd").parse(DATE_STRING));
+        ArrayList<String> pictures = new ArrayList<>();
+        pictures.add("http://dummyimage.com/600x600.bmp");
+        Comment saved = commentService.createComment(comment, NONEXIST_REGISTERED_ID, pictures, EXIST_CULTURAL_OFFER_ID);
+        assertNull(saved);
     }
 
-    //findCommentsByCulturalOffer
     @Test
     public void testFindCommentsByCulturalOffer(){
-
+        Pageable pageable = PageRequest.of(PAGEABLE_PAGE, PAGEABLE_SIZE);
+        Page<Comment> found = commentService.findCommentsByCulturalOffer(EXIST_CULTURAL_OFFER_ID, pageable);
+        assertEquals(2, found.getTotalElements());
     }
 }

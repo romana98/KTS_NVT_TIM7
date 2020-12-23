@@ -18,6 +18,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.security.core.Authentication;
+import org.springframework.transaction.annotation.Transactional;
 
 
 @Service
@@ -70,6 +71,7 @@ public class CommentService implements ServiceInterface<Comment> {
 
 	}
 
+	@Transactional
 	public Comment createComment(Comment entity, int registeredId, ArrayList<String> pictures, int culturalOfferId) {
 		
 		if(pictureService.checkDuplicates(pictures)) {

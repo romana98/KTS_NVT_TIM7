@@ -13,8 +13,6 @@ import com.project.tim7.model.Comment;
 @Repository
 public interface CommentRepository extends JpaRepository<Comment, Integer>  {
 
-	List<Comment> findByDescriptionAndRegisteredId(String description, int id);
-
-	@Query(value = "SELECT * from comments where comments.cultural_offer_id = id", nativeQuery = true)
+	@Query(value = "SELECT * from comments where comments.cultural_offer_id = ?1", nativeQuery = true)
     Page<Comment> findCommentsOfCulturalOffer(int id, Pageable pageable);
 }

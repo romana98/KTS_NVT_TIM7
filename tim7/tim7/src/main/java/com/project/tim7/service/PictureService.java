@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 
 import com.project.tim7.model.Picture;
 import com.project.tim7.repository.PictureRepository;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 public class PictureService implements ServiceInterface<Picture> {
@@ -35,6 +36,7 @@ public class PictureService implements ServiceInterface<Picture> {
 	}
 
 	@Override
+	@Transactional
 	public Picture saveOne(Picture entity) {
 		if (findByPicture(entity.getPicture()) != null)
             return null;
