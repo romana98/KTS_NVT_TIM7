@@ -23,6 +23,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.test.context.TestPropertySource;
+import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -120,7 +121,7 @@ public class NewsletterControllerIntegrationTest {
         ObjectMapper objectMapper = new ObjectMapper();
 
         ResponseEntity<String> responseEntity =
-                restTemplate.exchange("/newsletter/subscribed/2", HttpMethod.GET, httpEntity, String.class);
+                restTemplate.exchange("/newsletter/subscribed/3", HttpMethod.GET, httpEntity, String.class);
 
         List<NewsletterDetailsDTO> newsletters = objectMapper.readValue(responseEntity.getBody(), new TypeReference<List<NewsletterDetailsDTO>>() {});
         
@@ -162,7 +163,7 @@ public class NewsletterControllerIntegrationTest {
         ObjectMapper objectMapper = new ObjectMapper();
 
         ResponseEntity<String> responseEntity =
-                restTemplate.exchange("/newsletter/subscribed/2/by-page?page=0&size=3", HttpMethod.GET, httpEntity, String.class);
+                restTemplate.exchange("/newsletter/subscribed/3/by-page?page=0&size=3", HttpMethod.GET, httpEntity, String.class);
 
         Page<NewsletterDetailsDTO> newsletters = objectMapper.readValue(responseEntity.getBody(), new TypeReference<RestResponsePage<NewsletterDetailsDTO>>() {});
                 
@@ -378,6 +379,7 @@ public class NewsletterControllerIntegrationTest {
     }
     
     @Test
+    @Sql(scripts = "classpath:insert-newsletter-data-h2.sql", executionPhase = Sql.ExecutionPhase.AFTER_TEST_METHOD)
     public void testDeleteNewsletter() throws ParseException{
     	loginAdmin();
         HttpEntity<Object> httpEntity = new HttpEntity<>(headers);
@@ -391,8 +393,8 @@ public class NewsletterControllerIntegrationTest {
         assertEquals(HttpStatus.OK, responseEntity.getStatusCode());
         assertThat(message).isNotBlank();
         
-        Newsletter restored = newsletterService.save(new Newsletter(DELETE_ID, RESTORE_NAME, RESTORE_DESCRIPTION, sdf.parse(RESTORE_DATE)), RESTORE_OFFER, RESTORE_PICTURE);
-        assertEquals(RESTORE_NAME, restored.getName());
+        //Newsletter restored = newsletterService.save(new Newsletter(DELETE_ID, RESTORE_NAME, RESTORE_DESCRIPTION, sdf.parse(RESTORE_DATE)), RESTORE_OFFER, RESTORE_PICTURE);
+        //assertEquals(RESTORE_NAME, restored.getName());
     }
     
     @Test

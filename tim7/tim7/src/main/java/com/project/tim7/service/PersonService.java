@@ -11,10 +11,7 @@ import org.springframework.stereotype.Service;
 public class PersonService implements ServiceInterface<Person> {
 
 	@Override
-	public List findAll() {
-		// TODO Auto-generated method stub
-		return null;
-	}
+	public List findAll() { return null; }
 
 	@Override
 	public Page<Person> findAll(Pageable pageable) {

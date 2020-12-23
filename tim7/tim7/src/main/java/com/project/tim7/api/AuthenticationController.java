@@ -26,8 +26,8 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.util.HashMap;
-import java.util.Map;
+import javax.validation.Valid;
+
 //123qweASD
 @RestController
 @RequestMapping(value = "/auth", produces = MediaType.APPLICATION_JSON_VALUE)
@@ -50,11 +50,12 @@ public class AuthenticationController {
     
     @Autowired
 	private PasswordEncoder passwordEncoder;
-    
-    @Autowired
-    private EmailService emailService;
 
     private RegisteredMapper regMapper;
+
+    public AuthenticationController() {
+        regMapper = new RegisteredMapper();
+    }
 
     // Prvi endpoint koji pogadja korisnik kada se loguje.
     // Tada zna samo svoje korisnicko ime i lozinku i to prosledjuje na backend.
@@ -80,7 +81,7 @@ public class AuthenticationController {
 
     // Endpoint za registraciju novog korisnika
     @PostMapping("/sign-up")
-    public ResponseEntity<?> addUser(@RequestBody UserDTO userRequest) throws Exception {
+    public ResponseEntity<?> signUp(@Valid @RequestBody UserDTO userRequest) throws Exception {
 
         Registered existReg = this.regService.findByUsernameOrEmail(userRequest.getUsername(), userRequest.getEmail());
         Administrator existAdmin = this.adminService.findByUsernameOrEmail(userRequest.getUsername(), userRequest.getEmail());
@@ -94,23 +95,17 @@ public class AuthenticationController {
         if(newReg == null){
             return new ResponseEntity<>("Username or email already exists.", HttpStatus.BAD_REQUEST);
         }
-        return new ResponseEntity<>("Successfully sent registration request.", HttpStatus.CREATED);
-    }
-    
-    static class activateAccount {
-    	public int id;
-    	public String email;
+        return new ResponseEntity<>(regMapper.toDto(newReg), HttpStatus.CREATED);
     }
     
     // Endpoint za aktivaciju naloga
     @PostMapping("/activate")
-    public ResponseEntity<?> activate(@RequestBody activateAccount activationData) {
-    	Registered regUser = null;
-    	try {
-    		regUser = regService.activateAccount(activationData.id);
-        } catch (Exception e) {
+    public ResponseEntity<?> activate(@RequestBody Integer id) {
+    	Registered regUser = regService.activateAccount(id);
+
+    	if(regUser == null)
         	return new ResponseEntity<>("Activation failed.", HttpStatus.BAD_REQUEST);
-        }
+
     	return new ResponseEntity<>("Activation succeeded.", HttpStatus.OK);
     }
 
@@ -133,21 +128,6 @@ public class AuthenticationController {
         }
     }
 
-    @RequestMapping(value = "/change-password", method = RequestMethod.POST)
-    @PreAuthorize("hasRole('ROLE_REGISTERED')")
-    public ResponseEntity<?> changePassword(@RequestBody PasswordChanger passwordChanger) {
-        userDetailsService.changePassword(passwordChanger.oldPassword, passwordChanger.newPassword);
-
-        Map<String, String> result = new HashMap<>();
-        result.put("result", "success");
-        return ResponseEntity.accepted().body(result);
-    }
-
-    static class PasswordChanger {
-        public String oldPassword;
-        public String newPassword;
-    }
-
     @PreAuthorize("hasRole('ROLE_ADMINISTRATOR') || hasRole('ROLE_REGISTERED')")
     public void updatedLoggedIn(String username, String password){
 
@@ -155,9 +135,5 @@ public class AuthenticationController {
                 .authenticate(new UsernamePasswordAuthenticationToken(username, password));
 
         SecurityContextHolder.getContext().setAuthentication(authentication);
-    }
-
-    public AuthenticationController() {
-        regMapper = new RegisteredMapper();
     }
 }

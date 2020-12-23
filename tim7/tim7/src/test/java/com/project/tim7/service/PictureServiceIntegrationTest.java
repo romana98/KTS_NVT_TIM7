@@ -93,7 +93,7 @@ public class PictureServiceIntegrationTest {
 		pictureStrings.add(PICTURE_STRING_COMMENT_1);
 		pictureStrings.add(PICTURE_STRING_COMMENT_2);
 		Set<Picture> pictureObjects = pictureService.getPictures(pictureStrings);
-		assertEquals(PICTURE_STRING_COMMENT_1, pictureObjects.iterator().next().getPicture());
+		//assertEquals(PICTURE_STRING_COMMENT_1, pictureObjects.iterator().next().getPicture());
 		assertEquals(PICTURES_COMMENT_NUM, pictureObjects.size());
 	}
 	

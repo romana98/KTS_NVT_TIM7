@@ -89,10 +89,8 @@ public class AdministratorController {
         if(admin == null){
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
-        else{
-            authController.updatedLoggedIn(admin.getUsername(), password);
-        }
 
+        authController.updatedLoggedIn(admin.getUsername(), password);
         return new ResponseEntity<>(adminMapper.toDto(admin), HttpStatus.OK);
     }
 

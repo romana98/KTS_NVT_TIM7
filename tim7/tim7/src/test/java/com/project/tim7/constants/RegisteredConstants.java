@@ -2,11 +2,11 @@ package com.project.tim7.constants;
 
 public class RegisteredConstants {
 
-    public static final long FIND_ALL_NUMBER_OF_ITEMS = 3;
+    public static final long FIND_ALL_NUMBER_OF_ITEMS = 4;
     public static final long FIND_ALL_NUMBER_OF_ITEMS_EMPTY_PAGE = 0;
 
     public static final Integer PAGEABLE_PAGE = 0;
-    public static final Integer PAGEABLE_SIZE = 3;
+    public static final Integer PAGEABLE_SIZE = 4;
 
     public static final  long DB_COUNT = 1;
     public static final  long DB_COUNT_TWO = 2;
@@ -28,7 +28,7 @@ public class RegisteredConstants {
 
 
     public static final int REG_ID = 2;
-    public static final int REG_ID_NO_DEPENDENCY = 3;
+    public static final int REG_ID_NO_DEPENDENCY = 7;
     public static final int REG_ID_NONEXIST = -1;
 
     // reg exist
@@ -44,7 +44,7 @@ public class RegisteredConstants {
     public static final int CULTURAL_OFFER_ID_INVALID = -1;
     public static final int COUNT_CULTURAL_OFFER_EMPTY = 0;
 
-    public static final int COUNT_EMAILS = 1;
+    public static final int COUNT_EMAILS = 2;
     public static final int COUNT_EMAILS_INVALID = 0;
 
     public static final int REG_ID_LOGIN = 6;

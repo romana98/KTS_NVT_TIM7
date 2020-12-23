@@ -61,7 +61,7 @@ public class NewsletterConstants {
 	public static final String PICTURE_PICTURE_CREATE_NEW = "http://dummyimage.com/100x100.bmp";
 
 	//controller
-    public static final String DB_USERNAME_REG = "micoR";
+    public static final String DB_USERNAME_REG = "nijeMico";
     public static final String DB_USERNAME_ADMIN = "mico";
     public static final String DB_PASSWORD_RAW = "123qweASD";
     
