@@ -18,20 +18,23 @@ insert into cultural_offers (name, start_date, end_date, location_id, subcategor
 
 insert into newsletters (name, published_date, cultural_offer_id, picture_id, description) values ('Newsletter1', '2020-03-01', 1, 1, 'Nulla ac enim.');
 insert into newsletters (name, published_date, cultural_offer_id, picture_id, description) values ('Newsletter2', '2020-11-19', 1, 1, 'Pellentesque ultrices mattis odio.');
-insert into newsletters (name, published_date, cultural_offer_id, picture_id, description) values ('Newsletter3', '2020-01-31', 1, 2, 'Etiam faucibus cursus urna. Ut tellus.');
+insert into newsletters (name, published_date, cultural_offer_id, picture_id, description) values ('Newsletter3', '2020-01-31', 1, 1, 'Etiam faucibus cursus urna. Ut tellus.');
 
 insert into subscribed_cultural_offers (cultural_offer_id, registered_id) values (1, 2);
+insert into subscribed_cultural_offers (cultural_offer_id, registered_id) values (1, 3);
 
 insert into administrators (id, username, email, password, verified) values (nextval('person_seq'),'vera', 'vera@admin.com', '$2y$12$NFN7DJUX1lFfaDX1tc9/6uBtgls9SZOU9iwjhrlXJc0xr471vgKAK', true);
 insert into administrators (id, username, email, password, verified) values (nextval('person_seq'),'vule', 'vule@admin.com', '$2y$12$NFN7DJUX1lFfaDX1tc9/6uBtgls9SZOU9iwjhrlXJc0xr471vgKAK', true);
 
 insert into registered (id, username, email, password, verified) values (NEXTVAL('person_seq'), 'vuleR', 'vule@reg.com', '$2y$12$NFN7DJUX1lFfaDX1tc9/6uBtgls9SZOU9iwjhrlXJc0xr471vgKAK', true);
+insert into registered (id, username, email, password, verified) values (NEXTVAL('person_seq'), 'nijeVule', 'nijevule@reg.com', '$2y$12$NFN7DJUX1lFfaDX1tc9/6uBtgls9SZOU9iwjhrlXJc0xr471vgKAK', true);
 
 insert into authorities (name) values ('ROLE_ADMINISTRATOR');
 insert into authorities (name) values ('ROLE_REGISTERED');
 insert into user_authority (user_id, authority_id) values (1, 1);
 insert into user_authority (user_id, authority_id) values (6, 2);
 insert into user_authority (user_id, authority_id) values (2, 2);
+insert into user_authority (user_id, authority_id) values (3, 2);
 
 insert into comments (published_date, cultural_offer_id, registered_id, description) values ('2018-11-11', 1, 2, 'comment description');
 insert into pictures (picture, cultural_offer_id) values ('http://dummyimage.com/200x200.bmp', 1);

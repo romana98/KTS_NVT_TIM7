@@ -112,12 +112,10 @@ public class NewsletterService implements ServiceInterface<Newsletter> {
 		if (culturalOffer == null) 
 			return null;
 		entity.setCulturalOffer(culturalOffer);
-		
 		Picture picture = pictureService.findByPicture(pictureStr);
 		if (picture == null)
 			picture = pictureService.update(new Picture(pictureStr));
 		entity.setPicture(picture);
-		
 		entity.setId(0);
 		return saveOne(entity);
 	}
