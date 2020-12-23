@@ -25,6 +25,12 @@ private int id;
 		this.name = name;
 	}
 
+	public SubcategoryDTO(String name, int categoryId){
+		super();
+		this.name = name;
+		this.categoryId = categoryId;
+	}
+
 	public SubcategoryDTO(int id, @NotBlank String name, @NotBlank int categoryId) {
 		super();
 		this.id = id;
