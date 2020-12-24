@@ -1,9 +1,6 @@
 package com.project.tim7.api;
-
 import com.project.tim7.dto.CulturalOfferDTO;
 import com.project.tim7.dto.FilterDTO;
-import com.project.tim7.dto.NewsletterDetailsDTO;
-
 import com.project.tim7.helper.CulturalOfferMapper;
 import com.project.tim7.model.*;
 import com.project.tim7.service.CulturalOfferService;
@@ -26,100 +23,133 @@ import java.util.List;
 @RequestMapping(value="/cultural-offers")
 public class CulturalOfferController {
 
+    private final CulturalOfferMapper culturalOfferMapper = new CulturalOfferMapper();
+
     @Autowired
     private CulturalOfferService culturalOfferService;
 
-
-    private CulturalOfferMapper culturalOfferMapper = new CulturalOfferMapper();
-
+    /**
+     * Creating cultural offer with Data Transfer Object attributes passed on to the API.
+     * @param culturalOfferDTO - CulturalOffer Data Transfer Object used for extraction of attributes needed for creation of Cultural Offer.
+     * @return - Returning status code 200 or 400 and created Cultural Offer or NULL.
+     */
     @PreAuthorize("hasRole('ROLE_ADMINISTRATOR')")
     @RequestMapping(method= RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<String> createCulturalOffer(@Valid @RequestBody CulturalOfferDTO culturalOfferDTO){
-        CulturalOffer culturalOffer = culturalOfferMapper.toEntity(culturalOfferDTO);
-        boolean saved = culturalOfferService.saveOne(culturalOffer,culturalOfferDTO.getLocation(),culturalOfferDTO.getSubcategory(),culturalOfferDTO.getPictures());
+    public ResponseEntity<CulturalOfferDTO> createCulturalOffer(@Valid @RequestBody CulturalOfferDTO culturalOfferDTO){
+        CulturalOffer savedCulturalOffer = culturalOfferService.saveOne(culturalOfferDTO);
 
-        if(!saved){
-            return new ResponseEntity<>("Cultural offer can't be added.", HttpStatus.BAD_REQUEST);
-        }
-        return new ResponseEntity<>("Successfully added cultural offer.", HttpStatus.CREATED);
+        CulturalOfferDTO payload = savedCulturalOffer == null ? null : culturalOfferMapper.toDto(savedCulturalOffer);
+
+        //Setting response to either OK if Cultural Offer is saved, otherwise BAD_REQUEST.
+        return new ResponseEntity<>(payload, savedCulturalOffer == null ? HttpStatus.BAD_REQUEST: HttpStatus.OK);
     }
 
-
+    /**
+     * Deleting cultural offer according to given Identification number.
+     * @param id - Identification number of cultural offer.
+     * @return - Returning status code 200 or 400 with toast text.
+     */
     @PreAuthorize("hasRole('ROLE_ADMINISTRATOR')")
     @RequestMapping(value= "/{id}",method = RequestMethod.DELETE)
     public ResponseEntity<String> deleteCulturalOffer(@PathVariable("id") int id){
-        if(culturalOfferService.delete(id)){
-            return new ResponseEntity<>("Successfully deleted cultural offer.", HttpStatus.OK);
-        }
-        else{
-            return new ResponseEntity<>("Removal of cultural offer failed.", HttpStatus.BAD_REQUEST);
-        }
+
+        boolean deletedSuccess = culturalOfferService.delete(id);
+        String toastMessage = deletedSuccess ? "Successfully deleted cultural offer." : "Removal of cultural offer failed.";
+        HttpStatus statusCode = deletedSuccess ? HttpStatus.OK : HttpStatus.BAD_REQUEST;
+
+        return new ResponseEntity<>(toastMessage, statusCode);
     }
 
+    /**
+     * Returning one cultural offer with given Identification number.
+     * @param id - Identification number of Cultural Offer.
+     * @return - Returning Cultural Offer Data Transfer Object with necessary attributes.
+     */
     @RequestMapping(value= "/{id}",method = RequestMethod.GET)
     public ResponseEntity<CulturalOfferDTO> getCulturalOffer(@PathVariable("id") int id){
+
         CulturalOffer culturalOffer = culturalOfferService.findOne(id);
-        if(culturalOffer == null){
-            return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
-        }
-        CulturalOfferDTO payload = culturalOfferMapper.toDto(culturalOffer);
-        return new ResponseEntity<>(payload, HttpStatus.OK);
 
+        //Checking if cultural offer was found and returning status code 200 with DTO for success or 400 and NULL for fail.
+        HttpStatus httpCode = culturalOffer == null ? HttpStatus.BAD_REQUEST : HttpStatus.OK;
+        CulturalOfferDTO payload = culturalOffer == null ? null : culturalOfferMapper.toDto(culturalOffer);
 
+        return new ResponseEntity<>(payload, httpCode);
     }
 
+     /**
+     * Updating cultural offer according to CulturalOfferDTO sent as RequestBody.
+     * @param culturalOfferDTO - Data transfer object for CulturalOffer.
+     * @return ResponseEntity<CulturalOfferDTO> - Returning status 200 or 400 along with updated CulturalOffer.
+     */
     @PreAuthorize("hasRole('ROLE_ADMINISTRATOR')")
     @RequestMapping(method = RequestMethod.PUT, consumes = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<String> updateCulturalOffer(@Valid @RequestBody CulturalOfferDTO culturalOfferDTO){
+    public ResponseEntity<CulturalOfferDTO> updateCulturalOffer(@Valid @RequestBody CulturalOfferDTO culturalOfferDTO){
 
-        boolean updated = culturalOfferService.update(culturalOfferDTO);
+        CulturalOffer updatedCulturalOffer = culturalOfferService.update(culturalOfferDTO);
 
-        if(updated) {
-            return new ResponseEntity<>("Successfully updated newsletter.", HttpStatus.OK);
-        }else {
-            return new ResponseEntity<>("Updating failed.", HttpStatus.BAD_REQUEST);
-        }
+        return updatedCulturalOffer != null ?
+                new ResponseEntity<>(culturalOfferMapper.toDto(updatedCulturalOffer), HttpStatus.OK) :
+                new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
+
     }
 
+    /**
+     * Returning number of cultural offers according to page and page size.
+     * @param pageable - Page object with number of elements to return and number of page.
+     * @return - Returning desired number of objects according to page object.
+     */
     @PreAuthorize("hasRole('ROLE_ADMINISTRATOR')")
     @RequestMapping(value= "/by-page",method = RequestMethod.GET)
     public ResponseEntity<Page<CulturalOfferDTO>> getAllCulturalOffersPaged(Pageable pageable) {
         Page<CulturalOffer> page = culturalOfferService.findAll(pageable);
-
         List<CulturalOfferDTO> culturalOfferDTOS = culturalOfferMapper.toCulturalOfferDTOList(page.toList());
-
         Page<CulturalOfferDTO> culturalOfferDTOPage = new PageImpl<>(culturalOfferDTOS,page.getPageable(),page.getTotalElements());
 
         return new ResponseEntity<>(culturalOfferDTOPage, HttpStatus.OK);
     }
-    
+
+    /**
+     * Returning filtered cultural offers filtered by certain parameter.
+     * @param filterDTO - Filter name and filter value.
+     * @param pageable - Page object with number of elements to return and number of page.
+     * @return - Returning page of filtered cultural offer data transfer objects.
+     */
     @RequestMapping(method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE, value="/filter")
     public ResponseEntity<Page<CulturalOfferDTO>> filterCulturalOffers(@RequestBody FilterDTO filterDTO, Pageable pageable){
     	Page<CulturalOffer> page = culturalOfferService.filter(filterDTO, pageable);
     	List<CulturalOfferDTO> culturalOfferDTOs = culturalOfferMapper.toCulturalOfferDTOList(page.toList());
     	Page<CulturalOfferDTO> culturalOfferDTOPage = new PageImpl<>(culturalOfferDTOs, page.getPageable(), page.getTotalElements());
+
     	return new ResponseEntity<>(culturalOfferDTOPage, HttpStatus.OK);
     }
 
-    static class Subscribe {
-    	public int idOffer;
-    	public int idUser;
-    }
-    
+    //TODO: Vera to comment this method.
     @PreAuthorize("hasRole('ROLE_REGISTERED')")
     @RequestMapping(value= "/subscribe", method = RequestMethod.POST)
-	public ResponseEntity<?> subscribe(@RequestBody Subscribe subscribeData){
+	public ResponseEntity<String> subscribe(@RequestBody Subscribe subscribeData){
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 		Person person = (Person) authentication.getPrincipal();
+
+        HttpStatus httpCode;
+        String toastMessage;
+
 		if(person.getId() != subscribeData.idUser) {
-			return new ResponseEntity<String>("Authentication failed!", HttpStatus.BAD_REQUEST);
+		    httpCode = HttpStatus.BAD_REQUEST;
+		    toastMessage = "Authentication failed!";
+		    return new ResponseEntity<>(toastMessage, httpCode);
 		}
 		
 		CulturalOffer subscribed = culturalOfferService.subscribe(subscribeData.idOffer, subscribeData.idUser);
-		if (subscribed != null)
-	        return new ResponseEntity<String>("Successflly subscribed!", HttpStatus.OK);
-		else
-			return new ResponseEntity<String>("Subscription failed!", HttpStatus.BAD_REQUEST);
-	}
+        httpCode = subscribed == null ? HttpStatus.BAD_REQUEST : HttpStatus.OK;
+        toastMessage = subscribed == null ? "Subscription failed!" : "Successfully subscribed!";
 
+		return new ResponseEntity<>(toastMessage,httpCode);
+
+    }
+
+    static class Subscribe {
+        public int idOffer;
+        public int idUser;
+    }
 }

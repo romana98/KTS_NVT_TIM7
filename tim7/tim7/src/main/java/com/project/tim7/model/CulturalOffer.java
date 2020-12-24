@@ -43,7 +43,7 @@ public class CulturalOffer {
 	@Column(name = "endDate", unique = false, nullable = true)
 	private Date endDate;
 	
-	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
 	@JoinColumn(name = "culturalOfferId")
 	private Set<Picture> pictures;
 	
@@ -70,7 +70,7 @@ public class CulturalOffer {
 	@JoinColumn(name = "culturalOfferId")
 	private Set<Rating> ratings;
 
-	public CulturalOffer(int id, String description, Date endDate, String name, Date startDate) {
+	public CulturalOffer(int id, String name, Date endDate, String description, Date startDate) {
 		this.id = id;
 		this.description =description;
 		this.endDate = endDate;
