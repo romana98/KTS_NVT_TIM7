@@ -73,7 +73,6 @@ public class CulturalOfferService implements ServiceInterface<CulturalOffer> {
 		return null;
 	}
 
-
 	/**
 	 * Creating new Cultural Offer using Data Transfer Object.
 	 * @param entity - Data Transfer Object which contains all primary attributes of Cultural Offer.
@@ -129,6 +128,9 @@ public class CulturalOfferService implements ServiceInterface<CulturalOffer> {
 		culturalOffer.setStartDate(entity.getStartDate());
 		culturalOffer.setLocation(entity.getLocation());
 		culturalOffer.setSubcategory(entity.getSubcategory());
+		if(entity.getPictures() == null){
+			culturalOffer.setPictures(entity.getPictures());
+		}
 		culturalOfferRepo.save(culturalOffer);
 		return culturalOffer;
 	}
@@ -158,6 +160,10 @@ public class CulturalOfferService implements ServiceInterface<CulturalOffer> {
 		culturalOffer.setLocation(location);
 		culturalOffer.setSubcategory(subcategory);
 
+		if(!entity.getPictures().isEmpty()){
+			culturalOffer.setPictures(pictureService.getPictures(entity.getPictures()));
+		}
+
 		//Sending entity in database for update.
 		return update(culturalOffer);
 	}
@@ -181,6 +187,7 @@ public class CulturalOfferService implements ServiceInterface<CulturalOffer> {
 		return culturalOfferRepo.countBySubcategoryId(id);
 	}
 
+	//TODO: Vera should test this functionality.
 	public CulturalOffer subscribe(int idOffer, int idUser) {
 		CulturalOffer culturalOffer = findOne(idOffer);
 		Registered registered = registeredService.findOne(idUser);

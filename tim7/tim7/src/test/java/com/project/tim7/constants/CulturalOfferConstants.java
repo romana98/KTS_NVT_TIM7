@@ -43,25 +43,70 @@ public class CulturalOfferConstants {
     public static final int FIND_ONE_CULTURAL_OFFER_NOT_EXISTS = 4;
 
     //SaveOne()
-    /**
-     * {
-     *     "description": "somethingh",
-     *     "endDate" : "2019-02-04",
-     *     "name" : "nothingaaa",
-     *     "startDate" : "2019-02-03",
-     *     "location" : 1,
-     *     "subcategory" : 1,
-     *     "pictures" : ["http://dummyimage.com/162x198.jpg", "http://dummyimage.com/127x178.png" , "DAMIIMAGDZ"]
-     * }
-     */
     public static final String SAVE_ONE_CULTURAL_OFFER_DESCRIPTION = "This is a description";
     public static final String SAVE_ONE_CULTURAL_OFFER_ENDDATE = "2019-02-04";
     public static final String SAVE_ONE_CULTURAL_OFFER_NAME = "OfferName";
+    public static final String SAVE_ONE_CULTURAL_OFFER_NAME_FAIL = "CulturalOffer1000";
     public static final String SAVE_ONE_CULTURAL_OFFER_STARTDATE = "2019-02-03";
     public static final int SAVE_ONE_CULTURAL_OFFER_LOCATION = 1;
+    public static final int SAVE_ONE_CULTURAL_OFFER_LOCATION_FAIL = 7;
     public static final int SAVE_ONE_CULTURAL_OFFER_SUBCATEGORY = 1;
+    public static final int SAVE_ONE_CULTURAL_OFFER_SUBCATEGORY_FAIL = 6;
     public static final String SAVE_ONE_CULTURAL_OFFER_PICTURE1 = "http://dummyimage.com/162x198.jpg";
     public static final String SAVE_ONE_CULTURAL_OFFER_PICTURE2 = "http://dummyimage.com/127x178.png";
+
+    //update()
+    public static final int UPDATE_ONE_CULTURAL_OFFER_ID = 1;
+    public static final int UPDATE_ONE_CULTURAL_OFFER_ID_FAIL = 5;
+    public static final String UPDATE_ONE_CULTURAL_OFFER_DESCRIPTION = "This is a description";
+    public static final String UPDATE_ONE_CULTURAL_OFFER_ENDDATE = "2019-02-04";
+    public static final String UPDATE_ONE_CULTURAL_OFFER_NAME = "OfferName1000";
+    public static final String UPDATE_ONE_CULTURAL_OFFER_NAME_FAIL = "Exit";
+    public static final String UPDATE_ONE_CULTURAL_OFFER_STARTDATE = "2019-02-03";
+    public static final int UPDATE_ONE_CULTURAL_OFFER_LOCATION = 1;
+    public static final int UPDATE_ONE_CULTURAL_OFFER_SUBCATEGORY = 1;
+    public static final String UPDATE_ONE_CULTURAL_OFFER_PICTURE1 = "http://dummyimage.com/162x198.jpg";
+    public static final String UPDATE_ONE_CULTURAL_OFFER_PICTURE2 = "http://dummyimage.com/127x178.png";
+    public static final int UPDATE_PICTURE_SIZE = 2;
+
+    //delete()
+    public static final int DELETE_CULTURAL_OFFER_ID = 1;
+    public static final int DELETE_CULTURAL_OFFER_ID_FAIL = 5;
+    public static final int DELETE_EXPECTED_SIZE = 1;
+
+    //getCulturalOfferReferencingCount()
+    public static final int REFERENCE_COUNT_ID_VALID = 1;
+    public static final int REFERENCE_COUNT_VALID = 2;
+    public static final int REFERENCE_COUNT_ID_VALID_ZERO = 2;
+    public static final int REFERENCE_COUNT_ID_INVALID = 2;
+
+    //filter()
+    public static final String FILTER_CATEGORY = "category";
+    public static final String FILTER_SUBCATEGORY = "subcategory";
+    public static final String FILTER_LOCATION = "location";
+    public static final String FILTER_NAME = "name";
+    public static final String FILTER_EMPTY = "";
+    public static final String FILTER_INVALID = "description";
+
+    public static final String FILTER_CATEGORY_VALUE_FOUND = "Category1";
+    public static final int FILTER_CATEGORY_VALUE_FOUND_NUMBER = 2;
+    public static final String FILTER_SUBCATEGORY_VALUE_FOUND  = "Subcategory1";
+    public static final int  FILTER_SUBCATEGORY_VALUE_FOUND_NUMBER = 2;
+    public static final String FILTER_LOCATION_VALUE_FOUND  = "Novi Sad";
+    public static final int  FILTER_LOCATION_VALUE_FOUND_NUMBER  = 2;
+    public static final String FILTER_NAME_VALUE_FOUND  = "Exit";
+    public static final int FILTER_NAME_VALUE_FOUND_NUMBER = 2;
+    public static final String FILTER_EMPTY_FOUND  = "Exit1";
+    public static final int FILTER_EMPTY_FOUND_NUMBER = 2;
+    public static final String FILTER_INVALID_VALUE_FOUND  = "Exit1";
+    public static final int FILTER_INVALID_VALUE_FOUND_NUMBER = 1;
+
+
+    public static final String FILTER_CATEGORY_VALUE_NOT_FOUND  = "Category5";
+    public static final String FILTER_LOCATION_VALUE_NOT_FOUND = "Beograd";
+    public static final String FILTER_NAME_VALUE_NOT_FOUND = "Exit3";
+    public static final String FILTER_INVALID_VALUE_EMPTY = "";
+    public static final int FILTER_EMPTY_VALUE_FOUND = 1;
 
 
 }
