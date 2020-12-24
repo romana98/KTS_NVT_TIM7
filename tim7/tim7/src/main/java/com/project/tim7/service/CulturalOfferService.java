@@ -73,11 +73,13 @@ public class CulturalOfferService implements ServiceInterface<CulturalOffer> {
 		return null;
 	}
 
+
 	/**
 	 * Creating new Cultural Offer using Data Transfer Object.
 	 * @param entity - Data Transfer Object which contains all primary attributes of Cultural Offer.
 	 * @return - Returning created Cultural Offer or null if Cultural Offer couldn't be created.
 	 */
+	@Transactional
 	public CulturalOffer saveOne(CulturalOfferDTO entity) {
 
 		//Checking if Cultural Offer with given name already exists.
