@@ -56,32 +56,72 @@ public class CulturalOfferRepositoryIntegrationTest {
     @Test
     public void testFilterByLocationFound(){
         Pageable pageable = PageRequest.of(PAGEABLE_PAGE, PAGEABLE_SIZE);
-        Page<CulturalOffer> page = culturalOfferRepository.filterByCategory(FILTER_CATEGORY_VALUE_SUCCESS,pageable);
-        assertEquals(FILTER_CATEGORY_VALUE_SUCCESS_RESULT, page.getTotalElements());
+        Page<CulturalOffer> page = culturalOfferRepository.filterByLocation(FILTER_LOCATION_VALUE_SUCCESS,pageable);
+        assertEquals(FILTER_LOCATION_VALUE_SUCCESS_RESULT, page.getTotalElements());
     }
 
     @Test
     public void testFilterByLocationNotFound(){
         Pageable pageable = PageRequest.of(PAGEABLE_PAGE, PAGEABLE_SIZE);
-        Page<CulturalOffer> page = culturalOfferRepository.filterByCategory(FILTER_CATEGORY_VALUE_SUCCESS_ZERO,pageable);
+        Page<CulturalOffer> page = culturalOfferRepository.filterByLocation(FILTER_LOCATION_VALUE_SUCCESS_ZERO,pageable);
         assertEquals(0, page.getTotalElements());
     }
 
     @Test
     public void testFilterByNameFound(){
         Pageable pageable = PageRequest.of(PAGEABLE_PAGE, PAGEABLE_SIZE);
-        Page<CulturalOffer> page = culturalOfferRepository.filterByCategory(FILTER_CATEGORY_VALUE_SUCCESS,pageable);
-        assertEquals(FILTER_CATEGORY_VALUE_SUCCESS_RESULT, page.getTotalElements());
+        Page<CulturalOffer> page = culturalOfferRepository.filterByName(FILTER_NAME_VALUE_SUCCESS,pageable);
+        assertEquals(FILTER_NAME_VALUE_SUCCESS_RESULT, page.getTotalElements());
+    }
+
+    @Test
+    public void testFilterByNameFoundOne(){
+        Pageable pageable = PageRequest.of(PAGEABLE_PAGE, PAGEABLE_SIZE);
+        Page<CulturalOffer> page = culturalOfferRepository.filterByName(FILTER_NAME_VALUE_SUCCESS1,pageable);
+        assertEquals(FILTER_NAME_VALUE_SUCCESS_RESULT1, page.getTotalElements());
     }
 
     @Test
     public void testFilterByNameNotFound(){
         Pageable pageable = PageRequest.of(PAGEABLE_PAGE, PAGEABLE_SIZE);
-        Page<CulturalOffer> page = culturalOfferRepository.filterByCategory(FILTER_CATEGORY_VALUE_SUCCESS_ZERO,pageable);
+        Page<CulturalOffer> page = culturalOfferRepository.filterByName(FILTER_NAME_VALUE_SUCCESS_ZERO,pageable);
         assertEquals(0, page.getTotalElements());
     }
 
+    @Test
+    public void testFilterByAllCategoryFound(){
+        Pageable pageable = PageRequest.of(PAGEABLE_PAGE, PAGEABLE_SIZE);
+        Page<CulturalOffer> page = culturalOfferRepository.filterByAll(FILTER_CATEGORY_VALUE_SUCCESS,pageable);
+        assertEquals(FILTER_CATEGORY_VALUE_SUCCESS_RESULT, page.getTotalElements());
+    }
 
+    @Test
+    public void testFilterByAllSubcategoryFound(){
+        Pageable pageable = PageRequest.of(PAGEABLE_PAGE, PAGEABLE_SIZE);
+        Page<CulturalOffer> page = culturalOfferRepository.filterByAll(FILTER_SUBCATEGORY_VALUE_SUCCESS,pageable);
+        assertEquals(FILTER_SUBCATEGORY_VALUE_SUCCESS_RESULT, page.getTotalElements());
+    }
 
+    @Test
+    public void testFilterByAllLocationFound(){
+        Pageable pageable = PageRequest.of(PAGEABLE_PAGE, PAGEABLE_SIZE);
+        Page<CulturalOffer> page = culturalOfferRepository.filterByAll(FILTER_LOCATION_VALUE_SUCCESS,pageable);
+        assertEquals(FILTER_LOCATION_VALUE_SUCCESS_RESULT, page.getTotalElements());
+    }
 
+    @Test
+    public void testFilterByAllNameFound(){
+        Pageable pageable = PageRequest.of(PAGEABLE_PAGE, PAGEABLE_SIZE);
+        Page<CulturalOffer> page = culturalOfferRepository.filterByAll(FILTER_NAME_VALUE_SUCCESS,pageable);
+        assertEquals(FILTER_NAME_VALUE_SUCCESS_RESULT, page.getTotalElements());
+    }
+
+    @Test
+    public void testFilterByAllNothingFound(){
+        Pageable pageable = PageRequest.of(PAGEABLE_PAGE, PAGEABLE_SIZE);
+        Page<CulturalOffer> page = culturalOfferRepository.filterByAll(FILTER_ALL_VALUE_SUCCESS_ZERO,pageable);
+        assertEquals(0, page.getTotalElements());
+    }
+
+    //TODO: Vera write tests for your methods in CulturalOfferRepository
 }
