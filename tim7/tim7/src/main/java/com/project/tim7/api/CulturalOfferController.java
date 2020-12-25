@@ -124,7 +124,7 @@ public class CulturalOfferController {
     	return new ResponseEntity<>(culturalOfferDTOPage, HttpStatus.OK);
     }
 
-    //TODO: Vera to comment this method.
+    //TODO: Vera - comment this method and write tests.
     @PreAuthorize("hasRole('ROLE_REGISTERED')")
     @RequestMapping(value= "/subscribe", method = RequestMethod.POST)
 	public ResponseEntity<String> subscribe(@RequestBody Subscribe subscribeData){

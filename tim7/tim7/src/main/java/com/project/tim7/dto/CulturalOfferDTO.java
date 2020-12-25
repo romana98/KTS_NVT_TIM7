@@ -48,6 +48,22 @@ public class CulturalOfferDTO {
         this.pictures = pictures;
     }
 
+    public CulturalOfferDTO(@NotBlank String name,
+                            @NotBlank String description,
+                            @PastOrPresent Date startDate,
+                            @PastOrPresent Date endDate,
+                            int subcategory,
+                            int location,
+                            ArrayList<String> pictures) {
+        this.name = name;
+        this.description = description;
+        this.startDate = startDate;
+        this.endDate = endDate;
+        this.subcategory = subcategory;
+        this.location = location;
+        this.pictures = pictures;
+    }
+
     public CulturalOfferDTO() {
     }
 

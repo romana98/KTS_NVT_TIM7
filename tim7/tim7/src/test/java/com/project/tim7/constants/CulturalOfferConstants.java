@@ -2,6 +2,8 @@ package com.project.tim7.constants;
 
 public class CulturalOfferConstants {
 
+
+
     //REPOSITORY
 
     //FilterByCategory
@@ -46,7 +48,7 @@ public class CulturalOfferConstants {
     public static final String SAVE_ONE_CULTURAL_OFFER_DESCRIPTION = "This is a description";
     public static final String SAVE_ONE_CULTURAL_OFFER_ENDDATE = "2019-02-04";
     public static final String SAVE_ONE_CULTURAL_OFFER_NAME = "OfferName";
-    public static final String SAVE_ONE_CULTURAL_OFFER_NAME_FAIL = "CulturalOffer1000";
+    public static final String SAVE_ONE_CULTURAL_OFFER_NAME_FAIL = "Exit";
     public static final String SAVE_ONE_CULTURAL_OFFER_STARTDATE = "2019-02-03";
     public static final int SAVE_ONE_CULTURAL_OFFER_LOCATION = 1;
     public static final int SAVE_ONE_CULTURAL_OFFER_LOCATION_FAIL = 7;
@@ -61,7 +63,7 @@ public class CulturalOfferConstants {
     public static final String UPDATE_ONE_CULTURAL_OFFER_DESCRIPTION = "This is a description";
     public static final String UPDATE_ONE_CULTURAL_OFFER_ENDDATE = "2019-02-04";
     public static final String UPDATE_ONE_CULTURAL_OFFER_NAME = "OfferName1000";
-    public static final String UPDATE_ONE_CULTURAL_OFFER_NAME_FAIL = "Exit";
+    public static final String UPDATE_ONE_CULTURAL_OFFER_NAME_FAIL = "Exit1";
     public static final String UPDATE_ONE_CULTURAL_OFFER_STARTDATE = "2019-02-03";
     public static final int UPDATE_ONE_CULTURAL_OFFER_LOCATION = 1;
     public static final int UPDATE_ONE_CULTURAL_OFFER_SUBCATEGORY = 1;
@@ -107,6 +109,16 @@ public class CulturalOfferConstants {
     public static final String FILTER_NAME_VALUE_NOT_FOUND = "Exit3";
     public static final String FILTER_INVALID_VALUE_EMPTY = "";
     public static final int FILTER_EMPTY_VALUE_FOUND = 1;
+
+    //CONTROLLER
+    public static final int OLD_CULTURAL_OFFER_ID = 1;
+    public static final String OLD_CULTURAL_OFFER_DESCRIPTION = "Proslava 20. godišnjice EXIT festivala biće održana u njegovom poznatom punom formatu od 8. do 11. jula 2021. na Petrovaradinskoj tvrđavi.";
+    public static final String OLD_CULTURAL_OFFER_ENDDATE = "2019-02-04";
+    public static final String OLD_CULTURAL_OFFER_NAME = "'Exit'";
+    public static final String OLD_CULTURAL_OFFER_STARTDATE = "2020-07-11";
+    public static final int OLD_CULTURAL_OFFER_LOCATION = 1;
+    public static final int OLD_CULTURAL_OFFER_SUBCATEGORY = 1;
+
 
 
 }

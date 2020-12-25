@@ -143,11 +143,16 @@ public class CulturalOfferService implements ServiceInterface<CulturalOffer> {
 	public CulturalOffer update(CulturalOfferDTO entity){
 		CulturalOffer culturalOffer = new CulturalOffer(entity.getId(), entity.getName(),entity.getStartDate(), entity.getDescription(), entity.getEndDate());
 
+		CulturalOffer oldCulturalOffer = findOne(entity.getId());
+		if((oldCulturalOffer == null) || (!oldCulturalOffer.getName().equalsIgnoreCase(culturalOffer.getName()) && culturalOfferRepo.findByName(culturalOffer.getName()) != null )){
+			return null;
+		}
+
 		//Extracting non-primary attributes Location and Subcategory if they exist in Data Transfer Object.
 		Location location = locationService.findOne(entity.getLocation());
 		Subcategory subcategory = subcategoryService.findOne(entity.getSubcategory());
 
-		if(location == null || subcategory == null || (culturalOfferRepo.findByName(culturalOffer.getName()) != null)){
+		if(location == null || subcategory == null){
 			return null;
 		}
 

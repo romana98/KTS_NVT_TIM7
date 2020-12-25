@@ -138,6 +138,7 @@ public class CulturalOfferServiceIntegrationTest {
         culturalOffer.setName(SAVE_ONE_CULTURAL_OFFER_NAME);
         culturalOffer.setStartDate(new SimpleDateFormat("yyyy-MM-dd").parse(SAVE_ONE_CULTURAL_OFFER_STARTDATE));
         culturalOffer.setSubcategory(SAVE_ONE_CULTURAL_OFFER_SUBCATEGORY_FAIL);
+        culturalOffer.setLocation(SAVE_ONE_CULTURAL_OFFER_LOCATION);
         culturalOffer.setPictures(pictures);
 
         CulturalOffer culturalOfferAdded = culturalOfferService.saveOne(culturalOffer);
@@ -158,7 +159,8 @@ public class CulturalOfferServiceIntegrationTest {
         culturalOffer.setEndDate(new SimpleDateFormat("yyyy-MM-dd").parse(SAVE_ONE_CULTURAL_OFFER_ENDDATE));
         culturalOffer.setName(SAVE_ONE_CULTURAL_OFFER_NAME_FAIL);
         culturalOffer.setStartDate(new SimpleDateFormat("yyyy-MM-dd").parse(SAVE_ONE_CULTURAL_OFFER_STARTDATE));
-        culturalOffer.setSubcategory(SAVE_ONE_CULTURAL_OFFER_SUBCATEGORY_FAIL);
+        culturalOffer.setSubcategory(SAVE_ONE_CULTURAL_OFFER_SUBCATEGORY);
+        culturalOffer.setLocation(SAVE_ONE_CULTURAL_OFFER_LOCATION);
         culturalOffer.setPictures(pictures);
 
         CulturalOffer culturalOfferAdded = culturalOfferService.saveOne(culturalOffer);
