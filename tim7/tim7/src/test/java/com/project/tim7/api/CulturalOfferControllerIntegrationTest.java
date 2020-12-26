@@ -222,6 +222,8 @@ public class CulturalOfferControllerIntegrationTest {
                 OLD_CULTURAL_OFFER_LOCATION,OLD_CULTURAL_OFFER_SUBCATEGORY, pictures );
 
         culturalOfferService.update(culturalOfferRestore);
+
+        assertNotNull(culturalOfferRestore);
     }
 
     //Updating non existing cultural offer.
@@ -333,7 +335,6 @@ public class CulturalOfferControllerIntegrationTest {
 
         assertEquals(HttpStatus.OK, responseEntity.getStatusCode());
     }
-
     //Delete non existing cultural offer.
     @Test
     public void testDeleteCulturalOfferInvalid(){
@@ -586,7 +587,10 @@ public class CulturalOfferControllerIntegrationTest {
         assertEquals(HttpStatus.OK, responseEntity.getStatusCode());
         assertEquals(FILTER_NAME_VALUE_FOUND_NUMBER, culturalOffers.getNumberOfElements());
     }
-    
+
+
+
+
     public void loginRegSubscribe() {
     	ResponseEntity<UserTokenStateDTO> responseEntity = restTemplate.postForEntity("/auth/log-in",
                 new UserLoginDTO(REGISTERED_ID_NOT_SUBSCRIBED_NAME, DB_PASSWORD_RAW), UserTokenStateDTO.class);
@@ -649,7 +653,7 @@ public class CulturalOfferControllerIntegrationTest {
 
         assertEquals(HttpStatus.BAD_REQUEST, responseEntity.getStatusCode());
     }
-    
+
     //Unsubscribe success
     @Test
     @Transactional
@@ -668,7 +672,7 @@ public class CulturalOfferControllerIntegrationTest {
         assertEquals(HttpStatus.OK, responseEntity.getStatusCode());
         culturalOfferService.subscribe(CULTURAL_OFFER_ID, REGISTERED_ID_ALREADY_SUBSCRIBED);
     }
-    
+
     //Unsubscribe fail
     @Test
     @Transactional

@@ -53,10 +53,10 @@ import com.project.tim7.service.SubcategoryServiceIntegrationTest;
         CustomUserDetailsServiceIntegrationService.class, EmailServiceTest.class, LocationServiceIntegrationTest.class, 
         NewsletterServiceIntegrationTest.class, NewsletterServiceUnitTest.class, PictureServiceIntegrationTest.class,
         RatingServiceIntegrationTest.class, RegisteredServiceIntegrationTest.class, 
-        SubcategoryServiceIntegrationTest.class,
+        SubcategoryServiceIntegrationTest.class, CulturalOfferControllerIntegrationTest.class,
         AdministratorControllerIntegrationTest.class, AuthenticationControllerIntegrationTest.class,
-        CategoryControllerIntegrationTest.class, CommentControllerIntegrationTest.class, CulturalOfferControllerIntegrationTest.class,
-        LocationControllerIntegrationTest.class, NewsletterControllerIntegrationTest.class, RatingControllerIntegrationTest.class,
+        CategoryControllerIntegrationTest.class, CommentControllerIntegrationTest.class,
+       LocationControllerIntegrationTest.class, NewsletterControllerIntegrationTest.class, RatingControllerIntegrationTest.class,
         RegisteredControllerIntegrationTest.class, SubcategoryControllerIntegrationTest.class})
 @TestPropertySource("classpath:test.properties")
 public class SuiteAll {

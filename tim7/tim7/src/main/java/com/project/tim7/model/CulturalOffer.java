@@ -53,7 +53,7 @@ public class CulturalOffer {
 	@ManyToOne(cascade = CascadeType.REFRESH, fetch = FetchType.EAGER)
 	private Subcategory subcategory;
 	
-	@ManyToMany(cascade = CascadeType.ALL)
+	@ManyToMany(cascade = CascadeType.PERSIST)
 	@JoinTable(name = "subscribedCulturalOffers", joinColumns = { @JoinColumn(name = "culturalOfferId") }, inverseJoinColumns = {
 	@JoinColumn(name = "RegisteredId") })
 	private Set<Registered> subscribed;

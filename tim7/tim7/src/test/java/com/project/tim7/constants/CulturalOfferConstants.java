@@ -127,12 +127,12 @@ public class CulturalOfferConstants {
     //CONTROLLER
     public static final int OLD_CULTURAL_OFFER_ID = 1;
     public static final String OLD_CULTURAL_OFFER_DESCRIPTION = "Proslava 20. godišnjice EXIT festivala biće održana u njegovom poznatom punom formatu od 8. do 11. jula 2021. na Petrovaradinskoj tvrđavi.";
-    public static final String OLD_CULTURAL_OFFER_ENDDATE = "2019-02-04";
-    public static final String OLD_CULTURAL_OFFER_NAME = "'Exit'";
+    public static final String OLD_CULTURAL_OFFER_ENDDATE = "2020-07-08";
+    public static final String OLD_CULTURAL_OFFER_NAME = "Exit";
     public static final String OLD_CULTURAL_OFFER_STARTDATE = "2020-07-11";
     public static final int OLD_CULTURAL_OFFER_LOCATION = 1;
     public static final int OLD_CULTURAL_OFFER_SUBCATEGORY = 1;
-    
+
 
 
 
