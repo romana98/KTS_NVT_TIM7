@@ -124,7 +124,11 @@ public class CulturalOfferController {
     	return new ResponseEntity<>(culturalOfferDTOPage, HttpStatus.OK);
     }
 
-    //TODO: Vera - comment this method and write tests.
+    /**
+     * Subscribing user to cultural offer.
+     * @param subscribeData - id user and id cultural offer.
+     * @return - Returning cultural offer on which user subscribed.
+     */
     @PreAuthorize("hasRole('ROLE_REGISTERED')")
     @RequestMapping(value= "/subscribe", method = RequestMethod.POST)
 	public ResponseEntity<String> subscribe(@RequestBody Subscribe subscribeData){
@@ -145,8 +149,35 @@ public class CulturalOfferController {
         toastMessage = subscribed == null ? "Subscription failed!" : "Successfully subscribed!";
 
 		return new ResponseEntity<>(toastMessage,httpCode);
-
     }
+    
+    /**
+     * Unsubscribing user from cultural offer.
+     * @param subscribeData - id user and id cultural offer.
+     * @return - Returning cultural offer from which user unsubscribed.
+     */
+    @PreAuthorize("hasRole('ROLE_REGISTERED')")
+    @RequestMapping(value= "/unsubscribe", method = RequestMethod.POST)
+	public ResponseEntity<String> unsubscribe(@RequestBody Subscribe subscribeData){
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+		Person person = (Person) authentication.getPrincipal();
+
+        HttpStatus httpCode;
+        String toastMessage;
+
+		if(person.getId() != subscribeData.idUser) {
+		    httpCode = HttpStatus.BAD_REQUEST;
+		    toastMessage = "Authentication failed!";
+		    return new ResponseEntity<>(toastMessage, httpCode);
+		}
+		
+		CulturalOffer subscribed = culturalOfferService.unsubscribe(subscribeData.idOffer, subscribeData.idUser);
+        httpCode = subscribed == null ? HttpStatus.BAD_REQUEST : HttpStatus.OK;
+        toastMessage = subscribed == null ? "Unsubscription failed!" : "Successfully unsubscribed!";
+
+		return new ResponseEntity<>(toastMessage,httpCode);
+    }
+
 
     static class Subscribe {
         public int idOffer;

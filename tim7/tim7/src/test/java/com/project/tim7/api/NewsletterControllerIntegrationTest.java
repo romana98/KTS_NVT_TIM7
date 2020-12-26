@@ -392,9 +392,6 @@ public class NewsletterControllerIntegrationTest {
 
         assertEquals(HttpStatus.OK, responseEntity.getStatusCode());
         assertThat(message).isNotBlank();
-        
-        //Newsletter restored = newsletterService.save(new Newsletter(DELETE_ID, RESTORE_NAME, RESTORE_DESCRIPTION, sdf.parse(RESTORE_DATE)), RESTORE_OFFER, RESTORE_PICTURE);
-        //assertEquals(RESTORE_NAME, restored.getName());
     }
     
     @Test

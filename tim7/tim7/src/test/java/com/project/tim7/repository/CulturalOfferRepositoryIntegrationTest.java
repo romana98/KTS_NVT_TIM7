@@ -14,6 +14,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 import static com.project.tim7.constants.CommentConstants.PAGEABLE_PAGE;
 import static com.project.tim7.constants.CommentConstants.PAGEABLE_SIZE;
 import static com.project.tim7.constants.CulturalOfferConstants.*;
+import static org.junit.Assert.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.*;
 
 
@@ -123,5 +124,15 @@ public class CulturalOfferRepositoryIntegrationTest {
         assertEquals(0, page.getNumberOfElements());
     }
 
-    //TODO: Vera write tests for your methods in CulturalOfferRepository
+    @Test
+    public void checkIfsubscriptionExists() {
+    	Long exists = culturalOfferRepository.checkIfsubscriptionExists(CHECK_IF_SUBSCRIBE_EXISTS_CULTURAL_OFFER, CHECK_IF_SUBSCRIBE_EXISTS_REGISTERED_SUCCESS);
+    	assertNotEquals(CHECK_IF_SUBSCRIBE_EXISTS, exists);
+    }
+    
+    @Test
+    public void checkIfsubscriptionExistsFail() {
+    	Long exists = culturalOfferRepository.checkIfsubscriptionExists(CHECK_IF_SUBSCRIBE_EXISTS_CULTURAL_OFFER, CHECK_IF_SUBSCRIBE_EXISTS_REGISERED_FAIL);
+    	assertEquals(CHECK_IF_SUBSCRIBE_EXISTS, exists);
+    }
 }

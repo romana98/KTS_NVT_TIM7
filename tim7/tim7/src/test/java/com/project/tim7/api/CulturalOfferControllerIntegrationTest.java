@@ -2,6 +2,7 @@ package com.project.tim7.api;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.project.tim7.api.CulturalOfferController.Subscribe;
 import com.project.tim7.dto.*;
 import com.project.tim7.helper.CulturalOfferMapper;
 import com.project.tim7.helper.RestResponsePage;
@@ -31,6 +32,8 @@ import static com.project.tim7.constants.AdministratorConstants.DB_USERNAME;
 import static com.project.tim7.constants.CommentConstants.PAGEABLE_PAGE;
 import static com.project.tim7.constants.CommentConstants.PAGEABLE_SIZE;
 import static com.project.tim7.constants.CulturalOfferConstants.*;
+import static com.project.tim7.constants.NewsletterConstants.DB_PASSWORD_RAW;
+import static com.project.tim7.constants.NewsletterConstants.DB_USERNAME_REG;
 import static org.junit.Assert.*;
 
 @RunWith(SpringRunner.class)
@@ -49,7 +52,6 @@ public class CulturalOfferControllerIntegrationTest {
     private HttpHeaders headers;
 
     // JWT token za pristup REST servisima. Bice dobijen pri logovanju
-    @Before
     public void login() {
         ResponseEntity<UserTokenStateDTO> responseEntity = restTemplate.postForEntity("/auth/log-in",
                 new UserLoginDTO(DB_USERNAME,DB_PASSWORD_RAW), UserTokenStateDTO.class);
@@ -66,7 +68,7 @@ public class CulturalOfferControllerIntegrationTest {
     //Successfully adding not existing cultural offer with valid location and subcategory.
     @Test
     public void testCreateCulturalOfferValid() throws ParseException {
-
+    	login();
         ArrayList<String> pictures = new ArrayList<>();
         pictures.add(SAVE_ONE_CULTURAL_OFFER_PICTURE1);
         pictures.add(SAVE_ONE_CULTURAL_OFFER_PICTURE2);
@@ -94,6 +96,7 @@ public class CulturalOfferControllerIntegrationTest {
     //Creating cultural offer with name that already exists.
     @Test
     public void testCreateCulturalOfferInvalidName() throws ParseException {
+    	login();
         //CulturalOfferDTO culturalOffer = new CulturalOfferDTO();
 
         ArrayList<String> pictures = new ArrayList<>();
@@ -119,6 +122,7 @@ public class CulturalOfferControllerIntegrationTest {
     //Creating cultural offer with location that doesn't exists.
     @Test
     public void testCreateCulturalOfferInvalidLocation() throws ParseException {
+    	login();
 
         ArrayList<String> pictures = new ArrayList<>();
         pictures.add(SAVE_ONE_CULTURAL_OFFER_PICTURE1);
@@ -143,6 +147,7 @@ public class CulturalOfferControllerIntegrationTest {
     //Creating cultural offer with subcategory that doesn't exists.
     @Test
     public void testCreateCulturalOfferInvalidSubcategory() throws ParseException {
+    	login();
 
         ArrayList<String> pictures = new ArrayList<>();
         pictures.add(SAVE_ONE_CULTURAL_OFFER_PICTURE1);
@@ -167,6 +172,7 @@ public class CulturalOfferControllerIntegrationTest {
     //Creating cultural offer with two same pictures.
     @Test
     public void testCreateCulturalOfferInvalidPictures() throws ParseException {
+    	login();
 
         ArrayList<String> pictures = new ArrayList<>();
         pictures.add(SAVE_ONE_CULTURAL_OFFER_PICTURE1);
@@ -191,6 +197,7 @@ public class CulturalOfferControllerIntegrationTest {
     //Updating cultural offer with valid parameters.
     @Test
     public void testUpdateCulturalOfferValid() throws ParseException {
+    	login();
         ArrayList<String> pictures = new ArrayList<>();
         pictures.add(UPDATE_ONE_CULTURAL_OFFER_PICTURE1);
         pictures.add(UPDATE_ONE_CULTURAL_OFFER_PICTURE2);
@@ -220,6 +227,7 @@ public class CulturalOfferControllerIntegrationTest {
     //Updating non existing cultural offer.
     @Test
     public void testUpdateCulturalOfferInvalidId() throws ParseException {
+    	login();
         ArrayList<String> pictures = new ArrayList<>();
         pictures.add(UPDATE_ONE_CULTURAL_OFFER_PICTURE1);
         pictures.add(UPDATE_ONE_CULTURAL_OFFER_PICTURE2);
@@ -243,6 +251,7 @@ public class CulturalOfferControllerIntegrationTest {
     //Updating cultural offer with already existing name of cultural offer.
     @Test
     public void testUpdateCulturalOfferInvalidName() throws ParseException {
+    	login();
         ArrayList<String> pictures = new ArrayList<>();
         pictures.add(UPDATE_ONE_CULTURAL_OFFER_PICTURE1);
         pictures.add(UPDATE_ONE_CULTURAL_OFFER_PICTURE2);
@@ -266,6 +275,7 @@ public class CulturalOfferControllerIntegrationTest {
     //Updating cultural offer with not existing location.
     @Test
     public void testUpdateCulturalOfferInvalidLocation() throws ParseException {
+    	login();
         ArrayList<String> pictures = new ArrayList<>();
         pictures.add(UPDATE_ONE_CULTURAL_OFFER_PICTURE1);
         pictures.add(UPDATE_ONE_CULTURAL_OFFER_PICTURE2);
@@ -289,6 +299,7 @@ public class CulturalOfferControllerIntegrationTest {
     //Updating cultural offer with not existing location.
     @Test
     public void testUpdateCulturalOfferInvalidSubcategory() throws ParseException {
+    	login();
         ArrayList<String> pictures = new ArrayList<>();
         pictures.add(UPDATE_ONE_CULTURAL_OFFER_PICTURE1);
         pictures.add(UPDATE_ONE_CULTURAL_OFFER_PICTURE2);
@@ -313,6 +324,7 @@ public class CulturalOfferControllerIntegrationTest {
     @Test
     @Sql(scripts = "classpath:insert-cultural-offer-data-h2.sql", executionPhase = Sql.ExecutionPhase.AFTER_TEST_METHOD)
     public void testDeleteCulturalOfferValid(){
+    	login();
         HttpEntity<Object> httpEntity = new HttpEntity<>(headers);
 
         ResponseEntity<String> responseEntity =
@@ -325,6 +337,7 @@ public class CulturalOfferControllerIntegrationTest {
     //Delete non existing cultural offer.
     @Test
     public void testDeleteCulturalOfferInvalid(){
+    	login();
         HttpEntity<Object> httpEntity = new HttpEntity<>(headers);
 
         ResponseEntity<String> responseEntity =
@@ -337,6 +350,7 @@ public class CulturalOfferControllerIntegrationTest {
     //Get cultural offer with given id
     @Test
     public void testGetCulturalOfferWithIDValid(){
+    	login();
         HttpEntity<Object> httpEntity = new HttpEntity<>(headers);
 
         ResponseEntity<CulturalOfferDTO> responseEntity =
@@ -352,6 +366,7 @@ public class CulturalOfferControllerIntegrationTest {
     //Get non existing id cultural offer.
     @Test
     public void testGetCulturalOfferWithIDInvalid(){
+    	login();
         HttpEntity<Object> httpEntity = new HttpEntity<>(headers);
 
         ResponseEntity<CulturalOfferDTO> responseEntity =
@@ -367,6 +382,7 @@ public class CulturalOfferControllerIntegrationTest {
     //Get all cultural offers paged.
     @Test
     public void testGetAllCulturalOffersPagedValid() throws JsonProcessingException {
+    	login();
         HttpEntity<Object> httpEntity = new HttpEntity<>(headers);
 
         ObjectMapper objectMapper = new ObjectMapper();
@@ -384,6 +400,7 @@ public class CulturalOfferControllerIntegrationTest {
     //Filter cultural offers by existing category.
     @Test
     public void testFilterCulturalByCategoryValid() throws JsonProcessingException {
+    	login();
         FilterDTO filter = new FilterDTO(FILTER_CATEGORY_VALUE_FOUND,FILTER_CATEGORY);
         HttpEntity<Object> httpEntity = new HttpEntity<>(filter,headers);
 
@@ -402,6 +419,7 @@ public class CulturalOfferControllerIntegrationTest {
     //Filter cultural offers by not existing category.
     @Test
     public void testFilterCulturalByCategoryInvalid() throws JsonProcessingException {
+    	login();
         FilterDTO filter = new FilterDTO(FILTER_CATEGORY_VALUE_NOT_FOUND,FILTER_CATEGORY);
 
         HttpEntity<Object> httpEntity = new HttpEntity<>(filter,headers);
@@ -420,6 +438,7 @@ public class CulturalOfferControllerIntegrationTest {
     //Filter cultural offers by existing subcategory.
     @Test
     public void testFilterCulturalBySubcategoryValid() throws JsonProcessingException {
+    	login();
         FilterDTO filter = new FilterDTO(FILTER_SUBCATEGORY_VALUE_FOUND,FILTER_SUBCATEGORY);
         HttpEntity<Object> httpEntity = new HttpEntity<>(filter,headers);
 
@@ -438,6 +457,7 @@ public class CulturalOfferControllerIntegrationTest {
     //Filter cultural offers by not existing subcategory.
     @Test
     public void testFilterCulturalBySubcategoryInvalid() throws JsonProcessingException {
+    	login();
         FilterDTO filter = new FilterDTO(FILTER_SUBCATEGORY_VALUE_SUCCESS_ZERO,FILTER_CATEGORY);
 
         HttpEntity<Object> httpEntity = new HttpEntity<>(filter,headers);
@@ -456,6 +476,7 @@ public class CulturalOfferControllerIntegrationTest {
     //Filter cultural offers by existing name.
     @Test
     public void testFilterCulturalByNameValid() throws JsonProcessingException {
+    	login();
         FilterDTO filter = new FilterDTO(FILTER_NAME_VALUE_FOUND,FILTER_NAME);
         HttpEntity<Object> httpEntity = new HttpEntity<>(filter,headers);
 
@@ -474,6 +495,7 @@ public class CulturalOfferControllerIntegrationTest {
     //Filter cultural offers by not existing name.
     @Test
     public void testFilterCulturalByNameInvalid() throws JsonProcessingException {
+    	login();
         FilterDTO filter = new FilterDTO(FILTER_NAME_VALUE_NOT_FOUND,FILTER_NAME);
 
         HttpEntity<Object> httpEntity = new HttpEntity<>(filter,headers);
@@ -492,6 +514,7 @@ public class CulturalOfferControllerIntegrationTest {
     //Filter cultural offers by existing location.
     @Test
     public void testFilterCulturalByLocationValid() throws JsonProcessingException {
+    	login();
         FilterDTO filter = new FilterDTO(FILTER_LOCATION_VALUE_FOUND,FILTER_LOCATION);
         HttpEntity<Object> httpEntity = new HttpEntity<>(filter,headers);
 
@@ -510,6 +533,7 @@ public class CulturalOfferControllerIntegrationTest {
     //Filter cultural offers by not existing location.
     @Test
     public void testFilterCulturalByLocationInvalid() throws JsonProcessingException {
+    	login();
         FilterDTO filter = new FilterDTO(FILTER_LOCATION_VALUE_NOT_FOUND,FILTER_LOCATION);
 
         HttpEntity<Object> httpEntity = new HttpEntity<>(filter,headers);
@@ -528,6 +552,7 @@ public class CulturalOfferControllerIntegrationTest {
     //Filter cultural offers with empty value.
     @Test
     public void testFilterCulturalByValueInvalid() throws JsonProcessingException {
+    	login();
         FilterDTO filter = new FilterDTO(FILTER_INVALID_VALUE_EMPTY,FILTER_LOCATION);
 
         HttpEntity<Object> httpEntity = new HttpEntity<>(filter,headers);
@@ -546,6 +571,7 @@ public class CulturalOfferControllerIntegrationTest {
     //Filter with invalid filter.
     @Test
     public void testFilterCulturalByFilterInvalid() throws JsonProcessingException {
+    	login();
         FilterDTO filter = new FilterDTO(FILTER_NAME_VALUE_FOUND,FILTER_INVALID);
 
         HttpEntity<Object> httpEntity = new HttpEntity<>(filter,headers);
@@ -559,6 +585,106 @@ public class CulturalOfferControllerIntegrationTest {
 
         assertEquals(HttpStatus.OK, responseEntity.getStatusCode());
         assertEquals(FILTER_NAME_VALUE_FOUND_NUMBER, culturalOffers.getNumberOfElements());
+    }
+    
+    public void loginRegSubscribe() {
+    	ResponseEntity<UserTokenStateDTO> responseEntity = restTemplate.postForEntity("/auth/log-in",
+                new UserLoginDTO(REGISTERED_ID_NOT_SUBSCRIBED_NAME, DB_PASSWORD_RAW), UserTokenStateDTO.class);
+
+        String accessToken = "Bearer " + responseEntity.getBody().getAccessToken();
+
+        headers = new HttpHeaders();
+        headers.add("Authorization", accessToken);
+
+        headers.setContentType(MediaType.APPLICATION_JSON);
+        headers.add("Content-Type", "application/json");
+    }
+    
+    public void loginRegUnsubscribe() {
+    	ResponseEntity<UserTokenStateDTO> responseEntity = restTemplate.postForEntity("/auth/log-in",
+                new UserLoginDTO(REGISTERED_ID_ALREADY_SUBSCRIBED_NAME, DB_PASSWORD_RAW), UserTokenStateDTO.class);
+
+        String accessToken = "Bearer " + responseEntity.getBody().getAccessToken();
+
+        headers = new HttpHeaders();
+        headers.add("Authorization", accessToken);
+
+        headers.setContentType(MediaType.APPLICATION_JSON);
+        headers.add("Content-Type", "application/json");
+    }
+    
+    //Subscribe success
+    @Test
+    @Transactional
+    public void testSubscribeSuccess() throws JsonProcessingException {
+    	loginRegSubscribe();
+        Subscribe data = new Subscribe();
+        data.idOffer = CULTURAL_OFFER_ID;
+        data.idUser = REGISTERED_ID_NOT_SUBSCRIBED;
+
+        HttpEntity<Object> httpEntity = new HttpEntity<>(data,headers);
+
+        ResponseEntity<String> responseEntity =
+                restTemplate.exchange("/cultural-offers/subscribe", HttpMethod.POST, httpEntity,
+                        String.class);
+
+        assertEquals(HttpStatus.OK, responseEntity.getStatusCode());
+        culturalOfferService.unsubscribe(CULTURAL_OFFER_ID, REGISTERED_ID_NOT_SUBSCRIBED);
+    }
+    
+    //Subscribe fail
+    @Test
+    @Transactional
+    public void testSubscribeFail() throws JsonProcessingException {
+    	loginRegUnsubscribe();
+        Subscribe data = new Subscribe();
+        data.idOffer = CULTURAL_OFFER_ID;
+        data.idUser = REGISTERED_ID_NOT_SUBSCRIBED;
+
+        HttpEntity<Object> httpEntity = new HttpEntity<>(data,headers);
+
+        ResponseEntity<String> responseEntity =
+                restTemplate.exchange("/cultural-offers/subscribe", HttpMethod.POST, httpEntity,
+                        String.class);
+
+        assertEquals(HttpStatus.BAD_REQUEST, responseEntity.getStatusCode());
+    }
+    
+    //Unsubscribe success
+    @Test
+    @Transactional
+    public void testUnsubscribeSuccess() throws JsonProcessingException {
+    	loginRegUnsubscribe();
+        Subscribe data = new Subscribe();
+        data.idOffer = CULTURAL_OFFER_ID;
+        data.idUser = REGISTERED_ID_ALREADY_SUBSCRIBED;
+
+        HttpEntity<Object> httpEntity = new HttpEntity<>(data,headers);
+
+        ResponseEntity<String> responseEntity =
+                restTemplate.exchange("/cultural-offers/unsubscribe", HttpMethod.POST, httpEntity,
+                        String.class);
+
+        assertEquals(HttpStatus.OK, responseEntity.getStatusCode());
+        culturalOfferService.subscribe(CULTURAL_OFFER_ID, REGISTERED_ID_ALREADY_SUBSCRIBED);
+    }
+    
+    //Unsubscribe fail
+    @Test
+    @Transactional
+    public void testUnsubscribeFail() throws JsonProcessingException {
+    	loginRegUnsubscribe();
+        Subscribe data = new Subscribe();
+        data.idOffer = CULTURAL_OFFER_ID;
+        data.idUser = REGISTERED_ID_NOT_SUBSCRIBED;
+
+        HttpEntity<Object> httpEntity = new HttpEntity<>(data,headers);
+
+        ResponseEntity<String> responseEntity =
+                restTemplate.exchange("/cultural-offers/unsubscribe", HttpMethod.POST, httpEntity,
+                        String.class);
+
+        assertEquals(HttpStatus.BAD_REQUEST, responseEntity.getStatusCode());
     }
 
 }

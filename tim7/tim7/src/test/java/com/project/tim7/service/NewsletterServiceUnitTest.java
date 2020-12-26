@@ -67,8 +67,6 @@ public class NewsletterServiceUnitTest {
         
         Registered reg = new Registered(REGISTERED_ID_CREATE, REGISTERED_EMAIL_CREATE, REGISTERED_USERNAME_CREATE, REGISTERED_PASSWORD_CREATE);
         reg.setVerified(true);
-        //offer.getSubscribed().add(reg);
-        //reg.getSubscribedCulturalOffers().add(offer);
         List<String> subscribedRegs = new ArrayList<>();
         subscribedRegs.add(reg.getEmail());
         

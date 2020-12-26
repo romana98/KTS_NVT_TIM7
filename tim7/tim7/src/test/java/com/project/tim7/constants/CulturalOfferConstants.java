@@ -30,6 +30,12 @@ public class CulturalOfferConstants {
 
     //FilterByAll
     public static final String FILTER_ALL_VALUE_SUCCESS_ZERO = "RandomFilter";
+    
+    //Subscribe
+    public static final int CHECK_IF_SUBSCRIBE_EXISTS = 0;
+    public static final int CHECK_IF_SUBSCRIBE_EXISTS_CULTURAL_OFFER = 1;
+    public static final int CHECK_IF_SUBSCRIBE_EXISTS_REGISTERED_SUCCESS = 2;
+    public static final int CHECK_IF_SUBSCRIBE_EXISTS_REGISERED_FAIL = 4;
 
     //SERVICE
 
@@ -109,6 +115,14 @@ public class CulturalOfferConstants {
     public static final String FILTER_NAME_VALUE_NOT_FOUND = "Exit3";
     public static final String FILTER_INVALID_VALUE_EMPTY = "";
     public static final int FILTER_EMPTY_VALUE_FOUND = 1;
+    
+    //subscribe()
+    public static final int CULTURAL_OFFER_ID = 1;
+    public static final String CULTURAL_OFFER_NAME = "Exit";
+    public static final int REGISTERED_ID_NOT_SUBSCRIBED = 6;
+    public static final int REGISTERED_ID_ALREADY_SUBSCRIBED = 3;
+    public static final String REGISTERED_ID_NOT_SUBSCRIBED_NAME = "vuleR";
+    public static final String REGISTERED_ID_ALREADY_SUBSCRIBED_NAME = "nijeMico";
 
     //CONTROLLER
     public static final int OLD_CULTURAL_OFFER_ID = 1;
@@ -118,6 +132,7 @@ public class CulturalOfferConstants {
     public static final String OLD_CULTURAL_OFFER_STARTDATE = "2020-07-11";
     public static final int OLD_CULTURAL_OFFER_LOCATION = 1;
     public static final int OLD_CULTURAL_OFFER_SUBCATEGORY = 1;
+    
 
 
 

@@ -3,6 +3,8 @@ package com.project.tim7.service;
 import com.project.tim7.dto.CulturalOfferDTO;
 import com.project.tim7.dto.FilterDTO;
 import com.project.tim7.model.CulturalOffer;
+import com.project.tim7.model.Registered;
+
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -479,6 +481,38 @@ public class CulturalOfferServiceIntegrationTest {
         assertEquals(FILTER_EMPTY_FOUND_NUMBER, page.getNumberOfElements());
     }
 
-    //TODO: Vera test subscription here.
+    //Subscribe success
+    @Test 
+    @Transactional
+    public void testSubscribeSuccess() {
+    	CulturalOffer offer = culturalOfferService.subscribe(CULTURAL_OFFER_ID, REGISTERED_ID_NOT_SUBSCRIBED);
+    	assertEquals(CULTURAL_OFFER_NAME, offer.getName());
+    	CulturalOffer offerUnsubscribe = culturalOfferService.unsubscribe(CULTURAL_OFFER_ID, REGISTERED_ID_NOT_SUBSCRIBED);
+    	assertEquals(CULTURAL_OFFER_NAME, offerUnsubscribe.getName());
+    }
+    
+    //Subscribe fail
+    @Test 
+    public void testSubscribeAlreadyExists() {
+    	CulturalOffer offer = culturalOfferService.subscribe(CULTURAL_OFFER_ID, REGISTERED_ID_ALREADY_SUBSCRIBED);
+    	assertNull(offer);
+    }
+    
+    //Unsubscribe success
+    @Test 
+    @Transactional
+    public void testUnsubscribeSuccess() {
+    	CulturalOffer offer = culturalOfferService.unsubscribe(CULTURAL_OFFER_ID, REGISTERED_ID_ALREADY_SUBSCRIBED);
+    	assertEquals(CULTURAL_OFFER_NAME, offer.getName());
+    	CulturalOffer offerSubscribe = culturalOfferService.subscribe(CULTURAL_OFFER_ID, REGISTERED_ID_ALREADY_SUBSCRIBED);
+    	assertEquals(CULTURAL_OFFER_NAME, offerSubscribe.getName());
+    }
+    
+    //Unsubscribe fail
+    @Test 
+    public void testUnsubscribeDoesntExist() {
+    	CulturalOffer offer = culturalOfferService.unsubscribe(CULTURAL_OFFER_ID, REGISTERED_ID_NOT_SUBSCRIBED);
+    	assertNull(offer);
+    }
 
 }

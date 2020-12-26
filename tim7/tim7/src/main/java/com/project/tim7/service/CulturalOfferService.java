@@ -1,4 +1,5 @@
 package com.project.tim7.service;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import com.project.tim7.dto.CulturalOfferDTO;
@@ -192,14 +193,37 @@ public class CulturalOfferService implements ServiceInterface<CulturalOffer> {
 		return culturalOfferRepo.countBySubcategoryId(id);
 	}
 
-	//TODO: Vera should test this functionality.
+	/**
+	 * Subscribing registered user to cultural offer
+	 * @param idOffer
+	 * @param idUser
+	 * @return - Cultural offer 
+	 */
 	public CulturalOffer subscribe(int idOffer, int idUser) {
 		CulturalOffer culturalOffer = findOne(idOffer);
 		Registered registered = registeredService.findOne(idUser);
 		if (culturalOfferRepo.checkIfsubscriptionExists(idOffer, idUser) != 0)
 			return null;
+		if (culturalOffer.getSubscribed() == null) culturalOffer.setSubscribed(new HashSet<Registered>());
+		if (registered.getSubscribedCulturalOffers() == null) registered.setSubscribedCulturalOffers(new HashSet<CulturalOffer>());
 		culturalOffer.getSubscribed().add(registered);
 		registered.getSubscribedCulturalOffers().add(culturalOffer);
+		return saveOne(culturalOffer);	
+	}
+	
+	/**
+	 * Unsubscribing registered user from cultural offer
+	 * @param idOffer
+	 * @param idUser
+	 * @return - Cultural offer 
+	 */
+	public CulturalOffer unsubscribe(int idOffer, int idUser) {
+		CulturalOffer culturalOffer = findOne(idOffer);
+		Registered registered = registeredService.findOne(idUser);
+		if (culturalOfferRepo.checkIfsubscriptionExists(idOffer, idUser) == 0)
+			return null;
+		culturalOffer.getSubscribed().remove(registered);
+		registered.getSubscribedCulturalOffers().remove(culturalOffer);
 		return saveOne(culturalOffer);	
 	}
 
