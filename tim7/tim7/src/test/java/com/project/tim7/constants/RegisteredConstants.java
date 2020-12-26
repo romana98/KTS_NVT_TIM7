@@ -39,7 +39,7 @@ public class RegisteredConstants {
 
     //cultural offer
     public static final int CULTURAL_OFFER_ID = 1;
-    public static final int COUNT_CULTURAL_OFFER = 1;
+    public static final int COUNT_CULTURAL_OFFER = 2;
 
     public static final int CULTURAL_OFFER_ID_INVALID = -1;
     public static final int COUNT_CULTURAL_OFFER_EMPTY = 0;

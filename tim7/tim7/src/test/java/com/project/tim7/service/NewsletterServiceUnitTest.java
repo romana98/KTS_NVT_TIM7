@@ -109,7 +109,7 @@ public class NewsletterServiceUnitTest {
     
     @Test
     public void testSaveOne() throws Exception {
-    	CulturalOffer offer = new CulturalOffer(OFFER_ID_CREATE, OFFER_DESCRIPTION_CREATE, sdf.parse(OFFER_ENDDATE_CREATE), OFFER_NAME_CREATE, sdf.parse(OFFER_STARTDATE_CREATE)); 
+    	CulturalOffer offer = new CulturalOffer(OFFER_ID_CREATE, OFFER_NAME_CREATE, sdf.parse(OFFER_ENDDATE_CREATE), OFFER_DESCRIPTION_CREATE, sdf.parse(OFFER_STARTDATE_CREATE)); 
         Picture pic = new Picture(PICTURE_ID_CREATE, PICTURE_PICTURE_CREATE);
     	Newsletter savingOne = new Newsletter(NEWSLETTER_ID_CREATE, NEWSLETTER_NAME_CREATE, NEWSLETTER_DESCRIPTION_CREATE, sdf.parse(NEWSLETTER_PUBLISHED_DATE_CREATE));
         savingOne.setCulturalOffer(offer);
@@ -130,7 +130,7 @@ public class NewsletterServiceUnitTest {
     
     @Test
     public void testSaveOneBadOfferId() throws Exception {
-    	CulturalOffer offer = new CulturalOffer(OFFER_ID_NOT_EXIST, OFFER_DESCRIPTION_CREATE, sdf.parse(OFFER_ENDDATE_CREATE), OFFER_NAME_CREATE, sdf.parse(OFFER_STARTDATE_CREATE)); 
+    	CulturalOffer offer = new CulturalOffer(OFFER_ID_NOT_EXIST, OFFER_NAME_CREATE, sdf.parse(OFFER_ENDDATE_CREATE), OFFER_DESCRIPTION_CREATE, sdf.parse(OFFER_STARTDATE_CREATE)); 
         Picture pic = new Picture(PICTURE_ID_CREATE, PICTURE_PICTURE_CREATE);
         Newsletter newsletterBadOffer = new Newsletter(NEWSLETTER_ID_NOT_EXIST, NEWSLETTER_NAME_UPDATE, NEWSLETTER_DESCRIPTION_CREATE, sdf.parse(NEWSLETTER_PUBLISHED_DATE_CREATE));
         newsletterBadOffer.setCulturalOffer(offer);

@@ -10,7 +10,7 @@ public class NewsletterConstants {
     
 	//repository
 	public static final int SUBSCRIBED_REGISTERED_ID = 2;
-	public static final int SUBSCRIBED_REGISTERED_ID_NULL = 3;
+	public static final int SUBSCRIBED_REGISTERED_ID_NULL = 6;
 	public static final int DB_NEWSLETTERS = 3;
 	public static final int CULTURAL_OFFER_ID = 1;
 	public static final int CULTURAL_OFFER_ID_NULL = 2;
