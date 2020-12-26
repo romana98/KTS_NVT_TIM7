@@ -32,7 +32,7 @@ public class CulturalOfferConstants {
     public static final String FILTER_ALL_VALUE_SUCCESS_ZERO = "RandomFilter";
     
     //Subscribe
-    public static final int CHECK_IF_SUBSCRIBE_EXISTS = 0;
+    public static final long CHECK_IF_SUBSCRIBE_EXISTS = 0;
     public static final int CHECK_IF_SUBSCRIBE_EXISTS_CULTURAL_OFFER = 1;
     public static final int CHECK_IF_SUBSCRIBE_EXISTS_REGISTERED_SUCCESS = 2;
     public static final int CHECK_IF_SUBSCRIBE_EXISTS_REGISERED_FAIL = 4;

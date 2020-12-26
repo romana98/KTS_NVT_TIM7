@@ -126,7 +126,7 @@ public class CulturalOfferRepositoryIntegrationTest {
 
     @Test
     public void checkIfsubscriptionExists() {
-    	Long exists = culturalOfferRepository.checkIfsubscriptionExists(CHECK_IF_SUBSCRIBE_EXISTS_CULTURAL_OFFER, CHECK_IF_SUBSCRIBE_EXISTS_REGISTERED_SUCCESS);
+    	long exists = culturalOfferRepository.checkIfsubscriptionExists(CHECK_IF_SUBSCRIBE_EXISTS_CULTURAL_OFFER, CHECK_IF_SUBSCRIBE_EXISTS_REGISTERED_SUCCESS);
     	assertNotEquals(CHECK_IF_SUBSCRIBE_EXISTS, exists);
     }
     
