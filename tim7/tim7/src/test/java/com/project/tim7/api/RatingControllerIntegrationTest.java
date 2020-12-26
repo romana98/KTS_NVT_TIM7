@@ -185,7 +185,7 @@ public class RatingControllerIntegrationTest {
                 restTemplate.exchange("/ratings/getRating/average/2", HttpMethod.GET, httpEntity, RatingDTO.class);
         RatingDTO found = responseEntity.getBody();
         assertEquals(HttpStatus.OK, responseEntity.getStatusCode());
-        assertEquals(3.4, found.getRate());
+        assertEquals(4.5, found.getRate());
     }
 
     @Test
@@ -197,7 +197,7 @@ public class RatingControllerIntegrationTest {
                 restTemplate.exchange("/ratings/getRating/average/2", HttpMethod.GET, httpEntity, RatingDTO.class);
         RatingDTO found = responseEntity.getBody();
         assertEquals(HttpStatus.OK, responseEntity.getStatusCode());
-        assertEquals(3.4, found.getRate());
+        assertEquals(4.5, found.getRate());
     }
 
     @Test
@@ -208,7 +208,7 @@ public class RatingControllerIntegrationTest {
                 restTemplate.exchange("/ratings/getRating/average/2", HttpMethod.GET, httpEntity, RatingDTO.class);
         RatingDTO found = responseEntity.getBody();
         assertEquals(HttpStatus.OK, responseEntity.getStatusCode());
-        assertEquals(3.4, found.getRate());
+        assertEquals(4.5, found.getRate());
     }
 
     @Test
