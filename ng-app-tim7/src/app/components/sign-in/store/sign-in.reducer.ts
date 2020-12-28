@@ -1,16 +1,14 @@
-import { User } from '../../../models/user.model';
+import { SignedInModel } from '../../../models/signed-in.model';
 import * as AuthActions from './sign-in.actions';
 
 export interface State {
-  user: User;
+  user: SignedInModel;
   authError: string;
-  loading: boolean;
 }
 
 const initialState: State = {
   user: null,
-  authError: null,
-  loading: false
+  authError: null
 };
 
 export function signInReducer(
@@ -19,43 +17,30 @@ export function signInReducer(
 ) {
   switch (action.type) {
     case AuthActions.AUTHENTICATE_SUCCESS:
-      const user = new User(
-        action.payload.email,
-        action.payload.userId,
-        action.payload.token,
-        action.payload.expirationDate
+      const user = new SignedInModel(
+        action.payload.username,
+        action.payload.id,
+        action.payload.accessToken
       );
       return {
         ...state,
-        authError: null,
-        user,
-        loading: false
+        user
       };
-    case AuthActions.LOGOUT:
-      return {
-        ...state,
-        user: null
-      };
-    case AuthActions.LOGIN_START:
-    case AuthActions.SIGNUP_START:
+    case AuthActions.SIGN_IN:
       return {
         ...state,
         authError: null,
-        loading: true
       };
     case AuthActions.AUTHENTICATE_FAIL:
       return {
         ...state,
         user: null,
         authError: action.payload,
-        loading: false
       };
-    case AuthActions.CLEAR_ERROR:
+    case AuthActions.SIGN_OUT:
       return {
         ...state,
-        authError: null
+        user: null
       };
-    default:
-      return state;
   }
 }

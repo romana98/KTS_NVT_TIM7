@@ -2,16 +2,16 @@ package com.project.tim7.dto;
 
 public class UserTokenStateDTO {
     private String accessToken;
-    private Long expiresIn;
+    private Long id;
 
     public UserTokenStateDTO() {
         this.accessToken = null;
-        this.expiresIn = null;
+        this.id = null;
     }
 
     public UserTokenStateDTO(String accessToken, long expiresIn) {
         this.accessToken = accessToken;
-        this.expiresIn = expiresIn;
+        this.id = expiresIn;
     }
 
     public String getAccessToken() {
@@ -22,11 +22,11 @@ public class UserTokenStateDTO {
         this.accessToken = accessToken;
     }
 
-    public Long getExpiresIn() {
-        return expiresIn;
+    public Long getId() {
+        return id;
     }
 
-    public void setExpiresIn(Long expiresIn) {
-        this.expiresIn = expiresIn;
+    public void setId(Long id) {
+        this.id = id;
     }
 }

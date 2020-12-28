@@ -9,9 +9,15 @@ import { StoreModule } from '@ngrx/store';
 import { SignInComponent } from './components/sign-in/sign-in.component';
 import {AppRoutingModule} from './app-routing/app-routing.module';
 import { SignUpComponent } from './components/sign-up/sign-up.component';
+import {ReactiveFormsModule} from '@angular/forms';
+import { EffectsModule } from '@ngrx/effects';
+import * as fromApp from './store/app.reducer';
+import { AuthEffects } from './components/sign-in/store/sign-in.effects';
+import {HttpClientModule} from '@angular/common/http';
+import {MatDividerModule} from '@angular/material/divider';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatInputModule} from '@angular/material/input';
-import {ReactiveFormsModule} from '@angular/forms';
+import {MatButtonModule} from '@angular/material/button';
 
 @NgModule({
   declarations: [
@@ -23,12 +29,16 @@ import {ReactiveFormsModule} from '@angular/forms';
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
-    MatToolbarModule,
+    HttpClientModule,
     AppRoutingModule,
-    StoreModule.forRoot({}, {}),
+    StoreModule.forRoot(fromApp.appReducer),
+    EffectsModule.forRoot([AuthEffects]),
+    ReactiveFormsModule,
+    MatToolbarModule,
+    MatDividerModule,
     MatFormFieldModule,
     MatInputModule,
-    ReactiveFormsModule
+    MatButtonModule
   ],
   providers: [],
   bootstrap: [AppComponent]

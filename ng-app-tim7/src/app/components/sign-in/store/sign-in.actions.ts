@@ -1,34 +1,30 @@
 import { Action } from '@ngrx/store';
 
-export const LOGIN_START = '[Auth] Login Start';
-export const AUTHENTICATE_SUCCESS = '[Auth] Login';
-export const AUTHENTICATE_FAIL = '[Auth] Login Fail';
-export const SIGNUP_START = '[Auth] Signup Start';
-export const CLEAR_ERROR = '[Auth] Clear Error';
-export const AUTO_LOGIN = '[Auth] Auto Login';
-export const LOGOUT = '[Auth] Logout';
+export const SIGN_IN = '[Auth] Sign in';
+export const SIGN_OUT = '[Auth] Sign out';
+export const AUTHENTICATE_SUCCESS = '[Auth] Sign-in success';
+export const AUTHENTICATE_FAIL = '[Auth] Sign-in fail';
 
 export class AuthenticateSuccess implements Action {
   readonly type = AUTHENTICATE_SUCCESS;
 
   constructor(
     public payload: {
-      email: string;
-      userId: string;
-      token: string;
-      expirationDate: Date;
+      username: string;
+      id: number;
+      accessToken: string
     }
   ) {}
 }
 
-export class Logout implements Action {
-  readonly type = LOGOUT;
+export class SignInStart implements Action {
+  readonly type = SIGN_IN;
+
+  constructor(public payload: { username: string; password: string }) {}
 }
 
-export class LoginStart implements Action {
-  readonly type = LOGIN_START;
-
-  constructor(public payload: { email: string; password: string }) {}
+export class SignOut implements Action {
+  readonly type = SIGN_OUT;
 }
 
 export class AuthenticateFail implements Action {
@@ -37,25 +33,8 @@ export class AuthenticateFail implements Action {
   constructor(public payload: string) {}
 }
 
-export class SignupStart implements Action {
-  readonly type = SIGNUP_START;
-
-  constructor(public payload: { email: string; password: string }) {}
-}
-
-export class ClearError implements Action {
-  readonly type = CLEAR_ERROR;
-}
-
-export class AutoLogin implements Action {
-  readonly type = AUTO_LOGIN;
-}
-
 export type SignInActions =
+  | SignInStart
   | AuthenticateSuccess
-  | Logout
-  | LoginStart
   | AuthenticateFail
-  | SignupStart
-  | ClearError
-  | AutoLogin;
+  | SignOut;
