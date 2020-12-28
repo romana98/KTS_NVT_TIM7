@@ -1,21 +1,27 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {Store} from '@ngrx/store';
 import * as fromApp from '../../store/app.reducer';
 import * as AuthActions from '../sign-in/store/sign-in.actions';
+import {Subscription} from 'rxjs';
+import {MatSnackBar} from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-sign-in',
   templateUrl: './sign-in.component.html',
   styleUrls: ['./sign-in.component.css']
 })
-export class SignInComponent implements OnInit {
+export class SignInComponent implements OnInit, OnDestroy {
 
   form: FormGroup;
+  error: string = null;
+
+  private storeSub: Subscription;
 
   constructor(
     private fb: FormBuilder,
-    private store: Store<fromApp.AppState>
+    private store: Store<fromApp.AppState>,
+    private snackBar: MatSnackBar
   ) {
     this.form = this.fb.group({
       username : [null, Validators.required],
@@ -24,6 +30,12 @@ export class SignInComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.storeSub = this.store.select('auth').subscribe(authState => {
+      this.error = authState.authError;
+      if (this.error) {
+        this.showErrorAlert(this.error);
+      }
+    });
   }
 
   submit() {
@@ -33,20 +45,17 @@ export class SignInComponent implements OnInit {
     console.log(auth);
 
     this.store.dispatch(new AuthActions.SignInStart({ username: auth.username, password: auth.password }));
+  }
 
-    /*this.authenticationService.login(auth).subscribe(
-      result => {
-        this.snackBar.open('Successful login!', {
-          duration: 2000,
-        });
-        localStorage.setItem('user', JSON.stringify(result));
-        this.router.navigate(['wines']);
-      },
-      error => {
-        this.snackBar.open(error.error, {
-          duration: 2000,
-        });
-      }
-*/
+  private showErrorAlert(message: string) {
+    console.log('hereeeeeeeee');
+    this.snackBar.open(message, 'Ok', { duration: 2000 });
+    this.store.dispatch(new AuthActions.ClearError());
+  }
+
+  ngOnDestroy() {
+    if (this.storeSub) {
+      this.storeSub.unsubscribe();
+    }
   }
 }

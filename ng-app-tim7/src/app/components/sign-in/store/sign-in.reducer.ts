@@ -20,7 +20,8 @@ export function signInReducer(
       const user = new SignedInModel(
         action.payload.username,
         action.payload.id,
-        action.payload.accessToken
+        action.payload.accessToken,
+        action.payload.role
       );
       return {
         ...state,
@@ -42,5 +43,15 @@ export function signInReducer(
         ...state,
         user: null
       };
+    case AuthActions.CLEAR_ERROR:
+      return {
+        ...state,
+        authError: null
+      };
+    default:
+      return {
+        ...state
+      };
+
   }
 }
