@@ -5,4 +5,7 @@ export class SignedInModel {
     private accessToken: string,
     private  role: string
   ) {}
+  getRole(){
+    return this.role;
+  }
 }

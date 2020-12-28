@@ -18,14 +18,22 @@ import {MatDividerModule} from '@angular/material/divider';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatInputModule} from '@angular/material/input';
 import {MatButtonModule} from '@angular/material/button';
-import {MatSnackBar, MatSnackBarModule} from '@angular/material/snack-bar';
-
+import {MatSnackBarModule} from '@angular/material/snack-bar';
+import { StoreDevtoolsModule } from '@ngrx/store-devtools';
+import { environment } from '../environments/environment';
+import {MatIconModule} from '@angular/material/icon';
+import { NavigationAdministratorComponent } from './navigation/navigation-administrator/navigation-administrator.component';
+import { NavigationRegisteredComponent } from './navigation/navigation-registered/navigation-registered.component';
+import { NavigationNonSignedInComponent } from './navigation/navigation-non-signed-in/navigation-non-signed-in.component';
 @NgModule({
   declarations: [
     AppComponent,
     NavigationComponent,
     SignInComponent,
     SignUpComponent,
+    NavigationAdministratorComponent,
+    NavigationRegisteredComponent,
+    NavigationNonSignedInComponent
   ],
   imports: [
     BrowserModule,
@@ -34,13 +42,15 @@ import {MatSnackBar, MatSnackBarModule} from '@angular/material/snack-bar';
     AppRoutingModule,
     StoreModule.forRoot(fromApp.appReducer),
     EffectsModule.forRoot([AuthEffects]),
+    StoreDevtoolsModule.instrument({maxAge: 25, logOnly: environment.production}),
     ReactiveFormsModule,
     MatToolbarModule,
     MatDividerModule,
     MatFormFieldModule,
     MatInputModule,
     MatButtonModule,
-    MatSnackBarModule
+    MatSnackBarModule,
+    MatIconModule
   ],
   providers: [],
   bootstrap: [AppComponent]

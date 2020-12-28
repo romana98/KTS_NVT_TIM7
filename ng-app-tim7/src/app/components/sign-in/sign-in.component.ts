@@ -42,13 +42,11 @@ export class SignInComponent implements OnInit, OnDestroy {
     const auth: any = {};
     auth.username = this.form.value.username;
     auth.password = this.form.value.password;
-    console.log(auth);
 
     this.store.dispatch(new AuthActions.SignInStart({ username: auth.username, password: auth.password }));
   }
 
   private showErrorAlert(message: string) {
-    console.log('hereeeeeeeee');
     this.snackBar.open(message, 'Ok', { duration: 2000 });
     this.store.dispatch(new AuthActions.ClearError());
   }
