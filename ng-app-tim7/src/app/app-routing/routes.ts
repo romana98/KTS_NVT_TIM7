@@ -1,7 +1,8 @@
 import {Routes} from '@angular/router';
+import {SignInGuard} from '../guards/sign-in.service';
 import {SignInComponent} from '../components/sign-in/sign-in.component';
 import {SignUpComponent} from '../components/sign-up/sign-up.component';
-import {SignInGuard} from '../guards/sign-in.service';
+import {ActivateAccountComponent} from '../components/activate-account/activate-account.component';
 
 
 export const routes: Routes = [
@@ -12,6 +13,12 @@ export const routes: Routes = [
   },
   {
     path: 'sign-up',
-    component: SignUpComponent
+    component: SignUpComponent,
+    canActivate: [SignInGuard]
+  },
+  {
+    path: 'activateAccount',
+    component: ActivateAccountComponent,
+    canActivate: [SignInGuard]
   }
 ];

@@ -98,14 +98,14 @@ public class AuthenticationController {
     }
     
     // Endpoint za aktivaciju naloga
-    @PostMapping("/activate")
-    public ResponseEntity<?> activate(@RequestBody Integer id) {
+    @PostMapping("/activate/{id}")
+    public ResponseEntity<?> activate(@PathVariable Integer id) {
     	Registered regUser = regService.activateAccount(id);
 
     	if(regUser == null)
         	return new ResponseEntity<>("Activation failed.", HttpStatus.BAD_REQUEST);
 
-    	return new ResponseEntity<>("Activation succeeded.", HttpStatus.OK);
+    	return new ResponseEntity<>(HttpStatus.OK);
     }
 
     // U slucaju isteka vazenja JWT tokena, endpoint koji se poziva da se token osvezi

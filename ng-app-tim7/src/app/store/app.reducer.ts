@@ -2,13 +2,19 @@ import {ActionReducer, ActionReducerMap, MetaReducer} from '@ngrx/store';
 import { localStorageSync } from 'ngrx-store-localstorage';
 
 import * as fromAuth from '../components/sign-in/store/sign-in.reducer';
+import * as fromSignUp from '../components/sign-up/store/sign-up.reducer';
+import * as fromActivate from '../components/activate-account/store/activate-account.reducer';
 
 export interface AppState {
   auth: fromAuth.State;
+  signUp: fromSignUp.State;
+  activate: fromActivate.State;
 }
 
 export const appReducer: ActionReducerMap<AppState> = {
-  auth: fromAuth.signInReducer
+  auth: fromAuth.signInReducer,
+  signUp: fromSignUp.signUpReducer,
+  activate: fromActivate.activateAccountReducer
 };
 
 const reducerKeys = ['user'];

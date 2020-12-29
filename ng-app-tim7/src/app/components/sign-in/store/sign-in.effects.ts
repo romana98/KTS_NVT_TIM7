@@ -34,7 +34,6 @@ const handleAuthentication = (accessToken: string) => {
 };
 
 const handleError = (errorRes: any) => {
-  console.log(errorRes);
   let errorMessage = 'An unknown error occurred!';
   switch (errorRes.error.error) {
     case 'Unauthorized':
