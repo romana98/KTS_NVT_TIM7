@@ -24,7 +24,7 @@ const handleAuthentication = (accessToken: string) => {
   const id = info.id;
   const role = info.role;
   const user = new SignedInModel(username, id, accessToken, role);
-  localStorage.setItem('userData', JSON.stringify(user));
+  localStorage.setItem('user', JSON.stringify(user));
   return new AuthActions.AuthenticateSuccess({
     username,
     id,
@@ -83,7 +83,7 @@ export class AuthEffects {
   authLogout = this.actions$.pipe(
     ofType(AuthActions.SIGN_OUT),
     tap(() => {
-      localStorage.removeItem('userData');
+      localStorage.removeItem('user');
       this.router.navigate(['/']);
     })
   );

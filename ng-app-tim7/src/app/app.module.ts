@@ -25,6 +25,7 @@ import {MatIconModule} from '@angular/material/icon';
 import { NavigationAdministratorComponent } from './navigation/navigation-administrator/navigation-administrator.component';
 import { NavigationRegisteredComponent } from './navigation/navigation-registered/navigation-registered.component';
 import { NavigationNonSignedInComponent } from './navigation/navigation-non-signed-in/navigation-non-signed-in.component';
+import {metaReducers} from './store/app.reducer';
 @NgModule({
   declarations: [
     AppComponent,
@@ -40,7 +41,7 @@ import { NavigationNonSignedInComponent } from './navigation/navigation-non-sign
     BrowserAnimationsModule,
     HttpClientModule,
     AppRoutingModule,
-    StoreModule.forRoot(fromApp.appReducer),
+    StoreModule.forRoot(fromApp.appReducer, {metaReducers}),
     EffectsModule.forRoot([AuthEffects]),
     StoreDevtoolsModule.instrument({maxAge: 25, logOnly: environment.production}),
     ReactiveFormsModule,

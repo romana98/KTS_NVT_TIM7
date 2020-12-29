@@ -7,9 +7,14 @@ export interface State {
 }
 
 const initialState: State = {
-  user: null,
+  user: localStorage.getItem('user') === null ? null : getUser(),
   authError: null
 };
+
+function getUser() {
+  const user = JSON.parse(localStorage.getItem('user'));
+  return new SignedInModel(user.username, user.id, user.accessToken, user.role);
+}
 
 export function signInReducer(
   state = initialState,
