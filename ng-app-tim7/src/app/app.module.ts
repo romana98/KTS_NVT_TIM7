@@ -26,6 +26,13 @@ import { NavigationAdministratorComponent } from './navigation/navigation-admini
 import { NavigationRegisteredComponent } from './navigation/navigation-registered/navigation-registered.component';
 import { NavigationNonSignedInComponent } from './navigation/navigation-non-signed-in/navigation-non-signed-in.component';
 import {metaReducers} from './store/app.reducer';
+import {SignUpEffects} from './components/sign-up/store/sign-up.effects';
+import {MatProgressBarModule} from '@angular/material/progress-bar';
+import { ActivateAccountComponent } from './components/activate-account/activate-account.component';
+import {ActivateAccountEffects} from './components/activate-account/store/activate-account.effects';
+
+
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -34,7 +41,8 @@ import {metaReducers} from './store/app.reducer';
     SignUpComponent,
     NavigationAdministratorComponent,
     NavigationRegisteredComponent,
-    NavigationNonSignedInComponent
+    NavigationNonSignedInComponent,
+    ActivateAccountComponent
   ],
   imports: [
     BrowserModule,
@@ -42,7 +50,7 @@ import {metaReducers} from './store/app.reducer';
     HttpClientModule,
     AppRoutingModule,
     StoreModule.forRoot(fromApp.appReducer, {metaReducers}),
-    EffectsModule.forRoot([AuthEffects]),
+    EffectsModule.forRoot([AuthEffects, SignUpEffects, ActivateAccountEffects]),
     StoreDevtoolsModule.instrument({maxAge: 25, logOnly: environment.production}),
     ReactiveFormsModule,
     MatToolbarModule,
@@ -51,7 +59,8 @@ import {metaReducers} from './store/app.reducer';
     MatInputModule,
     MatButtonModule,
     MatSnackBarModule,
-    MatIconModule
+    MatIconModule,
+    MatProgressBarModule
   ],
   providers: [],
   bootstrap: [AppComponent]

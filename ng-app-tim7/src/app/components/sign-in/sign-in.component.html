@@ -4,7 +4,7 @@
 
 <div style="display: block; text-align: center; margin: 10%;">
 <br>
-  <form [formGroup]="form"  (ngSubmit)="submit()" style="display: inline-block">
+  <form [formGroup]="form"  (ngSubmit)="submit()" style="display: inline-block; width: 100%">
     <div>
       <mat-form-field>
         <mat-label for="username">Username:</mat-label>
@@ -25,6 +25,9 @@
 
     <div>
       <button mat-raised-button type="submit" [disabled]="!form.valid">Sign In</button>
+      <br><br>
+      <a routerLink="/sign-up" style="float: bottom; margin-right: 18%; color: forestgreen">Create an account!</a>
+
     </div>
   </form>
 </div>
