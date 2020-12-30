@@ -5,13 +5,11 @@ import com.project.tim7.dto.UserLoginDTO;
 import com.project.tim7.dto.UserTokenStateDTO;
 import com.project.tim7.helper.RegisteredMapper;
 import com.project.tim7.model.Administrator;
+import com.project.tim7.model.Authority;
 import com.project.tim7.model.Person;
 import com.project.tim7.model.Registered;
 import com.project.tim7.security.TokenUtils;
-import com.project.tim7.service.AdministratorService;
-import com.project.tim7.service.CustomUserDetailsService;
-import com.project.tim7.service.EmailService;
-import com.project.tim7.service.RegisteredService;
+import com.project.tim7.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -27,6 +25,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
+import java.util.List;
 
 //123qweASD
 @RestController
@@ -47,6 +46,9 @@ public class AuthenticationController {
 
     @Autowired
     private AdministratorService adminService;
+
+    @Autowired
+    AuthorityService authorityService;
     
     @Autowired
 	private PasswordEncoder passwordEncoder;
@@ -89,6 +91,12 @@ public class AuthenticationController {
         }
         existReg = regMapper.toEntity(userRequest);
         existReg.setPassword(passwordEncoder.encode(userRequest.getPassword()));
+
+        long role = 2;
+        List<Authority> auth = authorityService.findById(role);
+        existReg.setAuthorities(auth);
+        existReg.setVerified(true);
+
         Registered newReg = regService.registerUser(existReg);
 
         if(newReg == null){

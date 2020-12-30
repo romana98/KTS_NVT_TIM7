@@ -3,7 +3,9 @@ package com.project.tim7.api;
 import com.project.tim7.dto.UserDTO;
 import com.project.tim7.helper.AdministratorMapper;
 import com.project.tim7.model.Administrator;
+import com.project.tim7.model.Authority;
 import com.project.tim7.service.AdministratorService;
+import com.project.tim7.service.AuthorityService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
@@ -31,6 +33,9 @@ public class AdministratorController {
     AdministratorService adminService;
 
     @Autowired
+    AuthorityService authorityService;
+
+    @Autowired
     AuthenticationController authController;
 
     @Autowired
@@ -44,13 +49,20 @@ public class AdministratorController {
 
     @PreAuthorize("hasRole('ROLE_ADMINISTRATOR')")
     @RequestMapping(method= RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<UserDTO> createAdministrator(@Valid @RequestBody UserDTO adminDTO){
+    public ResponseEntity<?> createAdministrator(@Valid @RequestBody UserDTO adminDTO){
 
         adminDTO.setPassword(passwordEncoder.encode(adminDTO.getPassword()));
 
-        Administrator savedAdmin = adminService.saveOne(adminMapper.toEntity(adminDTO));
+        Administrator verify = adminMapper.toEntity(adminDTO);
+
+        long role = 1;
+        List<Authority> auth = authorityService.findById(role);
+        verify.setAuthorities(auth);
+        verify.setVerified(true);
+
+        Administrator savedAdmin = adminService.saveOne(verify);
         if(savedAdmin == null){
-            return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>("Username or email already exists.", HttpStatus.BAD_REQUEST);
         }
         return new ResponseEntity<>(adminMapper.toDto(savedAdmin), HttpStatus.CREATED);
     }

@@ -1,5 +1,5 @@
 import * as SignUpActions from './sign-up.actions';
-import {SignUpModel} from '../../../models/sign-up.model';
+import {UserModel} from '../../../models/user.model';
 
 export interface State {
   error: string;

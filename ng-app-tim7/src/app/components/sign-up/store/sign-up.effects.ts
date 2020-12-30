@@ -6,7 +6,7 @@ import { of } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 
 import * as SignUpActions from '../store/sign-up.actions';
-import { SignUpModel } from '../../../models/sign-up.model';
+import { UserModel } from '../../../models/user.model';
 
 const handleAuthentication = () => {
   const message = 'Registration successful! Activate account by email.';
@@ -29,7 +29,7 @@ export class SignUpEffects {
     ofType(SignUpActions.SIGN_UP),
     switchMap((userData: SignUpActions.SignUpStart) => {
       return this.http
-        .post<SignUpModel>(
+        .post<UserModel>(
           'http://localhost:8080/auth/sign-up',
           {
             username: userData.payload.username,

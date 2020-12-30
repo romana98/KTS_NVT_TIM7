@@ -37,6 +37,7 @@ import {AdministratorEffects} from './components/administrator/store/administrat
 import {HttpAuthInterceptor} from './interceptors/http-auth.interceptor';
 import {MatPaginatorModule} from '@angular/material/paginator';
 import { PaginationComponent } from './components/common/pagination/pagination.component';
+import { AddAdministratorComponent } from './components/administrator/add-administrator/add-administrator.component';
 
 
 
@@ -52,7 +53,8 @@ import { PaginationComponent } from './components/common/pagination/pagination.c
     ActivateAccountComponent,
     TableComponent,
     DashboardAdministratorComponent,
-    PaginationComponent
+    PaginationComponent,
+    AddAdministratorComponent
   ],
   imports: [
     BrowserModule,

@@ -4,12 +4,14 @@ export interface State {
   admins: any;
   error: string;
   success: string;
+  bar: boolean;
 }
 
 const initialState: State = {
   admins: {content: []},
   error: null,
-  success: null
+  success: null,
+  bar: false
 };
 
 export function administratorReducer(
@@ -31,7 +33,13 @@ export function administratorReducer(
     case AdminActions.ADMIN_SUCCESS:
       return {
         ...state,
-        success: action.payload
+        success: action.payload,
+        bar: false,
+      };
+    case AdminActions.ADD_ADMIN:
+      return {
+        ...state,
+        bar: false,
       };
     case AdminActions.GET_ADMINS_SUCCESS:
       return {
