@@ -13,7 +13,7 @@ import {ReactiveFormsModule} from '@angular/forms';
 import { EffectsModule } from '@ngrx/effects';
 import * as fromApp from './store/app.reducer';
 import { AuthEffects } from './components/sign-in/store/sign-in.effects';
-import {HttpClientModule} from '@angular/common/http';
+import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
 import {MatDividerModule} from '@angular/material/divider';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatInputModule} from '@angular/material/input';
@@ -30,6 +30,13 @@ import {SignUpEffects} from './components/sign-up/store/sign-up.effects';
 import {MatProgressBarModule} from '@angular/material/progress-bar';
 import { ActivateAccountComponent } from './components/activate-account/activate-account.component';
 import {ActivateAccountEffects} from './components/activate-account/store/activate-account.effects';
+import { TableComponent } from './components/common/table/table.component';
+import {MatTableModule} from '@angular/material/table';
+import { DashboardAdministratorComponent } from './components/administrator/dashboard-administrator/dashboard-administrator.component';
+import {AdministratorEffects} from './components/administrator/store/administrator.effects';
+import {HttpAuthInterceptor} from './interceptors/http-auth.interceptor';
+import {MatPaginatorModule} from '@angular/material/paginator';
+import { PaginationComponent } from './components/common/pagination/pagination.component';
 
 
 
@@ -42,7 +49,10 @@ import {ActivateAccountEffects} from './components/activate-account/store/activa
     NavigationAdministratorComponent,
     NavigationRegisteredComponent,
     NavigationNonSignedInComponent,
-    ActivateAccountComponent
+    ActivateAccountComponent,
+    TableComponent,
+    DashboardAdministratorComponent,
+    PaginationComponent
   ],
   imports: [
     BrowserModule,
@@ -50,7 +60,7 @@ import {ActivateAccountEffects} from './components/activate-account/store/activa
     HttpClientModule,
     AppRoutingModule,
     StoreModule.forRoot(fromApp.appReducer, {metaReducers}),
-    EffectsModule.forRoot([AuthEffects, SignUpEffects, ActivateAccountEffects]),
+    EffectsModule.forRoot([AuthEffects, SignUpEffects, ActivateAccountEffects, AdministratorEffects]),
     StoreDevtoolsModule.instrument({maxAge: 25, logOnly: environment.production}),
     ReactiveFormsModule,
     MatToolbarModule,
@@ -60,9 +70,13 @@ import {ActivateAccountEffects} from './components/activate-account/store/activa
     MatButtonModule,
     MatSnackBarModule,
     MatIconModule,
-    MatProgressBarModule
+    MatProgressBarModule,
+    MatTableModule,
+    MatPaginatorModule
   ],
-  providers: [],
+  providers: [{
+    provide: HTTP_INTERCEPTORS, useClass: HttpAuthInterceptor, multi: true
+  }],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

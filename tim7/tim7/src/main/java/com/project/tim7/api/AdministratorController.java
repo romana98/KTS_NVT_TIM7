@@ -22,6 +22,7 @@ import javax.validation.constraints.Min;
 import java.util.ArrayList;
 import java.util.List;
 
+@CrossOrigin(origins = "https://localhost:4200")
 @RestController
 @RequestMapping(value="/administrators", produces = MediaType.APPLICATION_JSON_VALUE)
 public class AdministratorController {
@@ -65,10 +66,10 @@ public class AdministratorController {
             return new ResponseEntity<>("You are logged in.", HttpStatus.BAD_REQUEST);
         }
         if(adminService.delete(id)) {
-            return new ResponseEntity<>("Administrator " + id + " deleted.", HttpStatus.OK);
+            return new ResponseEntity<>(HttpStatus.OK);
         }
 
-        return new ResponseEntity<>("Administrator " + id + " not found.", HttpStatus.NOT_FOUND);
+        return new ResponseEntity<>("Administrator not found.", HttpStatus.NOT_FOUND);
     }
 
     @PreAuthorize("hasRole('ROLE_ADMINISTRATOR')")

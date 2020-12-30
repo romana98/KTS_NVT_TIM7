@@ -8,7 +8,7 @@ import {Observable} from 'rxjs';
 @Injectable({
   providedIn: 'root'
 })
-export class AdministratorGuard implements CanActivate {
+export class RegisteredGuard implements CanActivate {
 
   constructor(
     public store: Store<fromApp.AppState>,
