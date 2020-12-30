@@ -166,7 +166,6 @@ public class AuthenticationControllerIntegrationTest {
                 restTemplate.postForEntity("/auth/activate/" + REG_ID, HttpMethod.POST,
                         String.class);
 
-        String message = responseEntity.getBody();
 
         assertEquals(HttpStatus.OK, responseEntity.getStatusCode());
 

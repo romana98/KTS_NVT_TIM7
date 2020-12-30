@@ -16,7 +16,7 @@ const handleAuthentication = () => {
 const handleError = (errorRes: any) => {
 
   let errorMessage = errorRes.error;
-  if (!errorRes.error) {
+  if (!( typeof errorRes.error === 'string')) {
     errorMessage = 'An unknown error occurred!';
   }
   return of(new SignUpActions.SignUpFail(errorMessage));
