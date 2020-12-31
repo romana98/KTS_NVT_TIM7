@@ -154,42 +154,39 @@ public class RegisteredControllerIntegrationTest {
     public void testUpdateRegisteredExistAdminEmail(){
         HttpEntity<Object> httpEntity = new HttpEntity<>(new UserDTO(REG_ID_LOGIN, DB_USERNAME_LOGIN, NEW_EMAIL_EXIST_ADMIN, DB_PASSWORD), headers);
 
-        ResponseEntity<UserDTO> responseEntity =
+        ResponseEntity<String> responseEntity =
                 restTemplate.exchange("/registered-users", HttpMethod.PUT, httpEntity,
-                        UserDTO.class);
+                        String.class);
 
-        UserDTO reg = responseEntity.getBody();
+        String message = responseEntity.getBody();
 
+        assertThat(message).isNotBlank();
         assertEquals(HttpStatus.BAD_REQUEST, responseEntity.getStatusCode());
-        assertNull(reg);
     }
 
     @Test
     public void testUpdateRegisteredExistRegEmail(){
         HttpEntity<Object> httpEntity = new HttpEntity<>(new UserDTO(REG_ID_LOGIN, DB_USERNAME_LOGIN, NEW_EMAIL_EXIST, DB_PASSWORD), headers);
 
-        ResponseEntity<UserDTO> responseEntity =
+        ResponseEntity<String> responseEntity =
                 restTemplate.exchange("/registered-users", HttpMethod.PUT, httpEntity,
-                        UserDTO.class);
+                        String.class);
 
-        UserDTO reg = responseEntity.getBody();
+        String message = responseEntity.getBody();
 
+        assertThat(message).isNotBlank();
         assertEquals(HttpStatus.BAD_REQUEST, responseEntity.getStatusCode());
-        assertNull(reg);
     }
 
     @Test
     public void testUpdateRegisteredInvalidUsername() {
         HttpEntity<Object> httpEntity = new HttpEntity<>(new UserDTO(REG_ID_LOGIN, DB_USERNAME_NONEXIST, DB_EMAIL_LOGIN, DB_PASSWORD), headers);
 
-        ResponseEntity<UserDTO> responseEntity =
+        ResponseEntity<String> responseEntity =
                 restTemplate.exchange("/registered-users", HttpMethod.PUT, httpEntity,
-                        UserDTO.class);
-
-        UserDTO reg = responseEntity.getBody();
-
+                        String.class);
+        
         assertEquals(HttpStatus.UNAUTHORIZED, responseEntity.getStatusCode());
-        assertNull(reg);
     }
 
     @Test

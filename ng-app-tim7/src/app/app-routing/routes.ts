@@ -4,6 +4,7 @@ import {SignInComponent} from '../components/sign-in/sign-in.component';
 import {SignUpComponent} from '../components/sign-up/sign-up.component';
 import {ActivateAccountComponent} from '../components/activate-account/activate-account.component';
 import {adminRoutes} from './administrator.routes';
+import {regRoutes} from './registered.routes';
 
 
 export const routes: Routes = [
@@ -25,5 +26,9 @@ export const routes: Routes = [
   {
     path: '',
     children: adminRoutes
+  },
+  {
+    path: '',
+    children: regRoutes
   }
 ];

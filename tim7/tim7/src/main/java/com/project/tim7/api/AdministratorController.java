@@ -86,24 +86,26 @@ public class AdministratorController {
 
     @PreAuthorize("hasRole('ROLE_ADMINISTRATOR')")
     @RequestMapping(method=RequestMethod.PUT, consumes = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<UserDTO> updateAdministrator(@Valid @RequestBody UserDTO adminDTO){
+    public ResponseEntity<?> updateAdministrator(@Valid @RequestBody UserDTO adminDTO){
 
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         Administrator adminLogged = (Administrator) authentication.getPrincipal();
 
         if(!adminDTO.getUsername().equals(adminLogged.getUsername()) || adminDTO.getId() != adminLogged.getId()) {
-            return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+            return new ResponseEntity<>("You are not authorized.", HttpStatus.UNAUTHORIZED);
         }
 
         String password = adminDTO.getPassword();
-        adminDTO.setPassword(passwordEncoder.encode(adminDTO.getPassword()));
+        adminDTO.setPassword(adminDTO.getPassword().equals("________") ? adminLogged.getPassword() : passwordEncoder.encode(adminDTO.getPassword()));
         Administrator admin = adminService.update(adminMapper.toEntity(adminDTO));
 
         if(admin == null){
-            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>("Email already exists.", HttpStatus.BAD_REQUEST);
         }
 
-        authController.updatedLoggedIn(admin.getUsername(), password);
+        if(!password.equals("________")){
+            authController.updatedLoggedIn(admin.getUsername(), password);
+        }
         return new ResponseEntity<>(adminMapper.toDto(admin), HttpStatus.OK);
     }
 

@@ -82,7 +82,7 @@ export class AuthEffects {
   authLogout = this.actions$.pipe(
     ofType(AuthActions.SIGN_OUT),
     tap(() => {
-      localStorage.removeItem('user');
+      localStorage.clear();
       this.router.navigate(['/']);
     })
   );

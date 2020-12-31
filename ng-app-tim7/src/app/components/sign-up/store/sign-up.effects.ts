@@ -8,7 +8,7 @@ import { HttpClient } from '@angular/common/http';
 import * as SignUpActions from '../store/sign-up.actions';
 import { UserModel } from '../../../models/user.model';
 
-const handleAuthentication = () => {
+const handleSuccess = () => {
   const message = 'Registration successful! Activate account by email.';
   return new SignUpActions.SignUpSuccess(message);
 };
@@ -39,7 +39,7 @@ export class SignUpEffects {
         )
         .pipe(
           map(() => {
-            return handleAuthentication();
+            return handleSuccess();
           }),
           catchError(errorRes => {
             return handleError(errorRes);
