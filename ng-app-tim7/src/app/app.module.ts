@@ -38,6 +38,10 @@ import {HttpAuthInterceptor} from './interceptors/http-auth.interceptor';
 import {MatPaginatorModule} from '@angular/material/paginator';
 import { PaginationComponent } from './components/common/pagination/pagination.component';
 import { AddAdministratorComponent } from './components/administrator/add-administrator/add-administrator.component';
+import { ViewProfileComponent } from './components/user/view-profile/view-profile.component';
+import {MatCardModule} from '@angular/material/card';
+import {RegisteredEffects} from './components/registered/store/registered.effects';
+import { EditProfileComponent } from './components/user/edit-profile/edit-profile.component';
 
 
 
@@ -54,28 +58,31 @@ import { AddAdministratorComponent } from './components/administrator/add-admini
     TableComponent,
     DashboardAdministratorComponent,
     PaginationComponent,
-    AddAdministratorComponent
+    AddAdministratorComponent,
+    ViewProfileComponent,
+    EditProfileComponent
   ],
-  imports: [
-    BrowserModule,
-    BrowserAnimationsModule,
-    HttpClientModule,
-    AppRoutingModule,
-    StoreModule.forRoot(fromApp.appReducer, {metaReducers}),
-    EffectsModule.forRoot([AuthEffects, SignUpEffects, ActivateAccountEffects, AdministratorEffects]),
-    StoreDevtoolsModule.instrument({maxAge: 25, logOnly: environment.production}),
-    ReactiveFormsModule,
-    MatToolbarModule,
-    MatDividerModule,
-    MatFormFieldModule,
-    MatInputModule,
-    MatButtonModule,
-    MatSnackBarModule,
-    MatIconModule,
-    MatProgressBarModule,
-    MatTableModule,
-    MatPaginatorModule
-  ],
+    imports: [
+        BrowserModule,
+        BrowserAnimationsModule,
+        HttpClientModule,
+        AppRoutingModule,
+        StoreModule.forRoot(fromApp.appReducer, {metaReducers}),
+        EffectsModule.forRoot([AuthEffects, SignUpEffects, ActivateAccountEffects, AdministratorEffects, RegisteredEffects]),
+        StoreDevtoolsModule.instrument({maxAge: 25, logOnly: environment.production}),
+        ReactiveFormsModule,
+        MatToolbarModule,
+        MatDividerModule,
+        MatFormFieldModule,
+        MatInputModule,
+        MatButtonModule,
+        MatSnackBarModule,
+        MatIconModule,
+        MatProgressBarModule,
+        MatTableModule,
+        MatPaginatorModule,
+        MatCardModule
+    ],
   providers: [{
     provide: HTTP_INTERCEPTORS, useClass: HttpAuthInterceptor, multi: true
   }],

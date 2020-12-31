@@ -1,18 +1,27 @@
 import * as AdminActions from './administrator.actions';
+import {UserModel} from '../../../models/user.model';
+import {SignedInModel} from '../../../models/signed-in.model';
 
 export interface State {
   admins: any;
   error: string;
   success: string;
   bar: boolean;
+  user: UserModel;
 }
 
 const initialState: State = {
   admins: {content: []},
   error: null,
   success: null,
-  bar: false
+  bar: false,
+  user: localStorage.getItem('signed-in-user') === null ? null : getUser(),
 };
+
+function getUser() {
+  const user = JSON.parse(localStorage.getItem('signed-in-user'));
+  return new UserModel(user.username, user.email, user.password);
+}
 
 export function administratorReducer(
   state = initialState,
@@ -41,10 +50,20 @@ export function administratorReducer(
         ...state,
         bar: false,
       };
+    case AdminActions.EDIT_ADMIN:
+      return {
+        ...state,
+        bar: false,
+      };
     case AdminActions.GET_ADMINS_SUCCESS:
       return {
         ...state,
         admins: action.payload
+      };
+    case AdminActions.GET_ADMIN_SUCCESS:
+      return {
+        ...state,
+        user: action.payload
       };
     case AdminActions.CLEAR_ERROR:
       return {
@@ -57,6 +76,7 @@ export function administratorReducer(
         success: null
       };
     case AdminActions.GET_ADMIN_PAGE:
+    case AdminActions.GET_ADMIN:
     default:
       return {
         ...state

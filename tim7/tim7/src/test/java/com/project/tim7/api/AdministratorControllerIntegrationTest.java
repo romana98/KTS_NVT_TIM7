@@ -175,43 +175,39 @@ public class AdministratorControllerIntegrationTest {
     public void testUpdateAdministratorExistAdminEmail(){
         HttpEntity<Object> httpEntity = new HttpEntity<>(new UserDTO(ADMIN_ID, DB_USERNAME, NEW_EMAIL_EXIST, DB_PASSWORD), headers);
 
-        ResponseEntity<UserDTO> responseEntity =
+        ResponseEntity<String> responseEntity =
                 restTemplate.exchange("/administrators", HttpMethod.PUT, httpEntity,
-                        UserDTO.class);
+                        String.class);
 
-        UserDTO admin = responseEntity.getBody();
+        String message = responseEntity.getBody();
 
+        assertThat(message).isNotBlank();
         assertEquals(HttpStatus.BAD_REQUEST, responseEntity.getStatusCode());
-        assertNull(admin);
     }
 
     @Test
     public void testUpdateAdministratorExistRegEmail(){
         HttpEntity<Object> httpEntity = new HttpEntity<>(new UserDTO(ADMIN_ID, DB_USERNAME, NEW_EMAIL_EXIST_REG, DB_PASSWORD), headers);
 
-        ResponseEntity<UserDTO> responseEntity =
+        ResponseEntity<String> responseEntity =
                 restTemplate.exchange("/administrators", HttpMethod.PUT, httpEntity,
-                        UserDTO.class);
+                        String.class);
 
-        UserDTO admin = responseEntity.getBody();
+        String message = responseEntity.getBody();
 
+        assertThat(message).isNotBlank();
         assertEquals(HttpStatus.BAD_REQUEST, responseEntity.getStatusCode());
-        assertNull(admin);
     }
 
     @Test
     public void testUpdateAdministratorInvalidUsername() {
         HttpEntity<Object> httpEntity = new HttpEntity<>(new UserDTO(ADMIN_ID, DB_USERNAME_NONEXIST, DB_EMAIL, DB_PASSWORD), headers);
 
-        ResponseEntity<UserDTO> responseEntity =
+        ResponseEntity<String> responseEntity =
                 restTemplate.exchange("/administrators", HttpMethod.PUT, httpEntity,
-                        UserDTO.class);
-
-        UserDTO admin = responseEntity.getBody();
+                        String.class);
 
         assertEquals(HttpStatus.UNAUTHORIZED, responseEntity.getStatusCode());
-        assertNull(admin);
-
     }
 
     @Test

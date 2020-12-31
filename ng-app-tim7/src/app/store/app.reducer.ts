@@ -5,22 +5,25 @@ import * as fromAuth from '../components/sign-in/store/sign-in.reducer';
 import * as fromSignUp from '../components/sign-up/store/sign-up.reducer';
 import * as fromActivate from '../components/activate-account/store/activate-account.reducer';
 import * as fromAdmin from '../components/administrator/store/administrator.reducer';
+import * as fromReg from '../components/registered/store/registered.reducer';
 
 export interface AppState {
   auth: fromAuth.State;
   signUp: fromSignUp.State;
   activate: fromActivate.State;
   administrator: fromAdmin.State;
+  registered: fromReg.State;
 }
 
 export const appReducer: ActionReducerMap<AppState> = {
   auth: fromAuth.signInReducer,
   signUp: fromSignUp.signUpReducer,
   activate: fromActivate.activateAccountReducer,
-  administrator: fromAdmin.administratorReducer
+  administrator: fromAdmin.administratorReducer,
+  registered: fromReg.registeredReducer
 };
 
-const reducerKeys = ['user'];
+const reducerKeys = ['user', 'signed-in-user'];
 export function localStorageSyncReducer(reducer: ActionReducer<any>): ActionReducer<any> {
   return localStorageSync({keys: reducerKeys})(reducer);
 }
