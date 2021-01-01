@@ -42,6 +42,8 @@ import { ViewProfileComponent } from './components/user/view-profile/view-profil
 import {MatCardModule} from '@angular/material/card';
 import {RegisteredEffects} from './components/registered/store/registered.effects';
 import { EditProfileComponent } from './components/user/edit-profile/edit-profile.component';
+import { CategoryDashboardComponent } from './components/category/category-dashboard/category-dashboard.component';
+import {CategoryEffects} from './components/category/store/category.effects';
 
 
 
@@ -60,7 +62,8 @@ import { EditProfileComponent } from './components/user/edit-profile/edit-profil
     PaginationComponent,
     AddAdministratorComponent,
     ViewProfileComponent,
-    EditProfileComponent
+    EditProfileComponent,
+    CategoryDashboardComponent
   ],
     imports: [
         BrowserModule,
@@ -68,7 +71,8 @@ import { EditProfileComponent } from './components/user/edit-profile/edit-profil
         HttpClientModule,
         AppRoutingModule,
         StoreModule.forRoot(fromApp.appReducer, {metaReducers}),
-        EffectsModule.forRoot([AuthEffects, SignUpEffects, ActivateAccountEffects, AdministratorEffects, RegisteredEffects]),
+        EffectsModule.forRoot([AuthEffects, SignUpEffects, ActivateAccountEffects, AdministratorEffects, RegisteredEffects,
+          CategoryEffects]),
         StoreDevtoolsModule.instrument({maxAge: 25, logOnly: environment.production}),
         ReactiveFormsModule,
         MatToolbarModule,

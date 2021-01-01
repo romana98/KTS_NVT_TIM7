@@ -1,6 +1,5 @@
 import * as AdminActions from './administrator.actions';
 import {UserModel} from '../../../models/user.model';
-import {SignedInModel} from '../../../models/signed-in.model';
 
 export interface State {
   admins: any;
@@ -40,6 +39,12 @@ export function administratorReducer(
         error: action.payload
       };
     case AdminActions.ADMIN_SUCCESS:
+      return {
+        ...state,
+        success: action.payload,
+        bar: false,
+      };
+    case AdminActions.ADMIN_SUCCESS_EDIT:
       return {
         ...state,
         success: action.payload,
