@@ -4,6 +4,7 @@ import {AdministratorGuard} from '../guards/administrator.service';
 import {AddAdministratorComponent} from '../components/administrator/add-administrator/add-administrator.component';
 import {ViewProfileComponent} from '../components/user/view-profile/view-profile.component';
 import {EditProfileComponent} from '../components/user/edit-profile/edit-profile.component';
+import {CategoryDashboardComponent} from '../components/category/category-dashboard/category-dashboard.component';
 
 export const adminRoutes: Routes = [
   {
@@ -24,6 +25,11 @@ export const adminRoutes: Routes = [
   {
     path: 'administrator/edit-profile',
     component: EditProfileComponent,
+    canActivate: [AdministratorGuard]
+  },
+  {
+    path: 'administrator/manage-categories/dashboard',
+    component: CategoryDashboardComponent,
     canActivate: [AdministratorGuard]
   }
 ];

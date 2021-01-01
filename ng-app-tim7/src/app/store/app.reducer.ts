@@ -6,6 +6,7 @@ import * as fromSignUp from '../components/sign-up/store/sign-up.reducer';
 import * as fromActivate from '../components/activate-account/store/activate-account.reducer';
 import * as fromAdmin from '../components/administrator/store/administrator.reducer';
 import * as fromReg from '../components/registered/store/registered.reducer';
+import * as fromCategory from '../components/category/store/category.reducer';
 
 export interface AppState {
   auth: fromAuth.State;
@@ -13,6 +14,7 @@ export interface AppState {
   activate: fromActivate.State;
   administrator: fromAdmin.State;
   registered: fromReg.State;
+  category: fromCategory.State;
 }
 
 export const appReducer: ActionReducerMap<AppState> = {
@@ -20,7 +22,8 @@ export const appReducer: ActionReducerMap<AppState> = {
   signUp: fromSignUp.signUpReducer,
   activate: fromActivate.activateAccountReducer,
   administrator: fromAdmin.administratorReducer,
-  registered: fromReg.registeredReducer
+  registered: fromReg.registeredReducer,
+  category: fromCategory.categoryReducer
 };
 
 const reducerKeys = ['user', 'signed-in-user'];

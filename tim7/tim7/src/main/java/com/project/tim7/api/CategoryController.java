@@ -95,12 +95,22 @@ public class CategoryController  {
     public ResponseEntity<String> deleteCategory(@PathVariable Integer id){
 
         if(categoryService.delete(id)) {
-            return new ResponseEntity<>("Deleting successful.", HttpStatus.OK);
+            return new ResponseEntity<>(HttpStatus.OK);
         }
 
         return new ResponseEntity<>("Deleting failed.", HttpStatus.BAD_REQUEST);
     }
 
+    @PreAuthorize("hasRole('ROLE_ADMINISTRATOR')")
+	@RequestMapping(value="/by-id/{id}", method=RequestMethod.GET)
+	public ResponseEntity<CategoryDTO> getCategory(@PathVariable Integer id){
+		Category found = categoryService.findOne(id);
+		if(found == null){
+			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+		}else{
+			return new ResponseEntity<CategoryDTO>(catMapper.toDto(found), HttpStatus.OK);
+		}
+	}
 
 	private List<CategoryDTO> toCategoryDTOList(List<Category> categories) {
 		ArrayList<CategoryDTO> dtos = new ArrayList<CategoryDTO>();

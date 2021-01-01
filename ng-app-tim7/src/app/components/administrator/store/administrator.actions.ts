@@ -8,6 +8,7 @@ export const ADD_ADMIN = '[Administrator] Add admin';
 export const EDIT_ADMIN = '[Administrator] Edit admin';
 export  const ADMIN_FAIL = '[Administrator] Admin fail';
 export  const ADMIN_SUCCESS = '[Administrator] Admin success';
+export  const ADMIN_SUCCESS_EDIT = '[Administrator] Admin success edit';
 export  const GET_ADMINS_SUCCESS = '[Administrator] Get admins success';
 export  const GET_ADMIN_SUCCESS = '[Administrator] Get admin success';
 export const CLEAR_ERROR = '[Administrator] Clear Error';
@@ -60,6 +61,12 @@ export class AdminSuccess implements Action {
   constructor(public payload: string) {}
 }
 
+export class AdminSuccessEdit implements Action {
+  readonly type = ADMIN_SUCCESS_EDIT;
+
+  constructor(public payload: string) {}
+}
+
 export class AdminFail implements Action {
   readonly type = ADMIN_FAIL;
 
@@ -85,4 +92,5 @@ export type AdministratorActions =
   | ClearError
   | GetAdminsSuccess
   | GetAdminSuccess
-  | EditProfile;
+  | EditProfile
+  | AdminSuccessEdit;

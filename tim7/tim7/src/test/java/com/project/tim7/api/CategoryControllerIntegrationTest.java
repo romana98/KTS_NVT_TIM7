@@ -58,6 +58,29 @@ public class CategoryControllerIntegrationTest {
     }
 
     @Test
+    public void testGetCategory(){
+        HttpEntity<Object> httpEntity = new HttpEntity<>(headers);
+
+        ResponseEntity<CategoryDTO> responseEntity =
+                restTemplate.exchange("/categories/by-id/1", HttpMethod.GET, httpEntity, CategoryDTO.class);
+
+        CategoryDTO found = responseEntity.getBody();
+        assertEquals(HttpStatus.OK, responseEntity.getStatusCode());
+        assertEquals(1, found.getId());
+    }
+
+    @Test
+    public void testGetCategoryNotFound(){
+        HttpEntity<Object> httpEntity = new HttpEntity<>(headers);
+
+        ResponseEntity<CategoryDTO> responseEntity =
+                restTemplate.exchange("/categories/by-id/1000", HttpMethod.GET, httpEntity, CategoryDTO.class);
+
+        CategoryDTO found = responseEntity.getBody();
+        assertNull(found);
+    }
+
+    @Test
     public void testGetAllCategories() throws JsonProcessingException {
         HttpEntity<Object> httpEntity = new HttpEntity<>(headers);
 
@@ -183,7 +206,6 @@ public class CategoryControllerIntegrationTest {
 
         String message = responseEntity.getBody();
         assertEquals(HttpStatus.OK, responseEntity.getStatusCode());
-        assertThat(message).isNotBlank();
 
     }
 
