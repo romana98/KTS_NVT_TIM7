@@ -163,11 +163,14 @@ public class AuthenticationControllerIntegrationTest {
         HttpEntity<Object> httpEntity = new HttpEntity<>(REG_ID);
 
         ResponseEntity<String> responseEntity =
-                restTemplate.postForEntity("/auth/activate/" + REG_ID, HttpMethod.POST,
+                restTemplate.exchange("/auth/activate", HttpMethod.POST, httpEntity,
                         String.class);
 
+        String message = responseEntity.getBody();
+        String expectedMessage = "Activation succeeded.";
 
         assertEquals(HttpStatus.OK, responseEntity.getStatusCode());
+        assertEquals(expectedMessage, message);
 
         //returning db to original state
         Registered reg_restore = new Registered(REG_ID, DB_EMAIL, DB_USERNAME, DB_PASSWORD);
@@ -178,8 +181,10 @@ public class AuthenticationControllerIntegrationTest {
 
     @Test
     public void activateInvalidId(){
+        HttpEntity<Object> httpEntity = new HttpEntity<>(REG_ID_NONEXIST);
+
         ResponseEntity<String> responseEntity =
-                restTemplate.postForEntity("/auth/activate/" + REG_ID_NONEXIST, HttpMethod.POST,
+                restTemplate.exchange("/auth/activate", HttpMethod.POST, httpEntity,
                         String.class);
 
         String message = responseEntity.getBody();

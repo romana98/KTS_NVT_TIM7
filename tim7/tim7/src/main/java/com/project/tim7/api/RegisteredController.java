@@ -21,7 +21,6 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 
-@CrossOrigin(origins = "https://localhost:4200")
 @RestController
 @RequestMapping(value="/registered-users")
 public class RegisteredController {
@@ -43,25 +42,24 @@ public class RegisteredController {
 
     @PreAuthorize("hasRole('ROLE_REGISTERED')")
     @RequestMapping(method= RequestMethod.PUT, consumes = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<?> updateRegistered(@Valid @RequestBody UserDTO regDTO){
+    public ResponseEntity<UserDTO> updateRegistered(@Valid @RequestBody UserDTO regDTO){
 
 
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         Registered regLogged = (Registered) authentication.getPrincipal();
 
         if(!regDTO.getUsername().equals(regLogged.getUsername()) || regDTO.getId() != regLogged.getId()) {
-            return new ResponseEntity<>( HttpStatus.UNAUTHORIZED);
+            return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
         }
 
         String password = regDTO.getPassword();
-        regDTO.setPassword(regDTO.getPassword().equals("________") ? regLogged.getPassword() : passwordEncoder.encode(regDTO.getPassword()));
+        regDTO.setPassword(passwordEncoder.encode(regDTO.getPassword()));
         Registered reg = regService.update(regMapper.toEntity(regDTO));
 
         if(reg == null){
-            return new ResponseEntity<>("Email already exists.", HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
-
-        if(!password.equals("________")) {
+        else{
             authController.updatedLoggedIn(reg.getUsername(), password);
         }
 
