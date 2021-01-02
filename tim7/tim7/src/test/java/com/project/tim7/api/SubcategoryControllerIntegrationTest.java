@@ -3,7 +3,6 @@ package com.project.tim7.api;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.project.tim7.dto.CategoryDTO;
 import com.project.tim7.dto.SubcategoryDTO;
 import com.project.tim7.dto.UserLoginDTO;
 import com.project.tim7.dto.UserTokenStateDTO;
@@ -106,7 +105,7 @@ public class SubcategoryControllerIntegrationTest {
         assertEquals(HttpStatus.OK, responseEntity.getStatusCode());
         assertEquals(CONTROLLER_NEW_VALID_SUBCATEGORY_NAME, updated.getName());
 
-        Subcategory subcategory_restore = new Subcategory(CONTROLLER_VALID_SUBCATEGORY_ID, CONTROLLER_OLD_SUBCATEGORY_NAME, CONTROLLER_VALID_CATEGORY_ID, "Category1");
+        Subcategory subcategory_restore = new Subcategory(CONTROLLER_VALID_SUBCATEGORY_ID, CONTROLLER_OLD_SUBCATEGORY_NAME, CONTROLLER_VALID_CATEGORY_ID);
         subcategoryService.update(subcategory_restore);
     }
 
@@ -161,7 +160,6 @@ public class SubcategoryControllerIntegrationTest {
     @Test
     public void testCreateSubcategoryValid(){
         SubcategoryDTO dto = new SubcategoryDTO();
-        dto.setId(CONTROLLER_VALID_SUBCATEGORY_ID);
         dto.setName(CONTROLLER_NEW_VALID_SUBCATEGORY_NAME);
         dto.setCategoryId(CONTROLLER_VALID_CATEGORY_ID);
         dto.setCategoryName("Category1");
@@ -217,6 +215,7 @@ public class SubcategoryControllerIntegrationTest {
         ResponseEntity<String> responseEntity =
                 restTemplate.exchange("/subcategories/2", HttpMethod.DELETE, httpEntity, String.class);
 
+        String message = responseEntity.getBody();
         assertEquals(HttpStatus.OK, responseEntity.getStatusCode());
     }
 
