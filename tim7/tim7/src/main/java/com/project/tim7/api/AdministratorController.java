@@ -3,9 +3,7 @@ package com.project.tim7.api;
 import com.project.tim7.dto.UserDTO;
 import com.project.tim7.helper.AdministratorMapper;
 import com.project.tim7.model.Administrator;
-import com.project.tim7.model.Authority;
 import com.project.tim7.service.AdministratorService;
-import com.project.tim7.service.AuthorityService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
@@ -24,16 +22,12 @@ import javax.validation.constraints.Min;
 import java.util.ArrayList;
 import java.util.List;
 
-@CrossOrigin(origins = "https://localhost:4200")
 @RestController
 @RequestMapping(value="/administrators", produces = MediaType.APPLICATION_JSON_VALUE)
 public class AdministratorController {
 
     @Autowired
     AdministratorService adminService;
-
-    @Autowired
-    AuthorityService authorityService;
 
     @Autowired
     AuthenticationController authController;
@@ -49,20 +43,13 @@ public class AdministratorController {
 
     @PreAuthorize("hasRole('ROLE_ADMINISTRATOR')")
     @RequestMapping(method= RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<?> createAdministrator(@Valid @RequestBody UserDTO adminDTO){
+    public ResponseEntity<UserDTO> createAdministrator(@Valid @RequestBody UserDTO adminDTO){
 
         adminDTO.setPassword(passwordEncoder.encode(adminDTO.getPassword()));
 
-        Administrator verify = adminMapper.toEntity(adminDTO);
-
-        long role = 1;
-        List<Authority> auth = authorityService.findById(role);
-        verify.setAuthorities(auth);
-        verify.setVerified(true);
-
-        Administrator savedAdmin = adminService.saveOne(verify);
+        Administrator savedAdmin = adminService.saveOne(adminMapper.toEntity(adminDTO));
         if(savedAdmin == null){
-            return new ResponseEntity<>("Username or email already exists.", HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
         }
         return new ResponseEntity<>(adminMapper.toDto(savedAdmin), HttpStatus.CREATED);
     }
@@ -78,34 +65,32 @@ public class AdministratorController {
             return new ResponseEntity<>("You are logged in.", HttpStatus.BAD_REQUEST);
         }
         if(adminService.delete(id)) {
-            return new ResponseEntity<>(HttpStatus.OK);
+            return new ResponseEntity<>("Administrator " + id + " deleted.", HttpStatus.OK);
         }
 
-        return new ResponseEntity<>("Administrator not found.", HttpStatus.NOT_FOUND);
+        return new ResponseEntity<>("Administrator " + id + " not found.", HttpStatus.NOT_FOUND);
     }
 
     @PreAuthorize("hasRole('ROLE_ADMINISTRATOR')")
     @RequestMapping(method=RequestMethod.PUT, consumes = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<?> updateAdministrator(@Valid @RequestBody UserDTO adminDTO){
+    public ResponseEntity<UserDTO> updateAdministrator(@Valid @RequestBody UserDTO adminDTO){
 
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         Administrator adminLogged = (Administrator) authentication.getPrincipal();
 
         if(!adminDTO.getUsername().equals(adminLogged.getUsername()) || adminDTO.getId() != adminLogged.getId()) {
-            return new ResponseEntity<>("You are not authorized.", HttpStatus.UNAUTHORIZED);
+            return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
         }
 
         String password = adminDTO.getPassword();
-        adminDTO.setPassword(adminDTO.getPassword().equals("________") ? adminLogged.getPassword() : passwordEncoder.encode(adminDTO.getPassword()));
+        adminDTO.setPassword(passwordEncoder.encode(adminDTO.getPassword()));
         Administrator admin = adminService.update(adminMapper.toEntity(adminDTO));
 
         if(admin == null){
-            return new ResponseEntity<>("Email already exists.", HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
 
-        if(!password.equals("________")){
-            authController.updatedLoggedIn(admin.getUsername(), password);
-        }
+        authController.updatedLoggedIn(admin.getUsername(), password);
         return new ResponseEntity<>(adminMapper.toDto(admin), HttpStatus.OK);
     }
 

@@ -31,7 +31,7 @@ public class EmailService {
 		mail.setTo(email);
 		mail.setFrom(env.getProperty("spring.mail.username"));
 		mail.setSubject("Please verify your email address");
-		mail.setText("http://localhost:4200/activateAccount?id=" + id);
+		mail.setText("http://localhost:4200/activateAccount?id=" + id + "&email=" + email);
 		javaMailSender.send(mail);
 
 	}
