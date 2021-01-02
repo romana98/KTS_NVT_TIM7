@@ -44,6 +44,11 @@ import {RegisteredEffects} from './components/registered/store/registered.effect
 import { EditProfileComponent } from './components/user/edit-profile/edit-profile.component';
 import { CategoryDashboardComponent } from './components/category/category-dashboard/category-dashboard.component';
 import {CategoryEffects} from './components/category/store/category.effects';
+import { SubcategoryDashboardComponent } from './components/subcategory/subcategory-dashboard/subcategory-dashboard.component';
+import {SubcategoryEffects} from './components/subcategory/store/subcategory.effects';
+import {MatSelectModule} from '@angular/material/select';
+import {MatSelectInfiniteScrollModule} from 'ng-mat-select-infinite-scroll';
+import {ScrollingModule} from '@angular/cdk/scrolling';
 
 
 
@@ -63,7 +68,8 @@ import {CategoryEffects} from './components/category/store/category.effects';
     AddAdministratorComponent,
     ViewProfileComponent,
     EditProfileComponent,
-    CategoryDashboardComponent
+    CategoryDashboardComponent,
+    SubcategoryDashboardComponent
   ],
     imports: [
         BrowserModule,
@@ -72,7 +78,7 @@ import {CategoryEffects} from './components/category/store/category.effects';
         AppRoutingModule,
         StoreModule.forRoot(fromApp.appReducer, {metaReducers}),
         EffectsModule.forRoot([AuthEffects, SignUpEffects, ActivateAccountEffects, AdministratorEffects, RegisteredEffects,
-          CategoryEffects]),
+            CategoryEffects, SubcategoryEffects]),
         StoreDevtoolsModule.instrument({maxAge: 25, logOnly: environment.production}),
         ReactiveFormsModule,
         MatToolbarModule,
@@ -85,7 +91,10 @@ import {CategoryEffects} from './components/category/store/category.effects';
         MatProgressBarModule,
         MatTableModule,
         MatPaginatorModule,
-        MatCardModule
+        MatCardModule,
+        MatSelectModule,
+        MatSelectInfiniteScrollModule,
+        ScrollingModule
     ],
   providers: [{
     provide: HTTP_INTERCEPTORS, useClass: HttpAuthInterceptor, multi: true

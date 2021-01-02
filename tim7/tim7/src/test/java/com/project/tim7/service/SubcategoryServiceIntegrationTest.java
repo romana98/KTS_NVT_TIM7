@@ -69,6 +69,7 @@ public class SubcategoryServiceIntegrationTest {
         Subcategory subcategory = new Subcategory();
         subcategory.setName(SERVICE_NEW_VALID_SUBCATEGORY_NAME);
         subcategory.setCategory(new Category(SERVICE_VALID_CATEGORY_ID));
+        subcategory.getCategory().setName("Category1");
         Subcategory saved = subcategoryService.saveOne(subcategory);
         assertEquals(SERVICE_NEW_VALID_SUBCATEGORY_NAME, saved.getName());
 
@@ -88,6 +89,7 @@ public class SubcategoryServiceIntegrationTest {
     public void testSaveOneInvalidCategoryId(){
         Subcategory subcategory = new Subcategory();
         subcategory.setCategory(new Category(SERVICE_INVALID_CATEGORY_ID));
+        subcategory.getCategory().setName("Category500000");
         subcategory.setName(SERVICE_NEW_VALID_SUBCATEGORY_NAME);
         Subcategory saved = subcategoryService.saveOne(subcategory);
         assertNull(saved);
@@ -97,6 +99,7 @@ public class SubcategoryServiceIntegrationTest {
     public void testSaveOneInvalidNameInvalidCategoryId(){
         Subcategory subcategory = new Subcategory();
         subcategory.setCategory(new Category(SERVICE_INVALID_CATEGORY_ID));
+        subcategory.getCategory().setName("Category50000");
         subcategory.setName(SERVICE_NEW_INVALID_SUBCATEGORY_NAME);
         Subcategory saved = subcategoryService.saveOne(subcategory);
         assertNull(saved);
@@ -129,6 +132,7 @@ public class SubcategoryServiceIntegrationTest {
         Subcategory subcategory = new Subcategory();
         subcategory.setName(SERVICE_NEW_VALID_SUBCATEGORY_NAME);
         subcategory.setCategory(new Category(SERVICE_VALID_CATEGORY_ID));
+        subcategory.getCategory().setName("Category1");
         subcategory.setId(SERVICE_VALID_SUBCATEGORY_ID);
         Subcategory updated = subcategoryService.update(subcategory);
         assertEquals(updated.getId(), SERVICE_VALID_SUBCATEGORY_ID);
@@ -147,6 +151,7 @@ public class SubcategoryServiceIntegrationTest {
         Subcategory subcategory = new Subcategory();
         subcategory.setName(SERVICE_NEW_VALID_SUBCATEGORY_NAME);
         subcategory.setCategory(new Category(SERVICE_VALID_CATEGORY_ID));
+        subcategory.getCategory().setName("Category1");
         subcategory.setId(SERVICE_INVALID_SUBCATEGORY_ID);
         Subcategory updated = subcategoryService.update(subcategory);
         assertNull(updated);
@@ -157,6 +162,7 @@ public class SubcategoryServiceIntegrationTest {
         Subcategory subcategory = new Subcategory();
         subcategory.setName(SERVICE_NEW_VALID_SUBCATEGORY_NAME);
         subcategory.setCategory(new Category(SERVICE_INVALID_CATEGORY_ID));
+        subcategory.getCategory().setName("Category1000");
         subcategory.setId(SERVICE_VALID_SUBCATEGORY_ID);
         Subcategory updated = subcategoryService.update(subcategory);
         assertNull(updated);
@@ -167,6 +173,7 @@ public class SubcategoryServiceIntegrationTest {
         Subcategory subcategory = new Subcategory();
         subcategory.setName(SERVICE_NEW_INVALID_SUBCATEGORY_NAME);
         subcategory.setCategory(new Category(SERVICE_VALID_CATEGORY_ID));
+        subcategory.getCategory().setName("Category1");
         subcategory.setId(SERVICE_VALID_SUBCATEGORY_ID);
         Subcategory updated = subcategoryService.update(subcategory);
         assertNull(updated);
