@@ -1,5 +1,5 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
-import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {Component, OnDestroy, OnInit, ViewChild} from '@angular/core';
+import {FormBuilder, FormGroup, FormGroupDirective, Validators} from '@angular/forms';
 import {Subscription} from 'rxjs';
 import {Store} from '@ngrx/store';
 import * as fromApp from '../../../store/app.reducer';
@@ -13,7 +13,7 @@ import * as AdminActions from '../store/administrator.actions';
   styleUrls: ['./add-administrator.component.css']
 })
 export class AddAdministratorComponent implements OnInit, OnDestroy {
-
+  @ViewChild(FormGroupDirective) formGroupDirective: FormGroupDirective;
   private storeSub: Subscription;
   form: FormGroup;
   error: string = null;
@@ -72,6 +72,7 @@ export class AddAdministratorComponent implements OnInit, OnDestroy {
   private showSuccessAlert(message: string) {
     this.snackBar.open(message, 'Ok', { duration: 3000 });
     this.store.dispatch(new AdminActions.ClearSuccess());
+    setTimeout(() => this.formGroupDirective.resetForm(), 0);
   }
 
   ngOnDestroy() {

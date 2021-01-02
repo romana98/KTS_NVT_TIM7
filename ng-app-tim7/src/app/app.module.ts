@@ -44,6 +44,8 @@ import {RegisteredEffects} from './components/registered/store/registered.effect
 import { EditProfileComponent } from './components/user/edit-profile/edit-profile.component';
 import { DashboardNewsletterComponent } from './components/newsletter/dashboard-newsletter/dashboard-newsletter.component';
 import {NewsletterEffects} from './components/newsletter/store/newsletter.effects';
+import { CategoryDashboardComponent } from './components/category/category-dashboard/category-dashboard.component';
+import {CategoryEffects} from './components/category/store/category.effects';
 
 
 
@@ -64,6 +66,7 @@ import {NewsletterEffects} from './components/newsletter/store/newsletter.effect
     ViewProfileComponent,
     EditProfileComponent,
     DashboardNewsletterComponent,
+    CategoryDashboardComponent
   ],
     imports: [
         BrowserModule,
@@ -71,7 +74,8 @@ import {NewsletterEffects} from './components/newsletter/store/newsletter.effect
         HttpClientModule,
         AppRoutingModule,
         StoreModule.forRoot(fromApp.appReducer, {metaReducers}),
-        EffectsModule.forRoot([AuthEffects, SignUpEffects, ActivateAccountEffects, AdministratorEffects, RegisteredEffects, NewsletterEffects]),
+        EffectsModule.forRoot([AuthEffects, SignUpEffects, ActivateAccountEffects, AdministratorEffects, RegisteredEffects,
+          CategoryEffects, NewsletterEffects]),
         StoreDevtoolsModule.instrument({maxAge: 25, logOnly: environment.production}),
         ReactiveFormsModule,
         MatToolbarModule,
