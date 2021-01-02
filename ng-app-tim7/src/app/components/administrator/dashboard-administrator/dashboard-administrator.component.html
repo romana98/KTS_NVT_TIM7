@@ -1,0 +1,12 @@
+<h1 class="mat-display-1;" style="text-align: center;  margin-top: 1%;">Administrator Dashboard</h1>
+<mat-divider></mat-divider>
+<br><br>
+<app-table [dataSource]="admins.content" [columnsToDisplay]="['username', 'email', 'delete']" (Delete)="onDelete($event)" [columnsToIterate]="['username', 'email']"></app-table>
+
+<app-pagination [pageSize]="pageSize"
+                [totalItems]="admins.totalElements"
+                [totalPages]="admins.totalPages"
+                [currentPage]="admins.number"
+                (ChangePage)="onPagination($event)"
+></app-pagination>
+
