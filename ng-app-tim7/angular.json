@@ -123,5 +123,8 @@
       }
     }
   },
-  "defaultProject": "ng-app-tim7"
+  "defaultProject": "ng-app-tim7",
+  "cli": {
+    "analytics": false
+  }
 }

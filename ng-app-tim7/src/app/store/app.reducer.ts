@@ -6,6 +6,7 @@ import * as fromSignUp from '../components/sign-up/store/sign-up.reducer';
 import * as fromActivate from '../components/activate-account/store/activate-account.reducer';
 import * as fromAdmin from '../components/administrator/store/administrator.reducer';
 import * as fromReg from '../components/registered/store/registered.reducer';
+import * as fromNewsletter from '../components/newsletter/store/newsletter.reducer';
 import * as fromCategory from '../components/category/store/category.reducer';
 
 export interface AppState {
@@ -14,6 +15,7 @@ export interface AppState {
   activate: fromActivate.State;
   administrator: fromAdmin.State;
   registered: fromReg.State;
+  newsletter: fromNewsletter.State;
   category: fromCategory.State;
 }
 
@@ -23,6 +25,7 @@ export const appReducer: ActionReducerMap<AppState> = {
   activate: fromActivate.activateAccountReducer,
   administrator: fromAdmin.administratorReducer,
   registered: fromReg.registeredReducer,
+  newsletter: fromNewsletter.newsletterReducer,
   category: fromCategory.categoryReducer
 };
 
