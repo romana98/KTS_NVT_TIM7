@@ -53,6 +53,7 @@ import {MatSelectInfiniteScrollModule} from 'ng-mat-select-infinite-scroll';
 import {ScrollingModule} from '@angular/cdk/scrolling';
 import { UpdateNewsletterComponent } from './components/newsletter/update-newsletter/update-newsletter.component';
 import { AddNewsletterComponent } from './components/newsletter/add-newsletter/add-newsletter.component';
+import { CulturalOfferDashboardComponent } from './components/cultural-offer/cultural-offer-dashboard/cultural-offer-dashboard.component';
 
 
 
@@ -76,7 +77,8 @@ import { AddNewsletterComponent } from './components/newsletter/add-newsletter/a
     SubcategoryDashboardComponent,
     DashboardNewsletterComponent,
     AddNewsletterComponent,
-    UpdateNewsletterComponent
+    UpdateNewsletterComponent,
+    CulturalOfferDashboardComponent
   ],
     imports: [
         BrowserModule,
