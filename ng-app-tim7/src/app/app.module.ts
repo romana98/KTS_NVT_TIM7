@@ -52,8 +52,6 @@ import {MatSelectModule} from '@angular/material/select';
 import {MatSelectInfiniteScrollModule} from 'ng-mat-select-infinite-scroll';
 import {ScrollingModule} from '@angular/cdk/scrolling';
 import { UpdateNewsletterComponent } from './components/newsletter/update-newsletter/update-newsletter.component';
-import { LeafletModule } from '@asymmetrik/ngx-leaflet';
-import { MapComponent } from './components/common/map/map.component';
 import { GoogleMapComponent } from './components/common/google-map/google-map.component';
 import { AgmCoreModule } from '@agm/core';
 import { AddNewsletterComponent } from './components/newsletter/add-newsletter/add-newsletter.component';
@@ -81,7 +79,6 @@ import { AddNewsletterComponent } from './components/newsletter/add-newsletter/a
     DashboardNewsletterComponent,
     AddNewsletterComponent,
     UpdateNewsletterComponent,
-    MapComponent,
     GoogleMapComponent
   ],
     imports: [
@@ -107,7 +104,6 @@ import { AddNewsletterComponent } from './components/newsletter/add-newsletter/a
         MatCardModule,
         MatSelectModule,
         MatSelectInfiniteScrollModule,
-        LeafletModule,
       AgmCoreModule.forRoot({
         apiKey: 'AIzaSyA299mClrC7nDZzy92CQ4X47y7FmaBKMj4'
       }),
