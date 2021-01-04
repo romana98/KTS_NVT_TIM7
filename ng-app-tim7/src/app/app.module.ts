@@ -42,6 +42,8 @@ import { ViewProfileComponent } from './components/user/view-profile/view-profil
 import {MatCardModule} from '@angular/material/card';
 import {RegisteredEffects} from './components/registered/store/registered.effects';
 import { EditProfileComponent } from './components/user/edit-profile/edit-profile.component';
+import { DashboardNewsletterComponent } from './components/newsletter/dashboard-newsletter/dashboard-newsletter.component';
+import {NewsletterEffects} from './components/newsletter/store/newsletter.effects';
 import { CategoryDashboardComponent } from './components/category/category-dashboard/category-dashboard.component';
 import {CategoryEffects} from './components/category/store/category.effects';
 import { SubcategoryDashboardComponent } from './components/subcategory/subcategory-dashboard/subcategory-dashboard.component';
@@ -49,6 +51,10 @@ import {SubcategoryEffects} from './components/subcategory/store/subcategory.eff
 import {MatSelectModule} from '@angular/material/select';
 import {MatSelectInfiniteScrollModule} from 'ng-mat-select-infinite-scroll';
 import {ScrollingModule} from '@angular/cdk/scrolling';
+import { AddNewsletterComponent } from './components/newsletter/add-newsletter/add-newsletter.component';
+import { MatSelectModule } from '@angular/material/select';
+import {MatSelectInfiniteScrollModule} from 'ng-mat-select-infinite-scroll';
+import { UpdateNewsletterComponent } from './components/newsletter/update-newsletter/update-newsletter.component';
 
 
 
@@ -70,6 +76,9 @@ import {ScrollingModule} from '@angular/cdk/scrolling';
     EditProfileComponent,
     CategoryDashboardComponent,
     SubcategoryDashboardComponent
+    DashboardNewsletterComponent,
+    AddNewsletterComponent,
+    UpdateNewsletterComponent
   ],
     imports: [
         BrowserModule,
@@ -78,7 +87,7 @@ import {ScrollingModule} from '@angular/cdk/scrolling';
         AppRoutingModule,
         StoreModule.forRoot(fromApp.appReducer, {metaReducers}),
         EffectsModule.forRoot([AuthEffects, SignUpEffects, ActivateAccountEffects, AdministratorEffects, RegisteredEffects,
-            CategoryEffects, SubcategoryEffects]),
+            CategoryEffects, SubcategoryEffects, NewsletterEffects]),
         StoreDevtoolsModule.instrument({maxAge: 25, logOnly: environment.production}),
         ReactiveFormsModule,
         MatToolbarModule,

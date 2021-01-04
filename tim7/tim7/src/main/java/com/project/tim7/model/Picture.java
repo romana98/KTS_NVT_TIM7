@@ -15,7 +15,7 @@ public class Picture {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 	
-	@Column(name = "picture", unique = false, nullable = false)
+	@Column(name = "picture", unique = false, nullable = false, length=10485760)
 	private String picture;
 
 	public Picture(String picture) {

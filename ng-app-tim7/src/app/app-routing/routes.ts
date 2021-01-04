@@ -5,6 +5,7 @@ import {SignUpComponent} from '../components/sign-up/sign-up.component';
 import {ActivateAccountComponent} from '../components/activate-account/activate-account.component';
 import {adminRoutes} from './administrator.routes';
 import {regRoutes} from './registered.routes';
+import {newsletterRoutes} from './newsletter.routes';
 
 
 export const routes: Routes = [
@@ -30,5 +31,9 @@ export const routes: Routes = [
   {
     path: '',
     children: regRoutes
+  },
+  {
+    path: '',
+    children: newsletterRoutes
   }
 ];

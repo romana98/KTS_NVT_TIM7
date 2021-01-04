@@ -192,6 +192,10 @@ public class CulturalOfferService implements ServiceInterface<CulturalOffer> {
 	public long getCulturalOfferReferencingCount(int id) {
 		return culturalOfferRepo.countBySubcategoryId(id);
 	}
+	
+	public Page<CulturalOffer> findBySubcategory(int id, Pageable pageable) {
+		return culturalOfferRepo.findBySubcategory(id, pageable);
+	}
 
 	/**
 	 * Subscribing registered user to cultural offer
