@@ -17,7 +17,7 @@ public class NewsletterMapper implements MapperInterface<Newsletter, NewsletterD
 	}
 
 	public NewsletterDetailsDTO toNewsletterDetailsDto(Newsletter entity) {
-		return new NewsletterDetailsDTO(entity.getId(), entity.getName(), entity.getDescription(), entity.getPublishedDate(), entity.getCulturalOffer().getId(), entity.getPicture().getPicture());
+		return new NewsletterDetailsDTO(entity.getId(), entity.getName(), entity.getDescription(), entity.getPublishedDate(), entity.getCulturalOffer().getId(), entity.getPicture().getPicture(), entity.getCulturalOffer().getName());
 	}
 
 	public NewsletterDTO toNewsletterDto(Newsletter entity) {

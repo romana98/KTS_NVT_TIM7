@@ -1,7 +1,7 @@
 <h1 class="mat-display-1;" style="text-align: center;  margin-top: 1%;">Newsletter Dashboard</h1>
 <mat-divider></mat-divider>
 <br><br>
-<app-table [dataSource]="newsletters.content" [columnsToDisplay]="['publishedDate', 'name', 'culturalOffer', 'delete']" (Delete)="onDelete($event)" [columnsToIterate]="['publishedDate', 'name', 'culturalOffer']"></app-table>
+<app-table [dataSource]="newsletters.content" [columnsToDisplay]="['publishedDate', 'name', 'culturalOffer', 'delete']" (DoubleClick)="onClick($event)" (Delete)="onDelete($event)" [columnsToIterate]="['publishedDate', 'name', 'culturalOffer']"></app-table>
 
 <app-pagination [pageSize]="pageSize"
                 [totalItems]="newsletters.totalElements"
