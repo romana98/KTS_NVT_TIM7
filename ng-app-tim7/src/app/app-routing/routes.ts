@@ -6,9 +6,14 @@ import {ActivateAccountComponent} from '../components/activate-account/activate-
 import {adminRoutes} from './administrator.routes';
 import {regRoutes} from './registered.routes';
 import {newsletterRoutes} from './newsletter.routes';
+import {GoogleMapComponent} from '../components/common/google-map/google-map.component';
 
 
 export const routes: Routes = [
+  {
+    path: '',
+    component: GoogleMapComponent
+  },
   {
     path: 'sign-in',
     component: SignInComponent,

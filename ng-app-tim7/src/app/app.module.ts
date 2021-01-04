@@ -50,6 +50,11 @@ import { AddNewsletterComponent } from './components/newsletter/add-newsletter/a
 import { MatSelectModule } from '@angular/material/select';
 import {MatSelectInfiniteScrollModule} from 'ng-mat-select-infinite-scroll';
 import { UpdateNewsletterComponent } from './components/newsletter/update-newsletter/update-newsletter.component';
+import { LeafletModule } from '@asymmetrik/ngx-leaflet';
+import { MapComponent } from './components/common/map/map.component';
+import { GoogleMapComponent } from './components/common/google-map/google-map.component';
+import { AgmCoreModule } from '@agm/core';
+
 
 
 
@@ -74,6 +79,8 @@ import { UpdateNewsletterComponent } from './components/newsletter/update-newsle
     CategoryDashboardComponent,
     AddNewsletterComponent,
     UpdateNewsletterComponent,
+    MapComponent,
+    GoogleMapComponent,
   ],
     imports: [
         BrowserModule,
@@ -98,6 +105,10 @@ import { UpdateNewsletterComponent } from './components/newsletter/update-newsle
         MatCardModule,
         MatSelectModule,
         MatSelectInfiniteScrollModule,
+        LeafletModule,
+      AgmCoreModule.forRoot({
+        apiKey: 'AIzaSyA299mClrC7nDZzy92CQ4X47y7FmaBKMj4'
+      })
     ],
   providers: [{
     provide: HTTP_INTERCEPTORS, useClass: HttpAuthInterceptor, multi: true
