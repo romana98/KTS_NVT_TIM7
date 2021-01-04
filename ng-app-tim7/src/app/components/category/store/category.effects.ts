@@ -26,12 +26,12 @@ const handleError = (errorRes: any, type: string) => {
   }else if (type === 'edit'){
     errorMessage = 'Category with that name already exists!';
   }else if (type === 'delete'){
-    errorMessage = 'Deleting failed! Check if selected category has subcategories.';
+    errorMessage = 'Deleting failed! Check if selected category has subcategories!';
   }else if (type === 'edit'){
     errorMessage = 'Editing failed! Category name already exists!';
   }
   else{ // get All
-    errorMessage = 'An unknown error has occured!';
+    errorMessage = 'An unknown error has occurred!';
   }
   return of(new CategoryActions.CategoryFail(errorMessage));
 };

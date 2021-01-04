@@ -1,6 +1,5 @@
 import * as CatActions from './category.actions';
 import {CategoryModel} from '../../../models/category.model';
-import {act} from '@ngrx/effects';
 
 export interface State {
   categories: any;

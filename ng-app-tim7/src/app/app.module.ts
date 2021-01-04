@@ -46,16 +46,17 @@ import { DashboardNewsletterComponent } from './components/newsletter/dashboard-
 import {NewsletterEffects} from './components/newsletter/store/newsletter.effects';
 import { CategoryDashboardComponent } from './components/category/category-dashboard/category-dashboard.component';
 import {CategoryEffects} from './components/category/store/category.effects';
-import { AddNewsletterComponent } from './components/newsletter/add-newsletter/add-newsletter.component';
-import { MatSelectModule } from '@angular/material/select';
+import { SubcategoryDashboardComponent } from './components/subcategory/subcategory-dashboard/subcategory-dashboard.component';
+import {SubcategoryEffects} from './components/subcategory/store/subcategory.effects';
+import {MatSelectModule} from '@angular/material/select';
 import {MatSelectInfiniteScrollModule} from 'ng-mat-select-infinite-scroll';
+import {ScrollingModule} from '@angular/cdk/scrolling';
 import { UpdateNewsletterComponent } from './components/newsletter/update-newsletter/update-newsletter.component';
 import { LeafletModule } from '@asymmetrik/ngx-leaflet';
 import { MapComponent } from './components/common/map/map.component';
 import { GoogleMapComponent } from './components/common/google-map/google-map.component';
 import { AgmCoreModule } from '@agm/core';
-
-
+import { AddNewsletterComponent } from './components/newsletter/add-newsletter/add-newsletter.component';
 
 
 
@@ -75,12 +76,13 @@ import { AgmCoreModule } from '@agm/core';
     AddAdministratorComponent,
     ViewProfileComponent,
     EditProfileComponent,
-    DashboardNewsletterComponent,
     CategoryDashboardComponent,
+    SubcategoryDashboardComponent,
+    DashboardNewsletterComponent,
     AddNewsletterComponent,
     UpdateNewsletterComponent,
     MapComponent,
-    GoogleMapComponent,
+    GoogleMapComponent
   ],
     imports: [
         BrowserModule,
@@ -89,7 +91,7 @@ import { AgmCoreModule } from '@agm/core';
         AppRoutingModule,
         StoreModule.forRoot(fromApp.appReducer, {metaReducers}),
         EffectsModule.forRoot([AuthEffects, SignUpEffects, ActivateAccountEffects, AdministratorEffects, RegisteredEffects,
-          CategoryEffects, NewsletterEffects]),
+            CategoryEffects, SubcategoryEffects, NewsletterEffects]),
         StoreDevtoolsModule.instrument({maxAge: 25, logOnly: environment.production}),
         ReactiveFormsModule,
         MatToolbarModule,
@@ -108,7 +110,8 @@ import { AgmCoreModule } from '@agm/core';
         LeafletModule,
       AgmCoreModule.forRoot({
         apiKey: 'AIzaSyA299mClrC7nDZzy92CQ4X47y7FmaBKMj4'
-      })
+      }),
+        ScrollingModule
     ],
   providers: [{
     provide: HTTP_INTERCEPTORS, useClass: HttpAuthInterceptor, multi: true

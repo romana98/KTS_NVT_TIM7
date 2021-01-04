@@ -142,4 +142,15 @@ public class CategoryServiceIntegrationTest {
         assertNull(update);
     }
 
+    @Test
+    public void testFindByName(){
+        Category found = categoryService.findByName(SERVICE_OLD_CATEGORY_NAME);
+        assertEquals(SERVICE_OLD_CATEGORY_NAME, found.getName());
+    }
+
+    @Test
+    public void testFindByNameInvalid(){
+        Category found = categoryService.findByName(SERVICE_NEW_VALID_CATEGORY_NAME);
+        assertNull(found);
+    }
 }

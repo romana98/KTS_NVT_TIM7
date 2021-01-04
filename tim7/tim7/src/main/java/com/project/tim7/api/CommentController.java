@@ -28,6 +28,7 @@ import com.project.tim7.service.RegisteredService;
 import java.util.ArrayList;
 import java.util.List;
 
+@CrossOrigin(origins = "https://localhost:4200")
 @RestController
 @RequestMapping(value="/comments")
 public class CommentController {
