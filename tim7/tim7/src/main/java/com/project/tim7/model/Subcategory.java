@@ -1,5 +1,6 @@
 package com.project.tim7.model;
 
+import java.util.HashSet;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
@@ -53,6 +54,16 @@ public class Subcategory {
 		this.name = name;
 		this.category = category;
 		this.culturalOffers = culturalOffers;
+	}
+
+	public Subcategory(int id, String name, int categoryId, String categoryName) {
+		super();
+		this.id = id;
+		this.name = name;
+		this.category = new Category();
+		this.category.setId(categoryId);
+		this.category.setName(categoryName);
+		this.culturalOffers = new HashSet<CulturalOffer>();
 	}
 
 	public int getId() {

@@ -86,11 +86,11 @@ export class CategoryDashboardComponent implements OnInit, OnDestroy {
   }
 
   editCategory() {
+    this.isHidden = true;
     this.store.dispatch(new CategoryActions.EditCategory(new CategoryModel(this.category.id, this.formEdit.value.categoryNameEdit)));
   }
 
   editModeOn(id: number) {
-    this.isHidden = false;
     this.store.dispatch(new CategoryActions.GetCategory(id));
   }
 }

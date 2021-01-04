@@ -1,0 +1,64 @@
+<h1 class="mat-display-1;" style="text-align: center;  margin-top: 1%;">Categories</h1>
+<mat-divider></mat-divider>
+<br><br>
+<div style="float: left; margin-left: 1%; font-size: large">
+
+  <mat-label>Add category</mat-label>
+
+  <form  [formGroup]="form" (ngSubmit)="addSubcategory()" style="padding-left: 25px;">
+
+    <mat-label>Select category: </mat-label>
+    <mat-form-field>
+        <mat-select msInfiniteScroll (infiniteScroll)="getNextBatch()" id="categoryNameSelect" name="categoryNameSelect" required [formControl]="form.controls.categoryNameSelect">
+          <mat-option *ngFor="let category of categories.content" [value]="category.name"> {{category.name}}</mat-option>
+        </mat-select>
+    </mat-form-field>
+    <br>
+
+    <mat-form-field>
+      <mat-label for="subcategoryNameInput">Name:</mat-label>
+      <input matInput id="subcategoryNameInput" name="subcategoryNameInput" placeholder="Subcategory name" [formControl]="form.controls.subcategoryNameInput">
+      <mat-error *ngIf="form.controls.subcategoryNameInput.touched && form.controls.subcategoryNameInput.errors?.required">
+        This field can't be empty!</mat-error >
+    </mat-form-field>
+    <br>
+    <button mat-raised-button type="submit" [disabled]="!form.valid">Add subcategory</button>
+
+  </form>
+  <br><br><br><br>
+
+  <div [hidden]="this.isHidden">
+
+    <mat-label>Edit subcategory</mat-label>
+
+    <br><br>
+    <form  [formGroup]="formEdit" (ngSubmit)="editSubcategory()" style="padding-left: 25px;">
+
+      <mat-form-field>
+        <mat-label for="categoryNameEdit">Category name:</mat-label>
+        <input readonly matInput id="categoryName" name="categoryName" placeholder="Category name" [formControl]="formEdit.controls.categoryName">
+      </mat-form-field>
+      <br>
+      <mat-form-field>
+        <mat-label for="subcategoryNameEdit">Subcategory name:</mat-label>
+        <input matInput id="subcategoryNameEdit" name="subcategoryNameEdit" placeholder="Subcategory name" [formControl]="formEdit.controls.subcategoryNameEdit">
+        <mat-error *ngIf="formEdit.controls.subcategoryNameEdit.touched && formEdit.controls.subcategoryNameEdit.errors?.required">
+          This field can't be empty!</mat-error >
+      </mat-form-field>
+      <br>
+      <button mat-raised-button type="submit" [disabled]="!formEdit.valid">Update subcategory</button>
+
+    </form>
+  </div>
+
+</div>
+<div style="width: 50%; height: 50%; float: right">
+  <app-table [dataSource]="subcategories.content" [columnsToDisplay]="['name', 'categoryName', 'delete']" [columnsToIterate]="['name', 'categoryName']" (Click)="editModeOn($event)" (Delete)="deleteSubcategory($event)"></app-table>
+
+  <app-pagination [pageSize]="pageSize"
+                  [totalItems]="subcategories.totalElements"
+                  [totalPages]="subcategories.totalPages"
+                  [currentPage]="subcategories.number"
+                  (ChangePage)="onPagination($event)"
+  ></app-pagination>
+</div>

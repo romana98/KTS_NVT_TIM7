@@ -27,6 +27,7 @@
     "@ngrx/store-devtools": "^10.1.2",
     "ng-mat-select-infinite-scroll": "^2.1.1",
     "ngrx-store-localstorage": "^10.1.1",
+    "ngx-infinite-scroll": "^10.0.1",
     "rxjs": "~6.5.4",
     "tslib": "^1.10.0",
     "zone.js": "~0.10.2"

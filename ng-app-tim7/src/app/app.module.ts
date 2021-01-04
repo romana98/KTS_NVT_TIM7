@@ -46,11 +46,15 @@ import { DashboardNewsletterComponent } from './components/newsletter/dashboard-
 import {NewsletterEffects} from './components/newsletter/store/newsletter.effects';
 import { CategoryDashboardComponent } from './components/category/category-dashboard/category-dashboard.component';
 import {CategoryEffects} from './components/category/store/category.effects';
+import { SubcategoryDashboardComponent } from './components/subcategory/subcategory-dashboard/subcategory-dashboard.component';
+import {SubcategoryEffects} from './components/subcategory/store/subcategory.effects';
+import {MatSelectModule} from '@angular/material/select';
+import {MatSelectInfiniteScrollModule} from 'ng-mat-select-infinite-scroll';
+import {ScrollingModule} from '@angular/cdk/scrolling';
 import { AddNewsletterComponent } from './components/newsletter/add-newsletter/add-newsletter.component';
 import { MatSelectModule } from '@angular/material/select';
 import {MatSelectInfiniteScrollModule} from 'ng-mat-select-infinite-scroll';
 import { UpdateNewsletterComponent } from './components/newsletter/update-newsletter/update-newsletter.component';
-
 
 
 
@@ -70,10 +74,11 @@ import { UpdateNewsletterComponent } from './components/newsletter/update-newsle
     AddAdministratorComponent,
     ViewProfileComponent,
     EditProfileComponent,
-    DashboardNewsletterComponent,
     CategoryDashboardComponent,
+    SubcategoryDashboardComponent
+    DashboardNewsletterComponent,
     AddNewsletterComponent,
-    UpdateNewsletterComponent,
+    UpdateNewsletterComponent
   ],
     imports: [
         BrowserModule,
@@ -82,7 +87,7 @@ import { UpdateNewsletterComponent } from './components/newsletter/update-newsle
         AppRoutingModule,
         StoreModule.forRoot(fromApp.appReducer, {metaReducers}),
         EffectsModule.forRoot([AuthEffects, SignUpEffects, ActivateAccountEffects, AdministratorEffects, RegisteredEffects,
-          CategoryEffects, NewsletterEffects]),
+            CategoryEffects, SubcategoryEffects, NewsletterEffects]),
         StoreDevtoolsModule.instrument({maxAge: 25, logOnly: environment.production}),
         ReactiveFormsModule,
         MatToolbarModule,
@@ -98,6 +103,7 @@ import { UpdateNewsletterComponent } from './components/newsletter/update-newsle
         MatCardModule,
         MatSelectModule,
         MatSelectInfiniteScrollModule,
+        ScrollingModule
     ],
   providers: [{
     provide: HTTP_INTERCEPTORS, useClass: HttpAuthInterceptor, multi: true

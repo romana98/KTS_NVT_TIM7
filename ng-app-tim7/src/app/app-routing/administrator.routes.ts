@@ -5,6 +5,7 @@ import {AddAdministratorComponent} from '../components/administrator/add-adminis
 import {ViewProfileComponent} from '../components/user/view-profile/view-profile.component';
 import {EditProfileComponent} from '../components/user/edit-profile/edit-profile.component';
 import {CategoryDashboardComponent} from '../components/category/category-dashboard/category-dashboard.component';
+import {SubcategoryDashboardComponent} from '../components/subcategory/subcategory-dashboard/subcategory-dashboard.component';
 
 export const adminRoutes: Routes = [
   {
@@ -30,6 +31,11 @@ export const adminRoutes: Routes = [
   {
     path: 'administrator/manage-categories/dashboard',
     component: CategoryDashboardComponent,
+    canActivate: [AdministratorGuard]
+  },
+  {
+    path: 'administrator/manage-subcategories/dashboard',
+    component: SubcategoryDashboardComponent,
     canActivate: [AdministratorGuard]
   }
 ];
