@@ -51,10 +51,8 @@ import {SubcategoryEffects} from './components/subcategory/store/subcategory.eff
 import {MatSelectModule} from '@angular/material/select';
 import {MatSelectInfiniteScrollModule} from 'ng-mat-select-infinite-scroll';
 import {ScrollingModule} from '@angular/cdk/scrolling';
-import { AddNewsletterComponent } from './components/newsletter/add-newsletter/add-newsletter.component';
-import { MatSelectModule } from '@angular/material/select';
-import {MatSelectInfiniteScrollModule} from 'ng-mat-select-infinite-scroll';
 import { UpdateNewsletterComponent } from './components/newsletter/update-newsletter/update-newsletter.component';
+import { AddNewsletterComponent } from './components/newsletter/add-newsletter/add-newsletter.component';
 
 
 
@@ -75,7 +73,7 @@ import { UpdateNewsletterComponent } from './components/newsletter/update-newsle
     ViewProfileComponent,
     EditProfileComponent,
     CategoryDashboardComponent,
-    SubcategoryDashboardComponent
+    SubcategoryDashboardComponent,
     DashboardNewsletterComponent,
     AddNewsletterComponent,
     UpdateNewsletterComponent

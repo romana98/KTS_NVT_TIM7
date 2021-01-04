@@ -28,7 +28,7 @@ export const appReducer: ActionReducerMap<AppState> = {
   administrator: fromAdmin.administratorReducer,
   registered: fromReg.registeredReducer,
   category: fromCategory.categoryReducer,
-  subcategory: fromSubcategory.subcategoryReducer
+  subcategory: fromSubcategory.subcategoryReducer,
   newsletter: fromNewsletter.newsletterReducer,
 };
 
