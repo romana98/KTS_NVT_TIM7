@@ -55,6 +55,7 @@ import { UpdateNewsletterComponent } from './components/newsletter/update-newsle
 import { GoogleMapComponent } from './components/common/google-map/google-map.component';
 import { AgmCoreModule } from '@agm/core';
 import { AddNewsletterComponent } from './components/newsletter/add-newsletter/add-newsletter.component';
+import { CulturalOfferDashboardComponent } from './components/cultural-offer/cultural-offer-dashboard/cultural-offer-dashboard.component';
 
 
 
@@ -79,7 +80,8 @@ import { AddNewsletterComponent } from './components/newsletter/add-newsletter/a
     DashboardNewsletterComponent,
     AddNewsletterComponent,
     UpdateNewsletterComponent,
-    GoogleMapComponent
+    GoogleMapComponent,
+    CulturalOfferDashboardComponent
   ],
     imports: [
         BrowserModule,
