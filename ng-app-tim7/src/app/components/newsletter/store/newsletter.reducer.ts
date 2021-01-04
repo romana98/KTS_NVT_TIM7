@@ -48,12 +48,12 @@ export function newsletterReducer(
     case NewsletterActions.ADD_NEWSLETTER:
       return {
         ...state,
-        bar: false,
+        bar: true,
       };
     case NewsletterActions.UPDATE_NEWSLETTER:
       return {
         ...state,
-        bar: false,
+        bar: true,
       };
     case NewsletterActions.GET_NEWSLETTERS_SUCCESS:
       console.log(action.payload)

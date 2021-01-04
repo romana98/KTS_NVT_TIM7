@@ -55,7 +55,6 @@ export class DashboardNewsletterComponent implements OnInit, OnDestroy {
   private showSuccessAlert(message: string) {
     this.snackBar.open(message, 'Ok', { duration: 3000 });
     this.store.dispatch(new NewsletterActions.ClearSuccess());
-    this.page = 0;
     this.store.dispatch(new NewsletterActions.GetNewsletterPage({page: this.page, size: this.pageSize }));
   }
 
