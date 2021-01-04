@@ -46,6 +46,11 @@ import { DashboardNewsletterComponent } from './components/newsletter/dashboard-
 import {NewsletterEffects} from './components/newsletter/store/newsletter.effects';
 import { CategoryDashboardComponent } from './components/category/category-dashboard/category-dashboard.component';
 import {CategoryEffects} from './components/category/store/category.effects';
+import { AddNewsletterComponent } from './components/newsletter/add-newsletter/add-newsletter.component';
+import { MatSelectModule } from '@angular/material/select';
+import {MatSelectInfiniteScrollModule} from 'ng-mat-select-infinite-scroll';
+import { UpdateNewsletterComponent } from './components/newsletter/update-newsletter/update-newsletter.component';
+
 
 
 
@@ -66,7 +71,9 @@ import {CategoryEffects} from './components/category/store/category.effects';
     ViewProfileComponent,
     EditProfileComponent,
     DashboardNewsletterComponent,
-    CategoryDashboardComponent
+    CategoryDashboardComponent,
+    AddNewsletterComponent,
+    UpdateNewsletterComponent,
   ],
     imports: [
         BrowserModule,
@@ -88,7 +95,9 @@ import {CategoryEffects} from './components/category/store/category.effects';
         MatProgressBarModule,
         MatTableModule,
         MatPaginatorModule,
-        MatCardModule
+        MatCardModule,
+        MatSelectModule,
+        MatSelectInfiniteScrollModule,
     ],
   providers: [{
     provide: HTTP_INTERCEPTORS, useClass: HttpAuthInterceptor, multi: true

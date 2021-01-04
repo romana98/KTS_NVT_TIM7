@@ -4,6 +4,7 @@ import * as fromApp from '../../../store/app.reducer';
 import * as NewsletterActions from '../store/newsletter.actions';
 import {Subscription} from 'rxjs';
 import {MatSnackBar} from '@angular/material/snack-bar';
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-dashboard-newsletter',
@@ -19,7 +20,8 @@ export class DashboardNewsletterComponent implements OnInit, OnDestroy {
   error: string = null;
   private storeSub: Subscription;
   constructor(private store: Store<fromApp.AppState>,
-              private snackBar: MatSnackBar) {}
+              private snackBar: MatSnackBar,
+              private router: Router) {}
 
   ngOnInit(): void {
     this.store.dispatch(new NewsletterActions.GetNewsletterPage({ page: this.page, size: this.pageSize }));
@@ -38,8 +40,13 @@ export class DashboardNewsletterComponent implements OnInit, OnDestroy {
   }
 
   onDelete(id: number){
-    //this.store.dispatch(new AdminActions.DeleteAdmin(id));
+    this.store.dispatch(new NewsletterActions.DeleteNewsletter(id));
   }
+
+  onClick(id: number) {
+    this.router.navigate(['/newsletter/update-newsletter', id])
+  }
+
   onPagination(page: number){
     this.page = page;
     this.store.dispatch(new NewsletterActions.GetNewsletterPage({page: this.page, size: this.pageSize }));

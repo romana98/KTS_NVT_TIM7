@@ -5,22 +5,22 @@ import { of } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 
 import * as NewsletterActions from '../store/newsletter.actions';
-//import {UserModel} from '../../../models/user.model';
+import {NewsletterModel} from '../../../models/newsletter.model';
 import {Router} from '@angular/router';
 
-/*const handleSuccess = (type: string) => {
+const handleSuccess = (type: string) => {
   let message = '';
   if (type === 'delete'){
     message = 'Newsletter deleted.';
   }
   else if (type === 'edit') {
-    message = 'Profile updated.';
+    message = 'Newsletter updated.';
   }
   else{
-    message = 'Administrator added.';
+    message = 'Newsletter added.';
   }
   return new NewsletterActions.NewsletterSuccess(message);
-};*/
+};
 
 const handleError = (errorRes: any) => {
   let errorMessage = errorRes.error;
@@ -51,58 +51,120 @@ export class NewsletterEffects {
     })
   );
 
-  /*@Effect()
-  admin = this.actions$.pipe(
-    ofType(NewsletterActions.GET_NEWSLETTER),
-    switchMap((data: NewsletterActions.GetUser) => {
+  @Effect()
+  categoriesSelect = this.actions$.pipe(
+    ofType(NewsletterActions.GET_CATEGORIES_SELECT),
+    switchMap((data: NewsletterActions.GetCategoriesSelect) => {
       return this.http
-        .get<UserModel>(
-          'http://localhost:8080/administrators/' + JSON.parse(localStorage.getItem('user')).id
+        .get(
+          'http://localhost:8080/categories/by-page?page=' + data.payload.page + '&size=' + data.payload.size
         )
         .pipe(
           map(dataRes => {
-            const user = new UserModel(dataRes.username, dataRes.email, dataRes.password);
-            localStorage.setItem('signed-in-user', JSON.stringify(user));
-            return new AdminActions.GetAdminSuccess(user);
+            return new NewsletterActions.GetCategoriesSelectSuccess(dataRes);
           }),
           catchError(errorRes => {
             return handleError(errorRes);
           })
         );
     })
-  );*/
+  );
+
+  @Effect()
+  subcategoriesSelect = this.actions$.pipe(
+    ofType(NewsletterActions.GET_SUBCATEGORIES_SELECT),
+    switchMap((data: NewsletterActions.GetSubcategoriesSelect) => {
+      return this.http
+        .get(
+          'http://localhost:8080/subcategories/' + data.payload.category + '/by-page?page=' + data.payload.page + '&size=' + data.payload.size
+        )
+        .pipe(
+          map(dataRes => {
+            return new NewsletterActions.GetSubcategoriesSelectSuccess(dataRes);
+          }),
+          catchError(errorRes => {
+            return handleError(errorRes);
+          })
+        );
+    })
+  );
+
+  @Effect()
+  offersSelect = this.actions$.pipe(
+    ofType(NewsletterActions.GET_OFFERS_SELECT),
+    switchMap((data: NewsletterActions.GetOffersSelect) => {
+      return this.http
+        .get(
+          'http://localhost:8080/cultural-offers/subcategory/' + data.payload.subcategory + '/by-page?page=' + data.payload.page + '&size=' + data.payload.size
+        )
+        .pipe(
+          map(dataRes => {
+            return new NewsletterActions.GetOffersSelectSuccess(dataRes);
+          }),
+          catchError(errorRes => {
+            return handleError(errorRes);
+          })
+        );
+    })
+  );
 
 
-  /*@Effect()
+  @Effect()
+  newsletter = this.actions$.pipe(
+    ofType(NewsletterActions.GET_NEWSLETTER),
+    switchMap((data: NewsletterActions.GetNewsletter) => {
+      return this.http
+        .get<NewsletterModel>(
+          'http://localhost:8080/newsletter/' + data.payload.id
+        )
+        .pipe(
+          map(dataRes => {
+            const newsletter = new NewsletterModel(dataRes.id, dataRes.name, dataRes.description, dataRes.publishedDate, dataRes.culturalOfferId, dataRes.picture);
+            return new NewsletterActions.GetNewsletterSuccess(newsletter);
+          }),
+          catchError(errorRes => {
+            return handleError(errorRes);
+          })
+        );
+    })
+  );
+
+
+  @Effect()
   delete = this.actions$.pipe(
-    ofType(AdminActions.DELETE_ADMIN),
-    switchMap((data: AdminActions.DeleteAdmin) => {
+    ofType(NewsletterActions.DELETE_NEWSLETTER),
+    switchMap((data: NewsletterActions.DeleteNewsletter) => {
       return this.http
         .delete(
-          'http://localhost:8080/administrators/' + data.payload
+          'http://localhost:8080/newsletter/' + data.payload, {responseType: 'text'}
         )
         .pipe(
           map(() => {
+            console.log("da")
             return handleSuccess('delete');
           }),
           catchError(errorRes => {
+            console.log("ne")
+            console.log(errorRes)
             return handleError(errorRes);
           })
         );
     })
-  );*/
+  );
 
-  /*@Effect()
+  @Effect()
   add = this.actions$.pipe(
-    ofType(AdminActions.ADD_ADMIN),
-    switchMap((userData: AdminActions.AddAdmin) => {
+    ofType(NewsletterActions.ADD_NEWSLETTER),
+    switchMap((userData: NewsletterActions.AddNewsletter) => {
       return this.http
-        .post<UserModel>(
-          'http://localhost:8080/administrators',
+        .post<NewsletterModel>(
+          'http://localhost:8080/newsletter',
           {
-            username: userData.payload.username,
-            email: userData.payload.email,
-            password: userData.payload.password
+            name: userData.payload.name,
+            description: userData.payload.description,
+            picture: userData.payload.picture,
+            culturalOfferId: userData.payload.culturalOfferId,
+            publishedDate: userData.payload.publishedDate
           }
         )
         .pipe(
@@ -114,20 +176,22 @@ export class NewsletterEffects {
           })
         );
     })
-  );*/
+  );
 
-  /*@Effect()
+  @Effect()
   edit = this.actions$.pipe(
-    ofType(AdminActions.EDIT_ADMIN),
-    switchMap((userData: AdminActions.EditProfile) => {
+    ofType(NewsletterActions.UPDATE_NEWSLETTER),
+    switchMap((userData: NewsletterActions.UpdateNewsletter) => {
       return this.http
-        .put<UserModel>(
-          'http://localhost:8080/administrators',
+        .put<NewsletterModel>(
+          'http://localhost:8080/newsletter',
           {
-            id: userData.payload.id,
-            username: userData.payload.username,
-            email: userData.payload.email,
-            password: userData.payload.password === '' ? '________' : userData.payload.password
+            id: userData.payload.newsletter.id,
+            name: userData.payload.newsletter.name,
+            description: userData.payload.newsletter.description,
+            publishedDate: userData.payload.newsletter.publishedDate,
+            culturalOfferId: userData.payload.newsletter.culturalOfferId,
+            picture: userData.payload.newsletter.picture,
           }
         )
         .pipe(
@@ -139,15 +203,7 @@ export class NewsletterEffects {
           })
         );
     })
-  );*/
-
- /* @Effect({ dispatch: false })
-  signUpRedirect = this.actions$.pipe(
-    ofType(AdminActions.ADMIN_SUCCESS),
-    tap(() => {
-      this.router.navigate(['/administrator/view-profile']);
-    })
-  );*/
+  );
 
   constructor(private actions$: Actions, private http: HttpClient, private router: Router) {}
 }

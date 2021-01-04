@@ -1,39 +1,39 @@
+import { NewsletterModel } from 'src/app/models/newsletter.model';
 import * as NewsletterActions from './newsletter.actions';
-//import {UserModel} from '../../../models/user.model';
-//import {SignedInModel} from '../../../models/signed-in.model';
 
 export interface State {
   newsletters: any;
   error: string;
   success: string;
   bar: boolean;
-  //user: UserModel;
+  newsletter: NewsletterModel;
+  categoriesSelect: any;
+  subcategoriesSelect: any;
+  offersSelect: any;
 }
 
 const initialState: State = {
   newsletters: {content: []},
   error: null,
   success: null,
+  newsletter: {id: 0, name: "", description: "", publishedDate: null, culturalOfferId: 0, picture: "" },
   bar: false,
-  //user: localStorage.getItem('signed-in-user') === null ? null : getUser(),
+  categoriesSelect: {content: []},
+  subcategoriesSelect: {content: []},
+  offersSelect: {content: []},
 };
-
-/*function getUser() {
-  const user = JSON.parse(localStorage.getItem('signed-in-user'));
-  return new UserModel(user.username, user.email, user.password);
-}*/
 
 export function newsletterReducer(
   state = initialState,
   action: NewsletterActions.NewsletterActions
 ) {
   switch (action.type) {
-    /*case AdminActions.DELETE_ADMIN:
+    case NewsletterActions.DELETE_NEWSLETTER:
       return {
         ...state,
         error: null,
         success: null
-      };*/
+      };
     case NewsletterActions.NEWSLETTER_FAIL:
       return {
         ...state,
@@ -45,26 +45,27 @@ export function newsletterReducer(
         success: action.payload,
         bar: false,
       };
-    /*case AdminActions.ADD_ADMIN:
+    case NewsletterActions.ADD_NEWSLETTER:
       return {
         ...state,
-        bar: false,
-      };*/
-    /*case AdminActions.EDIT_ADMIN:
+        bar: true,
+      };
+    case NewsletterActions.UPDATE_NEWSLETTER:
       return {
         ...state,
-        bar: false,
-      };*/
+        bar: true,
+      };
     case NewsletterActions.GET_NEWSLETTERS_SUCCESS:
+      console.log(action.payload)
       return {
         ...state,
         newsletters: action.payload
       };
-    /*case NewsletterActions.GET_NEWSLETTER_SUCCESS:
+    case NewsletterActions.GET_NEWSLETTER_SUCCESS:
       return {
         ...state,
-        user: action.payload
-      };*/
+        newsletter: action.payload
+      };
     case NewsletterActions.CLEAR_ERROR:
       return {
         ...state,
@@ -75,8 +76,30 @@ export function newsletterReducer(
         ...state,
         success: null
       };
+    case NewsletterActions.GET_CATEGORIES_SELECT_SUCCESS:
+      const newCategories = {content: state.categoriesSelect.content.concat(action.payload.content)};
+      return {
+        ...state,
+        categoriesSelect: newCategories
+      };
+    case NewsletterActions.GET_SUBCATEGORIES_SELECT_SUCCESS:
+      const newSubcategories = !action.payload.number ? {content: action.payload.content} : {content: state.subcategoriesSelect.content.concat(action.payload.content)};
+      return {
+        ...state,
+        subcategoriesSelect: newSubcategories,
+        offersSelect: {content: [], numberOfElements: 0, totalElements: 0, totalPages: 0, number: 0}
+      };
+    case NewsletterActions.GET_OFFERS_SELECT_SUCCESS:
+      const newOffers = !action.payload.number ? {content: action.payload.content} : {content: state.offersSelect.content.concat(action.payload.content)};
+      return {
+        ...state,
+        offersSelect: newOffers
+      };
+    case NewsletterActions.GET_CATEGORIES_SELECT: 
+    case NewsletterActions.GET_SUBCATEGORIES_SELECT: 
+    case NewsletterActions.GET_OFFERS_SELECT: 
     case NewsletterActions.GET_NEWSLETTER_PAGE:
-    //case NewsletterActions.GET_NEWSLETTER:
+    case NewsletterActions.GET_NEWSLETTER:
     default:
       return {
         ...state

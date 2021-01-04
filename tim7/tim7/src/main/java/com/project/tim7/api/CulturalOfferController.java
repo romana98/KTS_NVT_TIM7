@@ -123,6 +123,17 @@ public class CulturalOfferController {
 
     	return new ResponseEntity<>(culturalOfferDTOPage, HttpStatus.OK);
     }
+    
+    
+    @PreAuthorize("hasRole('ROLE_ADMINISTRATOR')")
+    @RequestMapping(value= "/subcategory/{id}/by-page",method = RequestMethod.GET)
+    public ResponseEntity<Page<CulturalOfferDTO>> getAllCulturalOffersBySubcategoryPaged(@PathVariable("id") int id, Pageable pageable) {
+        Page<CulturalOffer> page = culturalOfferService.findBySubcategory(id, pageable);
+        List<CulturalOfferDTO> culturalOfferDTOS = culturalOfferMapper.toCulturalOfferDTOList(page.toList());
+        Page<CulturalOfferDTO> culturalOfferDTOPage = new PageImpl<>(culturalOfferDTOS,page.getPageable(),page.getTotalElements());
+
+        return new ResponseEntity<>(culturalOfferDTOPage, HttpStatus.OK);
+    }
 
     /**
      * Subscribing user to cultural offer.
