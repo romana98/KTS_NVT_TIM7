@@ -92,7 +92,7 @@ public class AdministratorController {
         Administrator adminLogged = (Administrator) authentication.getPrincipal();
 
         if(!adminDTO.getUsername().equals(adminLogged.getUsername()) || adminDTO.getId() != adminLogged.getId()) {
-            return new ResponseEntity<>("You are not authorized.", HttpStatus.UNAUTHORIZED);
+            return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
         }
 
         String password = adminDTO.getPassword();

@@ -5,7 +5,7 @@ export class NewsletterModel {
       public description: string,
       public publishedDate: Date,
       public culturalOfferId: number,
-      public picture: string
+      public picture: string,
     ) {}
   }
   

@@ -1,4 +1,3 @@
-insert into subscribed_cultural_offers (cultural_offer_id, registered_id) values (1, 1);
 insert into subscribed_cultural_offers (cultural_offer_id, registered_id) values (778, 4187);
 insert into subscribed_cultural_offers (cultural_offer_id, registered_id) values (708, 3789);
 insert into subscribed_cultural_offers (cultural_offer_id, registered_id) values (928, 1706);
@@ -999,3 +998,7 @@ insert into subscribed_cultural_offers (cultural_offer_id, registered_id) values
 insert into subscribed_cultural_offers (cultural_offer_id, registered_id) values (75, 4286);
 insert into subscribed_cultural_offers (cultural_offer_id, registered_id) values (804, 268);
 insert into subscribed_cultural_offers (cultural_offer_id, registered_id) values (619, 3775);
+insert into subscribed_cultural_offers (cultural_offer_id, registered_id) values (834, 126);
+insert into subscribed_cultural_offers (cultural_offer_id, registered_id) values (1, 1);
+insert into subscribed_cultural_offers (cultural_offer_id, registered_id) values (1, 126);
+

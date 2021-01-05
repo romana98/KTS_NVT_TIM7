@@ -10,6 +10,8 @@ export interface State {
   categoriesSelect: any;
   subcategoriesSelect: any;
   offersSelect: any;
+  categoriesSubscribed: any;
+  newslettersSubscribed: any;
 }
 
 const initialState: State = {
@@ -21,6 +23,8 @@ const initialState: State = {
   categoriesSelect: {content: []},
   subcategoriesSelect: {content: []},
   offersSelect: {content: []},
+  categoriesSubscribed: [],
+  newslettersSubscribed: {content: []},
 };
 
 export function newsletterReducer(
@@ -95,11 +99,28 @@ export function newsletterReducer(
         ...state,
         offersSelect: newOffers
       };
+    case NewsletterActions.GET_CATEGORIES_SUBSCRIBED_SUCCESS:
+      return {
+        ...state,
+        categoriesSubscribed: action.payload
+      } 
+    case NewsletterActions.GET_NEWSLETTERS_SUBSCRIBED_SUCCESS:
+      return {
+        ...state,
+        newslettersSubscribed: action.payload
+      } 
+    case NewsletterActions.UNSUBSCRIBE:
+      return {
+        ...state,
+        bar: true,
+      };
     case NewsletterActions.GET_CATEGORIES_SELECT: 
     case NewsletterActions.GET_SUBCATEGORIES_SELECT: 
     case NewsletterActions.GET_OFFERS_SELECT: 
     case NewsletterActions.GET_NEWSLETTER_PAGE:
     case NewsletterActions.GET_NEWSLETTER:
+    case NewsletterActions.GET_CATEGORIES_SUBSCRIBED:
+    case NewsletterActions.GET_NEWSLETTERS_SUBSCRIBED:
     default:
       return {
         ...state

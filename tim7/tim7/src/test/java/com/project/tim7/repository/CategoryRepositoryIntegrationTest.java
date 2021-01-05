@@ -10,6 +10,8 @@ import org.springframework.test.context.junit4.SpringRunner;
 import static com.project.tim7.constants.CategoryConstants.*;
 import static org.junit.jupiter.api.Assertions.*;
 
+import java.util.List;
+
 @RunWith(SpringRunner.class)
 @SpringBootTest(webEnvironment= SpringBootTest.WebEnvironment.RANDOM_PORT)
 @TestPropertySource("classpath:test.properties")
@@ -28,6 +30,12 @@ public class CategoryRepositoryIntegrationTest {
     public void testFindByNameNotFound(){
         Category found = categoryRepository.findByName(REPO_CATEGORY_NAME_NOT_FOUND);
         assertNull(found);
+    }
+    
+    @Test
+    public void testFindSubscribedCategories(){
+        List<Category> found = categoryRepository.findSubscribedCategories(USER_ID_SUBSCRIBED);
+        assertEquals(SUBSCRIBED_CATEGORIES, found.size());
     }
 
 }

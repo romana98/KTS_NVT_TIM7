@@ -153,4 +153,10 @@ public class CategoryServiceIntegrationTest {
         Category found = categoryService.findByName(SERVICE_NEW_VALID_CATEGORY_NAME);
         assertNull(found);
     }
+    
+    @Test
+    public void testFindSubscribedCategories(){
+        List<Category> found = categoryService.findSubscribedCategories(USER_ID_SUBSCRIBED);
+        assertEquals(SUBSCRIBED_CATEGORIES, found.size());
+    }
 }

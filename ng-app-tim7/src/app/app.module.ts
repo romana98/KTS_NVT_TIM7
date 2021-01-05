@@ -55,6 +55,13 @@ import { UpdateNewsletterComponent } from './components/newsletter/update-newsle
 import { GoogleMapComponent } from './components/common/google-map/google-map.component';
 import { AgmCoreModule } from '@agm/core';
 import { AddNewsletterComponent } from './components/newsletter/add-newsletter/add-newsletter.component';
+import { SubscribedNewsletterComponent } from './components/newsletter/subscribed-newsletter/subscribed-newsletter.component';
+import {MatTabsModule} from '@angular/material/tabs';
+import { CategoryNewsletterComponent } from './components/newsletter/category-newsletter/category-newsletter.component';
+import { CardNewsletterComponent } from './components/newsletter/card-newsletter/card-newsletter.component';
+import { DialogNewsletterComponent } from './components/newsletter/dialog-newsletter/dialog-newsletter.component';
+import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
+import {MatDialogModule} from '@angular/material/dialog';
 import { CulturalOfferDashboardComponent } from './components/cultural-offer/cultural-offer-dashboard/cultural-offer-dashboard.component';
 
 
@@ -80,6 +87,10 @@ import { CulturalOfferDashboardComponent } from './components/cultural-offer/cul
     DashboardNewsletterComponent,
     AddNewsletterComponent,
     UpdateNewsletterComponent,
+    SubscribedNewsletterComponent,
+    CategoryNewsletterComponent,
+    CardNewsletterComponent,
+    DialogNewsletterComponent,
     GoogleMapComponent,
     CulturalOfferDashboardComponent
   ],
@@ -106,6 +117,9 @@ import { CulturalOfferDashboardComponent } from './components/cultural-offer/cul
         MatCardModule,
         MatSelectModule,
         MatSelectInfiniteScrollModule,
+        ScrollingModule,
+        MatTabsModule,
+        MatDialogModule,
       AgmCoreModule.forRoot({
         apiKey: 'AIzaSyA299mClrC7nDZzy92CQ4X47y7FmaBKMj4'
       }),
