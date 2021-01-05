@@ -6,7 +6,7 @@ import {ActivateAccountComponent} from '../components/activate-account/activate-
 import {adminRoutes} from './administrator.routes';
 import {regRoutes} from './registered.routes';
 import {newsletterRoutes} from './newsletter.routes';
-
+import {CulturalOfferDashboardComponent} from '../components/cultural-offer/cultural-offer-dashboard/cultural-offer-dashboard.component';
 
 export const routes: Routes = [
   {
@@ -23,6 +23,10 @@ export const routes: Routes = [
     path: 'activateAccount',
     component: ActivateAccountComponent,
     canActivate: [SignInGuard]
+  },
+  {
+    path: 'mainPage',
+    component: CulturalOfferDashboardComponent,
   },
   {
     path: '',

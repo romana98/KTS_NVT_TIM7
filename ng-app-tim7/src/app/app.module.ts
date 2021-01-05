@@ -52,6 +52,8 @@ import {MatSelectModule} from '@angular/material/select';
 import {MatSelectInfiniteScrollModule} from 'ng-mat-select-infinite-scroll';
 import {ScrollingModule} from '@angular/cdk/scrolling';
 import { UpdateNewsletterComponent } from './components/newsletter/update-newsletter/update-newsletter.component';
+import { GoogleMapComponent } from './components/common/google-map/google-map.component';
+import { AgmCoreModule } from '@agm/core';
 import { AddNewsletterComponent } from './components/newsletter/add-newsletter/add-newsletter.component';
 import { SubscribedNewsletterComponent } from './components/newsletter/subscribed-newsletter/subscribed-newsletter.component';
 import {MatTabsModule} from '@angular/material/tabs';
@@ -60,6 +62,9 @@ import { CardNewsletterComponent } from './components/newsletter/card-newsletter
 import { DialogNewsletterComponent } from './components/newsletter/dialog-newsletter/dialog-newsletter.component';
 import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
 import {MatDialogModule} from '@angular/material/dialog';
+import { CulturalOfferDashboardComponent } from './components/cultural-offer/cultural-offer-dashboard/cultural-offer-dashboard.component';
+
+
 
 @NgModule({
   declarations: [
@@ -85,7 +90,9 @@ import {MatDialogModule} from '@angular/material/dialog';
     SubscribedNewsletterComponent,
     CategoryNewsletterComponent,
     CardNewsletterComponent,
-    DialogNewsletterComponent
+    DialogNewsletterComponent,
+    GoogleMapComponent,
+    CulturalOfferDashboardComponent
   ],
     imports: [
         BrowserModule,
@@ -112,7 +119,11 @@ import {MatDialogModule} from '@angular/material/dialog';
         MatSelectInfiniteScrollModule,
         ScrollingModule,
         MatTabsModule,
-        MatDialogModule
+        MatDialogModule,
+      AgmCoreModule.forRoot({
+        apiKey: 'AIzaSyA299mClrC7nDZzy92CQ4X47y7FmaBKMj4'
+      }),
+        ScrollingModule
     ],
   providers: [{
     provide: HTTP_INTERCEPTORS, useClass: HttpAuthInterceptor, multi: true
