@@ -53,8 +53,13 @@ import {MatSelectInfiniteScrollModule} from 'ng-mat-select-infinite-scroll';
 import {ScrollingModule} from '@angular/cdk/scrolling';
 import { UpdateNewsletterComponent } from './components/newsletter/update-newsletter/update-newsletter.component';
 import { AddNewsletterComponent } from './components/newsletter/add-newsletter/add-newsletter.component';
-
-
+import { SubscribedNewsletterComponent } from './components/newsletter/subscribed-newsletter/subscribed-newsletter.component';
+import {MatTabsModule} from '@angular/material/tabs';
+import { CategoryNewsletterComponent } from './components/newsletter/category-newsletter/category-newsletter.component';
+import { CardNewsletterComponent } from './components/newsletter/card-newsletter/card-newsletter.component';
+import { DialogNewsletterComponent } from './components/newsletter/dialog-newsletter/dialog-newsletter.component';
+import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
+import {MatDialogModule} from '@angular/material/dialog';
 
 @NgModule({
   declarations: [
@@ -76,7 +81,11 @@ import { AddNewsletterComponent } from './components/newsletter/add-newsletter/a
     SubcategoryDashboardComponent,
     DashboardNewsletterComponent,
     AddNewsletterComponent,
-    UpdateNewsletterComponent
+    UpdateNewsletterComponent,
+    SubscribedNewsletterComponent,
+    CategoryNewsletterComponent,
+    CardNewsletterComponent,
+    DialogNewsletterComponent
   ],
     imports: [
         BrowserModule,
@@ -101,7 +110,9 @@ import { AddNewsletterComponent } from './components/newsletter/add-newsletter/a
         MatCardModule,
         MatSelectModule,
         MatSelectInfiniteScrollModule,
-        ScrollingModule
+        ScrollingModule,
+        MatTabsModule,
+        MatDialogModule
     ],
   providers: [{
     provide: HTTP_INTERCEPTORS, useClass: HttpAuthInterceptor, multi: true

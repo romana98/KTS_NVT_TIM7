@@ -1,0 +1,9 @@
+<h2 mat-dialog-title>{{data.name}} ({{data.culturaloffer}})</h2>
+<h4 style="text-align: top;">{{data.publishedDate | date}}</h4>
+<div mat-dialog-content>
+    <td style="vertical-align: top;width: 400px;">{{data.description}}</td>
+    <td style="width: 350px;text-align: end;"><img *ngIf="data.picture" mat-card-lg-image src={{data.picture}}></td>
+</div>
+<mat-dialog-actions><button mat-button mat-dialog-close>Close</button></mat-dialog-actions>
+
+

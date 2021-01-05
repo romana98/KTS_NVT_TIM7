@@ -111,6 +111,15 @@ public class CategoryController  {
 			return new ResponseEntity<CategoryDTO>(catMapper.toDto(found), HttpStatus.OK);
 		}
 	}
+    
+    @PreAuthorize("hasRole('ROLE_REGISTERED')")
+	@RequestMapping(value= "/subscribed/{id}",method = RequestMethod.GET)
+    public ResponseEntity<List<CategoryDTO>> getSubscribedCategories(@PathVariable Integer id) {
+        List<Category> list = categoryService.findSubscribedCategories(id);
+        List<CategoryDTO> dtos = toCategoryDTOList(list);
+
+        return new ResponseEntity<>(dtos, HttpStatus.OK);
+    }
 
 	private List<CategoryDTO> toCategoryDTOList(List<Category> categories) {
 		ArrayList<CategoryDTO> dtos = new ArrayList<CategoryDTO>();

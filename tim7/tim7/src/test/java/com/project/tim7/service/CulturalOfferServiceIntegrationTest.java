@@ -24,7 +24,6 @@ import java.util.List;
 
 import static com.project.tim7.constants.CommentConstants.PAGEABLE_PAGE;
 import static com.project.tim7.constants.CommentConstants.PAGEABLE_SIZE;
-import static com.project.tim7.constants.CulturalOfferConstants.UPDATE_ONE_CULTURAL_OFFER_PICTURE2;
 import static org.junit.jupiter.api.Assertions.*;
 import static com.project.tim7.constants.CulturalOfferConstants.*;
 
@@ -513,6 +512,14 @@ public class CulturalOfferServiceIntegrationTest {
     public void testUnsubscribeDoesntExist() {
     	CulturalOffer offer = culturalOfferService.unsubscribe(CULTURAL_OFFER_ID, REGISTERED_ID_NOT_SUBSCRIBED);
     	assertNull(offer);
+    }
+    
+    //Get by subcategory
+    @Test
+    public void testFindBySubcategory(){
+        Pageable pageable = PageRequest.of(PAGEABLE_PAGE, PAGEABLE_SIZE);
+        Page<CulturalOffer> page = culturalOfferService.findBySubcategory(OLD_CULTURAL_OFFER_SUBCATEGORY, pageable);
+        assertEquals(EXPECTED_OFFERS_BY_SUBCATEGORY, page.getNumberOfElements());
     }
 
 }
