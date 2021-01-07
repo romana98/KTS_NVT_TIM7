@@ -55,10 +55,10 @@ public class CulturalOfferController {
     public ResponseEntity<String> deleteCulturalOffer(@PathVariable("id") int id){
 
         boolean deletedSuccess = culturalOfferService.delete(id);
-        String toastMessage = deletedSuccess ? "Successfully deleted cultural offer." : "Removal of cultural offer failed.";
+        //String toastMessage = deletedSuccess ? "Successfully deleted cultural offer." : "Removal of cultural offer failed.";
         HttpStatus statusCode = deletedSuccess ? HttpStatus.OK : HttpStatus.BAD_REQUEST;
 
-        return new ResponseEntity<>(toastMessage, statusCode);
+        return new ResponseEntity<>(null, statusCode);
     }
 
     /**

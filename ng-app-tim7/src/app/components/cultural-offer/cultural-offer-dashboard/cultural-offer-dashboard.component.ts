@@ -1,15 +1,73 @@
-import { Component, OnInit } from '@angular/core';
+import {AfterViewInit, Component, OnDestroy, OnInit} from '@angular/core';
+import {Subscription} from 'rxjs';
+import {Store} from '@ngrx/store';
+import * as fromApp from '../../../store/app.reducer';
+import {MatSnackBar} from '@angular/material/snack-bar';
+import * as CulturalOfferActions from '../../cultural-offer/store/cultural-offer.actions';
+import {CulturalofferModel} from '../../../models/culturaloffer.model';
+import * as AdminActions from '../../administrator/store/administrator.actions';
 
 @Component({
   selector: 'app-cultural-offer-dashboard',
   templateUrl: './cultural-offer-dashboard.component.html',
   styleUrls: ['./cultural-offer-dashboard.component.css']
 })
-export class CulturalOfferDashboardComponent implements OnInit {
+export class CulturalOfferDashboardComponent implements OnInit, OnDestroy{
 
-  constructor() { }
+  page = 0;
+  pageSize = 15;
+  getResponse = {content: [], numberOfElements: 0, totalElements: 0, totalPages: 0, number: 0};
+  culturalOffers: CulturalofferModel[];
+  success: string = null;
+  error: string = null;
+  private storeSub: Subscription;
+
+  constructor(private store: Store<fromApp.AppState>,
+              private snackBar: MatSnackBar) {}
 
   ngOnInit(): void {
+    this.store.dispatch(new CulturalOfferActions.GetCulturalOfferPage({ page: this.page, size: this.pageSize }));
+    this.storeSub = this.store.select('culturaloffer').subscribe(state => {
+      this.getResponse = state.culturalOffers;
+      this.culturalOffers = state.culturalOffers.content;
+      this.error = state.errorActionMessage;
+      this.success = state.successActionMessage;
+      console.log('Subscription: error: ' + this.error + 'success: ' + this.success);
+      if (this.error !== null){
+        this.showErrorAlert(this.error);
+      }
+
+      if (this.success !== null){
+        this.showSuccessAlert(this.success);
+      }
+    });
+
+  }
+
+  onDelete(id: number){
+    this.store.dispatch(new CulturalOfferActions.DeleteCulturalOffer({id: id, page: this.page, page_size: this.pageSize}));
+  }
+
+  onPagination(page: number){
+    this.page = page;
+    this.store.dispatch(new CulturalOfferActions.GetCulturalOfferPage({page: this.page, size: this.pageSize }));
+  }
+
+  private showSuccessAlert(message: string) {
+    this.snackBar.open(message, 'Ok', { duration: 3000 });
+    this.store.dispatch(new CulturalOfferActions.ClearAction());
+    this.store.dispatch(new CulturalOfferActions.GetCulturalOfferPage({page: this.page, size: this.pageSize }));
+  }
+
+  private showErrorAlert(message: string) {
+    this.snackBar.open(message, 'Ok', { duration: 3000 });
+    this.store.dispatch(new CulturalOfferActions.ClearAction());
+  }
+
+  ngOnDestroy() {
+    if (this.storeSub) {
+      this.storeSub.unsubscribe();
+    }
   }
 
 }

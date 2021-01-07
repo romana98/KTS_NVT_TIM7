@@ -52,6 +52,7 @@ export class AdministratorEffects {
     })
   );
 
+
   @Effect()
   admin = this.actions$.pipe(
     ofType(AdminActions.GET_ADMIN),

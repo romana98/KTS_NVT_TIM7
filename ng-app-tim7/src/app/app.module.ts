@@ -54,6 +54,7 @@ import {ScrollingModule} from '@angular/cdk/scrolling';
 import { UpdateNewsletterComponent } from './components/newsletter/update-newsletter/update-newsletter.component';
 import { AddNewsletterComponent } from './components/newsletter/add-newsletter/add-newsletter.component';
 import { CulturalOfferDashboardComponent } from './components/cultural-offer/cultural-offer-dashboard/cultural-offer-dashboard.component';
+import {CulturalOfferEffects} from './components/cultural-offer/store/cultural-offer.effects';
 
 
 
@@ -87,7 +88,7 @@ import { CulturalOfferDashboardComponent } from './components/cultural-offer/cul
         AppRoutingModule,
         StoreModule.forRoot(fromApp.appReducer, {metaReducers}),
         EffectsModule.forRoot([AuthEffects, SignUpEffects, ActivateAccountEffects, AdministratorEffects, RegisteredEffects,
-            CategoryEffects, SubcategoryEffects, NewsletterEffects]),
+            CategoryEffects, SubcategoryEffects, NewsletterEffects, CulturalOfferEffects]),
         StoreDevtoolsModule.instrument({maxAge: 25, logOnly: environment.production}),
         ReactiveFormsModule,
         MatToolbarModule,

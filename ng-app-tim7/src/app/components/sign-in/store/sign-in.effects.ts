@@ -74,7 +74,7 @@ export class AuthEffects {
   authRedirect = this.actions$.pipe(
     ofType(AuthActions.AUTHENTICATE_SUCCESS),
     tap(() => {
-      this.router.navigate(['/']);
+      this.router.navigate(['administrator/culturalOfferDashboard']);
     })
   );
 

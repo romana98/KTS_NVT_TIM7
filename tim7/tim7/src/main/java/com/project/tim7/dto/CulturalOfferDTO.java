@@ -29,6 +29,12 @@ public class CulturalOfferDTO {
     @NotNull
     private int location;
 
+    private String subcategoryName;
+
+    private String categoryName;
+
+    private String locationName;
+
     private ArrayList<String> pictures;
 
     public CulturalOfferDTO(int id, @NotBlank String name,
@@ -65,6 +71,30 @@ public class CulturalOfferDTO {
     }
 
     public CulturalOfferDTO() {
+    }
+
+    public void setSubcategoryName(String subcategoryName){
+        this.subcategoryName = subcategoryName;
+    }
+
+    public void setCategoryName(String categoryName){
+        this.categoryName = categoryName;
+    }
+
+    public String getSubcategoryName(){
+        return this.subcategoryName;
+    }
+
+    public String getCategoryName(){
+        return this.categoryName;
+    }
+
+    public String getLocationName(){
+        return this.locationName;
+    }
+
+    public void setLocationName(String locationName){
+        this.locationName = locationName;
     }
 
     public int getId() {

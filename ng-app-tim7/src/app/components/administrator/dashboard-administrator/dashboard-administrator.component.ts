@@ -53,6 +53,7 @@ export class DashboardAdministratorComponent implements OnInit, OnDestroy {
     this.snackBar.open(message, 'Ok', { duration: 3000 });
     this.store.dispatch(new AdminActions.ClearError());
   }
+
   ngOnDestroy() {
     if (this.storeSub) {
       this.storeSub.unsubscribe();
