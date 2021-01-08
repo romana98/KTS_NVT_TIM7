@@ -15,7 +15,7 @@ import * as AdminActions from '../../administrator/store/administrator.actions';
 export class CulturalOfferDashboardComponent implements OnInit, OnDestroy{
 
   page = 0;
-  pageSize = 15;
+  pageSize = 10;
   getResponse = {content: [], numberOfElements: 0, totalElements: 0, totalPages: 0, number: 0};
   culturalOffers: CulturalofferModel[];
   success: string = null;
@@ -32,7 +32,7 @@ export class CulturalOfferDashboardComponent implements OnInit, OnDestroy{
       this.culturalOffers = state.culturalOffers.content;
       this.error = state.errorActionMessage;
       this.success = state.successActionMessage;
-      console.log('Subscription: error: ' + this.error + 'success: ' + this.success);
+
       if (this.error !== null){
         this.showErrorAlert(this.error);
       }
@@ -40,6 +40,7 @@ export class CulturalOfferDashboardComponent implements OnInit, OnDestroy{
       if (this.success !== null){
         this.showSuccessAlert(this.success);
       }
+
     });
 
   }

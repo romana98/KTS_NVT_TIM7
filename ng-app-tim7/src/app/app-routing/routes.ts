@@ -7,7 +7,7 @@ import {adminRoutes} from './administrator.routes';
 import {regRoutes} from './registered.routes';
 import {newsletterRoutes} from './newsletter.routes';
 import {CulturalOfferDashboardComponent} from '../components/cultural-offer/cultural-offer-dashboard/cultural-offer-dashboard.component';
-
+import {CulturalOfferMainpageComponent} from '../components/cultural-offer/cultural-offer-mainpage/cultural-offer-mainpage.component';
 
 export const routes: Routes = [
   {
@@ -26,8 +26,8 @@ export const routes: Routes = [
     canActivate: [SignInGuard]
   },
   {
-    path: 'mainPage',
-    component: CulturalOfferDashboardComponent,
+    path: '',
+    component: CulturalOfferMainpageComponent,
   },
   {
     path: '',

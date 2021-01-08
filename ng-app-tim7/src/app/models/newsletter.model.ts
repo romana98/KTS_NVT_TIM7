@@ -8,3 +8,4 @@ export class NewsletterModel {
     public picture: string
   ) {}
 }
+

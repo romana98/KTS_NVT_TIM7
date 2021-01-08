@@ -1,0 +1,13 @@
+<table>
+    <tr *ngFor="let newsletter of newslettersSubscribed.content">
+        <td><app-card-newsletter [newsletter]=newsletter (newItemEvent)="unsubscribe($event)"></app-card-newsletter></td>
+    </tr>
+    <tr>
+        <app-pagination [pageSize]="pageSize"
+                [totalItems]="newslettersSubscribed.totalElements"
+                [totalPages]="newslettersSubscribed.totalPages"
+                [currentPage]="newslettersSubscribed.number"
+                (ChangePage)="onPagination($event)"
+        ></app-pagination>
+    </tr>
+</table>

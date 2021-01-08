@@ -18,6 +18,11 @@ export const GET_SUBCATEGORIES_SELECT = '[Newsletter] Get subcategories select';
 export const GET_SUBCATEGORIES_SELECT_SUCCESS = '[Newsletter] Get subcategories select success';
 export const GET_OFFERS_SELECT = '[Newsletter] Get offers select';
 export const GET_OFFERS_SELECT_SUCCESS = '[Newsletter] Get offers select success';
+export const GET_CATEGORIES_SUBSCRIBED = '[Newsletter] Get categories subscribed';
+export const GET_CATEGORIES_SUBSCRIBED_SUCCESS = '[Newsletter] Get categories subscribed success';
+export const GET_NEWSLETTERS_SUBSCRIBED = '[Newsletter] Get newsletters subscribed';
+export const GET_NEWSLETTERS_SUBSCRIBED_SUCCESS = '[Newsletter] Get newsletters subscribed success';
+export const UNSUBSCRIBE = "[Newsletter] Unsubscribe";
 
 
 export class GetNewsletterPage implements Action {
@@ -98,6 +103,12 @@ export class UpdateNewsletter implements Action {
   constructor(public payload: { newsletter: NewsletterModel }) {}
 }
 
+export class Unsubscribe implements Action {
+  readonly type = UNSUBSCRIBE;
+
+  constructor(public payload: { idOffer: number, idUser: number }) {}
+}
+
 export class NewsletterSuccess implements Action {
   readonly type = NEWSLETTER_SUCCESS;
 
@@ -118,6 +129,30 @@ export class ClearSuccess implements Action {
   readonly type = CLEAR_SUCCESS;
 }
 
+export class GetCategoriesSubscribed implements Action {
+  readonly type = GET_CATEGORIES_SUBSCRIBED;
+
+  constructor(public payload: { id: number }) {}
+}
+
+export class GetCategoriesSubscribedSuccess implements Action {
+  readonly type = GET_CATEGORIES_SUBSCRIBED_SUCCESS;
+
+  constructor(public payload: any) {}
+}
+
+export class GetNewslettersSubscribed implements Action {
+  readonly type = GET_NEWSLETTERS_SUBSCRIBED;
+
+  constructor(public payload: { page: number, size: number, catId: number, id: number }) {}
+}
+
+export class GetNewslettersSubscribedSuccess implements Action {
+  readonly type = GET_NEWSLETTERS_SUBSCRIBED_SUCCESS;
+
+  constructor(public payload: any) {}
+}
+
 export type NewsletterActions =
   | GetNewsletterPage
   | GetNewsletter
@@ -135,4 +170,9 @@ export type NewsletterActions =
   | GetOffersSelect
   | GetOffersSelectSuccess
   | GetNewsletterSuccess
-  | UpdateNewsletter;
+  | UpdateNewsletter
+  | GetCategoriesSubscribed
+  | GetCategoriesSubscribedSuccess
+  | GetNewslettersSubscribed
+  | GetNewslettersSubscribedSuccess
+  | Unsubscribe;

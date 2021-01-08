@@ -45,6 +45,25 @@ export class CulturalOfferEffects {
     })
   );
 
+  @Effect()
+  filteredOffers = this.actions$.pipe(
+    ofType(culturalOfferActions.FILTER_ACTION),
+    switchMap((data: culturalOfferActions.FilterCulturalOffersAction) => {
+      return this.http.post(
+        'http://localhost:8080/cultural-offers/filter?page=' + data.payload.page + '&size=' + data.payload.page_size,
+        {parameter : data.payload.parameter, value: data.payload.value}
+      )
+        .pipe(
+          map(dataRes => {
+            return new CulturalOfferActions.FilterSuccessAction(dataRes);
+          }),
+          catchError(errorRes => {
+            return of(new CulturalOfferActions.ErrorAction(errorRes.message));
+          })
+        );
+    })
+  );
+
   constructor(private actions$: Actions, private http: HttpClient, private router: Router) {}
 
 }

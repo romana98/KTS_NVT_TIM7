@@ -1,0 +1,23 @@
+tr {
+    display: inline-flex;
+    flex-direction: column;
+}
+td {
+    padding: 5px;
+}
+
+
+:host ::ng-deep.mat-paginator {
+    width: 100%;
+  }
+  :host ::ng-deep.mat-paginator .mat-paginator-container{
+    justify-content: center;
+  }
+  :host ::ng-deep.mat-paginator .mat-paginator-range-label{
+    display: none;
+  }
+  :host ::ng-deep.mat-paginator .mat-paginator-page-size{
+    display: none;
+  }
+
+

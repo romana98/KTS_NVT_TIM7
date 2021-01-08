@@ -29,6 +29,10 @@ public class CulturalOfferDTO {
     @NotNull
     private int location;
 
+    private double longitude;
+
+    private double latitude;
+
     private String subcategoryName;
 
     private String categoryName;
@@ -71,6 +75,22 @@ public class CulturalOfferDTO {
     }
 
     public CulturalOfferDTO() {
+    }
+
+    public double getLongitude() {
+        return longitude;
+    }
+
+    public void setLongitude(double longitude) {
+        this.longitude = longitude;
+    }
+
+    public double getLatitude() {
+        return latitude;
+    }
+
+    public void setLatitude(double latitude) {
+        this.latitude = latitude;
     }
 
     public void setSubcategoryName(String subcategoryName){

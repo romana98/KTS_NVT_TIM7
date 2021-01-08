@@ -52,9 +52,19 @@ import {MatSelectModule} from '@angular/material/select';
 import {MatSelectInfiniteScrollModule} from 'ng-mat-select-infinite-scroll';
 import {ScrollingModule} from '@angular/cdk/scrolling';
 import { UpdateNewsletterComponent } from './components/newsletter/update-newsletter/update-newsletter.component';
+import { GoogleMapComponent } from './components/common/google-map/google-map.component';
+import { AgmCoreModule } from '@agm/core';
 import { AddNewsletterComponent } from './components/newsletter/add-newsletter/add-newsletter.component';
+import { SubscribedNewsletterComponent } from './components/newsletter/subscribed-newsletter/subscribed-newsletter.component';
+import {MatTabsModule} from '@angular/material/tabs';
+import { CategoryNewsletterComponent } from './components/newsletter/category-newsletter/category-newsletter.component';
+import { CardNewsletterComponent } from './components/newsletter/card-newsletter/card-newsletter.component';
+import { DialogNewsletterComponent } from './components/newsletter/dialog-newsletter/dialog-newsletter.component';
+import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
+import {MatDialogModule} from '@angular/material/dialog';
 import { CulturalOfferDashboardComponent } from './components/cultural-offer/cultural-offer-dashboard/cultural-offer-dashboard.component';
 import {CulturalOfferEffects} from './components/cultural-offer/store/cultural-offer.effects';
+import { CulturalOfferMainpageComponent } from './components/cultural-offer/cultural-offer-mainpage/cultural-offer-mainpage.component';
 
 
 
@@ -79,7 +89,13 @@ import {CulturalOfferEffects} from './components/cultural-offer/store/cultural-o
     DashboardNewsletterComponent,
     AddNewsletterComponent,
     UpdateNewsletterComponent,
-    CulturalOfferDashboardComponent
+    SubscribedNewsletterComponent,
+    CategoryNewsletterComponent,
+    CardNewsletterComponent,
+    DialogNewsletterComponent,
+    GoogleMapComponent,
+    CulturalOfferDashboardComponent,
+    CulturalOfferMainpageComponent
   ],
     imports: [
         BrowserModule,
@@ -104,6 +120,12 @@ import {CulturalOfferEffects} from './components/cultural-offer/store/cultural-o
         MatCardModule,
         MatSelectModule,
         MatSelectInfiniteScrollModule,
+        ScrollingModule,
+        MatTabsModule,
+        MatDialogModule,
+      AgmCoreModule.forRoot({
+        apiKey: 'AIzaSyA299mClrC7nDZzy92CQ4X47y7FmaBKMj4'
+      }),
         ScrollingModule
     ],
   providers: [{

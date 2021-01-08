@@ -24,5 +24,7 @@ public interface NewsletterRepository extends JpaRepository<Newsletter, Integer>
 	
 	@Query("SELECT n FROM Newsletter n WHERE n.culturalOffer.id = ?1")
 	public Page<Newsletter> findNewsletterForCulturalOffer(int idCulturalOffer, Pageable pageable);
+	
+	@Query("SELECT n FROM Newsletter n JOIN n.culturalOffer co JOIN co.subscribed s WHERE s.id = ?1 AND co.subcategory.category.id = ?2 ORDER BY n.publishedDate DESC")
+	public Page<Newsletter> findNewsletterForUserByCategory(int idRegisteredUser, int idCategory, Pageable pageable);
 }
-

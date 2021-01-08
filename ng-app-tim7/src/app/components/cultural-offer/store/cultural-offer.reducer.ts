@@ -37,6 +37,12 @@ export function CulturalOfferReducer(
         errorActionMessage: null,
         successActionMessage: action.payload
       };
+    case CulturalOfferActions.FILTER_SUCCESS_ACTION:
+      return {
+        ...state,
+        culturalOffers : action.payload,
+      };
+
     default:
       return {
         ...state,

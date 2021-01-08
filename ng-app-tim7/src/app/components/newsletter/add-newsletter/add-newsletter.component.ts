@@ -79,10 +79,6 @@ export class AddNewsletterComponent implements OnInit, OnDestroy {
     newsletter.publishedDate = new Date();
     newsletter.culturalOfferId = this.culturalOfferId;
 
-    console.log(newsletter.picture.length)
-
-    console.log(newsletter)
-
     this.store.dispatch(new NewsletterActions.AddNewsletter({ name: newsletter.name, description: newsletter.description, picture: newsletter.picture, publishedDate: newsletter.publishedDate, culturalOfferId: newsletter.culturalOfferId  }));
     this.picture = "";
   }
@@ -103,21 +99,18 @@ export class AddNewsletterComponent implements OnInit, OnDestroy {
   }
 
   onChangeCategories(event) {
-    console.log(event.value)
     this.pageSubcategory = 0;
     this.categoryId = event.value.id;
     this.store.dispatch(new NewsletterActions.GetSubcategoriesSelect({ page: this.pageSubcategory, size: this.pageSize, category: event.value.id }));
   }
 
   onChangeSubcategories(event) {
-    console.log(event.value)
     this.pageOffer = 0;
     this.subcategoryId = event.value.id;
     this.store.dispatch(new NewsletterActions.GetOffersSelect({ page: this.pageOffer, size: this.pageSize, subcategory: event.value.id }));
   }
 
   onChangeOffers(event) {
-    console.log(event.value)
     this.culturalOfferId = event.value.id;
     console.log(this.culturalOfferId);
   }
@@ -139,7 +132,6 @@ export class AddNewsletterComponent implements OnInit, OnDestroy {
   }
   _handleReaderLoaded(e) {
     let reader = e.target;
-    console.log(reader.result)
     this.picture =  reader.result.replace(/(\r\n\t|\n|\r\t)/gm,"");
   }
 

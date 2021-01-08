@@ -82,10 +82,6 @@ export class UpdateNewsletterComponent implements OnInit, OnDestroy {
     newsletter.publishedDate = this.publishedDate;
     newsletter.culturalOfferId = this.culturalOfferId;
 
-    console.log(newsletter.picture.length)
-
-    console.log(newsletter)
-
     this.store.dispatch(new NewsletterActions.UpdateNewsletter({ newsletter: newsletter }));
   }
 
@@ -106,7 +102,6 @@ export class UpdateNewsletterComponent implements OnInit, OnDestroy {
   }
   _handleReaderLoaded(e) {
     let reader = e.target;
-    console.log(reader.result)
     this.picture =  reader.result.replace(/(\r\n\t|\n|\r\t)/gm,"");
   }
 

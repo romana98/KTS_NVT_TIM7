@@ -690,5 +690,22 @@ public class CulturalOfferControllerIntegrationTest {
 
         assertEquals(HttpStatus.BAD_REQUEST, responseEntity.getStatusCode());
     }
+    
+    @Test
+    public void testGetCulturalOfferBySubcategory() throws JsonProcessingException {
+    	login();
+        HttpEntity<Object> httpEntity = new HttpEntity<>(headers);
+
+        ObjectMapper objectMapper = new ObjectMapper();
+
+        ResponseEntity<String> responseEntity =
+                restTemplate.exchange("/cultural-offers/subcategory/1/by-page?page=0&size=2", HttpMethod.GET, httpEntity,
+                        String.class);
+
+        Page<CulturalOfferDTO> culturalOffers = objectMapper.readValue(responseEntity.getBody(), new TypeReference<RestResponsePage<CulturalOfferDTO>>() {});
+         
+        assertEquals(HttpStatus.OK, responseEntity.getStatusCode());
+        assertEquals(EXPECTED_OFFERS_BY_SUBCATEGORY, culturalOffers.getNumberOfElements());
+    }
 
 }

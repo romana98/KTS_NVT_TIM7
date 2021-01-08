@@ -100,7 +100,6 @@ public class CulturalOfferController {
      * @param pageable - Page object with number of elements to return and number of page.
      * @return - Returning desired number of objects according to page object.
      */
-    @PreAuthorize("hasRole('ROLE_ADMINISTRATOR')")
     @RequestMapping(value= "/by-page",method = RequestMethod.GET)
     public ResponseEntity<Page<CulturalOfferDTO>> getAllCulturalOffersPaged(Pageable pageable) {
         Page<CulturalOffer> page = culturalOfferService.findAll(pageable);
@@ -125,7 +124,11 @@ public class CulturalOfferController {
     	return new ResponseEntity<>(culturalOfferDTOPage, HttpStatus.OK);
     }
     
-    
+    /**
+     * Get cultural offers of one subcategory
+     * @param id - subcateory id
+     * @return - Returning cultural offer of one subcategory
+     */
     @PreAuthorize("hasRole('ROLE_ADMINISTRATOR')")
     @RequestMapping(value= "/subcategory/{id}/by-page",method = RequestMethod.GET)
     public ResponseEntity<Page<CulturalOfferDTO>> getAllCulturalOffersBySubcategoryPaged(@PathVariable("id") int id, Pageable pageable) {

@@ -26,6 +26,8 @@ public class CulturalOfferMapper implements MapperInterface<CulturalOffer,Cultur
         cdto.setSubcategoryName(entity.getSubcategory().getName());
         cdto.setCategoryName(entity.getSubcategory().getCategory().getName());
         cdto.setLocationName(entity.getLocation().getName());
+        cdto.setLatitude(entity.getLocation().getLatitude());
+        cdto.setLongitude(entity.getLocation().getLongitude());
         return cdto;
     }
 

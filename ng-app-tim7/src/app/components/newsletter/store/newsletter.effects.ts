@@ -16,6 +16,9 @@ const handleSuccess = (type: string) => {
   else if (type === 'edit') {
     message = 'Newsletter updated.';
   }
+  else if (type === 'unsubscribe') {
+    message = 'Successfully unsubscribed.';
+  }
   else{
     message = 'Newsletter added.';
   }
@@ -204,6 +207,69 @@ export class NewsletterEffects {
         );
     })
   );
+
+  @Effect()
+  categoriesSubscribed = this.actions$.pipe(
+    ofType(NewsletterActions.GET_CATEGORIES_SUBSCRIBED),
+    switchMap((data: NewsletterActions.GetCategoriesSubscribed) => {
+      return this.http
+        .get(
+          'http://localhost:8080/categories/subscribed/' + data.payload.id
+        )
+        .pipe(
+          map(dataRes => {
+            return new NewsletterActions.GetCategoriesSubscribedSuccess(dataRes);
+          }),
+          catchError(errorRes => {
+            return handleError(errorRes);
+          })
+        );
+    })
+  );
+
+  @Effect()
+  newslettersSubscribed = this.actions$.pipe(
+    ofType(NewsletterActions.GET_NEWSLETTERS_SUBSCRIBED),
+    switchMap((data: NewsletterActions.GetNewslettersSubscribed) => {
+      return this.http
+        .get(
+          'http://localhost:8080/newsletter/subscribed/' + data.payload.id + '/' + data.payload.catId + '/by-page?page=' + data.payload.page + '&size=' + data.payload.size
+        )
+        .pipe(
+          map(dataRes => {
+            return new NewsletterActions.GetNewslettersSubscribedSuccess(dataRes);
+          }),
+          catchError(errorRes => {
+            return handleError(errorRes);
+          })
+        );
+    })
+  );
+
+  @Effect()
+  unsubscribe = this.actions$.pipe(
+    ofType(NewsletterActions.UNSUBSCRIBE),
+    switchMap((userData: NewsletterActions.Unsubscribe) => {
+      console.log(userData.payload)
+      return this.http
+        .post<any>(
+          'http://localhost:8080/cultural-offers/unsubscribe', 
+          {
+            idOffer: userData.payload.idOffer,
+            idUser: userData.payload.idUser
+          }, { responseType: 'text' as 'json' }
+        )
+        .pipe(
+          map(() => {
+            return handleSuccess('unsubscribe');
+          }),
+          catchError(errorRes => {
+            console.log(errorRes)
+            return handleError(errorRes);
+          })
+        );
+      })
+    );
 
   constructor(private actions$: Actions, private http: HttpClient, private router: Router) {}
 }

@@ -1,4 +1,6 @@
-export class CulturalofferModel {
+import {Mappable} from './mappable.interface';
+
+export class CulturalofferModel implements Mappable{
   constructor(
     public id: number,
     public name: string,
@@ -9,6 +11,8 @@ export class CulturalofferModel {
     public location: number,
     public subcategoryName: string,
     public categoryName: string,
+    public latitude: number,
+    public longitude: number,
     public pictures: string []
   ) {}
 }
