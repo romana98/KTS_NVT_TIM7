@@ -60,11 +60,13 @@ import {MatTabsModule} from '@angular/material/tabs';
 import { CategoryNewsletterComponent } from './components/newsletter/category-newsletter/category-newsletter.component';
 import { CardNewsletterComponent } from './components/newsletter/card-newsletter/card-newsletter.component';
 import { DialogNewsletterComponent } from './components/newsletter/dialog-newsletter/dialog-newsletter.component';
-import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
 import {MatDialogModule} from '@angular/material/dialog';
 import { CulturalOfferDashboardComponent } from './components/cultural-offer/cultural-offer-dashboard/cultural-offer-dashboard.component';
 import {CulturalOfferEffects} from './components/cultural-offer/store/cultural-offer.effects';
 import { CulturalOfferMainpageComponent } from './components/cultural-offer/cultural-offer-mainpage/cultural-offer-mainpage.component';
+import { CulturalOfferAddpageComponent } from './components/cultural-offer/cultural-offer-addpage/cultural-offer-addpage.component';
+import {MatDatepickerModule} from '@angular/material/datepicker';
+import {MatNativeDateModule} from '@angular/material/core';
 
 
 
@@ -95,39 +97,42 @@ import { CulturalOfferMainpageComponent } from './components/cultural-offer/cult
     DialogNewsletterComponent,
     GoogleMapComponent,
     CulturalOfferDashboardComponent,
-    CulturalOfferMainpageComponent
+    CulturalOfferMainpageComponent,
+    CulturalOfferAddpageComponent
   ],
-    imports: [
-        BrowserModule,
-        BrowserAnimationsModule,
-        HttpClientModule,
-        AppRoutingModule,
-        StoreModule.forRoot(fromApp.appReducer, {metaReducers}),
-        EffectsModule.forRoot([AuthEffects, SignUpEffects, ActivateAccountEffects, AdministratorEffects, RegisteredEffects,
-            CategoryEffects, SubcategoryEffects, NewsletterEffects, CulturalOfferEffects]),
-        StoreDevtoolsModule.instrument({maxAge: 25, logOnly: environment.production}),
-        ReactiveFormsModule,
-        MatToolbarModule,
-        MatDividerModule,
-        MatFormFieldModule,
-        MatInputModule,
-        MatButtonModule,
-        MatSnackBarModule,
-        MatIconModule,
-        MatProgressBarModule,
-        MatTableModule,
-        MatPaginatorModule,
-        MatCardModule,
-        MatSelectModule,
-        MatSelectInfiniteScrollModule,
-        ScrollingModule,
-        MatTabsModule,
-        MatDialogModule,
-      AgmCoreModule.forRoot({
-        apiKey: 'AIzaSyA299mClrC7nDZzy92CQ4X47y7FmaBKMj4'
-      }),
-        ScrollingModule
-    ],
+  imports: [
+    BrowserModule,
+    BrowserAnimationsModule,
+    HttpClientModule,
+    AppRoutingModule,
+    StoreModule.forRoot(fromApp.appReducer, {metaReducers}),
+    EffectsModule.forRoot([AuthEffects, SignUpEffects, ActivateAccountEffects, AdministratorEffects, RegisteredEffects,
+      CategoryEffects, SubcategoryEffects, NewsletterEffects, CulturalOfferEffects]),
+    StoreDevtoolsModule.instrument({maxAge: 25, logOnly: environment.production}),
+    ReactiveFormsModule,
+    MatToolbarModule,
+    MatDividerModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatButtonModule,
+    MatSnackBarModule,
+    MatIconModule,
+    MatProgressBarModule,
+    MatTableModule,
+    MatPaginatorModule,
+    MatCardModule,
+    MatSelectModule,
+    MatSelectInfiniteScrollModule,
+    ScrollingModule,
+    MatTabsModule,
+    MatDialogModule,
+    AgmCoreModule.forRoot({
+      apiKey: 'AIzaSyA299mClrC7nDZzy92CQ4X47y7FmaBKMj4'
+    }),
+    ScrollingModule,
+    MatDatepickerModule,
+    MatNativeDateModule
+  ],
   providers: [{
     provide: HTTP_INTERCEPTORS, useClass: HttpAuthInterceptor, multi: true
   }],
