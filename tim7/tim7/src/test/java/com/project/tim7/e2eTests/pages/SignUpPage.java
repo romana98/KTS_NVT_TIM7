@@ -1,4 +1,4 @@
-package com.project.tim7.pages;
+package com.project.tim7.e2eTests.pages;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -47,10 +47,6 @@ public class SignUpPage {
 
     public void ensureIsNotVisibleUsername() {
         (new WebDriverWait(driver, 20)).until(ExpectedConditions.invisibilityOfElementLocated(By.id("username")));
-    }
-
-    public void ensureIsNotVisibleEmail() {
-        (new WebDriverWait(driver, 10)).until(ExpectedConditions.invisibilityOfElementLocated(By.id("email")));
     }
 
     public WebElement getUsername() {

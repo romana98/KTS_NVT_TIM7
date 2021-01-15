@@ -1,4 +1,4 @@
-package com.project.tim7.pages;
+package com.project.tim7.e2eTests.pages;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;

@@ -1,9 +1,8 @@
-package com.project.tim7.e2e;
+package com.project.tim7.e2eTests.e2e;
 
-import com.project.tim7.pages.AddAdministratorPage;
-import com.project.tim7.pages.AdministratorDashboardPage;
-import com.project.tim7.pages.MainPagePage;
-import com.project.tim7.pages.SignInPage;
+import com.project.tim7.e2eTests.pages.AdministratorDashboardPage;
+import com.project.tim7.e2eTests.pages.MainPagePage;
+import com.project.tim7.e2eTests.pages.SignInPage;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -39,8 +38,7 @@ public class AdministratorDashboardE2ETest {
         signInPage.getUsername().sendKeys("mico");
         signInPage.getPassword().sendKeys("123qweASD");
         signInPage.getSignInBtn().click();
-        justWait();
-        justWait();
+        justWait(1000);
     }
 
     @After
@@ -48,10 +46,10 @@ public class AdministratorDashboardE2ETest {
         driver.quit();
     }
 
-    private void justWait() throws InterruptedException {
+    private void justWait(Integer howLong) throws InterruptedException {
         synchronized (driver)
         {
-            driver.wait(500);
+            driver.wait(howLong);
         }
     }
 
@@ -60,11 +58,11 @@ public class AdministratorDashboardE2ETest {
 
         mainPagePage.getAdminDashboardNav().click();
 
-        justWait();
+        justWait(500);
 
        administratorDashboardPage.getDeleteBtn().click();
 
-        justWait();
+        justWait(500);
 
         String snackBarValue =driver.findElement(By.tagName("simple-snack-bar")).getText();
 
