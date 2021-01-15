@@ -42,7 +42,11 @@ export function CulturalOfferReducer(
         ...state,
         culturalOffers : action.payload,
       };
-
+    case CulturalOfferActions.GET_ONE_OFFER_ACTION_SUCCESS:
+      return {
+        ...state,
+        culturalOffers : action.payload,
+      };
     default:
       return {
         ...state,

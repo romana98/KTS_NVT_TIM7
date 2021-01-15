@@ -8,6 +8,8 @@ export const SUCCESS_ACTION = '[CulturalOffer] Action Success';
 export const CLEAR_ACTION = '[CulturalOffer] Action clean';
 export const FILTER_ACTION = '[CulturalOffer] Action Filter';
 export const FILTER_SUCCESS_ACTION = '[CulturalOffer] Action Filter Success';
+export const GET_ONE_OFFER_ACTION = '[CulturalOffer] Get one offer';
+export const GET_ONE_OFFER_ACTION_SUCCESS = '[CulturalOffer] get one offer Success';
 
 
 
@@ -57,6 +59,19 @@ export class FilterSuccessAction implements Action{
   type: string = FILTER_SUCCESS_ACTION;
 
   constructor(public payload: any) {}
+}
+
+export class GetOneOfferAction {
+  type: string = GET_ONE_OFFER_ACTION;
+
+  constructor(public payload: number) {}
+}
+
+export class GetOneOfferActionSuccess {
+  type: string = GET_ONE_OFFER_ACTION_SUCCESS;
+
+  constructor(public payload: any) {}
+
 }
 
 

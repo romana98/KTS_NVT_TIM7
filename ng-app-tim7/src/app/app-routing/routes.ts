@@ -31,10 +31,6 @@ export const routes: Routes = [
     component: CulturalOfferMainpageComponent,
   },
   {
-    path: 'c',
-    component: CulturalOfferAddpageComponent,
-  },
-  {
     path: '',
     children: adminRoutes
   },

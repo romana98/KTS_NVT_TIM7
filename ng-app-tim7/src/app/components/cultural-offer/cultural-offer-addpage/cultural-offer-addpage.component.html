@@ -1,37 +1,37 @@
-<h1 class="mat-display-1;" style="text-align: center;  margin-top: 2%;font-size: xx-large">Cultural Offer Name</h1>
+<h1 class="mat-display-1;" style="text-align: center;  margin-top: 2%;font-size: xx-large">Cultural Offer {{culturalOffer?.id}}</h1>
 
 <div style="float: left; width: 40%; padding-top: 5%; padding-left: 2%;">
 
     <div style="float: right;width: 50%">
+      <form [formGroup]="categoryForm">
       <mat-form-field appearance="outline" style="display: block">
         <mat-label> Name </mat-label>
-        <input matInput placeholder="Type a value...">
+        <input matInput [value]="categoryForm" formControlName="name" placeholder="Type a value...">
       </mat-form-field>
 
       <mat-form-field appearance="outline" style="display: block">
         <mat-label>Category: </mat-label>
-        <mat-select  name="categoryNameSelect" >
-
+        <mat-select formControlName="category">
+          <mat-option></mat-option>
         </mat-select>
       </mat-form-field>
 
       <mat-form-field appearance="outline" style="display: block">
         <mat-label>Subcategory: </mat-label>
-        <mat-select  name="categoryNameSelect" >
-
+        <mat-select formControlName="subcategory">
         </mat-select>
       </mat-form-field>
 
       <mat-form-field appearance="outline" style="display: block">
         <mat-label>Choose start date...</mat-label>
-        <input matInput [matDatepicker]="picker">
+        <input formControlName="startDate" matInput [matDatepicker]="picker">
         <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
         <mat-datepicker #picker></mat-datepicker>
       </mat-form-field>
 
       <mat-form-field appearance="outline" style="display: block">
         <mat-label>Choose end date...</mat-label>
-        <input matInput [matDatepicker]="picker2">
+        <input [value]="culturalOffer?.endDate | date: 'yyyy-dd-MM'" matInput [matDatepicker]="picker2">
         <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
         <mat-datepicker #picker2></mat-datepicker>
       </mat-form-field>
@@ -41,9 +41,16 @@
         <textarea matInput rows="10" id="description" name="description" placeholder="description"></textarea>
       </mat-form-field>
 
+      <button style="margin-top: 5%;float:right;background-color: green" mat-raised-button type="submit">Save offer</button>
+      </form>
     </div>
 
-      <img style="max-width:400px;max-height:200px;" [src] = "'https://via.placeholder.com/200'"/>
+    <div style="width: 48%;float: right;margin-right: 2%">
+      <img style="width: 85%" [src] = "'https://via.placeholder.com/200'"/>
+      <button style="margin-right: 23%;margin-top: 5%;background-color: green" mat-raised-button type="submit">Upload picture</button>
+    </div>
+
+
 </div>
 
 <div style="padding-right: 3%;float: right;padding-top: 5%;width: 50%;">

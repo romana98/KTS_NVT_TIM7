@@ -2,7 +2,7 @@
 <mat-divider></mat-divider>
 <br><br>
 <div style="padding-left: 10%;padding-right: 10%">
-  <app-table (Delete)="onDelete($event)" [dataSource]="culturalOffers" [columnsToDisplay]="['Category Name', 'Subcategory Name', 'Name ', 'Location', 'delete']"
+  <app-table (Click)="onClick($event)" (Delete)="onDelete($event)" [dataSource]="culturalOffers" [columnsToDisplay]="['Category Name', 'Subcategory Name', 'Name ', 'Location', 'delete']"
              [columnsToIterate]="['categoryName', 'subcategoryName', 'name', 'locationName']"></app-table>
 
   <app-pagination [pageSize]="pageSize"
