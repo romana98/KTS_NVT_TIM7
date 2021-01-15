@@ -1,5 +1,7 @@
 package com.project.tim7.dto;
 
+import com.project.tim7.model.Category;
+
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
@@ -14,6 +16,9 @@ private int id;
 	@NotNull
 	@Min(0)
 	private int categoryId;
+
+	@NotBlank
+	private String categoryName;
 
 	public SubcategoryDTO() {
 		super();
@@ -36,6 +41,14 @@ private int id;
 		this.id = id;
 		this.name = name;
 		this.categoryId = categoryId;
+	}
+
+	public SubcategoryDTO(int id, @NotBlank String name, Category category) {
+		super();
+		this.id = id;
+		this.name = name;
+		this.categoryId = category.getId();
+		this.categoryName = category.getName();
 	}
 
 	public int getId() {
@@ -62,4 +75,11 @@ private int id;
 		this.categoryId = categoryId;
 	}
 
+	public String getCategoryName() {
+		return categoryName;
+	}
+
+	public void setCategoryName(String categoryName) {
+		this.categoryName = categoryName;
+	}
 }

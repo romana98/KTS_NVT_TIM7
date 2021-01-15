@@ -20,8 +20,16 @@ public class CulturalOfferMapper implements MapperInterface<CulturalOffer,Cultur
         for(Picture pic:entity.getPictures()){
             pictures.add(pic.getPicture());
         }
-        return new CulturalOfferDTO(entity.getId(), entity.getName(), entity.getDescription(), entity.getStartDate(),
+        CulturalOfferDTO cdto = new CulturalOfferDTO(entity.getId(), entity.getName(), entity.getDescription(), entity.getStartDate(),
                 entity.getEndDate(),entity.getLocation().getId(),entity.getSubcategory().getId(),pictures);
+
+        cdto.setSubcategoryName(entity.getSubcategory().getName());
+        cdto.setCategoryName(entity.getSubcategory().getCategory().getName());
+        cdto.setLocationName(entity.getLocation().getName());
+        cdto.setLatitude(entity.getLocation().getLatitude());
+        cdto.setLongitude(entity.getLocation().getLongitude());
+        cdto.setCategory(entity.getSubcategory().getCategory().getId());
+        return cdto;
     }
 
     public List<CulturalOfferDTO> toCulturalOfferDTOList(List<CulturalOffer> culturalOffers) {

@@ -135,4 +135,11 @@ public class CulturalOfferRepositoryIntegrationTest {
     	Long exists = culturalOfferRepository.checkIfsubscriptionExists(CHECK_IF_SUBSCRIBE_EXISTS_CULTURAL_OFFER, CHECK_IF_SUBSCRIBE_EXISTS_REGISERED_FAIL);
     	assertEquals(CHECK_IF_SUBSCRIBE_EXISTS, exists);
     }
+    
+    @Test
+    public void testFindBySubcategory(){
+        Pageable pageable = PageRequest.of(PAGEABLE_PAGE, PAGEABLE_SIZE);
+        Page<CulturalOffer> page = culturalOfferRepository.findBySubcategory(OLD_CULTURAL_OFFER_SUBCATEGORY, pageable);
+        assertEquals(EXPECTED_OFFERS_BY_SUBCATEGORY, page.getNumberOfElements());
+    }
 }

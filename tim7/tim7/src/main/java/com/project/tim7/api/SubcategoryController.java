@@ -5,6 +5,7 @@ import java.util.List;
 
 import javax.validation.Valid;
 
+import com.project.tim7.dto.CategoryDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
@@ -13,17 +14,14 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import com.project.tim7.dto.SubcategoryDTO;
 import com.project.tim7.helper.SubcategoryMapper;
 import com.project.tim7.model.Subcategory;
 import com.project.tim7.service.SubcategoryService;
 
+@CrossOrigin(origins = "*", allowedHeaders = "*")
 @RestController
 @RequestMapping(value="/subcategories", produces = MediaType.APPLICATION_JSON_VALUE)
 public class SubcategoryController {
@@ -56,6 +54,17 @@ public class SubcategoryController {
 
         return new ResponseEntity<>(pageSubcategoryDTOS, HttpStatus.OK);
     }
+
+    @PreAuthorize("hasRole('ROLE_ADMINISTRATOR')")
+	@RequestMapping(value = "/by-id/{id}", method = RequestMethod.GET)
+	public ResponseEntity<SubcategoryDTO> getSubcategory(@PathVariable Integer id){
+		Subcategory found = subcategoryService.findOne(id);
+		if(found == null){
+			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+		}else{
+			return new ResponseEntity<SubcategoryDTO>(subcatMapper.toDto(found), HttpStatus.OK);
+		}
+	}
 	
 	@PreAuthorize("hasRole('ROLE_ADMINISTRATOR')")
 	@RequestMapping(method = RequestMethod.PUT)
@@ -89,7 +98,7 @@ public class SubcategoryController {
     public ResponseEntity<Object> deleteSubcategory(@PathVariable Integer id){
 
         if(subcategoryService.delete(id)) {
-            return new ResponseEntity<>("Subcategory deleted.", HttpStatus.OK);
+            return new ResponseEntity<>(HttpStatus.OK);
         }
 
         return new ResponseEntity<>("Subcategory deleting failed.", HttpStatus.NOT_FOUND);

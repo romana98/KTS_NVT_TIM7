@@ -95,12 +95,31 @@ public class CategoryController  {
     public ResponseEntity<String> deleteCategory(@PathVariable Integer id){
 
         if(categoryService.delete(id)) {
-            return new ResponseEntity<>("Deleting successful.", HttpStatus.OK);
+            return new ResponseEntity<>(HttpStatus.OK);
         }
 
         return new ResponseEntity<>("Deleting failed.", HttpStatus.BAD_REQUEST);
     }
 
+    @PreAuthorize("hasRole('ROLE_ADMINISTRATOR')")
+	@RequestMapping(value="/by-id/{id}", method=RequestMethod.GET)
+	public ResponseEntity<CategoryDTO> getCategory(@PathVariable Integer id){
+		Category found = categoryService.findOne(id);
+		if(found == null){
+			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+		}else{
+			return new ResponseEntity<CategoryDTO>(catMapper.toDto(found), HttpStatus.OK);
+		}
+	}
+    
+    @PreAuthorize("hasRole('ROLE_REGISTERED')")
+	@RequestMapping(value= "/subscribed/{id}",method = RequestMethod.GET)
+    public ResponseEntity<List<CategoryDTO>> getSubscribedCategories(@PathVariable Integer id) {
+        List<Category> list = categoryService.findSubscribedCategories(id);
+        List<CategoryDTO> dtos = toCategoryDTOList(list);
+
+        return new ResponseEntity<>(dtos, HttpStatus.OK);
+    }
 
 	private List<CategoryDTO> toCategoryDTOList(List<Category> categories) {
 		ArrayList<CategoryDTO> dtos = new ArrayList<CategoryDTO>();

@@ -408,5 +408,21 @@ public class NewsletterControllerIntegrationTest {
         assertEquals(HttpStatus.BAD_REQUEST, responseEntity.getStatusCode());
         assertThat(message).isNotBlank();
     }
+    
+    @Test
+    public void testFindNewsletterForUserByCategory() throws JsonProcessingException {
+    	loginReg();
+        HttpEntity<Object> httpEntity = new HttpEntity<>(headers);
+
+        ObjectMapper objectMapper = new ObjectMapper();
+
+        ResponseEntity<String> responseEntity =
+                restTemplate.exchange("/newsletter/subscribed/3/1/by-page?page=0&size=3", HttpMethod.GET, httpEntity, String.class);
+
+        Page<NewsletterDetailsDTO> newsletters = objectMapper.readValue(responseEntity.getBody(), new TypeReference<RestResponsePage<NewsletterDetailsDTO>>() {});
+        
+        assertEquals(HttpStatus.OK, responseEntity.getStatusCode());
+        assertEquals(EXPECTED_SUBSCRIBED_BY_CATEGORY, newsletters.getTotalElements());
+    }
 
 }

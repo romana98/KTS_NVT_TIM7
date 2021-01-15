@@ -1,0 +1,73 @@
+<h1 class="mat-display-1;" style="text-align: center;  margin-top: 1%;">Publish Newsletter</h1>
+<mat-divider></mat-divider>
+<mat-progress-bar mode="indeterminate" *ngIf="bar"></mat-progress-bar>
+
+<div style="display: block; text-align: center; margin: 3%;">
+  <br>
+  <form [formGroup]="form"  (ngSubmit)="submit()" style="display: inline-block; width: 100%">
+
+    <div>
+        <mat-form-field [style.width.%]="25" [style.margin.%]="1">
+            <mat-label>Choose category...</mat-label>
+            <mat-select msInfiniteScroll (infiniteScroll)="getNextBatchCategories()" (selectionChange)="onChangeCategories($event)" id="categorySelect" name="categorySelect">
+                <mat-option *ngFor="let category of categoriesSelect.content" [value]="category">{{category.name}}</mat-option>
+            </mat-select>
+        </mat-form-field>
+
+        <mat-form-field [style.width.%]="25" [style.margin.%]="1">
+            <mat-label>Choose subcategory...</mat-label>
+            <mat-select msInfiniteScroll (infiniteScroll)="getNextBatchSubcategories()" (selectionChange)="onChangeSubcategories($event)" id="subcategorySelect" name="subcategorySelect">
+                <mat-option *ngFor="let subcategory of subcategoriesSelect.content" [value]="subcategory">{{subcategory.name}}</mat-option>
+            </mat-select>
+        </mat-form-field>
+
+        <mat-form-field [style.width.%]="25" [style.margin.%]="1">
+            <mat-label>Choose cultural offer...</mat-label>
+            <mat-select msInfiniteScroll (infiniteScroll)="getNextBatchOffers()" (selectionChange)="onChangeOffers($event)" id="offerSelect" name="offerSelect" [formControl]="form.controls.offerSelect">
+                <mat-option *ngFor="let offer of offersSelect.content" [value]="offer">{{offer.name}}</mat-option>
+            </mat-select>
+            <mat-error *ngIf="form.controls.offerSelect.touched && form.controls.offerSelect.errors?.required">
+                This field can't be empty!</mat-error >
+        </mat-form-field>
+    </div>
+
+    <div>
+      <mat-form-field  [style.width.%]="79">
+        <mat-label for="name">Title:</mat-label>
+        <input matInput id="name" name="name" placeholder="title" [formControl]="form.controls.name">
+        <mat-error *ngIf="form.controls.name.touched && form.controls.name.errors?.required">
+          This field can't be empty!</mat-error >
+      </mat-form-field>
+    </div>
+
+    <div>
+        <table [style.width.%]="80" [style.margin-left.%]="6.5" [style.margin-bottom.%]="1">
+            <tr>
+                <td [style.width.%]="70" rowspan="2">
+                    <mat-form-field [style.width.%]="80" [style.margin.%]="1">
+                        <mat-label for="description">Description:</mat-label>
+                        <textarea matInput rows="15" id="description" name="description" placeholder="description" [formControl]="form.controls.description"></textarea>
+                        <mat-error *ngIf="form.controls.description.touched && form.controls.description.errors?.required">
+                            This field can't be empty!</mat-error >
+                    </mat-form-field>
+                </td>
+                <td>
+                    <img style="max-width:400px;max-height:200px;" [src] = "picture!=='' ? picture : 'https://via.placeholder.com/200'"/>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <input class="ng-hide" type="file" (change)="onFileChanged($event)">
+                </td>
+            </tr>
+        </table>
+    </div>
+
+    
+
+    <div>
+      <button mat-raised-button type="submit" [disabled]="!form.valid">Publish newsletter</button>
+    </div>
+  </form>
+</div>
+

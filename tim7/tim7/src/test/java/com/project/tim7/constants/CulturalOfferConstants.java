@@ -132,6 +132,7 @@ public class CulturalOfferConstants {
     public static final String OLD_CULTURAL_OFFER_STARTDATE = "2020-07-11";
     public static final int OLD_CULTURAL_OFFER_LOCATION = 1;
     public static final int OLD_CULTURAL_OFFER_SUBCATEGORY = 1;
+    public static final int EXPECTED_OFFERS_BY_SUBCATEGORY = 2;
 
 
 

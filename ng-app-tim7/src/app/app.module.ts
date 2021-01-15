@@ -42,6 +42,31 @@ import { ViewProfileComponent } from './components/user/view-profile/view-profil
 import {MatCardModule} from '@angular/material/card';
 import {RegisteredEffects} from './components/registered/store/registered.effects';
 import { EditProfileComponent } from './components/user/edit-profile/edit-profile.component';
+import { DashboardNewsletterComponent } from './components/newsletter/dashboard-newsletter/dashboard-newsletter.component';
+import {NewsletterEffects} from './components/newsletter/store/newsletter.effects';
+import { CategoryDashboardComponent } from './components/category/category-dashboard/category-dashboard.component';
+import {CategoryEffects} from './components/category/store/category.effects';
+import { SubcategoryDashboardComponent } from './components/subcategory/subcategory-dashboard/subcategory-dashboard.component';
+import {SubcategoryEffects} from './components/subcategory/store/subcategory.effects';
+import {MatSelectModule} from '@angular/material/select';
+import {MatSelectInfiniteScrollModule} from 'ng-mat-select-infinite-scroll';
+import {ScrollingModule} from '@angular/cdk/scrolling';
+import { UpdateNewsletterComponent } from './components/newsletter/update-newsletter/update-newsletter.component';
+import { GoogleMapComponent } from './components/common/google-map/google-map.component';
+import { AgmCoreModule } from '@agm/core';
+import { AddNewsletterComponent } from './components/newsletter/add-newsletter/add-newsletter.component';
+import { SubscribedNewsletterComponent } from './components/newsletter/subscribed-newsletter/subscribed-newsletter.component';
+import {MatTabsModule} from '@angular/material/tabs';
+import { CategoryNewsletterComponent } from './components/newsletter/category-newsletter/category-newsletter.component';
+import { CardNewsletterComponent } from './components/newsletter/card-newsletter/card-newsletter.component';
+import { DialogNewsletterComponent } from './components/newsletter/dialog-newsletter/dialog-newsletter.component';
+import {MatDialogModule} from '@angular/material/dialog';
+import { CulturalOfferDashboardComponent } from './components/cultural-offer/cultural-offer-dashboard/cultural-offer-dashboard.component';
+import {CulturalOfferEffects} from './components/cultural-offer/store/cultural-offer.effects';
+import { CulturalOfferMainpageComponent } from './components/cultural-offer/cultural-offer-mainpage/cultural-offer-mainpage.component';
+import { CulturalOfferAddpageComponent } from './components/cultural-offer/cultural-offer-addpage/cultural-offer-addpage.component';
+import {MatDatepickerModule} from '@angular/material/datepicker';
+import {MatNativeDateModule} from '@angular/material/core';
 
 
 
@@ -60,29 +85,54 @@ import { EditProfileComponent } from './components/user/edit-profile/edit-profil
     PaginationComponent,
     AddAdministratorComponent,
     ViewProfileComponent,
-    EditProfileComponent
+    EditProfileComponent,
+    CategoryDashboardComponent,
+    SubcategoryDashboardComponent,
+    DashboardNewsletterComponent,
+    AddNewsletterComponent,
+    UpdateNewsletterComponent,
+    SubscribedNewsletterComponent,
+    CategoryNewsletterComponent,
+    CardNewsletterComponent,
+    DialogNewsletterComponent,
+    GoogleMapComponent,
+    CulturalOfferDashboardComponent,
+    CulturalOfferMainpageComponent,
+    CulturalOfferAddpageComponent
   ],
-    imports: [
-        BrowserModule,
-        BrowserAnimationsModule,
-        HttpClientModule,
-        AppRoutingModule,
-        StoreModule.forRoot(fromApp.appReducer, {metaReducers}),
-        EffectsModule.forRoot([AuthEffects, SignUpEffects, ActivateAccountEffects, AdministratorEffects, RegisteredEffects]),
-        StoreDevtoolsModule.instrument({maxAge: 25, logOnly: environment.production}),
-        ReactiveFormsModule,
-        MatToolbarModule,
-        MatDividerModule,
-        MatFormFieldModule,
-        MatInputModule,
-        MatButtonModule,
-        MatSnackBarModule,
-        MatIconModule,
-        MatProgressBarModule,
-        MatTableModule,
-        MatPaginatorModule,
-        MatCardModule
-    ],
+  imports: [
+    BrowserModule,
+    BrowserAnimationsModule,
+    HttpClientModule,
+    AppRoutingModule,
+    StoreModule.forRoot(fromApp.appReducer, {metaReducers}),
+    EffectsModule.forRoot([AuthEffects, SignUpEffects, ActivateAccountEffects, AdministratorEffects, RegisteredEffects,
+      CategoryEffects, SubcategoryEffects, NewsletterEffects, CulturalOfferEffects]),
+    StoreDevtoolsModule.instrument({maxAge: 25, logOnly: environment.production}),
+    ReactiveFormsModule,
+    MatToolbarModule,
+    MatDividerModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatButtonModule,
+    MatSnackBarModule,
+    MatIconModule,
+    MatProgressBarModule,
+    MatTableModule,
+    MatPaginatorModule,
+    MatCardModule,
+    MatSelectModule,
+    MatSelectInfiniteScrollModule,
+    ScrollingModule,
+    MatTabsModule,
+    MatDialogModule,
+    AgmCoreModule.forRoot({
+      apiKey: 'AIzaSyA299mClrC7nDZzy92CQ4X47y7FmaBKMj4'
+    }),
+    ScrollingModule,
+    MatDatepickerModule,
+    MatNativeDateModule
+  ],
   providers: [{
     provide: HTTP_INTERCEPTORS, useClass: HttpAuthInterceptor, multi: true
   }],

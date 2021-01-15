@@ -4,6 +4,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.project.tim7.dto.CategoryDTO;
+import com.project.tim7.dto.NewsletterDTO;
 import com.project.tim7.dto.UserLoginDTO;
 import com.project.tim7.dto.UserTokenStateDTO;
 import com.project.tim7.helper.RestResponsePage;
@@ -26,7 +27,7 @@ import static org.junit.Assert.*;
 import java.util.List;
 
 import static com.project.tim7.constants.CategoryConstants.*;
-
+import static com.project.tim7.constants.NewsletterConstants.FIND_ALL_NUMBER_OF_ITEMS;
 import static org.junit.Assert.assertEquals;
 
 @RunWith(SpringRunner.class)
@@ -55,6 +56,29 @@ public class CategoryControllerIntegrationTest {
 
         headers.setContentType(MediaType.APPLICATION_JSON);
         headers.add("Content-Type", "application/json");
+    }
+
+    @Test
+    public void testGetCategory(){
+        HttpEntity<Object> httpEntity = new HttpEntity<>(headers);
+
+        ResponseEntity<CategoryDTO> responseEntity =
+                restTemplate.exchange("/categories/by-id/1", HttpMethod.GET, httpEntity, CategoryDTO.class);
+
+        CategoryDTO found = responseEntity.getBody();
+        assertEquals(HttpStatus.OK, responseEntity.getStatusCode());
+        assertEquals(1, found.getId());
+    }
+
+    @Test
+    public void testGetCategoryNotFound(){
+        HttpEntity<Object> httpEntity = new HttpEntity<>(headers);
+
+        ResponseEntity<CategoryDTO> responseEntity =
+                restTemplate.exchange("/categories/by-id/1000", HttpMethod.GET, httpEntity, CategoryDTO.class);
+
+        CategoryDTO found = responseEntity.getBody();
+        assertNull(found);
     }
 
     @Test
@@ -183,7 +207,6 @@ public class CategoryControllerIntegrationTest {
 
         String message = responseEntity.getBody();
         assertEquals(HttpStatus.OK, responseEntity.getStatusCode());
-        assertThat(message).isNotBlank();
 
     }
 
@@ -213,6 +236,35 @@ public class CategoryControllerIntegrationTest {
         assertEquals(HttpStatus.BAD_REQUEST, responseEntity.getStatusCode());
         assertThat(message).isNotBlank();
 
+    }
+    
+    public void loginReg() {
+    	ResponseEntity<UserTokenStateDTO> responseEntity = restTemplate.postForEntity("/auth/log-in",
+                new UserLoginDTO(USERNAME_SUBSCRIBED, CONTROLLER_DB_PASSWORD), UserTokenStateDTO.class);
+
+        String accessToken = "Bearer " + responseEntity.getBody().getAccessToken();
+
+        headers = new HttpHeaders();
+        headers.add("Authorization", accessToken);
+
+        headers.setContentType(MediaType.APPLICATION_JSON);
+        headers.add("Content-Type", "application/json");
+    }
+    
+    @Test
+    public void testGetSubscribedCategories() throws JsonProcessingException {
+    	loginReg();
+        HttpEntity<Object> httpEntity = new HttpEntity<>(headers);
+
+        ObjectMapper objectMapper = new ObjectMapper();
+
+        ResponseEntity<String> responseEntity =
+                restTemplate.exchange("/categories/subscribed/3", HttpMethod.GET, httpEntity, String.class);
+
+        List<CategoryDTO> categories = objectMapper.readValue(responseEntity.getBody(), new TypeReference<List<CategoryDTO>>() {});
+
+        assertEquals(HttpStatus.OK, responseEntity.getStatusCode());
+        assertEquals(SUBSCRIBED_CATEGORIES, categories.size());
     }
 
 }

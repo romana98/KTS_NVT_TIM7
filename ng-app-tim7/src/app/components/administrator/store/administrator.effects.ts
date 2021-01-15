@@ -15,6 +15,7 @@ const handleSuccess = (type: string) => {
   }
   else if (type === 'edit') {
     message = 'Profile updated.';
+    return new AdminActions.AdminSuccessEdit(message);
   }
   else{
     message = 'Administrator added.';
@@ -50,6 +51,7 @@ export class AdministratorEffects {
         );
     })
   );
+
 
   @Effect()
   admin = this.actions$.pipe(
@@ -142,8 +144,8 @@ export class AdministratorEffects {
   );
 
   @Effect({ dispatch: false })
-  signUpRedirect = this.actions$.pipe(
-    ofType(AdminActions.ADMIN_SUCCESS),
+  adminSuccessEdit = this.actions$.pipe(
+    ofType(AdminActions.ADMIN_SUCCESS_EDIT),
     tap(() => {
       this.router.navigate(['/administrator/view-profile']);
     })

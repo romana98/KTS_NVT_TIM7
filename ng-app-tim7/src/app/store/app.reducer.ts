@@ -6,6 +6,10 @@ import * as fromSignUp from '../components/sign-up/store/sign-up.reducer';
 import * as fromActivate from '../components/activate-account/store/activate-account.reducer';
 import * as fromAdmin from '../components/administrator/store/administrator.reducer';
 import * as fromReg from '../components/registered/store/registered.reducer';
+import * as fromNewsletter from '../components/newsletter/store/newsletter.reducer';
+import * as fromCategory from '../components/category/store/category.reducer';
+import * as fromSubcategory from '../components/subcategory/store/subcategory.reducer';
+import * as fromCulturalOffer from '../components/cultural-offer/store/cultural-offer.reducer';
 
 export interface AppState {
   auth: fromAuth.State;
@@ -13,6 +17,10 @@ export interface AppState {
   activate: fromActivate.State;
   administrator: fromAdmin.State;
   registered: fromReg.State;
+  newsletter: fromNewsletter.State;
+  category: fromCategory.State;
+  subcategory: fromSubcategory.State;
+  culturaloffer: fromCulturalOffer.State;
 }
 
 export const appReducer: ActionReducerMap<AppState> = {
@@ -20,7 +28,11 @@ export const appReducer: ActionReducerMap<AppState> = {
   signUp: fromSignUp.signUpReducer,
   activate: fromActivate.activateAccountReducer,
   administrator: fromAdmin.administratorReducer,
-  registered: fromReg.registeredReducer
+  registered: fromReg.registeredReducer,
+  category: fromCategory.categoryReducer,
+  subcategory: fromSubcategory.subcategoryReducer,
+  newsletter: fromNewsletter.newsletterReducer,
+  culturaloffer: fromCulturalOffer.CulturalOfferReducer
 };
 
 const reducerKeys = ['user', 'signed-in-user'];

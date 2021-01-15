@@ -44,6 +44,7 @@ public class CulturalOffer {
 	private Date endDate;
 	
 	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
+	@OnDelete(action = OnDeleteAction.NO_ACTION)
 	@JoinColumn(name = "culturalOfferId")
 	private Set<Picture> pictures;
 	

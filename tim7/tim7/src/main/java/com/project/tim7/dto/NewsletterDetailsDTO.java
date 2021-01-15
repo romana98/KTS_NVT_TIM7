@@ -24,8 +24,22 @@ public class NewsletterDetailsDTO {
 	@NotNull
 	private int culturalOfferId;
 	
+	private String culturalOffer;
+	
 	private String picture;
 
+	public NewsletterDetailsDTO(int id, @NotBlank String name, String description, @NotBlank @PastOrPresent Date publishedDate,
+			@NotBlank int culturalOfferId, String picture, String culturalOffer) {
+		super();
+		this.id = id;
+		this.name = name;
+		this.description = description;
+		this.publishedDate = publishedDate;
+		this.culturalOfferId = culturalOfferId;
+		this.picture = picture;
+		this.culturalOffer = culturalOffer;
+	}
+	
 	public NewsletterDetailsDTO(int id, @NotBlank String name, String description, @NotBlank @PastOrPresent Date publishedDate,
 			@NotBlank int culturalOfferId, String picture) {
 		super();
@@ -86,6 +100,16 @@ public class NewsletterDetailsDTO {
 	public void setPicture(String picture) {
 		this.picture = picture;
 	}
+
+	public String getCulturaloffer() {
+		return culturalOffer;
+	}
+
+	public void setCulturaloffer(String culturaloffer) {
+		this.culturalOffer = culturaloffer;
+	}
+	
+	
 	
 	
 

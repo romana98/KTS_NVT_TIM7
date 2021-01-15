@@ -1,0 +1,3 @@
+<agm-map (mouseup)="centerChange()" (zoomChange)="changedZoom($event)" [zoom]="zoom" [latitude]="centerLatitude" [longitude]="centerLongitude">
+  <agm-marker (dragEnd)="dragEnd($event.coords)" *ngFor="let offer of input" [latitude]="offer.latitude" [longitude]="offer.longitude" [markerDraggable]="draggable" [id]="offer.id"></agm-marker>
+</agm-map>
