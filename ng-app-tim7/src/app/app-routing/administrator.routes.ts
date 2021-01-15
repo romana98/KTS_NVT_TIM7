@@ -11,6 +11,10 @@ import {CulturalOfferAddpageComponent} from '../components/cultural-offer/cultur
 
 export const adminRoutes: Routes = [
   {
+    path: 'administrator/editCulturalOffer',
+    component: CulturalOfferAddpageComponent,
+  },
+  {
     path: 'administrator/addCulturalOffer',
     component: CulturalOfferAddpageComponent,
   },

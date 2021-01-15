@@ -1,13 +1,16 @@
 import * as CulturalOfferActions from '../../cultural-offer/store/cultural-offer.actions';
+import {CulturalofferModel} from '../../../models/culturaloffer.model';
 
 export interface State {
   culturalOffers: any;
+  selectedOffer: CulturalofferModel;
   errorActionMessage: string;
   successActionMessage: string;
 }
 
 const initialState: State = {
   culturalOffers : {content: []},
+  selectedOffer: null,
   errorActionMessage: null,
   successActionMessage: null,
 };
@@ -45,7 +48,7 @@ export function CulturalOfferReducer(
     case CulturalOfferActions.GET_ONE_OFFER_ACTION_SUCCESS:
       return {
         ...state,
-        culturalOffers : action.payload,
+        selectedOffer : action.payload,
       };
     default:
       return {

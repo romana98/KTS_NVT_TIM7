@@ -45,7 +45,7 @@ export class CulturalOfferDashboardComponent implements OnInit, OnDestroy{
 
   }
   onClick(id: number){
-    this.router.navigate(['administrator/addCulturalOffer', { id: id }]);
+    this.router.navigate(['administrator/editCulturalOffer', { id: id }]);
   }
 
   onDelete(id: number){

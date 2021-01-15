@@ -73,7 +73,6 @@ export class CulturalOfferEffects {
       )
         .pipe(
           map(dataRes => {
-            console.log(dataRes);
             return new CulturalOfferActions.GetOneOfferActionSuccess(dataRes);
           }),
           catchError(errorRes => {

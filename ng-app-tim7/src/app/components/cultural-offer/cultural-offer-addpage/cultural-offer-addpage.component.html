@@ -1,44 +1,46 @@
-<h1 class="mat-display-1;" style="text-align: center;  margin-top: 2%;font-size: xx-large">Cultural Offer {{culturalOffer?.id}}</h1>
+<h1 class="mat-display-1;" style="text-align: center;  margin-top: 2%;font-size: xx-large">Cultural Offer</h1>
 
 <div style="float: left; width: 40%; padding-top: 5%; padding-left: 2%;">
 
     <div style="float: right;width: 50%">
-      <form [formGroup]="categoryForm">
+      <form [formGroup]="culturalOfferForm" (ngSubmit)="onSubmitClicked()">
       <mat-form-field appearance="outline" style="display: block">
         <mat-label> Name </mat-label>
-        <input matInput [value]="categoryForm" formControlName="name" placeholder="Type a value...">
+        <input matInput [formControl]="culturalOfferForm.controls.name" formControlName="name" placeholder="Type a value...">
       </mat-form-field>
 
       <mat-form-field appearance="outline" style="display: block">
         <mat-label>Category: </mat-label>
-        <mat-select formControlName="category">
-          <mat-option></mat-option>
+        <mat-select [compareWith]="compareCategory" [(value)]="culturalOfferForm.controls.category" formControlName="category">
+          <mat-option value="{{culturalOfferForm?.controls.category}}"> {{culturalOfferForm.controls.category.value}} </mat-option>
         </mat-select>
       </mat-form-field>
+
 
       <mat-form-field appearance="outline" style="display: block">
         <mat-label>Subcategory: </mat-label>
-        <mat-select formControlName="subcategory">
+        <mat-select [compareWith]="compareSubcategory" [(value)]="culturalOfferForm.controls.subcategory" formControlName="subcategory">
+          <mat-option value="{{culturalOfferForm?.controls.subcategory}}"> {{culturalOfferForm.controls.subcategory.value}} </mat-option>
         </mat-select>
       </mat-form-field>
 
       <mat-form-field appearance="outline" style="display: block">
-        <mat-label>Choose start date...</mat-label>
-        <input formControlName="startDate" matInput [matDatepicker]="picker">
+        <mat-label>Choose start date:</mat-label>
+        <input [value]="culturalOfferForm.controls.startDate.value | date: 'yyyy-dd-MM'" formControlName="startDate" matInput [matDatepicker]="picker">
         <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
         <mat-datepicker #picker></mat-datepicker>
       </mat-form-field>
 
       <mat-form-field appearance="outline" style="display: block">
-        <mat-label>Choose end date...</mat-label>
-        <input [value]="culturalOffer?.endDate | date: 'yyyy-dd-MM'" matInput [matDatepicker]="picker2">
+        <mat-label>Choose end date:</mat-label>
+        <input [value]="culturalOfferForm.controls.endDate.value | date: 'yyyy-dd-MM'" matInput [matDatepicker]="picker2">
         <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
         <mat-datepicker #picker2></mat-datepicker>
       </mat-form-field>
 
       <mat-form-field style="width: 100%" appearance="outline">
         <mat-label for="description">Description:</mat-label>
-        <textarea matInput rows="10" id="description" name="description" placeholder="description"></textarea>
+        <textarea [value]="culturalOfferForm.controls.description.value" matInput rows="10" id="description" name="description" placeholder="description"></textarea>
       </mat-form-field>
 
       <button style="margin-top: 5%;float:right;background-color: green" mat-raised-button type="submit">Save offer</button>
@@ -46,7 +48,7 @@
     </div>
 
     <div style="width: 48%;float: right;margin-right: 2%">
-      <img style="width: 85%" [src] = "'https://via.placeholder.com/200'"/>
+      <img style="width: 85%" [src] = "culturalOfferForm.controls.image.value"/>
       <button style="margin-right: 23%;margin-top: 5%;background-color: green" mat-raised-button type="submit">Upload picture</button>
     </div>
 
@@ -55,6 +57,6 @@
 
 <div style="padding-right: 3%;float: right;padding-top: 5%;width: 50%;">
 
-  <app-google-map [focusInput]="" [draggable]="false" [input]="" ></app-google-map>
+  <app-google-map [focusInput]="culturalOfferForm.controls.location.value" [draggable]="true" [input]="" ></app-google-map>
 
 </div>
