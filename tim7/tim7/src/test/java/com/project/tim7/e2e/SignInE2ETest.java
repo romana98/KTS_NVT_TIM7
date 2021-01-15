@@ -41,6 +41,7 @@ public class SignInE2ETest {
         justWait();
 
         signInPage.ensureIsDisplayedUsername();
+        signInPage.ensureIsDisplayedPassword();
 
         signInPage.getUsername().sendKeys("mico");
 
@@ -48,9 +49,10 @@ public class SignInE2ETest {
 
         signInPage.getSignInBtn().click();
 
-        signInPage.ensureIsNotVisibleLoginBtn();
+        signInPage.ensureIsNotVisibleSignInBtn();
 
         signInPage.ensureIsNotVisibleUsername();
+        signInPage.ensureIsNotVisiblePassowrd();
 
         assertEquals("http://localhost:4200/", driver.getCurrentUrl());
 
@@ -64,6 +66,7 @@ public class SignInE2ETest {
         justWait();
 
         signInPage.ensureIsDisplayedUsername();
+        signInPage.ensureIsDisplayedPassword();
 
         signInPage.getUsername().sendKeys("123123123");
 
@@ -88,6 +91,7 @@ public class SignInE2ETest {
         justWait();
 
         signInPage.ensureIsDisplayedUsername();
+        signInPage.ensureIsDisplayedPassword();
 
         signInPage.getUsername().sendKeys("mico");
 

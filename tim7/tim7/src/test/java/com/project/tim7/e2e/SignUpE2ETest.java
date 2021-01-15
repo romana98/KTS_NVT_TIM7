@@ -10,6 +10,7 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.PageFactory;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 
 public class SignUpE2ETest {
 
@@ -49,6 +50,7 @@ public class SignUpE2ETest {
         justWait();
 
         signUpPage.ensureIsDisplayedUsername();
+        signUpPage.ensureIsDisplayedEmail();
 
         signUpPage.getUsername().sendKeys("newUser");
 
@@ -59,7 +61,7 @@ public class SignUpE2ETest {
 
         signUpPage.getSignUpBtn().click();
 
-        signUpPage.ensureIsNotVisibleLoginBtn();
+        signUpPage.ensureIsNotVisibleSignUpBtn();
 
         signUpPage.ensureIsNotVisibleUsername();
 
@@ -69,7 +71,6 @@ public class SignUpE2ETest {
         System.out.println(snackBarValue);
 
         assertEquals("Registration successful! Activate account by email.\nOk", snackBarValue);
-
         assertEquals("http://localhost:4200/", driver.getCurrentUrl());
     }
 
@@ -142,7 +143,7 @@ public class SignUpE2ETest {
         signUpPage.getPassword().sendKeys("123qweASD");
         signUpPage.getPasswordConfirm().sendKeys("123qweASDa");
 
-        assertEquals(false, signUpPage.getSignUpBtn().isEnabled());
+        assertFalse(signUpPage.getSignUpBtn().isEnabled());
         assertEquals("http://localhost:4200/sign-up", driver.getCurrentUrl());
     }
 }
