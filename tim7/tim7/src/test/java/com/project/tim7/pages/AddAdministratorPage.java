@@ -40,18 +40,6 @@ public class AddAdministratorPage {
         (new WebDriverWait(driver, 30)).until(ExpectedConditions.elementToBeClickable(By.id("email")));
     }
 
-    public void ensureIsNotVisibleAddAdminBtn() {
-        (new WebDriverWait(driver, 20)).until(ExpectedConditions.invisibilityOfElementLocated(By.id("add-admin-button")));
-    }
-
-    public void ensureIsNotVisibleUsername() {
-        (new WebDriverWait(driver, 20)).until(ExpectedConditions.invisibilityOfElementLocated(By.id("username")));
-    }
-
-    public void ensureIsNotVisibleEmail() {
-        (new WebDriverWait(driver, 10)).until(ExpectedConditions.invisibilityOfElementLocated(By.id("email")));
-    }
-
     public WebElement getUsername() {
         return username;
     }

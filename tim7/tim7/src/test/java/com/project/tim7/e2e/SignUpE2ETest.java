@@ -43,7 +43,7 @@ public class SignUpE2ETest {
     }
 
     @Test
-    public void SignUpTestSuccess() throws InterruptedException {
+    public void signUpTestSuccess() throws InterruptedException {
 
         driver.get("http://localhost:4200/sign-up");
 
@@ -68,14 +68,13 @@ public class SignUpE2ETest {
         justWait();
 
         String snackBarValue =driver.findElement(By.tagName("simple-snack-bar")).getText();
-        System.out.println(snackBarValue);
 
         assertEquals("Registration successful! Activate account by email.\nOk", snackBarValue);
         assertEquals("http://localhost:4200/", driver.getCurrentUrl());
     }
 
     @Test
-    public void SignUpTestExistUsernameError() throws InterruptedException {
+    public void signUpTestExistUsernameError() throws InterruptedException {
 
         driver.get("http://localhost:4200/sign-up");
 
@@ -102,7 +101,7 @@ public class SignUpE2ETest {
     }
 
     @Test
-    public void SignUpTestExistEmailError() throws InterruptedException {
+    public void signUpTestExistEmailError() throws InterruptedException {
 
         driver.get("http://localhost:4200/sign-up");
 
@@ -129,7 +128,7 @@ public class SignUpE2ETest {
     }
 
     @Test
-    public void SignUpTestPasswordMatchError() throws InterruptedException {
+    public void signUpTestPasswordMatchError() throws InterruptedException {
         driver.get("http://localhost:4200/sign-up");
 
         justWait();

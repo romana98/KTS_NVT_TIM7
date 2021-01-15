@@ -34,7 +34,7 @@ public class SignInE2ETest {
     }
 
     @Test
-    public void SignInTestSuccess() throws InterruptedException {
+    public void signInTestSuccess() throws InterruptedException {
 
         driver.get("http://localhost:4200/sign-in");
 
@@ -59,7 +59,7 @@ public class SignInE2ETest {
     }
 
     @Test
-    public void SignInTestInvalidUsernameError() throws InterruptedException {
+    public void signInTestInvalidUsernameError() throws InterruptedException {
 
         driver.get("http://localhost:4200/sign-in");
 
@@ -84,7 +84,7 @@ public class SignInE2ETest {
     }
 
     @Test
-    public void SignTestInvalidPasswordError() throws InterruptedException {
+    public void signTestInvalidPasswordError() throws InterruptedException {
 
         driver.get("http://localhost:4200/sign-in");
 

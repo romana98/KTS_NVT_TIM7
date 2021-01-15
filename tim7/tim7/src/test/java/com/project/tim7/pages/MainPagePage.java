@@ -12,7 +12,14 @@ public class MainPagePage {
     @FindBy(xpath = "//*[@id=\"add-admin-navigate\"]")
     private WebElement addAdminNav;
 
+    @FindBy(xpath = "//*[@id=\"admin-dashboard-navigate\"]")
+    private WebElement adminDashboardNav;
+
     public WebElement getAddAdminNav() {
         return addAdminNav;
+    }
+
+    public WebElement getAdminDashboardNav() {
+        return adminDashboardNav;
     }
 }
