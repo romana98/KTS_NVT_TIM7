@@ -87,6 +87,14 @@ public class NewsletterConstants {
     public static final int RESTORE_OFFER_UPDATE = 1;
     public static final String RESTORE_DESCRIPTION_UPDATE = "Pellentesque ultrices mattis odio.";
     public static final String RESTORE_PICTURE_UPDATE = "http://dummyimage.com/129x140.bmp";
+    
+    public static final int EXPECTED_SUBSCRIBED_BY_CATEGORY = 3;
+    public static final int SUBSCRIBED_CATEGORY = 1;
+    public static final int SUBSCRIBED_USER = 3;
+    public static final int PAGEABLE_SIZE_3 = 3;
+
+
+
 
 
 

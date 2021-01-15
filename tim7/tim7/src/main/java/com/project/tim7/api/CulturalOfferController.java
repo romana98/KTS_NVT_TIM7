@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 import java.util.List;
 
+@CrossOrigin(origins = "https://localhost:4200")
 @RestController
 @RequestMapping(value="/cultural-offers")
 public class CulturalOfferController {
@@ -54,10 +55,10 @@ public class CulturalOfferController {
     public ResponseEntity<String> deleteCulturalOffer(@PathVariable("id") int id){
 
         boolean deletedSuccess = culturalOfferService.delete(id);
-        String toastMessage = deletedSuccess ? "Successfully deleted cultural offer." : "Removal of cultural offer failed.";
+        //String toastMessage = deletedSuccess ? "Successfully deleted cultural offer." : "Removal of cultural offer failed.";
         HttpStatus statusCode = deletedSuccess ? HttpStatus.OK : HttpStatus.BAD_REQUEST;
 
-        return new ResponseEntity<>(toastMessage, statusCode);
+        return new ResponseEntity<>(null, statusCode);
     }
 
     /**
@@ -99,7 +100,6 @@ public class CulturalOfferController {
      * @param pageable - Page object with number of elements to return and number of page.
      * @return - Returning desired number of objects according to page object.
      */
-    @PreAuthorize("hasRole('ROLE_ADMINISTRATOR')")
     @RequestMapping(value= "/by-page",method = RequestMethod.GET)
     public ResponseEntity<Page<CulturalOfferDTO>> getAllCulturalOffersPaged(Pageable pageable) {
         Page<CulturalOffer> page = culturalOfferService.findAll(pageable);
@@ -122,6 +122,21 @@ public class CulturalOfferController {
     	Page<CulturalOfferDTO> culturalOfferDTOPage = new PageImpl<>(culturalOfferDTOs, page.getPageable(), page.getTotalElements());
 
     	return new ResponseEntity<>(culturalOfferDTOPage, HttpStatus.OK);
+    }
+    
+    /**
+     * Get cultural offers of one subcategory
+     * @param id - subcateory id
+     * @return - Returning cultural offer of one subcategory
+     */
+    @PreAuthorize("hasRole('ROLE_ADMINISTRATOR')")
+    @RequestMapping(value= "/subcategory/{id}/by-page",method = RequestMethod.GET)
+    public ResponseEntity<Page<CulturalOfferDTO>> getAllCulturalOffersBySubcategoryPaged(@PathVariable("id") int id, Pageable pageable) {
+        Page<CulturalOffer> page = culturalOfferService.findBySubcategory(id, pageable);
+        List<CulturalOfferDTO> culturalOfferDTOS = culturalOfferMapper.toCulturalOfferDTOList(page.toList());
+        Page<CulturalOfferDTO> culturalOfferDTOPage = new PageImpl<>(culturalOfferDTOS,page.getPageable(),page.getTotalElements());
+
+        return new ResponseEntity<>(culturalOfferDTOPage, HttpStatus.OK);
     }
 
     /**

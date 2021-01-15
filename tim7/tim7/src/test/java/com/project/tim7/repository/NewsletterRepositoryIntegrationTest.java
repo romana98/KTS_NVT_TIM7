@@ -77,4 +77,11 @@ public class NewsletterRepositoryIntegrationTest {
 		Page<Newsletter> found = newsletterRepository.findNewsletterForCulturalOffer(CULTURAL_OFFER_ID_NULL, pageable);
         assertEquals(EXPECTED_PAGES_NULL, found.getNumberOfElements());
     }
+	
+	@Test
+	public void testFindNewsletterForUserByCategory() {
+		Pageable pageable = PageRequest.of(PAGEABLE_PAGE,PAGEABLE_SIZE_3);
+        Page<Newsletter> found = newsletterRepository.findNewsletterForUserByCategory(SUBSCRIBED_USER, SUBSCRIBED_CATEGORY, pageable);
+		assertEquals(EXPECTED_SUBSCRIBED_BY_CATEGORY, found.getNumberOfElements());
+	}
 }

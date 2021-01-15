@@ -5,7 +5,10 @@ import {SignUpComponent} from '../components/sign-up/sign-up.component';
 import {ActivateAccountComponent} from '../components/activate-account/activate-account.component';
 import {adminRoutes} from './administrator.routes';
 import {regRoutes} from './registered.routes';
-
+import {newsletterRoutes} from './newsletter.routes';
+import {CulturalOfferDashboardComponent} from '../components/cultural-offer/cultural-offer-dashboard/cultural-offer-dashboard.component';
+import {CulturalOfferMainpageComponent} from '../components/cultural-offer/cultural-offer-mainpage/cultural-offer-mainpage.component';
+import {CulturalOfferAddpageComponent} from '../components/cultural-offer/cultural-offer-addpage/cultural-offer-addpage.component';
 
 export const routes: Routes = [
   {
@@ -25,10 +28,18 @@ export const routes: Routes = [
   },
   {
     path: '',
+    component: CulturalOfferMainpageComponent,
+  },
+  {
+    path: '',
     children: adminRoutes
   },
   {
     path: '',
     children: regRoutes
+  },
+  {
+    path: '',
+    children: newsletterRoutes
   }
 ];

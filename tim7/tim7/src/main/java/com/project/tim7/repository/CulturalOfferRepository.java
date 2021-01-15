@@ -36,6 +36,9 @@ public interface CulturalOfferRepository extends JpaRepository<CulturalOffer, In
 	
 	@Query("SELECT COUNT(co.id) FROM CulturalOffer co JOIN co.subscribed s WHERE co.id = ?1 AND s.id = ?2")
 	Long checkIfsubscriptionExists(int idOffer, int idUser);
+	
+	@Query(value = "SELECT * from cultural_offers where subcategory_id = :id", nativeQuery = true)
+    Page<CulturalOffer> findBySubcategory(int id, Pageable pageable);
 
 
 }

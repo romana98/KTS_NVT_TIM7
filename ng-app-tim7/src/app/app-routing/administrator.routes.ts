@@ -4,8 +4,25 @@ import {AdministratorGuard} from '../guards/administrator.service';
 import {AddAdministratorComponent} from '../components/administrator/add-administrator/add-administrator.component';
 import {ViewProfileComponent} from '../components/user/view-profile/view-profile.component';
 import {EditProfileComponent} from '../components/user/edit-profile/edit-profile.component';
+import {CategoryDashboardComponent} from '../components/category/category-dashboard/category-dashboard.component';
+import {SubcategoryDashboardComponent} from '../components/subcategory/subcategory-dashboard/subcategory-dashboard.component';
+import {CulturalOfferDashboardComponent} from '../components/cultural-offer/cultural-offer-dashboard/cultural-offer-dashboard.component';
+import {CulturalOfferAddpageComponent} from '../components/cultural-offer/cultural-offer-addpage/cultural-offer-addpage.component';
 
 export const adminRoutes: Routes = [
+  {
+    path: 'administrator/editCulturalOffer',
+    component: CulturalOfferAddpageComponent,
+  },
+  {
+    path: 'administrator/addCulturalOffer',
+    component: CulturalOfferAddpageComponent,
+  },
+  {
+    path: 'administrator/culturalOfferDashboard',
+    component: CulturalOfferDashboardComponent,
+    canActivate: [AdministratorGuard]
+  },
   {
     path: 'administrator/dashboard',
     component: DashboardAdministratorComponent,
@@ -24,6 +41,16 @@ export const adminRoutes: Routes = [
   {
     path: 'administrator/edit-profile',
     component: EditProfileComponent,
+    canActivate: [AdministratorGuard]
+  },
+  {
+    path: 'administrator/manage-categories/dashboard',
+    component: CategoryDashboardComponent,
+    canActivate: [AdministratorGuard]
+  },
+  {
+    path: 'administrator/manage-subcategories/dashboard',
+    component: SubcategoryDashboardComponent,
     canActivate: [AdministratorGuard]
   }
 ];

@@ -29,7 +29,19 @@ public class CulturalOfferDTO {
     @NotNull
     private int location;
 
+    private double longitude;
+
+    private double latitude;
+
+    private String subcategoryName;
+
+    private String categoryName;
+
+    private String locationName;
+
     private ArrayList<String> pictures;
+
+    private int category;
 
     public CulturalOfferDTO(int id, @NotBlank String name,
                             @NotBlank String description,
@@ -65,6 +77,54 @@ public class CulturalOfferDTO {
     }
 
     public CulturalOfferDTO() {
+    }
+
+    public int getCategory() {
+        return category;
+    }
+
+    public void setCategory(int category) {
+        this.category = category;
+    }
+
+    public double getLongitude() {
+        return longitude;
+    }
+
+    public void setLongitude(double longitude) {
+        this.longitude = longitude;
+    }
+
+    public double getLatitude() {
+        return latitude;
+    }
+
+    public void setLatitude(double latitude) {
+        this.latitude = latitude;
+    }
+
+    public void setSubcategoryName(String subcategoryName){
+        this.subcategoryName = subcategoryName;
+    }
+
+    public void setCategoryName(String categoryName){
+        this.categoryName = categoryName;
+    }
+
+    public String getSubcategoryName(){
+        return this.subcategoryName;
+    }
+
+    public String getCategoryName(){
+        return this.categoryName;
+    }
+
+    public String getLocationName(){
+        return this.locationName;
+    }
+
+    public void setLocationName(String locationName){
+        this.locationName = locationName;
     }
 
     public int getId() {

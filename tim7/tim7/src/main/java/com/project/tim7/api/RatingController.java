@@ -18,6 +18,7 @@ import com.project.tim7.helper.RatingMapper;
 import com.project.tim7.model.Person;
 import com.project.tim7.service.RatingService;
 
+@CrossOrigin(origins = "https://localhost:4200")
 @RestController
 @RequestMapping(value="/ratings")
 public class RatingController {
