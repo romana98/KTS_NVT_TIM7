@@ -1,8 +1,8 @@
-package com.project.tim7.e2e;
+package com.project.tim7.e2eTests.e2e;
 
-import com.project.tim7.pages.AddAdministratorPage;
-import com.project.tim7.pages.MainPagePage;
-import com.project.tim7.pages.SignInPage;
+import com.project.tim7.e2eTests.pages.AddAdministratorPage;
+import com.project.tim7.e2eTests.pages.MainPagePage;
+import com.project.tim7.e2eTests.pages.SignInPage;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -10,7 +10,6 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.PageFactory;
-import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.jdbc.Sql;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -41,8 +40,7 @@ public class AddAdministratorE2ETest {
         signInPage.getUsername().sendKeys("mico");
         signInPage.getPassword().sendKeys("123qweASD");
         signInPage.getSignInBtn().click();
-        justWait();
-        justWait();
+        justWait(1000);
     }
 
     @After
@@ -50,10 +48,10 @@ public class AddAdministratorE2ETest {
         driver.quit();
     }
 
-    private void justWait() throws InterruptedException {
+    private void justWait(Integer howLong) throws InterruptedException {
         synchronized (driver)
         {
-            driver.wait(500);
+            driver.wait(howLong);
         }
     }
 
@@ -63,7 +61,7 @@ public class AddAdministratorE2ETest {
 
         mainPagePage.getAddAdminNav().click();
 
-        justWait();
+        justWait(500);
 
         addAdministratorPage.ensureIsDisplayedUsername();
         addAdministratorPage.ensureIsDisplayedEmail();
@@ -77,9 +75,9 @@ public class AddAdministratorE2ETest {
 
         addAdministratorPage.getAddAdminBtn().click();
 
-        justWait();
+        justWait(500);
 
-        String snackBarValue =driver.findElement(By.tagName("simple-snack-bar")).getText();
+        String snackBarValue = driver.findElement(By.tagName("simple-snack-bar")).getText();
 
         assertEquals("Administrator added.\nOk", snackBarValue);
         assertEquals("http://localhost:4200/administrator/add-administrator", driver.getCurrentUrl());
@@ -90,7 +88,7 @@ public class AddAdministratorE2ETest {
 
         mainPagePage.getAddAdminNav().click();
 
-        justWait();
+        justWait(500);
 
         addAdministratorPage.ensureIsDisplayedUsername();
         addAdministratorPage.ensureIsDisplayedEmail();
@@ -104,9 +102,9 @@ public class AddAdministratorE2ETest {
 
         addAdministratorPage.getAddAdminBtn().click();
 
-        justWait();
+        justWait(500);
 
-        String snackBarValue =driver.findElement(By.tagName("simple-snack-bar")).getText();
+        String snackBarValue = driver.findElement(By.tagName("simple-snack-bar")).getText();
 
         assertEquals("Username or email already exists.\nOk", snackBarValue);
         assertEquals("http://localhost:4200/administrator/add-administrator", driver.getCurrentUrl());
@@ -117,7 +115,7 @@ public class AddAdministratorE2ETest {
 
         mainPagePage.getAddAdminNav().click();
 
-        justWait();
+        justWait(500);
 
         addAdministratorPage.ensureIsDisplayedUsername();
         addAdministratorPage.ensureIsDisplayedEmail();
@@ -131,19 +129,19 @@ public class AddAdministratorE2ETest {
 
         addAdministratorPage.getAddAdminBtn().click();
 
-        justWait();
+        justWait(500);
 
-        String snackBarValue =driver.findElement(By.tagName("simple-snack-bar")).getText();
+        String snackBarValue = driver.findElement(By.tagName("simple-snack-bar")).getText();
 
         assertEquals("Username or email already exists.\nOk", snackBarValue);
         assertEquals("http://localhost:4200/administrator/add-administrator", driver.getCurrentUrl());
     }
 
     @Test
-    public void SignUpTestPasswordMatchError() throws InterruptedException {
+    public void addAdminTestPasswordMatchError() throws InterruptedException {
         mainPagePage.getAddAdminNav().click();
 
-        justWait();
+        justWait(500);
 
         addAdministratorPage.ensureIsDisplayedUsername();
 
@@ -154,7 +152,82 @@ public class AddAdministratorE2ETest {
         addAdministratorPage.getPassword().sendKeys("123qweASD");
         addAdministratorPage.getPasswordConfirm().sendKeys("123qweASDa");
 
+        String error = driver.findElement(By.tagName("mat-error")).getText();
+
         assertFalse(addAdministratorPage.getAddAdminBtn().isEnabled());
+        assertEquals("Passwords don't mach!", error);
+        assertEquals("http://localhost:4200/administrator/add-administrator", driver.getCurrentUrl());
+    }
+
+    @Test
+    public void addAdminPasswordShortError() throws InterruptedException {
+        mainPagePage.getAddAdminNav().click();
+
+        justWait(500);
+
+        addAdministratorPage.ensureIsDisplayedUsername();
+
+        addAdministratorPage.getUsername().sendKeys("newAdmin");
+
+        addAdministratorPage.getEmail().sendKeys("new_admin@email.com");
+
+        addAdministratorPage.getPassword().sendKeys("123");
+        addAdministratorPage.getPasswordConfirm().sendKeys("123");
+
+        justWait(100);
+
+        String error = driver.findElement(By.tagName("mat-error")).getText();
+
+        assertFalse(addAdministratorPage.getAddAdminBtn().isEnabled());
+        assertEquals("Password minimum length is 8!", error);
+        assertEquals("http://localhost:4200/administrator/add-administrator", driver.getCurrentUrl());
+    }
+
+    @Test
+    public void addAdminEmailError() throws InterruptedException {
+        mainPagePage.getAddAdminNav().click();
+
+        justWait(500);
+
+        addAdministratorPage.ensureIsDisplayedUsername();
+
+        addAdministratorPage.getUsername().sendKeys("newAdmin");
+
+        addAdministratorPage.getEmail().sendKeys("new_admin");
+
+        addAdministratorPage.getPassword().sendKeys("123qweASD");
+        addAdministratorPage.getPasswordConfirm().sendKeys("123qweASD");
+
+        justWait(100);
+
+        String error = driver.findElement(By.tagName("mat-error")).getText();
+
+        assertFalse(addAdministratorPage.getAddAdminBtn().isEnabled());
+        assertEquals("Invalid email format!", error);
+        assertEquals("http://localhost:4200/administrator/add-administrator", driver.getCurrentUrl());
+    }
+
+    @Test
+    public void addAdminUsernameError() throws InterruptedException {
+        mainPagePage.getAddAdminNav().click();
+
+        justWait(500);
+
+        addAdministratorPage.ensureIsDisplayedUsername();
+
+        addAdministratorPage.getUsername().sendKeys("");
+
+        addAdministratorPage.getEmail().sendKeys("new_admin@email.com");
+
+        addAdministratorPage.getPassword().sendKeys("123qweASD");
+        addAdministratorPage.getPasswordConfirm().sendKeys("123qweASD");
+
+        justWait(100);
+
+        String error = driver.findElement(By.tagName("mat-error")).getText();
+
+        assertFalse(addAdministratorPage.getAddAdminBtn().isEnabled());
+        assertEquals("This field can't be empty!", error);
         assertEquals("http://localhost:4200/administrator/add-administrator", driver.getCurrentUrl());
     }
 }

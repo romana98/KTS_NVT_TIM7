@@ -1,6 +1,6 @@
-package com.project.tim7.e2e;
+package com.project.tim7.e2eTests.e2e;
 
-import com.project.tim7.pages.SignInPage;
+import com.project.tim7.e2eTests.pages.SignInPage;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -38,7 +38,7 @@ public class SignInE2ETest {
 
         driver.get("http://localhost:4200/sign-in");
 
-        justWait();
+        justWait(500);
 
         signInPage.ensureIsDisplayedUsername();
         signInPage.ensureIsDisplayedPassword();
@@ -63,7 +63,7 @@ public class SignInE2ETest {
 
         driver.get("http://localhost:4200/sign-in");
 
-        justWait();
+        justWait(500);
 
         signInPage.ensureIsDisplayedUsername();
         signInPage.ensureIsDisplayedPassword();
@@ -74,7 +74,7 @@ public class SignInE2ETest {
 
         signInPage.getSignInBtn().click();
 
-        justWait();
+        justWait(500);
 
         String snackBarValue =driver.findElement(By.tagName("simple-snack-bar")).getText();
 
@@ -88,7 +88,7 @@ public class SignInE2ETest {
 
         driver.get("http://localhost:4200/sign-in");
 
-        justWait();
+        justWait(500);
 
         signInPage.ensureIsDisplayedUsername();
         signInPage.ensureIsDisplayedPassword();
@@ -99,7 +99,7 @@ public class SignInE2ETest {
 
         signInPage.getSignInBtn().click();
 
-        justWait();
+        justWait(500);
 
         String snackBarValue =driver.findElement(By.tagName("simple-snack-bar")).getText();
 
@@ -109,10 +109,10 @@ public class SignInE2ETest {
 
     }
 
-    private void justWait() throws InterruptedException {
+    private void justWait(Integer howLong) throws InterruptedException {
         synchronized (driver)
         {
-            driver.wait(500);
+            driver.wait(howLong);
         }
     }
 }
