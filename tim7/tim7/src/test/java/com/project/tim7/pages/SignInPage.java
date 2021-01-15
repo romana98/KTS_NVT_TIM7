@@ -30,13 +30,19 @@ public class SignInPage {
     public void ensureIsDisplayedUsername() {
         (new WebDriverWait(driver, 30)).until(ExpectedConditions.elementToBeClickable(By.id("username")));
     }
-    public void ensureIsNotVisibleLoginBtn() {
-        (new WebDriverWait(driver, 10)).until(ExpectedConditions.invisibilityOfElementLocated(By.id("login-button")));
+    public void ensureIsDisplayedPassword() {
+        (new WebDriverWait(driver, 30)).until(ExpectedConditions.elementToBeClickable(By.id("password")));
+    }
+    public void ensureIsNotVisibleSignInBtn() {
+        (new WebDriverWait(driver, 10)).until(ExpectedConditions.invisibilityOfElementLocated(By.id("sign-in-button")));
     }
 
 
     public void ensureIsNotVisibleUsername() {
         (new WebDriverWait(driver, 10)).until(ExpectedConditions.invisibilityOfElementLocated(By.id("username")));
+    }
+    public void ensureIsNotVisiblePassowrd() {
+        (new WebDriverWait(driver, 10)).until(ExpectedConditions.invisibilityOfElementLocated(By.id("password")));
     }
 
     public WebElement getUsername() {

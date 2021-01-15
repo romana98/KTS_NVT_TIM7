@@ -34,13 +34,14 @@ public class SignInE2ETest {
     }
 
     @Test
-    public void SignInTestSuccess() throws InterruptedException {
+    public void signInTestSuccess() throws InterruptedException {
 
         driver.get("http://localhost:4200/sign-in");
 
         justWait();
 
         signInPage.ensureIsDisplayedUsername();
+        signInPage.ensureIsDisplayedPassword();
 
         signInPage.getUsername().sendKeys("mico");
 
@@ -48,22 +49,24 @@ public class SignInE2ETest {
 
         signInPage.getSignInBtn().click();
 
-        signInPage.ensureIsNotVisibleLoginBtn();
+        signInPage.ensureIsNotVisibleSignInBtn();
 
         signInPage.ensureIsNotVisibleUsername();
+        signInPage.ensureIsNotVisiblePassowrd();
 
         assertEquals("http://localhost:4200/", driver.getCurrentUrl());
 
     }
 
     @Test
-    public void SignInTestInvalidUsernameError() throws InterruptedException {
+    public void signInTestInvalidUsernameError() throws InterruptedException {
 
         driver.get("http://localhost:4200/sign-in");
 
         justWait();
 
         signInPage.ensureIsDisplayedUsername();
+        signInPage.ensureIsDisplayedPassword();
 
         signInPage.getUsername().sendKeys("123123123");
 
@@ -81,13 +84,14 @@ public class SignInE2ETest {
     }
 
     @Test
-    public void SignTestInvalidPasswordError() throws InterruptedException {
+    public void signTestInvalidPasswordError() throws InterruptedException {
 
         driver.get("http://localhost:4200/sign-in");
 
         justWait();
 
         signInPage.ensureIsDisplayedUsername();
+        signInPage.ensureIsDisplayedPassword();
 
         signInPage.getUsername().sendKeys("mico");
 

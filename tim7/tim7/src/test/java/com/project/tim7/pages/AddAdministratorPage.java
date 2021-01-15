@@ -7,8 +7,7 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
-public class SignUpPage {
-
+public class AddAdministratorPage {
     private WebDriver driver;
 
     @FindBy(xpath = "//*[@id=\"username\"]")
@@ -23,13 +22,13 @@ public class SignUpPage {
     @FindBy(xpath = "//*[@id=\"passwordConfirm\"]")
     private WebElement passwordConfirm;
 
-    @FindBy(xpath = "//*[@id=\"sign-up-button\"]")
-    private WebElement signUpBtn;
+    @FindBy(xpath = "//*[@id=\"add-admin-button\"]")
+    private WebElement addAdminBtn;
 
-    public SignUpPage() {
+    public AddAdministratorPage() {
     }
 
-    public SignUpPage(WebDriver driver) {
+    public AddAdministratorPage(WebDriver driver) {
         this.driver = driver;
     }
 
@@ -39,18 +38,6 @@ public class SignUpPage {
 
     public void ensureIsDisplayedEmail() {
         (new WebDriverWait(driver, 30)).until(ExpectedConditions.elementToBeClickable(By.id("email")));
-    }
-
-    public void ensureIsNotVisibleSignUpBtn() {
-        (new WebDriverWait(driver, 20)).until(ExpectedConditions.invisibilityOfElementLocated(By.id("sign-up-button")));
-    }
-
-    public void ensureIsNotVisibleUsername() {
-        (new WebDriverWait(driver, 20)).until(ExpectedConditions.invisibilityOfElementLocated(By.id("username")));
-    }
-
-    public void ensureIsNotVisibleEmail() {
-        (new WebDriverWait(driver, 10)).until(ExpectedConditions.invisibilityOfElementLocated(By.id("email")));
     }
 
     public WebElement getUsername() {
@@ -69,7 +56,7 @@ public class SignUpPage {
         return passwordConfirm;
     }
 
-    public WebElement getSignUpBtn() {
-        return signUpBtn;
+    public WebElement getAddAdminBtn() {
+        return addAdminBtn;
     }
 }

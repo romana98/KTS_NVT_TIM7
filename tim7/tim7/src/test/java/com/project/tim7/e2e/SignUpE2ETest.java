@@ -10,6 +10,7 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.PageFactory;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 
 public class SignUpE2ETest {
 
@@ -42,13 +43,14 @@ public class SignUpE2ETest {
     }
 
     @Test
-    public void SignUpTestSuccess() throws InterruptedException {
+    public void signUpTestSuccess() throws InterruptedException {
 
         driver.get("http://localhost:4200/sign-up");
 
         justWait();
 
         signUpPage.ensureIsDisplayedUsername();
+        signUpPage.ensureIsDisplayedEmail();
 
         signUpPage.getUsername().sendKeys("newUser");
 
@@ -59,22 +61,20 @@ public class SignUpE2ETest {
 
         signUpPage.getSignUpBtn().click();
 
-        signUpPage.ensureIsNotVisibleLoginBtn();
+        signUpPage.ensureIsNotVisibleSignUpBtn();
 
         signUpPage.ensureIsNotVisibleUsername();
 
         justWait();
 
         String snackBarValue =driver.findElement(By.tagName("simple-snack-bar")).getText();
-        System.out.println(snackBarValue);
 
         assertEquals("Registration successful! Activate account by email.\nOk", snackBarValue);
-
         assertEquals("http://localhost:4200/", driver.getCurrentUrl());
     }
 
     @Test
-    public void SignUpTestExistUsernameError() throws InterruptedException {
+    public void signUpTestExistUsernameError() throws InterruptedException {
 
         driver.get("http://localhost:4200/sign-up");
 
@@ -101,7 +101,7 @@ public class SignUpE2ETest {
     }
 
     @Test
-    public void SignUpTestExistEmailError() throws InterruptedException {
+    public void signUpTestExistEmailError() throws InterruptedException {
 
         driver.get("http://localhost:4200/sign-up");
 
@@ -128,7 +128,7 @@ public class SignUpE2ETest {
     }
 
     @Test
-    public void SignUpTestPasswordMatchError() throws InterruptedException {
+    public void signUpTestPasswordMatchError() throws InterruptedException {
         driver.get("http://localhost:4200/sign-up");
 
         justWait();
@@ -142,7 +142,7 @@ public class SignUpE2ETest {
         signUpPage.getPassword().sendKeys("123qweASD");
         signUpPage.getPasswordConfirm().sendKeys("123qweASDa");
 
-        assertEquals(false, signUpPage.getSignUpBtn().isEnabled());
+        assertFalse(signUpPage.getSignUpBtn().isEnabled());
         assertEquals("http://localhost:4200/sign-up", driver.getCurrentUrl());
     }
 }
