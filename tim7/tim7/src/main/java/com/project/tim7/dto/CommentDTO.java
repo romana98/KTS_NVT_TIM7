@@ -1,7 +1,10 @@
 package com.project.tim7.dto;
 
+import com.project.tim7.model.Picture;
+
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Set;
 
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
@@ -23,6 +26,8 @@ public class CommentDTO {
 	@NotNull
 	@Min(0)
 	private int culturalOfferId;
+
+	private String registeredUser; // username
 	
 	public CommentDTO() {
 		super();
@@ -46,6 +51,32 @@ public class CommentDTO {
 		this.description = description;
 		this.publishedDate = publishedDate;
 		this.registeredId = registeredId;
+	}
+
+	public void setPicturesId(ArrayList<String> picturesId) {
+		this.picturesId = picturesId;
+	}
+
+	public String getRegisteredUser() {
+		return registeredUser;
+	}
+
+	public void setRegisteredUser(String registeredUser) {
+		this.registeredUser = registeredUser;
+	}
+
+	public CommentDTO(int id, @NotBlank String description, @NotNull Date publishedDate,
+					  @NotNull @Min(0) int registeredId, String registeredUser, Set<Picture> pictures) {
+		super();
+		this.id = id;
+		this.description = description;
+		this.publishedDate = publishedDate;
+		this.registeredId = registeredId;
+		this.registeredUser = registeredUser;
+		this.picturesId = new ArrayList<String>();
+		for(Picture p : pictures){
+			this.picturesId.add(p.getPicture());
+		}
 	}
 
 	public int getId() {

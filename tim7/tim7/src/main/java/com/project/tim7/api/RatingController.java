@@ -65,9 +65,9 @@ public class RatingController {
 			double rating = ratingService.getRating(culturalOfferId, person.getId());
 			if(rating < 0) {
 				if(rating == -3){ //admin
-					 return new ResponseEntity<RatingDTO>(new RatingDTO(0.0), HttpStatus.PRECONDITION_FAILED);
+					 return new ResponseEntity<RatingDTO>(new RatingDTO(0.0), HttpStatus.OK);
 				}else if(rating == -4){ //didn't leave a rate
-					return new ResponseEntity<RatingDTO>(new RatingDTO(0.0), HttpStatus.NOT_FOUND);
+					return new ResponseEntity<RatingDTO>(new RatingDTO(0.0), HttpStatus.OK);
 				}
 				//offer doesn't exist or user doesn't exist
 				return new ResponseEntity<RatingDTO>(new RatingDTO(0.0), HttpStatus.BAD_REQUEST);

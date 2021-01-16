@@ -9,6 +9,7 @@ import * as AdminActions from '../../administrator/store/administrator.actions';
 import * as RegisteredActions from '../../registered/store/registered.actions';
 import {UserModel} from '../../../models/user.model';
 import {validateLength} from '../../../validator/custom-validator-zero-min-eight-length';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-edit-profile',
@@ -28,7 +29,8 @@ export class EditProfileComponent implements OnInit, OnDestroy {
   constructor(
     private fb: FormBuilder,
     private store: Store<fromApp.AppState>,
-    private snackBar: MatSnackBar
+    private snackBar: MatSnackBar,
+    private router: Router
   ) {
     this.form = this.fb.group({
         email: [null, [Validators.required, Validators.email]],
@@ -45,22 +47,26 @@ export class EditProfileComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.storeSub = this.store.select(this.userType).subscribe(state => {
-      this.user = state.user.username;
-      this.form.controls.email.setValue(state.user.email);
-      this.error = state.error;
-      this.success = state.success;
-      this.bar = state.bar;
-      if (this.error) {
-        this.showErrorAlert(this.error);
-      }
-
-      if (this.success) {
-        this.showSuccessAlert(this.success);
-      }
-      if (this.bar){
-        this.form.disable();
+      if (state.user.username === ''){
+        this.router.navigate(['/' + this.userType + '/view-profile']);
       }else{
-        this.form.enable();
+        this.user = state.user.username;
+        this.form.controls.email.setValue(state.user.email);
+        this.error = state.error;
+        this.success = state.success;
+        this.bar = state.bar;
+        if (this.error) {
+          this.showErrorAlert(this.error);
+        }
+
+        if (this.success) {
+          this.showSuccessAlert(this.success);
+        }
+        if (this.bar){
+          this.form.disable();
+        }else{
+          this.form.enable();
+        }
       }
     });
   }

@@ -100,7 +100,11 @@ public class RatingService implements ServiceInterface<Rating> {
 		if(culturalOffer == null){
 			return -1.0;
 		}else{
-			return ratingRepository.findAverageRate(culturalOfferId);
+			try{
+				return ratingRepository.findAverageRate(culturalOfferId);
+			}catch(Exception e){
+				return 0.0;
+			}
 		}
     }
 
