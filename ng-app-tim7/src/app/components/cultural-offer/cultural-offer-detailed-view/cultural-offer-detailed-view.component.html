@@ -64,14 +64,14 @@ left div: description, comments and newsletters
       <h1 style="font-size: medium">Comment: </h1>
       <p>{{comments.content[0].description}}</p>
       <p>User: {{comments.content[0].registeredUser}}</p>
-      <br>
+      <p>Publish date: {{publishedDateComment}}</p>
       <mat-divider></mat-divider>
       <br>
 
       <br>
     </div>
     <div style="float:right; width:5%; margin-top: 10%">
-      <button (click)="commentNavigateNext()"><mat-icon>navigate_next</mat-icon></button>
+      <button [disabled]="disableNavigateCommentNext" (click)="commentNavigateNext()"><mat-icon>navigate_next</mat-icon></button>
     </div>
     <br>
 
@@ -112,6 +112,7 @@ left div: description, comments and newsletters
     <div style="float: left; width: 40%; padding-top: 1%; font-size: small; padding-left: 1%; margin-right: 1%">
       <h1 style="font-size: medium">Newsletter: {{newsletters.content[0].name}}</h1>
       <p>{{newsletters.content[0].description}}</p>
+      <p>Publish date: {{publishedDateNewsletter}}</p>
       <br>
       <mat-divider></mat-divider>
       <br>
@@ -119,7 +120,7 @@ left div: description, comments and newsletters
       <br>
     </div>
     <div style="float:right; width:5%; margin-top: 10%">
-      <button (click)="newslettersNavigateAfter()"><mat-icon>navigate_next</mat-icon></button>
+      <button [disabled]="disableNavigateNewsletterNext" (click)="newslettersNavigateAfter()"><mat-icon>navigate_next</mat-icon></button>
 
     </div>
     <br>
@@ -131,7 +132,7 @@ left div: description, comments and newsletters
 </div>
 
 <!--
-right div: rating and add coment
+right div: rating and add comment
 -->
 <div [hidden]="isHidden" style="float: right;width: 49%; padding-top: 2%">
   <div style="width: 100%">

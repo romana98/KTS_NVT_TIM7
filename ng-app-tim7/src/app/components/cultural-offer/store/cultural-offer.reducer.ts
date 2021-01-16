@@ -18,8 +18,8 @@ const initialState: State = {
   errorActionMessage: null,
   successActionMessage: null,
   culturalOfferDetailed: null,
-  comments : {content: [{description: '', registeredUser: '', picturesId: ['']}]},
-  newsletters : {content: [{name: '', description: '', picture: ''}]},
+  comments : {content: [{description: '', registeredUser: '', picturesId: [''], publishedDate: new Date()}]},
+  newsletters : {content: [{name: '', description: '', picture: '', publishedDate: new Date()}]},
   averageRating: 0.0,
   alreadyRated: 3,
   alreadySubscribed: false
@@ -119,7 +119,7 @@ export function CulturalOfferReducer(
       };
     case CulturalOfferActions.GET_COMMENTS_SUCCESS:
       if (action.payload.content.length === 0){
-        const empty = {content: [{description: '', registeredUser: '', picturesId: ['']}]};
+        const empty = {content: [{description: '', registeredUser: '', picturesId: [''], publishedDate: new Date()}]};
         return{
           ...state,
           comments: empty,

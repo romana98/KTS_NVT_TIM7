@@ -27,11 +27,14 @@ export class CulturalOfferDetailedViewComponent implements OnInit, OnDestroy {
   culturalOfferDetailed = {id: 0, name: '', description: '', pictures: ['']};
   id = 0;
   pickedPhotos = [];
-  comments = {content: [{description: '', registeredUser: '', picturesId: ['']}], numberOfElements: 0,
+  comments = {content: [{description: '', registeredUser: '', picturesId: [''], publishedDate: new Date()}], numberOfElements: 0,
     totalElements: 0, totalPages: 0, number: 0};
+  publishedDateComment = '';
   pageComments = 0;
   pageSizeComments = 1;
-  newsletters = {content: [{name: '', description: '', picture: ''}], numberOfElements: 0, totalElements: 0, totalPages: 0, number: 0};
+  newsletters = {content: [{name: '', description: '', picture: '', publishedDate: new Date()}],
+    numberOfElements: 0, totalElements: 0, totalPages: 0, number: 0};
+  publishedDateNewsletter = '';
   pageNewsletters = 0;
   pageSizeNewsletters = 1;
   success: string = null;
@@ -41,6 +44,8 @@ export class CulturalOfferDetailedViewComponent implements OnInit, OnDestroy {
   newslettersEmpty = false;
   disabledRating = false;
   hiddenButtons = false;
+  disableNavigateCommentNext = false;
+  disableNavigateNewsletterNext = false;
   // store
   private storeSub: Subscription;
 
@@ -76,21 +81,29 @@ export class CulturalOfferDetailedViewComponent implements OnInit, OnDestroy {
         this.router.navigate(['/']);
       }else{
         this.culturalOfferDetailed = state.culturalOfferDetailed;
-        this.comments = state.comments;
-        if (this.comments.content.length === 1 && this.comments.content[0].description === ''){
+        if (state.comments.content.length === 1 && state.comments.content[0].description === ''){
           if (this.pageComments === 0){
             this.commentsEmpty = true;
+          }else{
+            this.disableNavigateCommentNext = true;
           }
         }else{
+          this.comments = state.comments;
+          this.disableNavigateCommentNext = false;
           this.commentsEmpty = false;
+          this.publishedDateComment = (new Date(this.comments.content[0].publishedDate)).toLocaleString();
         }
-        this.newsletters = state.newsletters;
-        if (this.newsletters.content.length === 1 && this.newsletters.content[0].description === ''){
+        if (state.newsletters.content.length === 1 && state.newsletters.content[0].description === ''){
           if (this.pageNewsletters === 0){
             this.newslettersEmpty = true;
+          }else{
+            this.disableNavigateNewsletterNext = true;
           }
         }else{
+          this.newsletters = state.newsletters;
+          this.disableNavigateNewsletterNext = false;
           this.newslettersEmpty = false;
+          this.publishedDateNewsletter = (new Date(this.newsletters.content[0].publishedDate)).toLocaleString();
         }
         this.averageRating = state.averageRating;
         this.success = state.successActionMessage;
