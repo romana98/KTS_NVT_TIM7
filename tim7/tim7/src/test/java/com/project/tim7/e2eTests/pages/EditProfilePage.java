@@ -23,7 +23,7 @@ public class EditProfilePage {
     @FindBy(xpath = "//*[@id=\"passwordConfirm\"]")
     private WebElement passwordConfirm;
 
-    @FindBy(xpath = "//*[@id=\"edit-profile-button\"]")
+    @FindBy(xpath = "//*[@id=\"edit-profile-btn\"]")
     private WebElement editProfileBtn;
 
     public EditProfilePage() {
@@ -42,7 +42,7 @@ public class EditProfilePage {
     }
 
     public void ensureIsNotVisibleEditBtn() {
-        (new WebDriverWait(driver, 10)).until(ExpectedConditions.invisibilityOfElementLocated(By.id("edit-profile-button")));
+        (new WebDriverWait(driver, 10)).until(ExpectedConditions.invisibilityOfElementLocated(By.id("edit-profile-btn")));
     }
 
     public WebElement getUsername() {

@@ -8,6 +8,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.PageFactory;
+import org.springframework.test.annotation.DirtiesContext;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
@@ -82,7 +83,7 @@ public class SignUpE2ETest {
 
         signUpPage.ensureIsDisplayedUsername();
 
-        signUpPage.getUsername().sendKeys("newUser");
+        signUpPage.getUsername().sendKeys("mico");
 
         signUpPage.getEmail().sendKeys("new_user1@email.com");
 
@@ -111,7 +112,7 @@ public class SignUpE2ETest {
 
         signUpPage.getUsername().sendKeys("newUser1");
 
-        signUpPage.getEmail().sendKeys("new_user@email.com");
+        signUpPage.getEmail().sendKeys("mico@admin.com");
 
         signUpPage.getPassword().sendKeys("123qweASD");
         signUpPage.getPasswordConfirm().sendKeys("123qweASD");
@@ -119,7 +120,6 @@ public class SignUpE2ETest {
         signUpPage.getSignUpBtn().click();
 
         justWait(500);
-
         String snackBarValue = driver.findElement(By.tagName("simple-snack-bar")).getText();
 
         assertEquals("Username or email already exists.\nOk", snackBarValue);
@@ -142,6 +142,7 @@ public class SignUpE2ETest {
         signUpPage.getPassword().sendKeys("123qweASD");
         signUpPage.getPasswordConfirm().sendKeys("123qweASD");
 
+        justWait(100);
         String error = driver.findElement(By.tagName("mat-error")).getText();
 
         assertFalse(signUpPage.getSignUpBtn().isEnabled());
@@ -164,6 +165,7 @@ public class SignUpE2ETest {
         signUpPage.getPassword().sendKeys("123qweASD");
         signUpPage.getPasswordConfirm().sendKeys("123qweASD");
 
+        justWait(100);
         String error = driver.findElement(By.tagName("mat-error")).getText();
 
         assertFalse(signUpPage.getSignUpBtn().isEnabled());
@@ -186,6 +188,7 @@ public class SignUpE2ETest {
         signUpPage.getPassword().sendKeys("123qweASD");
         signUpPage.getPasswordConfirm().sendKeys("123qweASDa");
 
+        justWait(100);
         String error = driver.findElement(By.tagName("mat-error")).getText();
 
         assertFalse(signUpPage.getSignUpBtn().isEnabled());
@@ -208,6 +211,7 @@ public class SignUpE2ETest {
         signUpPage.getPassword().sendKeys("123");
         signUpPage.getPasswordConfirm().sendKeys("123");
 
+        justWait(100);
         String error = driver.findElement(By.tagName("mat-error")).getText();
 
         assertFalse(signUpPage.getSignUpBtn().isEnabled());

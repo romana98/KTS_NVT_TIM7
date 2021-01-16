@@ -9,6 +9,7 @@ import org.junit.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -69,6 +70,29 @@ public class AdministratorDashboardE2ETest {
         administratorDashboardPage.ensureIsNotVisibleDeleteBtn();
 
         assertEquals("Administrator deleted.\nOk", snackBarValue);
+        assertEquals("http://localhost:4200/administrator/dashboard", driver.getCurrentUrl());
+    }
+
+    @Test
+    public void paginationNextBackTestSuccess() throws InterruptedException {
+
+        mainPagePage.getAdminDashboardNav().click();
+
+        justWait(500);
+
+        driver.findElement(By.xpath("//*[@aria-label=\"Next page\"]")).click();
+
+        String currentPageNext = driver.findElement(By.className("mat-paginator-range-label")).getText();
+
+        assertEquals("11 – 14 of 14", currentPageNext);
+
+
+
+        driver.findElement(By.xpath("//*[@aria-label=\"Previous page\"]")).click();
+
+        String currentPagePrevious = driver.findElement(By.className("mat-paginator-range-label")).getText();
+
+        assertEquals("1 – 10 of 14", currentPagePrevious);
         assertEquals("http://localhost:4200/administrator/dashboard", driver.getCurrentUrl());
     }
 }

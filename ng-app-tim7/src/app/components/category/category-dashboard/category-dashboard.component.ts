@@ -15,7 +15,7 @@ import {CategoryModel} from '../../../models/category.model';
 export class CategoryDashboardComponent implements OnInit, OnDestroy {
   @ViewChild(FormGroupDirective) formGroupDirective: FormGroupDirective;
   page = 0;
-  pageSize = 15;
+  pageSize = 10;
   categories = {content: [], numberOfElements: 0, totalElements: 0, totalPages: 0, number: 0};
   category = null;
   success: string = null;

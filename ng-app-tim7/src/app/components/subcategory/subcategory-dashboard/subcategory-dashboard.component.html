@@ -52,7 +52,7 @@
   </div>
 
 </div>
-<div style="width: 50%; height: 50%; float: right">
+<div style="width: 50%; height: 50%; float: right; padding-right: 10%">
   <app-table [dataSource]="subcategories.content" [columnsToDisplay]="['Name', 'Category name', 'delete']" [columnsToIterate]="['name', 'categoryName']" (Click)="editModeOn($event)" (Delete)="deleteSubcategory($event)"></app-table>
 
   <app-pagination [pageSize]="pageSize"

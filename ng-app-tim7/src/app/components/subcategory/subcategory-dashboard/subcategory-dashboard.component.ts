@@ -17,7 +17,7 @@ export class SubcategoryDashboardComponent implements OnInit, OnDestroy {
   @ViewChild(FormGroupDirective) formGroupDirective: FormGroupDirective;
   // @ViewChild('scroller') scroller: CdkVirtualScrollViewport;
   page = 0;
-  pageSize = 15;
+  pageSize = 10;
   pageSizeCategories = 10;
   pageCategory = 0;
   subcategories = {content: [], numberOfElements: 0, totalElements: 0, totalPages: 0, number: 0};

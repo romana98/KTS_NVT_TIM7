@@ -10,7 +10,10 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.PageFactory;
-import org.springframework.test.context.jdbc.Sql;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.web.client.TestRestTemplate;
+import org.springframework.http.HttpMethod;
+import org.springframework.http.ResponseEntity;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
@@ -18,6 +21,9 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 public class AddAdministratorE2ETest {
 
     private WebDriver driver;
+
+    @Autowired
+    private TestRestTemplate restTemplate;
 
     private AddAdministratorPage addAdministratorPage;
     private MainPagePage mainPagePage;
@@ -56,7 +62,6 @@ public class AddAdministratorE2ETest {
     }
 
     @Test
-    @Sql(scripts = "classpath:e2e-sql-rollback/add-admin-test-success.sql", executionPhase = Sql.ExecutionPhase.AFTER_TEST_METHOD)
     public void addAdminTestSuccess() throws InterruptedException {
 
         mainPagePage.getAddAdminNav().click();
@@ -81,6 +86,13 @@ public class AddAdministratorE2ETest {
 
         assertEquals("Administrator added.\nOk", snackBarValue);
         assertEquals("http://localhost:4200/administrator/add-administrator", driver.getCurrentUrl());
+
+/*
+        ResponseEntity<String> responseEntity =
+                restTemplate.exchange("/administrators/4", HttpMethod.DELETE, httpEntity,
+                        String.class);
+
+ */
     }
 
     @Test

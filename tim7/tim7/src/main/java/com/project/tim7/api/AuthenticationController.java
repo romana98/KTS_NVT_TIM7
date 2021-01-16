@@ -95,7 +95,7 @@ public class AuthenticationController {
         long role = 2;
         List<Authority> auth = authorityService.findById(role);
         existReg.setAuthorities(auth);
-        existReg.setVerified(true);
+        existReg.setVerified(false);
 
         Registered newReg = regService.registerUser(existReg);
 

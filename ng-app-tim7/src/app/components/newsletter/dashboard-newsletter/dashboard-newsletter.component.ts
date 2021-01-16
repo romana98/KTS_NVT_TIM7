@@ -14,7 +14,7 @@ import {Router} from "@angular/router";
 export class DashboardNewsletterComponent implements OnInit, OnDestroy {
 
   page = 0;
-  pageSize = 15;
+  pageSize = 10;
   newsletters = {content: [], numberOfElements: 0, totalElements: 0, totalPages: 0, number: 0};
   success: string = null;
   error: string = null;
