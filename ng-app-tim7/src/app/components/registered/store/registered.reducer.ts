@@ -12,8 +12,13 @@ const initialState: State = {
   error: null,
   success: null,
   bar: false,
-  user: new UserModel('', '', '')
+  user: localStorage.getItem('signed-in-user') === null ? new UserModel('', '', '') : getUser()
 };
+
+function getUser() {
+  const user = JSON.parse(localStorage.getItem('signed-in-user'));
+  return new UserModel(user.username, user.email, user.password);
+}
 
 export function registeredReducer(
   state = initialState,

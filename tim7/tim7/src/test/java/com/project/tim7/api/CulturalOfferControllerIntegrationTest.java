@@ -616,6 +616,30 @@ public class CulturalOfferControllerIntegrationTest {
         headers.setContentType(MediaType.APPLICATION_JSON);
         headers.add("Content-Type", "application/json");
     }
+
+    @Test
+    public void testCheckIfSubscribed(){
+        loginRegUnsubscribe();
+        HttpEntity<Object> httpEntity = new HttpEntity<>(headers);
+
+        ResponseEntity<String> responseEntity =
+                restTemplate.exchange("/cultural-offers/alreadySubscribed/1", HttpMethod.GET, httpEntity,
+                        String.class);
+
+        assertEquals(HttpStatus.OK, responseEntity.getStatusCode());
+    }
+
+    @Test
+    public void testCheckIfSubscribedNot(){
+        loginRegSubscribe();
+        HttpEntity<Object> httpEntity = new HttpEntity<>(headers);
+
+        ResponseEntity<String> responseEntity =
+                restTemplate.exchange("/cultural-offers/alreadySubscribed/1", HttpMethod.GET, httpEntity,
+                        String.class);
+
+        assertEquals(HttpStatus.BAD_REQUEST, responseEntity.getStatusCode());
+    }
     
     //Subscribe success
     @Test

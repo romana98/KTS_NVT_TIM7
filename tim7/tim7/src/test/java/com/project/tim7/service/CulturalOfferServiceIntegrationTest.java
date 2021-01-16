@@ -522,4 +522,16 @@ public class CulturalOfferServiceIntegrationTest {
         assertEquals(EXPECTED_OFFERS_BY_SUBCATEGORY, page.getNumberOfElements());
     }
 
+    @Test
+    public void checkIfSubscribedTrue(){
+        boolean subscribed = culturalOfferService.checkIfSubscribed(1, 2);
+        assertTrue(subscribed);
+    }
+
+    @Test
+    public void checkIfSubscribedFalse(){
+        boolean subscribed = culturalOfferService.checkIfSubscribed(2,2);
+        assertFalse(subscribed);
+    }
+
 }

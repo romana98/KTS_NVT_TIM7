@@ -17,7 +17,10 @@ public interface CategoryRepository extends JpaRepository<Category, Integer>  {
 	
 	Category findByName(String name);
 	
-	@Query("SELECT c FROM Category c JOIN c.subcategories sub JOIN sub.culturalOffers co JOIN co.subscribed s WHERE s.id = ?1")
-	public List<Category> findSubscribedCategories(int id);
+	@Query(value = "select * from categories where categories.id in\n" +
+			"(select subcategories.category_id from subcategories where subcategories.category_id = categories.id AND subcategories.id in\n" +
+			"(select cultural_offers.subcategory_id from cultural_offers where cultural_offers.subcategory_id = subcategories.id AND cultural_offers.id in\n" +
+			"(select subscribed_cultural_offers.cultural_offer_id from subscribed_cultural_offers where subscribed_cultural_offers.cultural_offer_id = cultural_offers.id and subscribed_cultural_offers.registered_id = ?1)))", nativeQuery = true)
+	List<Category> findSubscribedCategories(int id);
 
 }
