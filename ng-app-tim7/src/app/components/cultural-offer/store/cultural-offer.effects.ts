@@ -241,6 +241,10 @@ export class CulturalOfferEffects {
           }),
           catchError(errorRes => {
             return of(new CulturalOfferActions.AlreadySubscribedValue(false));
+          })
+        );
+    })
+  );
   @Effect()
   oneOffer = this.actions$.pipe(
     ofType(culturalOfferActions.GET_ONE_OFFER_ACTION),
