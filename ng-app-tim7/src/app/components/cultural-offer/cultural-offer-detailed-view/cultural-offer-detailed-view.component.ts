@@ -84,26 +84,30 @@ export class CulturalOfferDetailedViewComponent implements OnInit, OnDestroy {
         if (state.comments.content.length === 1 && state.comments.content[0].description === ''){
           if (this.pageComments === 0){
             this.commentsEmpty = true;
-          }else{
-            this.disableNavigateCommentNext = true;
           }
         }else{
           this.comments = state.comments;
-          this.disableNavigateCommentNext = false;
           this.commentsEmpty = false;
           this.publishedDateComment = (new Date(this.comments.content[0].publishedDate)).toLocaleString();
+        }
+        if (this.pageComments + 1 === this.comments.totalPages){
+          this.disableNavigateCommentNext = true;
+        }else{
+          this.disableNavigateCommentNext = false;
         }
         if (state.newsletters.content.length === 1 && state.newsletters.content[0].description === ''){
           if (this.pageNewsletters === 0){
             this.newslettersEmpty = true;
-          }else{
-            this.disableNavigateNewsletterNext = true;
           }
         }else{
           this.newsletters = state.newsletters;
-          this.disableNavigateNewsletterNext = false;
           this.newslettersEmpty = false;
           this.publishedDateNewsletter = (new Date(this.newsletters.content[0].publishedDate)).toLocaleString();
+        }
+        if (this.pageNewsletters + 1 === this.newsletters.totalPages){
+          this.disableNavigateNewsletterNext = true;
+        }else{
+          this.disableNavigateNewsletterNext = false;
         }
         this.averageRating = state.averageRating;
         this.success = state.successActionMessage;
@@ -117,7 +121,6 @@ export class CulturalOfferDetailedViewComponent implements OnInit, OnDestroy {
         }
         this.hideSubscribe = state.alreadySubscribed;
         if (this.success) {
-          console.log(this.success);
           this.showSuccessAlert(this.success);
         }
         if (this.error) {
@@ -214,7 +217,9 @@ export class CulturalOfferDetailedViewComponent implements OnInit, OnDestroy {
   _handleReaderLoaded(e) {
     const reader = e.target;
     this.picture =  reader.result.replace(/(\r\n\t|\n|\r\t)/gm, '');
-    this.pickedPhotos.push(this.picture);
+    if (this.picture !== ''){
+      this.pickedPhotos.push(this.picture);
+    }
   }
 
   ngOnDestroy() {

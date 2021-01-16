@@ -70,6 +70,7 @@ import {MatNativeDateModule} from '@angular/material/core';
 import { CulturalOfferDetailedViewComponent } from './components/cultural-offer/cultural-offer-detailed-view/cultural-offer-detailed-view.component';
 import { MatCarouselModule } from '@ngmodule/material-carousel';
 import {NgxStarRatingModule} from 'ngx-star-rating';
+import { CarouselComponent } from './components/common/carousel/carousel.component';
 
 
 @NgModule({
@@ -101,7 +102,8 @@ import {NgxStarRatingModule} from 'ngx-star-rating';
     CulturalOfferDashboardComponent,
     CulturalOfferMainpageComponent,
     CulturalOfferAddpageComponent,
-    CulturalOfferDetailedViewComponent
+    CulturalOfferDetailedViewComponent,
+    CarouselComponent
   ],
   imports: [
     BrowserModule,
