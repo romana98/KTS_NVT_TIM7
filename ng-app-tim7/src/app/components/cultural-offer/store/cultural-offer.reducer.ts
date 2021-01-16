@@ -3,6 +3,7 @@ import {CulturalofferModel} from '../../../models/culturaloffer.model';
 
 export interface State {
   culturalOffers: any;
+  selectedOffer: CulturalofferModel;
   errorActionMessage: string;
   successActionMessage: string;
   culturalOfferDetailed: CulturalofferModel;
@@ -15,6 +16,7 @@ export interface State {
 
 const initialState: State = {
   culturalOffers : {content: []},
+  selectedOffer: null,
   errorActionMessage: null,
   successActionMessage: null,
   culturalOfferDetailed: null,
@@ -170,6 +172,11 @@ export function CulturalOfferReducer(
       return {
         ...state,
         culturalOffers : action.payload,
+      };
+    case CulturalOfferActions.GET_ONE_OFFER_ACTION_SUCCESS:
+      return {
+        ...state,
+        selectedOffer : action.payload,
       };
     case CulturalOfferActions.CLEAR_ACTION:
     default:

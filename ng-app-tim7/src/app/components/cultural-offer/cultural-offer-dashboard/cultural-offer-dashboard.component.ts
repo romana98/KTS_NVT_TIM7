@@ -5,7 +5,7 @@ import * as fromApp from '../../../store/app.reducer';
 import {MatSnackBar} from '@angular/material/snack-bar';
 import * as CulturalOfferActions from '../../cultural-offer/store/cultural-offer.actions';
 import {CulturalofferModel} from '../../../models/culturaloffer.model';
-import * as AdminActions from '../../administrator/store/administrator.actions';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-cultural-offer-dashboard',
@@ -22,7 +22,7 @@ export class CulturalOfferDashboardComponent implements OnInit, OnDestroy{
   error: string = null;
   private storeSub: Subscription;
 
-  constructor(private store: Store<fromApp.AppState>,
+  constructor(private router: Router, private store: Store<fromApp.AppState>,
               private snackBar: MatSnackBar) {}
 
   ngOnInit(): void {
@@ -43,6 +43,9 @@ export class CulturalOfferDashboardComponent implements OnInit, OnDestroy{
 
     });
 
+  }
+  onClick(id: number){
+    this.router.navigate(['administrator/editCulturalOffer', { id: id }]);
   }
 
   onDelete(id: number){

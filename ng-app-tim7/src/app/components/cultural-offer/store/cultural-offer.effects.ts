@@ -241,6 +241,19 @@ export class CulturalOfferEffects {
           }),
           catchError(errorRes => {
             return of(new CulturalOfferActions.AlreadySubscribedValue(false));
+  @Effect()
+  oneOffer = this.actions$.pipe(
+    ofType(culturalOfferActions.GET_ONE_OFFER_ACTION),
+    switchMap((data: culturalOfferActions.GetOneOfferAction) => {
+      return this.http.get(
+        'http://localhost:8080/cultural-offers/' + data.payload
+      )
+        .pipe(
+          map(dataRes => {
+            return new CulturalOfferActions.GetOneOfferActionSuccess(dataRes);
+          }),
+          catchError(errorRes => {
+            return of(new CulturalOfferActions.ErrorAction(errorRes.message));
           })
         );
     })

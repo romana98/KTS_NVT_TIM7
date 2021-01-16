@@ -41,6 +41,8 @@ public class CulturalOfferDTO {
 
     private ArrayList<String> pictures;
 
+    private int category;
+
     public CulturalOfferDTO(int id, @NotBlank String name,
                             @NotBlank String description,
                             @PastOrPresent Date startDate,
@@ -75,6 +77,14 @@ public class CulturalOfferDTO {
     }
 
     public CulturalOfferDTO() {
+    }
+
+    public int getCategory() {
+        return category;
+    }
+
+    public void setCategory(int category) {
+        this.category = category;
     }
 
     public double getLongitude() {

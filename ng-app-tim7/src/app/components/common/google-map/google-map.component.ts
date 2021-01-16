@@ -18,7 +18,7 @@ export class GoogleMapComponent implements OnInit, OnChanges {
     latitude: number;
     id: number;
   }
-   */
+  */
   @Input() input: Mappable[] = [];
   @Input() draggable;
   @Input() focusInput: Mappable;

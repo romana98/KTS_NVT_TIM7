@@ -24,6 +24,8 @@ export const SUBSCRIBE = '[CulturalOffer] Subscribe';
 export const UNSUBSCRIBE = '[CulturalOffer] Unsubscribe';
 export const ALREADY_SUBSCRIBED = '[CulturalOffer] Already subscribed';
 export const ALREADY_SUBSCRIBED_VALUE = '[CulturalOffer] Already subscribed value';
+export const GET_ONE_OFFER_ACTION = '[CulturalOffer] Get one offer';
+export const GET_ONE_OFFER_ACTION_SUCCESS = '[CulturalOffer] get one offer Success';
 
 export class AlreadySubscribed implements Action{
   type: string = ALREADY_SUBSCRIBED;
@@ -163,6 +165,19 @@ export class FilterSuccessAction implements Action{
   constructor(public payload: any) {}
 }
 
+export class GetOneOfferAction {
+  type: string = GET_ONE_OFFER_ACTION;
+
+  constructor(public payload: number) {}
+}
+
+export class GetOneOfferActionSuccess {
+  type: string = GET_ONE_OFFER_ACTION_SUCCESS;
+
+  constructor(public payload: any) {}
+
+}
+
 
 export type CulturalOfferActions =
   | GetCulturalOfferPage
@@ -185,4 +200,7 @@ export type CulturalOfferActions =
   | Unsubscribe
   | AlreadySubscribed
   | AlreadySubscribedValue
-  | FilterSuccessAction;
+  | FilterSuccessAction
+  | GoToDetailed
+  | GetOneOfferAction
+  | GetOneOfferActionSuccess;

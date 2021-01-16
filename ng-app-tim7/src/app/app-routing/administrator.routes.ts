@@ -7,8 +7,17 @@ import {EditProfileComponent} from '../components/user/edit-profile/edit-profile
 import {CategoryDashboardComponent} from '../components/category/category-dashboard/category-dashboard.component';
 import {SubcategoryDashboardComponent} from '../components/subcategory/subcategory-dashboard/subcategory-dashboard.component';
 import {CulturalOfferDashboardComponent} from '../components/cultural-offer/cultural-offer-dashboard/cultural-offer-dashboard.component';
+import {CulturalOfferAddpageComponent} from '../components/cultural-offer/cultural-offer-addpage/cultural-offer-addpage.component';
 
 export const adminRoutes: Routes = [
+  {
+    path: 'administrator/editCulturalOffer',
+    component: CulturalOfferAddpageComponent,
+  },
+  {
+    path: 'administrator/addCulturalOffer',
+    component: CulturalOfferAddpageComponent,
+  },
   {
     path: 'administrator/culturalOfferDashboard',
     component: CulturalOfferDashboardComponent,
