@@ -22,7 +22,7 @@
 
 <div style="padding-left:3%;float: left;padding-top: 1%;width:40%">
 
-  <app-table (Click)="onRowClick($event)" (Delete)="onDelete($event)" [dataSource]="culturalOffers" [columnsToDisplay]="['Category Name', 'Subcategory Name', 'Name ', 'Location']"
+  <app-table (DoubleClick)="goToDetailed($event)" (Click)="onRowClick($event)" (Delete)="onDelete($event)" [dataSource]="culturalOffers" [columnsToDisplay]="['Category Name', 'Subcategory Name', 'Name ', 'Location']"
              [columnsToIterate]="['categoryName', 'subcategoryName', 'name', 'locationName']"></app-table>
 
   <app-pagination [pageSize]="pageSize"
@@ -36,6 +36,6 @@
 
 <div style="padding-right: 3%;float: right;padding-top: 1%;width: 50%;">
 
-  <app-google-map [focusInput]="offerClicked" [draggable]="false" [input]="culturalOffers" ></app-google-map>
+  <app-google-map [focusInput]="offerClicked" [draggable]="true" [input]="culturalOffers" ></app-google-map>
 
 </div>

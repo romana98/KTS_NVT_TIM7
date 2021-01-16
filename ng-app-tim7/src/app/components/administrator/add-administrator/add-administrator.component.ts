@@ -70,6 +70,7 @@ export class AddAdministratorComponent implements OnInit, OnDestroy {
   }
 
   private showSuccessAlert(message: string) {
+    console.log('usao');
     this.snackBar.open(message, 'Ok', { duration: 3000 });
     this.store.dispatch(new AdminActions.ClearSuccess());
     setTimeout(() => this.formGroupDirective.resetForm(), 0);

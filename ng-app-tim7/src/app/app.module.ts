@@ -9,7 +9,7 @@ import { StoreModule } from '@ngrx/store';
 import { SignInComponent } from './components/sign-in/sign-in.component';
 import {AppRoutingModule} from './app-routing/app-routing.module';
 import { SignUpComponent } from './components/sign-up/sign-up.component';
-import {ReactiveFormsModule} from '@angular/forms';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { EffectsModule } from '@ngrx/effects';
 import * as fromApp from './store/app.reducer';
 import { AuthEffects } from './components/sign-in/store/sign-in.effects';
@@ -67,7 +67,9 @@ import { CulturalOfferMainpageComponent } from './components/cultural-offer/cult
 import { CulturalOfferAddpageComponent } from './components/cultural-offer/cultural-offer-addpage/cultural-offer-addpage.component';
 import {MatDatepickerModule} from '@angular/material/datepicker';
 import {MatNativeDateModule} from '@angular/material/core';
-
+import { CulturalOfferDetailedViewComponent } from './components/cultural-offer/cultural-offer-detailed-view/cultural-offer-detailed-view.component';
+import { MatCarouselModule } from '@ngmodule/material-carousel';
+import {NgxStarRatingModule} from 'ngx-star-rating';
 
 
 @NgModule({
@@ -98,7 +100,8 @@ import {MatNativeDateModule} from '@angular/material/core';
     GoogleMapComponent,
     CulturalOfferDashboardComponent,
     CulturalOfferMainpageComponent,
-    CulturalOfferAddpageComponent
+    CulturalOfferAddpageComponent,
+    CulturalOfferDetailedViewComponent
   ],
   imports: [
     BrowserModule,
@@ -131,7 +134,10 @@ import {MatNativeDateModule} from '@angular/material/core';
     }),
     ScrollingModule,
     MatDatepickerModule,
-    MatNativeDateModule
+    MatNativeDateModule,
+    MatCarouselModule.forRoot(),
+    NgxStarRatingModule,
+    FormsModule
   ],
   providers: [{
     provide: HTTP_INTERCEPTORS, useClass: HttpAuthInterceptor, multi: true

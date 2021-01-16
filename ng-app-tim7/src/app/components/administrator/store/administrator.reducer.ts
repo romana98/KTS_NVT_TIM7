@@ -14,7 +14,7 @@ const initialState: State = {
   error: null,
   success: null,
   bar: false,
-  user: localStorage.getItem('signed-in-user') === null ? null : getUser(),
+  user: localStorage.getItem('signed-in-user') === null ? new UserModel('', '', '') : getUser()
 };
 
 function getUser() {

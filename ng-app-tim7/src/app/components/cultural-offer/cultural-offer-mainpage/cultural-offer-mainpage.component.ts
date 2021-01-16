@@ -5,6 +5,7 @@ import {Store} from '@ngrx/store';
 import * as fromApp from '../../../store/app.reducer';
 import {MatSnackBar} from '@angular/material/snack-bar';
 import * as CulturalOfferActions from '../store/cultural-offer.actions';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-cultural-offer-mainpage',
@@ -22,11 +23,12 @@ export class CulturalOfferMainpageComponent implements OnInit, OnDestroy {
   private storeSub: Subscription;
 
   offerClicked: CulturalofferModel = null;
+  offerDetailed: CulturalofferModel = null;
 
   filterType: string;
 
   constructor(private store: Store<fromApp.AppState>,
-              private snackBar: MatSnackBar) {}
+              private snackBar: MatSnackBar, private router: Router) {}
 
   ngOnInit(): void {
     this.filterType = 'all';
@@ -35,6 +37,7 @@ export class CulturalOfferMainpageComponent implements OnInit, OnDestroy {
       this.getResponse = state.culturalOffers;
       this.culturalOffers = state.culturalOffers.content;
       this.offerClicked = state.culturalOffers.content[0];
+      this.offerDetailed = state.culturalOffers.content[0];
       this.error = state.errorActionMessage;
       this.success = state.successActionMessage;
 
@@ -84,4 +87,10 @@ export class CulturalOfferMainpageComponent implements OnInit, OnDestroy {
     }
   }
 
+  goToDetailed(offerId: number) {
+    const result = this.culturalOffers.filter( value => value.id === offerId );
+    this.offerDetailed = result[0];
+    this.store.dispatch(new CulturalOfferActions.GoToDetailed(this.offerDetailed));
+    this.router.navigate(['/detailed-cultural-offer'], {queryParams: {offer_id: offerId}});
+  }
 }

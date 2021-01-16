@@ -214,6 +214,14 @@ public class CulturalOfferService implements ServiceInterface<CulturalOffer> {
 		registered.getSubscribedCulturalOffers().add(culturalOffer);
 		return saveOne(culturalOffer);	
 	}
+
+	public boolean checkIfSubscribed(int idOffer, int idUser){
+		if (culturalOfferRepo.checkIfsubscriptionExists(idOffer, idUser) != 0){
+			return true;
+		}else{
+			return false;
+		}
+	}
 	
 	/**
 	 * Unsubscribing registered user from cultural offer
