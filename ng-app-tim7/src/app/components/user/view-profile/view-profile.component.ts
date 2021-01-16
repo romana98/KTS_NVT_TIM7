@@ -15,7 +15,7 @@ import {Router} from '@angular/router';
 })
 export class ViewProfileComponent implements OnInit {
 
-  user: UserModel;
+  user: UserModel = new UserModel('', '', '');
   private storeSub: Subscription;
   Actions: any;
   userType;
