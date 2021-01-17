@@ -6,7 +6,10 @@
   <br>
   <form [formGroup]="form"  (ngSubmit)="submit()" style="display: inline-block; width: 100%">
 
-    <div>
+    <div [hidden] = "!culturalOfferIdParam">
+        <h3 class="mat-display-1;" style="text-align: center;  margin-top: 1%;">{{culturalOfferNameParam}}</h3>
+    </div>
+    <div [hidden] = "culturalOfferIdParam">
         <mat-form-field [style.width.%]="25" [style.margin.%]="1">
             <mat-label>Choose category...</mat-label>
             <mat-select msInfiniteScroll (infiniteScroll)="getNextBatchCategories()" (selectionChange)="onChangeCategories($event)" id="categorySelect" name="categorySelect">

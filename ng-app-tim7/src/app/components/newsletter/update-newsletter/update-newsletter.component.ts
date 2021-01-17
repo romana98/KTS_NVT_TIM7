@@ -29,14 +29,14 @@ export class UpdateNewsletterComponent implements OnInit, OnDestroy {
   publishedDate = null;
   culturalOfferId = null;
   picture = null;
-  
 
   constructor(
     private fb: FormBuilder,
     private store: Store<fromApp.AppState>,
     private snackBar: MatSnackBar,
-    private route:ActivatedRoute
-  ) { 
+    private route: ActivatedRoute
+  )
+  {
     this.form = this.fb.group({
       name : [null, Validators.required],
       description : [null, Validators.required],
@@ -46,7 +46,6 @@ export class UpdateNewsletterComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.store.dispatch(new NewsletterActions.GetNewsletter({ id: this.route.snapshot.paramMap.get('id') }));
     this.storeSub = this.store.select('newsletter').subscribe(state => {
-      
       this.newsletter = state.newsletter;
       this.id = state.newsletter.id;
       this.name = state.newsletter.name;
@@ -54,7 +53,6 @@ export class UpdateNewsletterComponent implements OnInit, OnDestroy {
       this.publishedDate = state.newsletter.publishedDate;
       this.culturalOfferId = state.newsletter.culturalOfferId;
       this.picture = state.newsletter.picture;
-  
       this.error = state.error;
       this.success = state.success;
       this.bar = state.bar;
@@ -82,15 +80,15 @@ export class UpdateNewsletterComponent implements OnInit, OnDestroy {
     newsletter.publishedDate = this.publishedDate;
     newsletter.culturalOfferId = this.culturalOfferId;
 
-    this.store.dispatch(new NewsletterActions.UpdateNewsletter({ newsletter: newsletter }));
+    this.store.dispatch(new NewsletterActions.UpdateNewsletter({ newsletter}));
   }
 
   onFileChanged(e) {
-    var file = e.dataTransfer ? e.dataTransfer.files[0] : e.target.files[0];
-    var pattern = /image-*/;
-    var reader = new FileReader();
+    const file = e.dataTransfer ? e.dataTransfer.files[0] : e.target.files[0];
+    const pattern = /image-*/;
+    const reader = new FileReader();
     if (!file) {
-      this.picture = "";
+      this.picture = '';
       return;
     }
     if (!file.type.match(pattern)) {
@@ -101,8 +99,8 @@ export class UpdateNewsletterComponent implements OnInit, OnDestroy {
     reader.readAsDataURL(file);
   }
   _handleReaderLoaded(e) {
-    let reader = e.target;
-    this.picture =  reader.result.replace(/(\r\n\t|\n|\r\t)/gm,"");
+    const reader = e.target;
+    this.picture = reader.result.replace(/(\r\n\t|\n|\r\t)/gm, '');
   }
 
   private showErrorAlert(message: string) {
