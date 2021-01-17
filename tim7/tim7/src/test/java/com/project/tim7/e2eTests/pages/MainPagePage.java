@@ -18,11 +18,25 @@ public class MainPagePage {
     @FindBy(xpath = "//*[@id=\"view-profile\"]")
     private WebElement viewProfileNav;
 
+    @FindBy(xpath = "//*[@id=\"category-dashboard-nav\"]")
+    private WebElement manageCategoriesNav;
+
+    @FindBy(xpath = "//*[@id=\"subcategory-dashboard-nav\"]")
+    private WebElement manageSubcategoriesNav;
+
     public MainPagePage() {
     }
 
     public MainPagePage(WebDriver driver) {
         this.driver = driver;
+    }
+
+    public WebElement getManageSubcategoriesNav(){
+        return manageSubcategoriesNav;
+    }
+
+    public WebElement getManageCategoriesNav(){
+        return manageCategoriesNav;
     }
 
     public WebElement getAddAdminNav() {
