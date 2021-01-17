@@ -14,7 +14,7 @@
         This field can't be empty!</mat-error >
     </mat-form-field>
     <br>
-    <button mat-raised-button type="submit" [disabled]="!form.valid">Add category</button>
+    <button id="addCategoryBtn" mat-raised-button type="submit" [disabled]="!form.valid">Add category</button>
 
   </form>
 
@@ -33,7 +33,7 @@
           This field can't be empty!</mat-error >
       </mat-form-field>
       <br>
-      <button mat-raised-button type="submit" [disabled]="!formEdit.valid">Update category</button>
+      <button id="updateCategoryBtn" mat-raised-button type="submit" [disabled]="!formEdit.valid">Update category</button>
 
     </form>
   </div>
