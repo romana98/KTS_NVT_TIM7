@@ -1,9 +1,13 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<div style="padding-left: 2%;padding-right: 2%">
 <div style="text-align: center; ">
 <h1 class="mat-display-1;" style="float: top; display: inline-block; margin-top: 1%; margin-right: 1%">{{culturalOfferDetailed.name}}</h1>
   <div [hidden]="hiddenButtons">
     <button style="margin: auto" mat-flat-button (click)="subscribe()" [disabled]="hideSubscribe">Subscribe</button>
     <button style="margin: auto" mat-flat-button (click)="subscribe()" [disabled]="!hideSubscribe">Unsubscribe</button>
+  </div>
+  <div [hidden]="canNotPublish">
+    <button style="margin: auto" mat-flat-button (click)="goToPublish()">Publish Newsletter</button>
   </div>
 </div>
 <br>
@@ -113,4 +117,5 @@ right div: rating and add comment
       </form>
     </div>
   </div>
+</div>
 </div>
