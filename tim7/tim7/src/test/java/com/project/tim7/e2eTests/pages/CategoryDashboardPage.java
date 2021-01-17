@@ -76,39 +76,20 @@ public class CategoryDashboardPage {
         return webDriver;
     }
 
-    public void setWebDriver(WebDriver webDriver) {
-        this.webDriver = webDriver;
-    }
-
     public WebElement getAddCategoryNameInput() {
         return addCategoryNameInput;
-    }
-
-    public void setAddCategoryNameInput(WebElement addCategoryNameInput) {
-        this.addCategoryNameInput = addCategoryNameInput;
     }
 
     public WebElement getAddCategoryButton() {
         return addCategoryButton;
     }
 
-    public void setAddCategoryButton(WebElement addCategoryButton) {
-        this.addCategoryButton = addCategoryButton;
-    }
-
     public WebElement getEditCategoryNameInput() {
         return editCategoryNameInput;
-    }
-
-    public void setEditCategoryNameInput(WebElement editCategoryNameInput) {
-        this.editCategoryNameInput = editCategoryNameInput;
     }
 
     public WebElement getEditCategoryButton() {
         return editCategoryButton;
     }
 
-    public void setEditCategoryButton(WebElement editCategoryButton) {
-        this.editCategoryButton = editCategoryButton;
-    }
 }
