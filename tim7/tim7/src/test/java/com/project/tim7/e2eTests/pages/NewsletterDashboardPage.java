@@ -12,6 +12,9 @@ public class NewsletterDashboardPage {
 
     @FindBy(xpath = "//*[@id=\"1001\"]")
     private WebElement deleteBtn;
+    
+    @FindBy(xpath = "//*[@id=\"row1000\"]")
+    private WebElement clickedRow;
 
     @FindBy(tagName = "simple-snack-bar")
     private WebElement snackBar;
@@ -42,6 +45,10 @@ public class NewsletterDashboardPage {
 
     public WebElement getDeleteBtn() {
         return deleteBtn;
+    }
+    
+    public WebElement getClickedRow() {
+        return clickedRow;
     }
 
     public WebElement getSnackBar() { return snackBar; }
