@@ -38,7 +38,7 @@ public class ViewProfileE2ETest {
         signInPage.getUsername().sendKeys("micoR");
         signInPage.getPassword().sendKeys("123qweASD");
         signInPage.getSignInBtn().click();
-        justWait(1000);
+        justWait(1500);
     }
 
     @After
@@ -58,14 +58,14 @@ public class ViewProfileE2ETest {
 
         mainPagePage.getViewProfileNav().click();
 
-        justWait(500);
+        justWait(1000);
 
         viewProfilePage.ensureIsDisplayedUsername();
         viewProfilePage.ensureIsDisplayedEmail();
 
         viewProfilePage.getEditProfileBtn().click();
 
-        justWait(500);
+        justWait(1000);
 
         viewProfilePage.ensureIsNotVisibleEditBtn();
 

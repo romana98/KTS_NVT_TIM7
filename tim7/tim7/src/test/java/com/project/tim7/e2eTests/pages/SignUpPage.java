@@ -26,6 +26,12 @@ public class SignUpPage {
     @FindBy(xpath = "//*[@id=\"sign-up-button\"]")
     private WebElement signUpBtn;
 
+    @FindBy(tagName = "simple-snack-bar")
+    private WebElement snackBar;
+
+    @FindBy(tagName = "mat-error")
+    private WebElement error;
+
     public SignUpPage() {
     }
 
@@ -68,4 +74,8 @@ public class SignUpPage {
     public WebElement getSignUpBtn() {
         return signUpBtn;
     }
+
+    public WebElement getSnackBar() { return snackBar; }
+
+    public WebElement getError(){return error; }
 }

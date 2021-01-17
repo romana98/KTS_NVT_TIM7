@@ -26,6 +26,12 @@ public class EditProfilePage {
     @FindBy(xpath = "//*[@id=\"edit-profile-btn\"]")
     private WebElement editProfileBtn;
 
+    @FindBy(tagName = "simple-snack-bar")
+    private WebElement snackBar;
+
+    @FindBy(tagName = "mat-error")
+    private WebElement error;
+
     public EditProfilePage() {
     }
 
@@ -64,4 +70,8 @@ public class EditProfilePage {
     public WebElement getEditProfileBtn() {
         return editProfileBtn;
     }
+
+    public WebElement getSnackBar() { return snackBar; }
+
+    public WebElement getError(){return error; }
 }

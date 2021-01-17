@@ -13,6 +13,18 @@ public class AdministratorDashboardPage {
     @FindBy(xpath = "//*[@id=\"5006\"]")
     private WebElement deleteBtn;
 
+    @FindBy(tagName = "simple-snack-bar")
+    private WebElement snackBar;
+
+    @FindBy(xpath = "//*[@aria-label=\"Next page\"]")
+    private WebElement nextPageBtn;
+
+    @FindBy(xpath = "//*[@aria-label=\"Previous page\"]")
+    private WebElement previousPageBtn;
+
+    @FindBy(className = "mat-paginator-range-label")
+    private WebElement currentPage;
+
     public AdministratorDashboardPage() {
     }
 
@@ -27,5 +39,13 @@ public class AdministratorDashboardPage {
     public WebElement getDeleteBtn() {
         return deleteBtn;
     }
+
+    public WebElement getSnackBar() { return snackBar; }
+
+    public WebElement getNextPageBtn(){ return nextPageBtn; }
+
+    public WebElement getPreviousPageBtn(){ return previousPageBtn; }
+
+    public WebElement getCurrentPage(){return  currentPage; }
 
 }

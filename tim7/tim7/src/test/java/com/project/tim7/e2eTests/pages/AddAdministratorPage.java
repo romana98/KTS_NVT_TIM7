@@ -25,6 +25,12 @@ public class AddAdministratorPage {
     @FindBy(xpath = "//*[@id=\"add-admin-button\"]")
     private WebElement addAdminBtn;
 
+    @FindBy(tagName = "simple-snack-bar")
+    private WebElement snackBar;
+
+    @FindBy(tagName = "mat-error")
+    private WebElement error;
+
     public AddAdministratorPage() {
     }
 
@@ -59,4 +65,8 @@ public class AddAdministratorPage {
     public WebElement getAddAdminBtn() {
         return addAdminBtn;
     }
+
+    public WebElement getSnackBar() { return snackBar; }
+
+    public WebElement getError(){return error; }
 }

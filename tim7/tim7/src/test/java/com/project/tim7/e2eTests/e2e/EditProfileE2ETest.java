@@ -7,11 +7,9 @@ import com.project.tim7.e2eTests.pages.ViewProfilePage;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.PageFactory;
-import org.springframework.test.context.jdbc.Sql;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
@@ -42,7 +40,7 @@ public class EditProfileE2ETest {
         signInPage.getUsername().sendKeys("micoR");
         signInPage.getPassword().sendKeys("123qweASD");
         signInPage.getSignInBtn().click();
-        justWait(1000);
+        justWait(1500);
     }
 
     @After
@@ -63,7 +61,7 @@ public class EditProfileE2ETest {
         mainPagePage.getViewProfileNav().click();
         viewProfilePage.getEditProfileBtn().click();
 
-        justWait(500);
+        justWait(1000);
 
         editProfilePage.ensureIsDisplayedUsername();
         editProfilePage.ensureIsDisplayedEmail();
@@ -73,9 +71,9 @@ public class EditProfileE2ETest {
 
         editProfilePage.getEditProfileBtn().click();
 
-        justWait(500);
+        justWait(1000);
 
-        String snackBarValue = driver.findElement(By.tagName("simple-snack-bar")).getText();
+        String snackBarValue = editProfilePage.getSnackBar().getText();
 
         assertEquals("Profile updated.\nOk", snackBarValue);
         assertEquals("http://localhost:4200/registered/view-profile", driver.getCurrentUrl());
@@ -87,7 +85,7 @@ public class EditProfileE2ETest {
         mainPagePage.getViewProfileNav().click();
         viewProfilePage.getEditProfileBtn().click();
 
-        justWait(500);
+        justWait(1000);
 
         editProfilePage.ensureIsDisplayedUsername();
         editProfilePage.ensureIsDisplayedEmail();
@@ -97,9 +95,9 @@ public class EditProfileE2ETest {
 
         editProfilePage.getEditProfileBtn().click();
 
-        justWait(500);
+        justWait(1000);
 
-        String snackBarValue = driver.findElement(By.tagName("simple-snack-bar")).getText();
+        String snackBarValue = editProfilePage.getSnackBar().getText();
 
         assertEquals("Profile updated.\nOk", snackBarValue);
         assertEquals("http://localhost:4200/registered/view-profile", driver.getCurrentUrl());
@@ -111,7 +109,7 @@ public class EditProfileE2ETest {
         mainPagePage.getViewProfileNav().click();
         viewProfilePage.getEditProfileBtn().click();
 
-        justWait(500);
+        justWait(1000);
 
         editProfilePage.ensureIsDisplayedUsername();
         editProfilePage.ensureIsDisplayedEmail();
@@ -119,10 +117,10 @@ public class EditProfileE2ETest {
         editProfilePage.getEmail().clear();
         editProfilePage.getEmail().sendKeys("new_admin");
 
-        String error = driver.findElement(By.tagName("mat-error")).getText();
+        String errorValue = editProfilePage.getError().getText();
 
         assertFalse(editProfilePage.getEditProfileBtn().isEnabled());
-        assertEquals("Invalid email format!", error);
+        assertEquals("Invalid email format!", errorValue);
         assertEquals("http://localhost:4200/registered/edit-profile", driver.getCurrentUrl());
     }
 
@@ -132,7 +130,7 @@ public class EditProfileE2ETest {
         mainPagePage.getViewProfileNav().click();
         viewProfilePage.getEditProfileBtn().click();
 
-        justWait(500);
+        justWait(1000);
 
         editProfilePage.ensureIsDisplayedUsername();
         editProfilePage.ensureIsDisplayedEmail();
@@ -142,9 +140,9 @@ public class EditProfileE2ETest {
 
         editProfilePage.getEditProfileBtn().click();
 
-        justWait(500);
+        justWait(1000);
 
-        String snackBarValue = driver.findElement(By.tagName("simple-snack-bar")).getText();
+        String snackBarValue = editProfilePage.getSnackBar().getText();
 
         assertEquals("Email already exists.\nOk", snackBarValue);
         assertEquals("http://localhost:4200/registered/edit-profile", driver.getCurrentUrl());
@@ -156,7 +154,7 @@ public class EditProfileE2ETest {
         mainPagePage.getViewProfileNav().click();
         viewProfilePage.getEditProfileBtn().click();
 
-        justWait(500);
+        justWait(1000);
 
         editProfilePage.ensureIsDisplayedUsername();
         editProfilePage.ensureIsDisplayedEmail();
@@ -164,10 +162,10 @@ public class EditProfileE2ETest {
         editProfilePage.getPassword().sendKeys("123qweASD");
         editProfilePage.getPasswordConfirm().sendKeys("123qweASDa");
 
-        String error = driver.findElement(By.tagName("mat-error")).getText();
+        String errorValue = editProfilePage.getError().getText();
 
         assertFalse(editProfilePage.getEditProfileBtn().isEnabled());
-        assertEquals("Passwords don't mach!", error);
+        assertEquals("Passwords don't mach!", errorValue);
         assertEquals("http://localhost:4200/registered/edit-profile", driver.getCurrentUrl());
     }
 
@@ -177,7 +175,7 @@ public class EditProfileE2ETest {
         mainPagePage.getViewProfileNav().click();
         viewProfilePage.getEditProfileBtn().click();
 
-        justWait(500);
+        justWait(1000);
 
         editProfilePage.ensureIsDisplayedUsername();
         editProfilePage.ensureIsDisplayedEmail();
@@ -185,10 +183,10 @@ public class EditProfileE2ETest {
         editProfilePage.getPassword().sendKeys("123");
         editProfilePage.getPasswordConfirm().sendKeys("123");
 
-        String error = driver.findElement(By.tagName("mat-error")).getText();
+        String errorValue = editProfilePage.getError().getText();
 
         assertFalse(editProfilePage.getEditProfileBtn().isEnabled());
-        assertEquals("New password min length is 8!", error);
+        assertEquals("New password min length is 8!", errorValue);
         assertEquals("http://localhost:4200/registered/edit-profile", driver.getCurrentUrl());
     }
 }

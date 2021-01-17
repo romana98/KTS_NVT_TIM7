@@ -4,7 +4,6 @@ import com.project.tim7.e2eTests.pages.SignInPage;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.PageFactory;
@@ -38,7 +37,7 @@ public class SignInE2ETest {
 
         driver.get("http://localhost:4200/sign-in");
 
-        justWait(500);
+        justWait(1000);
 
         signInPage.ensureIsDisplayedUsername();
         signInPage.ensureIsDisplayedPassword();
@@ -63,7 +62,7 @@ public class SignInE2ETest {
 
         driver.get("http://localhost:4200/sign-in");
 
-        justWait(500);
+        justWait(1000);
 
         signInPage.ensureIsDisplayedUsername();
         signInPage.ensureIsDisplayedPassword();
@@ -74,9 +73,9 @@ public class SignInE2ETest {
 
         signInPage.getSignInBtn().click();
 
-        justWait(500);
+        justWait(1000);
 
-        String snackBarValue =driver.findElement(By.tagName("simple-snack-bar")).getText();
+        String snackBarValue = signInPage.getSnackBar().getText();
 
         assertEquals("Bad credentials!\nOk", snackBarValue);
         assertEquals("http://localhost:4200/sign-in", driver.getCurrentUrl());
@@ -88,7 +87,7 @@ public class SignInE2ETest {
 
         driver.get("http://localhost:4200/sign-in");
 
-        justWait(500);
+        justWait(1000);
 
         signInPage.ensureIsDisplayedUsername();
         signInPage.ensureIsDisplayedPassword();
@@ -99,9 +98,9 @@ public class SignInE2ETest {
 
         signInPage.getSignInBtn().click();
 
-        justWait(500);
+        justWait(1000);
 
-        String snackBarValue =driver.findElement(By.tagName("simple-snack-bar")).getText();
+        String snackBarValue = signInPage.getSnackBar().getText();
 
         assertEquals("Bad credentials!\nOk", snackBarValue);
         assertEquals("http://localhost:4200/sign-in", driver.getCurrentUrl());

@@ -20,6 +20,9 @@ public class SignInPage {
     @FindBy(xpath = "//*[@id=\"sign-in-button\"]")
     private WebElement signInBtn;
 
+    @FindBy(tagName = "simple-snack-bar")
+    private WebElement snackBar;
+
     public SignInPage() {
     }
 
@@ -56,4 +59,6 @@ public class SignInPage {
     public WebElement getSignInBtn() {
         return signInBtn;
     }
+
+    public WebElement getSnackBar() { return snackBar; }
 }

@@ -4,11 +4,9 @@ import com.project.tim7.e2eTests.pages.SignUpPage;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.PageFactory;
-import org.springframework.test.annotation.DirtiesContext;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
@@ -48,7 +46,7 @@ public class SignUpE2ETest {
 
         driver.get("http://localhost:4200/sign-up");
 
-        justWait(500);
+        justWait(1000);
 
         signUpPage.ensureIsDisplayedUsername();
         signUpPage.ensureIsDisplayedEmail();
@@ -66,9 +64,9 @@ public class SignUpE2ETest {
 
         signUpPage.ensureIsNotVisibleUsername();
 
-        justWait(500);
+        justWait(1000);
 
-        String snackBarValue = driver.findElement(By.tagName("simple-snack-bar")).getText();
+        String snackBarValue = signUpPage.getSnackBar().getText();
 
         assertEquals("Registration successful! Activate account by email.\nOk", snackBarValue);
         assertEquals("http://localhost:4200/", driver.getCurrentUrl());
@@ -79,7 +77,7 @@ public class SignUpE2ETest {
 
         driver.get("http://localhost:4200/sign-up");
 
-        justWait(500);
+        justWait(1000);
 
         signUpPage.ensureIsDisplayedUsername();
 
@@ -92,9 +90,9 @@ public class SignUpE2ETest {
 
         signUpPage.getSignUpBtn().click();
 
-        justWait(500);
+        justWait(1000);
 
-        String snackBarValue = driver.findElement(By.tagName("simple-snack-bar")).getText();
+        String snackBarValue = signUpPage.getSnackBar().getText();
 
         assertEquals("Username or email already exists.\nOk", snackBarValue);
 
@@ -106,7 +104,7 @@ public class SignUpE2ETest {
 
         driver.get("http://localhost:4200/sign-up");
 
-        justWait(500);
+        justWait(1000);
 
         signUpPage.ensureIsDisplayedUsername();
 
@@ -119,8 +117,8 @@ public class SignUpE2ETest {
 
         signUpPage.getSignUpBtn().click();
 
-        justWait(500);
-        String snackBarValue = driver.findElement(By.tagName("simple-snack-bar")).getText();
+        justWait(1000);
+        String snackBarValue = signUpPage.getSnackBar().getText();
 
         assertEquals("Username or email already exists.\nOk", snackBarValue);
 
@@ -131,7 +129,7 @@ public class SignUpE2ETest {
     public void signUpTestEmailError() throws InterruptedException {
         driver.get("http://localhost:4200/sign-up");
 
-        justWait(500);
+        justWait(1000);
 
         signUpPage.ensureIsDisplayedUsername();
 
@@ -142,11 +140,11 @@ public class SignUpE2ETest {
         signUpPage.getPassword().sendKeys("123qweASD");
         signUpPage.getPasswordConfirm().sendKeys("123qweASD");
 
-        justWait(100);
-        String error = driver.findElement(By.tagName("mat-error")).getText();
+        justWait(1000);
+        String errorValue = signUpPage.getError().getText();
 
         assertFalse(signUpPage.getSignUpBtn().isEnabled());
-        assertEquals("Invalid email format!", error);
+        assertEquals("Invalid email format!", errorValue);
         assertEquals("http://localhost:4200/sign-up", driver.getCurrentUrl());
     }
 
@@ -154,7 +152,7 @@ public class SignUpE2ETest {
     public void signUpTestUsernameError() throws InterruptedException {
         driver.get("http://localhost:4200/sign-up");
 
-        justWait(500);
+        justWait(1000);
 
         signUpPage.ensureIsDisplayedUsername();
 
@@ -165,11 +163,11 @@ public class SignUpE2ETest {
         signUpPage.getPassword().sendKeys("123qweASD");
         signUpPage.getPasswordConfirm().sendKeys("123qweASD");
 
-        justWait(100);
-        String error = driver.findElement(By.tagName("mat-error")).getText();
+        justWait(1000);
+        String errorValue = signUpPage.getError().getText();
 
         assertFalse(signUpPage.getSignUpBtn().isEnabled());
-        assertEquals("This field can't be empty!", error);
+        assertEquals("This field can't be empty!", errorValue);
         assertEquals("http://localhost:4200/sign-up", driver.getCurrentUrl());
     }
 
@@ -177,7 +175,7 @@ public class SignUpE2ETest {
     public void signUpTestPasswordMatchError() throws InterruptedException {
         driver.get("http://localhost:4200/sign-up");
 
-        justWait(500);
+        justWait(1000);
 
         signUpPage.ensureIsDisplayedUsername();
 
@@ -188,11 +186,11 @@ public class SignUpE2ETest {
         signUpPage.getPassword().sendKeys("123qweASD");
         signUpPage.getPasswordConfirm().sendKeys("123qweASDa");
 
-        justWait(100);
-        String error = driver.findElement(By.tagName("mat-error")).getText();
+        justWait(1000);
+        String errorValue = signUpPage.getError().getText();
 
         assertFalse(signUpPage.getSignUpBtn().isEnabled());
-        assertEquals("Passwords don't mach!", error);
+        assertEquals("Passwords don't mach!", errorValue);
         assertEquals("http://localhost:4200/sign-up", driver.getCurrentUrl());
     }
 
@@ -200,7 +198,7 @@ public class SignUpE2ETest {
     public void signUpTestPasswordShortError() throws InterruptedException {
         driver.get("http://localhost:4200/sign-up");
 
-        justWait(500);
+        justWait(1000);
 
         signUpPage.ensureIsDisplayedUsername();
 
@@ -211,11 +209,11 @@ public class SignUpE2ETest {
         signUpPage.getPassword().sendKeys("123");
         signUpPage.getPasswordConfirm().sendKeys("123");
 
-        justWait(100);
-        String error = driver.findElement(By.tagName("mat-error")).getText();
+        justWait(1000);
+        String errorValue = signUpPage.getError().getText();
 
         assertFalse(signUpPage.getSignUpBtn().isEnabled());
-        assertEquals("Password minimum length is 8!", error);
+        assertEquals("Password minimum length is 8!", errorValue);
         assertEquals("http://localhost:4200/sign-up", driver.getCurrentUrl());
     }
 }
