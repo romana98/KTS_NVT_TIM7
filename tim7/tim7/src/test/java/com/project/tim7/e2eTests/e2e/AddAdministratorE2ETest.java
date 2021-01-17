@@ -1,11 +1,13 @@
 package com.project.tim7.e2eTests.e2e;
 
 import com.project.tim7.e2eTests.pages.AddAdministratorPage;
+import com.project.tim7.e2eTests.pages.AdministratorDashboardPage;
 import com.project.tim7.e2eTests.pages.MainPagePage;
 import com.project.tim7.e2eTests.pages.SignInPage;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.PageFactory;
@@ -27,6 +29,7 @@ public class AddAdministratorE2ETest {
     private AddAdministratorPage addAdministratorPage;
     private MainPagePage mainPagePage;
     private SignInPage signInPage;
+    private AdministratorDashboardPage administratorDashboardPage;
 
 
     @Before
@@ -39,13 +42,14 @@ public class AddAdministratorE2ETest {
         addAdministratorPage = PageFactory.initElements(driver, AddAdministratorPage.class);
         signInPage = PageFactory.initElements(driver, SignInPage.class);
         mainPagePage = PageFactory.initElements(driver, MainPagePage.class);
+        administratorDashboardPage = PageFactory.initElements(driver, AdministratorDashboardPage.class);
 
         //sign in
         driver.get("http://localhost:4200/sign-in");
         signInPage.getUsername().sendKeys("mico");
         signInPage.getPassword().sendKeys("123qweASD");
         signInPage.getSignInBtn().click();
-        justWait(1500);
+        justWait(3000);
     }
 
     @After
@@ -86,12 +90,18 @@ public class AddAdministratorE2ETest {
         assertEquals("Administrator added.\nOk", snackBarValue);
         assertEquals("http://localhost:4200/administrator/add-administrator", driver.getCurrentUrl());
 
-/*
-        ResponseEntity<String> responseEntity =
-                restTemplate.exchange("/administrators/4", HttpMethod.DELETE, httpEntity,
-                        String.class);
+        addAdministratorPage.getAdminDashboardNavigate().click();
+        justWait(2000);
+        driver.findElement(By.xpath("//*[@aria-label=\"Next page\"]")).click();
+        administratorDashboardPage.getDeleteBtn().click();
+        justWait(1000);
 
- */
+        snackBarValue = administratorDashboardPage.getSnackBar().getText();
+
+        administratorDashboardPage.ensureIsNotVisibleDeleteBtn();
+
+        assertEquals("Administrator deleted.\nOk", snackBarValue);
+        assertEquals("http://localhost:4200/administrator/dashboard", driver.getCurrentUrl());
     }
 
     @Test

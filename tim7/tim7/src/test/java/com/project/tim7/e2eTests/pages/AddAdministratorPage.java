@@ -31,6 +31,9 @@ public class AddAdministratorPage {
     @FindBy(tagName = "mat-error")
     private WebElement error;
 
+    @FindBy(xpath = "//*[@id=\"admin-dashboard-navigate\"]")
+    private WebElement adminDashboardNavigate;
+
     public AddAdministratorPage() {
     }
 
@@ -44,6 +47,10 @@ public class AddAdministratorPage {
 
     public void ensureIsDisplayedEmail() {
         (new WebDriverWait(driver, 30)).until(ExpectedConditions.elementToBeClickable(By.id("email")));
+    }
+
+    public WebElement getAdminDashboardNavigate(){
+        return adminDashboardNavigate;
     }
 
     public WebElement getUsername() {

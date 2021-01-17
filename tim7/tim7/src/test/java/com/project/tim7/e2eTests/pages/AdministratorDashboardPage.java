@@ -10,7 +10,7 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 public class AdministratorDashboardPage {
     private WebDriver driver;
 
-    @FindBy(xpath = "//*[@id=\"5006\"]")
+    @FindBy(xpath = "//*[@id=\"5019\"]")
     private WebElement deleteBtn;
 
     @FindBy(tagName = "simple-snack-bar")

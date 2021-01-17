@@ -40,7 +40,7 @@ public class EditProfileE2ETest {
         signInPage.getUsername().sendKeys("micoR");
         signInPage.getPassword().sendKeys("123qweASD");
         signInPage.getSignInBtn().click();
-        justWait(1500);
+        justWait(3000);
     }
 
     @After
@@ -77,12 +77,51 @@ public class EditProfileE2ETest {
 
         assertEquals("Profile updated.\nOk", snackBarValue);
         assertEquals("http://localhost:4200/registered/view-profile", driver.getCurrentUrl());
+
+        viewProfilePage.getEditProfileBtn().click();
+
+        justWait(1000);
+
+        editProfilePage.ensureIsDisplayedUsername();
+        editProfilePage.ensureIsDisplayedEmail();
+
+        editProfilePage.getEmail().clear();
+        editProfilePage.getEmail().sendKeys("mico@reg.com");
+
+        editProfilePage.getEditProfileBtn().click();
+
+        justWait(1000);
+
+        snackBarValue = editProfilePage.getSnackBar().getText();
+
+        assertEquals("Profile updated.\nOk", snackBarValue);
+        assertEquals("http://localhost:4200/registered/view-profile", driver.getCurrentUrl());
+
     }
 
     @Test
     public void editProfileEditPasswordSuccess() throws InterruptedException {
 
         mainPagePage.getViewProfileNav().click();
+        viewProfilePage.getEditProfileBtn().click();
+
+        justWait(1000);
+
+        editProfilePage.ensureIsDisplayedUsername();
+        editProfilePage.ensureIsDisplayedEmail();
+
+        editProfilePage.getPassword().sendKeys("123qweASD123");
+        editProfilePage.getPasswordConfirm().sendKeys("123qweASD123");
+
+        editProfilePage.getEditProfileBtn().click();
+
+        justWait(1000);
+
+        String snackBarValue = editProfilePage.getSnackBar().getText();
+
+        assertEquals("Profile updated.\nOk", snackBarValue);
+        assertEquals("http://localhost:4200/registered/view-profile", driver.getCurrentUrl());
+
         viewProfilePage.getEditProfileBtn().click();
 
         justWait(1000);
@@ -97,7 +136,7 @@ public class EditProfileE2ETest {
 
         justWait(1000);
 
-        String snackBarValue = editProfilePage.getSnackBar().getText();
+        snackBarValue = editProfilePage.getSnackBar().getText();
 
         assertEquals("Profile updated.\nOk", snackBarValue);
         assertEquals("http://localhost:4200/registered/view-profile", driver.getCurrentUrl());
