@@ -24,11 +24,18 @@ public class MainPagePage {
     @FindBy(xpath = "//*[@id=\"subcategory-dashboard-nav\"]")
     private WebElement manageSubcategoriesNav;
 
+    @FindBy(xpath = "//*[@id=\"row2\"]")
+    private WebElement detailedCulturalOfferRow;
+
     public MainPagePage() {
     }
 
     public MainPagePage(WebDriver driver) {
         this.driver = driver;
+    }
+
+    public WebElement getDetailedCulturalOfferRow(){
+        return this.detailedCulturalOfferRow;
     }
 
     public WebElement getManageSubcategoriesNav(){

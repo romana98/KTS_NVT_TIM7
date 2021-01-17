@@ -29,16 +29,16 @@ public class SubcategoryDashboardPage {
     @FindBy(xpath = "//*[@id=\"updateSubcategoryButton\"]")
     private WebElement updateSubcategoryButton;
 
-    @FindBy(xpath = "//*[@id=\"row-1\"]")
+    @FindBy(xpath = "//*[@id=\"row1\"]")
     private WebElement clickedRow;
 
-    @FindBy(xpath = "//*[@id=\"row-2\"]")
+    @FindBy(xpath = "//*[@id=\"row2\"]")
     private WebElement clickedRowFail;
 
     @FindBy(tagName = "simple-snack-bar")
     private WebElement snackBar;
 
-    @FindBy(xpath = "//*[@id=\"4\"]")
+    @FindBy(xpath = "//*[@id=\"1016\"]")
     private WebElement deleteButton;
 
     @FindBy(xpath = "//*[@id=\"2\"]")
