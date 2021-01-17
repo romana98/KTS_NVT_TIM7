@@ -38,7 +38,7 @@ public class CategoryDashboardE2ETest {
         signInPage.getUsername().sendKeys("mico");
         signInPage.getPassword().sendKeys("123qweASD");
         signInPage.getSignInBtn().click();
-        justWait(1500);
+        justWait(4000);
     }
 
     @After
@@ -58,18 +58,31 @@ public class CategoryDashboardE2ETest {
 
         mainPagePage.getManageCategoriesNav().click();
 
-        justWait(500);
+        justWait(1000);
 
         categoryDashboardPage.ensureIsDisplayedAddCategoryName();
 
         categoryDashboardPage.getAddCategoryNameInput().sendKeys("New category");
         categoryDashboardPage.getAddCategoryButton().click();
 
-        justWait(500);
+        justWait(1000);
 
         String snackBarText = categoryDashboardPage.getSnackBar().getText();
 
         assertEquals("Category added successfully.\nOk", snackBarText);
+        assertEquals("http://localhost:4200/administrator/manage-categories/dashboard", driver.getCurrentUrl());
+
+        for(int i = 0;i < 100; i++){
+            driver.findElement(By.xpath("//*[@aria-label=\"Next page\"]")).click();
+        }
+
+        categoryDashboardPage.getDeleteButton().click();
+
+        justWait(1000);
+
+        snackBarText = categoryDashboardPage.getSnackBar().getText();
+
+        assertEquals("Category deleted successfully.\nOk", snackBarText);
         assertEquals("http://localhost:4200/administrator/manage-categories/dashboard", driver.getCurrentUrl());
 
     }
@@ -79,14 +92,14 @@ public class CategoryDashboardE2ETest {
 
         mainPagePage.getManageCategoriesNav().click();
 
-        justWait(500);
+        justWait(1000);
 
         categoryDashboardPage.ensureIsDisplayedAddCategoryName();
 
         categoryDashboardPage.getAddCategoryNameInput().sendKeys("Category1");
         categoryDashboardPage.getAddCategoryButton().click();
 
-        justWait(500);
+        justWait(1000);
 
         String snackBarText = categoryDashboardPage.getSnackBar().getText();
 
@@ -99,45 +112,67 @@ public class CategoryDashboardE2ETest {
     public void testUpdateCategorySuccess() throws InterruptedException {
         mainPagePage.getManageCategoriesNav().click();
 
-        justWait(500);
+        justWait(1000);
 
         categoryDashboardPage.ensureIsDisplayedAddCategoryName();
 
         categoryDashboardPage.getClickedRow().click();
 
-        justWait(500);
+        justWait(1000);
 
         categoryDashboardPage.ensureIsDisplayedUpdateCategoryName();
         categoryDashboardPage.getEditCategoryNameInput().clear();
         categoryDashboardPage.getEditCategoryNameInput().sendKeys("New category edit");
         categoryDashboardPage.getEditCategoryButton().click();
 
-        justWait(500);
+        justWait(1000);
 
         String snackBarText = categoryDashboardPage.getSnackBar().getText();
 
         assertEquals("Category updated successfully.\nOk", snackBarText);
         assertEquals("http://localhost:4200/administrator/manage-categories/dashboard", driver.getCurrentUrl());
+
+        for(int i = 0;i < 100; i++){
+            driver.findElement(By.xpath("//*[@aria-label=\"Next page\"]")).click();
+        }
+
+        categoryDashboardPage.getClickedRow().click();
+
+        justWait(1000);
+
+        categoryDashboardPage.ensureIsDisplayedUpdateCategoryName();
+        categoryDashboardPage.getEditCategoryNameInput().clear();
+        categoryDashboardPage.getEditCategoryNameInput().sendKeys("Institucija");
+        categoryDashboardPage.getEditCategoryButton().click();
+
+        justWait(1000);
+
+        snackBarText = categoryDashboardPage.getSnackBar().getText();
+
+        assertEquals("Category updated successfully.\nOk", snackBarText);
+        assertEquals("http://localhost:4200/administrator/manage-categories/dashboard", driver.getCurrentUrl());
+
+
     }
 
     @Test
     public void testUpdateCategoryFail() throws InterruptedException {
         mainPagePage.getManageCategoriesNav().click();
 
-        justWait(500);
+        justWait(1000);
 
         categoryDashboardPage.ensureIsDisplayedAddCategoryName();
 
         categoryDashboardPage.getClickedRowFail().click();
 
-        justWait(500);
+        justWait(1000);
 
         categoryDashboardPage.ensureIsDisplayedUpdateCategoryName();
         categoryDashboardPage.getEditCategoryNameInput().clear();
         categoryDashboardPage.getEditCategoryNameInput().sendKeys("Category5");
         categoryDashboardPage.getEditCategoryButton().click();
 
-        justWait(500);
+        justWait(1000);
 
         String snackBarText = categoryDashboardPage.getSnackBar().getText();
 
@@ -146,35 +181,17 @@ public class CategoryDashboardE2ETest {
     }
 
     @Test
-    public void testDeleteSuccess() throws InterruptedException {
-        mainPagePage.getManageCategoriesNav().click();
-
-        justWait(500);
-
-        categoryDashboardPage.ensureIsDisplayedAddCategoryName();
-
-        categoryDashboardPage.getDeleteButton().click();
-
-        justWait(500);
-
-        String snackBarText = categoryDashboardPage.getSnackBar().getText();
-
-        assertEquals("Category deleted successfully.\nOk", snackBarText);
-        assertEquals("http://localhost:4200/administrator/manage-categories/dashboard", driver.getCurrentUrl());
-    }
-
-    @Test
     public void testDeleteFail() throws InterruptedException {
 
         mainPagePage.getManageCategoriesNav().click();
 
-        justWait(500);
+        justWait(1000);
 
         categoryDashboardPage.ensureIsDisplayedAddCategoryName();
 
         categoryDashboardPage.getDeleteButtonFail().click();
 
-        justWait(500);
+        justWait(1000);
 
         String snackBarText = categoryDashboardPage.getSnackBar().getText();
 
@@ -188,7 +205,7 @@ public class CategoryDashboardE2ETest {
 
         mainPagePage.getManageCategoriesNav().click();
 
-        justWait(500);
+        justWait(1000);
 
         driver.findElement(By.xpath("//*[@aria-label=\"Next page\"]")).click();
 

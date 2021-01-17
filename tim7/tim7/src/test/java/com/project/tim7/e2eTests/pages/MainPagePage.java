@@ -34,11 +34,18 @@ public class MainPagePage {
     @FindBy(xpath = "//*[@id=\"home-nav\"]")
     private WebElement homeNav;
 
+    @FindBy(xpath = "//*[@id=\"row2\"]")
+    private WebElement detailedCulturalOfferRow;
+
     public MainPagePage() {
     }
 
     public MainPagePage(WebDriver driver) {
         this.driver = driver;
+    }
+
+    public WebElement getDetailedCulturalOfferRow(){
+        return this.detailedCulturalOfferRow;
     }
 
     public WebElement getManageSubcategoriesNav(){
