@@ -1,5 +1,6 @@
 package com.project.tim7.e2eTests.pages;
 
+import org.hibernate.internal.build.AllowSysOut;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -23,6 +24,15 @@ public class MainPagePage {
 
     @FindBy(xpath = "//*[@id=\"subcategory-dashboard-nav\"]")
     private WebElement manageSubcategoriesNav;
+    
+    @FindBy(xpath = "//*[@id=\"publish-newsletter-nav\"]")
+    private WebElement publishNewsletterNav;
+    
+    @FindBy(xpath = "//*[@id=\"newsletter-dashboard-nav\"]")
+    private WebElement newsletterDashboardNav;
+    
+    @FindBy(xpath = "//*[@id=\"home-nav\"]")
+    private WebElement homeNav;
 
     public MainPagePage() {
     }
@@ -50,4 +60,16 @@ public class MainPagePage {
     public WebElement getViewProfileNav() {
         return viewProfileNav;
     }
+
+	public WebElement getPublishNewsletterNav() {
+		return publishNewsletterNav;
+	}
+	
+	public WebElement getNewsletterDashboardNav() {
+		return newsletterDashboardNav;
+	}
+	
+	public WebElement getHomeNav() {
+		return homeNav;
+	}
 }

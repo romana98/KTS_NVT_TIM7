@@ -10,21 +10,21 @@
         <mat-form-field [style.width.%]="25" [style.margin.%]="1">
             <mat-label>Choose category...</mat-label>
             <mat-select msInfiniteScroll (infiniteScroll)="getNextBatchCategories()" (selectionChange)="onChangeCategories($event)" id="categorySelect" name="categorySelect">
-                <mat-option *ngFor="let category of categoriesSelect.content" [value]="category">{{category.name}}</mat-option>
+                <mat-option id={{category.name}} *ngFor="let category of categoriesSelect.content" [value]="category">{{category.name}}</mat-option>
             </mat-select>
         </mat-form-field>
 
         <mat-form-field [style.width.%]="25" [style.margin.%]="1">
             <mat-label>Choose subcategory...</mat-label>
             <mat-select msInfiniteScroll (infiniteScroll)="getNextBatchSubcategories()" (selectionChange)="onChangeSubcategories($event)" id="subcategorySelect" name="subcategorySelect">
-                <mat-option *ngFor="let subcategory of subcategoriesSelect.content" [value]="subcategory">{{subcategory.name}}</mat-option>
+                <mat-option id={{subcategory.name}} *ngFor="let subcategory of subcategoriesSelect.content" [value]="subcategory">{{subcategory.name}}</mat-option>
             </mat-select>
         </mat-form-field>
 
         <mat-form-field [style.width.%]="25" [style.margin.%]="1">
             <mat-label>Choose cultural offer...</mat-label>
             <mat-select msInfiniteScroll (infiniteScroll)="getNextBatchOffers()" (selectionChange)="onChangeOffers($event)" id="offerSelect" name="offerSelect" [formControl]="form.controls.offerSelect">
-                <mat-option *ngFor="let offer of offersSelect.content" [value]="offer">{{offer.name}}</mat-option>
+                <mat-option id={{offer.name}} *ngFor="let offer of offersSelect.content" [value]="offer">{{offer.name}}</mat-option>
             </mat-select>
             <mat-error *ngIf="form.controls.offerSelect.touched && form.controls.offerSelect.errors?.required">
                 This field can't be empty!</mat-error >
@@ -57,7 +57,7 @@
             </tr>
             <tr>
                 <td>
-                    <input class="ng-hide" type="file" (change)="onFileChanged($event)">
+                    <input id="picture" class="ng-hide" type="file" (change)="onFileChanged($event)">
                 </td>
             </tr>
         </table>
@@ -66,7 +66,7 @@
     
 
     <div>
-      <button mat-raised-button type="submit" [disabled]="!form.valid">Publish newsletter</button>
+      <button mat-raised-button id="publish-button" type="submit" [disabled]="!form.valid">Publish newsletter</button>
     </div>
   </form>
 </div>
