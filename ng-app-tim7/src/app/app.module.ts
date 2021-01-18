@@ -67,7 +67,10 @@ import { CulturalOfferMainpageComponent } from './components/cultural-offer/cult
 import { CulturalOfferAddpageComponent } from './components/cultural-offer/cultural-offer-addpage/cultural-offer-addpage.component';
 import {MatDatepickerModule} from '@angular/material/datepicker';
 import {MatNativeDateModule} from '@angular/material/core';
-
+import { CulturalOfferDetailedViewComponent } from './components/cultural-offer/cultural-offer-detailed-view/cultural-offer-detailed-view.component';
+import { MatCarouselModule } from '@ngmodule/material-carousel';
+import {NgxStarRatingModule} from 'ngx-star-rating';
+import { CarouselComponent } from './components/common/carousel/carousel.component';
 
 
 @NgModule({
@@ -98,42 +101,46 @@ import {MatNativeDateModule} from '@angular/material/core';
     GoogleMapComponent,
     CulturalOfferDashboardComponent,
     CulturalOfferMainpageComponent,
-    CulturalOfferAddpageComponent
+    CulturalOfferAddpageComponent,
+    CulturalOfferDetailedViewComponent,
+    CarouselComponent
   ],
-    imports: [
-        BrowserModule,
-        BrowserAnimationsModule,
-        HttpClientModule,
-        AppRoutingModule,
-        StoreModule.forRoot(fromApp.appReducer, {metaReducers}),
-        EffectsModule.forRoot([AuthEffects, SignUpEffects, ActivateAccountEffects, AdministratorEffects, RegisteredEffects,
-            CategoryEffects, SubcategoryEffects, NewsletterEffects, CulturalOfferEffects]),
-        StoreDevtoolsModule.instrument({maxAge: 25, logOnly: environment.production}),
-        ReactiveFormsModule,
-        MatToolbarModule,
-        MatDividerModule,
-        MatFormFieldModule,
-        MatInputModule,
-        MatButtonModule,
-        MatSnackBarModule,
-        MatIconModule,
-        MatProgressBarModule,
-        MatTableModule,
-        MatPaginatorModule,
-        MatCardModule,
-        MatSelectModule,
-        MatSelectInfiniteScrollModule,
-        ScrollingModule,
-        MatTabsModule,
-        MatDialogModule,
-        AgmCoreModule.forRoot({
-            apiKey: 'AIzaSyA299mClrC7nDZzy92CQ4X47y7FmaBKMj4'
-        }),
-        ScrollingModule,
-        MatDatepickerModule,
-        MatNativeDateModule,
-        FormsModule
-    ],
+  imports: [
+    BrowserModule,
+    BrowserAnimationsModule,
+    HttpClientModule,
+    AppRoutingModule,
+    StoreModule.forRoot(fromApp.appReducer, {metaReducers}),
+    EffectsModule.forRoot([AuthEffects, SignUpEffects, ActivateAccountEffects, AdministratorEffects, RegisteredEffects,
+      CategoryEffects, SubcategoryEffects, NewsletterEffects, CulturalOfferEffects]),
+    StoreDevtoolsModule.instrument({maxAge: 25, logOnly: environment.production}),
+    ReactiveFormsModule,
+    MatToolbarModule,
+    MatDividerModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatButtonModule,
+    MatSnackBarModule,
+    MatIconModule,
+    MatProgressBarModule,
+    MatTableModule,
+    MatPaginatorModule,
+    MatCardModule,
+    MatSelectModule,
+    MatSelectInfiniteScrollModule,
+    ScrollingModule,
+    MatTabsModule,
+    MatDialogModule,
+    AgmCoreModule.forRoot({
+      apiKey: 'AIzaSyA299mClrC7nDZzy92CQ4X47y7FmaBKMj4'
+    }),
+    ScrollingModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
+    MatCarouselModule.forRoot(),
+    NgxStarRatingModule,
+    FormsModule
+  ],
   providers: [{
     provide: HTTP_INTERCEPTORS, useClass: HttpAuthInterceptor, multi: true
   }],

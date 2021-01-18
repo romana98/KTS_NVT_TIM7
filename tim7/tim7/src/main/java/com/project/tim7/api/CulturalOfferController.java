@@ -163,7 +163,7 @@ public class CulturalOfferController {
         httpCode = subscribed == null ? HttpStatus.BAD_REQUEST : HttpStatus.OK;
         toastMessage = subscribed == null ? "Subscription failed!" : "Successfully subscribed!";
 
-		return new ResponseEntity<>(toastMessage,httpCode);
+		return new ResponseEntity<>(httpCode);
     }
     
     /**
@@ -190,9 +190,21 @@ public class CulturalOfferController {
         httpCode = subscribed == null ? HttpStatus.BAD_REQUEST : HttpStatus.OK;
         toastMessage = subscribed == null ? "Unsubscription failed!" : "Successfully unsubscribed!";
 
-		return new ResponseEntity<>(toastMessage,httpCode);
+		return new ResponseEntity<>(httpCode);
     }
 
+    @PreAuthorize("hasRole('ROLE_REGISTERED')")
+    @RequestMapping(value= "/alreadySubscribed/{offerId}", method = RequestMethod.GET)
+    public ResponseEntity<String> alreadySubscribed(@PathVariable int offerId){
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        Person person = (Person) authentication.getPrincipal();
+        boolean alreadySubscribed = culturalOfferService.checkIfSubscribed(offerId, person.getId());
+        if(alreadySubscribed){
+            return new ResponseEntity<>(HttpStatus.OK);
+        }else{
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+    }
 
     static class Subscribe {
         public int idOffer;

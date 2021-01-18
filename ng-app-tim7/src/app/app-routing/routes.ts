@@ -9,6 +9,7 @@ import {newsletterRoutes} from './newsletter.routes';
 import {CulturalOfferDashboardComponent} from '../components/cultural-offer/cultural-offer-dashboard/cultural-offer-dashboard.component';
 import {CulturalOfferMainpageComponent} from '../components/cultural-offer/cultural-offer-mainpage/cultural-offer-mainpage.component';
 import {CulturalOfferAddpageComponent} from '../components/cultural-offer/cultural-offer-addpage/cultural-offer-addpage.component';
+import {CulturalOfferDetailedViewComponent} from '../components/cultural-offer/cultural-offer-detailed-view/cultural-offer-detailed-view.component';
 
 export const routes: Routes = [
   {
@@ -28,7 +29,11 @@ export const routes: Routes = [
   },
   {
     path: '',
-    component: CulturalOfferMainpageComponent,
+    component: CulturalOfferMainpageComponent
+  },
+  {
+    path: 'detailed-cultural-offer',
+    component: CulturalOfferDetailedViewComponent
   },
   {
     path: '',
