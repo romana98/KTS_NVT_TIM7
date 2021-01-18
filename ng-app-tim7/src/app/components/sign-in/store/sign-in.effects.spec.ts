@@ -60,8 +60,8 @@ describe('AuthEffects', () => {
   describe('Sign in', () => {
     it('should return an AuthenticateSuccess action, with the sign-in data, on success', () => {
       const accessToken = 'eyJhbGciOiJIUzUxMiJ9.eyJpc3MiOiJzcHJpbmctc2VjdXJpdHktZXhhbXBsZSIsInN1YiI6Im1pY28iLCJhdWQiOiJ3ZWIiLCJpYXQiOjE2MTA4OTIzNDIsImV4cCI6MTYxMDg5NDE0MiwidXNlcm5hbWUiOiJtaWNvIiwiaWQiOjUwMDUsInJvbGUiOiJST0xFX0FETUlOSVNUUkFUT1IifQ.we4NyEH-EJMIRgFCsJAmSOOKJDleKY2h-KB6lB7PXm-0RUtG7mkD_SF-jsGQ-yCARzx-imPDMiQ2G18ZJwKKrg';
-      actions$ = of(new AuthActions.SignInStart({username: 'mico', password: '123qweASD'}));
-      const user = '{username: \'mico\', id: 5005, accessToken: \'eyJhbGciOiJIUzUxMiJ9.eyJpc3MiOiJzcHJpbmctc2VjdXJpdHktZXhhbXBsZSIsInN1YiI6Im1pY28iLCJhdWQiOiJ3ZWIiLCJpYXQiOjE2MTA4OTIzNDIsImV4cCI6MTYxMDg5NDE0MiwidXNlcm5hbWUiOiJtaWNvIiwiaWQiOjUwMDUsInJvbGUiOiJST0xFX0FETUlOSVNUUkFUT1IifQ.we4NyEH-EJMIRgFCsJAmSOOKJDleKY2h-KB6lB7PXm-0RUtG7mkD_SF-jsGQ-yCARzx-imPDMiQ2G18ZJwKKrg\', role: \'ROLE_ADMINISTRATOR\'}';
+      actions$ = of(new AuthActions.SignInStart({ username: 'mico', password: '123qweASD' }));
+      const user = { username: 'mico', id: 5005, accessToken, role: 'ROLE_ADMINISTRATOR' };
       effects.authLogin.subscribe(action => {
         expect(action).toEqual(new AuthActions.AuthenticateSuccess({
           username: 'mico',
@@ -69,7 +69,7 @@ describe('AuthEffects', () => {
           accessToken,
           role: 'ROLE_ADMINISTRATOR'
         }));
-        expect(localStorage.getItem('user')).toEqual(user);
+        expect(localStorage.getItem('user')).toEqual(JSON.stringify(user));
       });
 
 
