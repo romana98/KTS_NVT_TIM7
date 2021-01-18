@@ -6,57 +6,66 @@
       <form [formGroup]="culturalOfferForm" (ngSubmit)="onSubmitClicked()">
       <mat-form-field appearance="outline" style="display: block">
         <mat-label> Name </mat-label>
-        <input matInput [formControl]="culturalOfferForm.controls.name" formControlName="name" placeholder="Type a value...">
+        <input [formControl]="culturalOfferForm.controls.name" matInput id="name" name="name" placeholder="Name">
       </mat-form-field>
 
       <mat-form-field appearance="outline" style="display: block">
         <mat-label>Category: </mat-label>
-        <mat-select [compareWith]="compareCategory" [(value)]="culturalOfferForm.controls.category" formControlName="category">
-          <mat-option value="{{culturalOfferForm?.controls.category}}"> {{culturalOfferForm.controls.category.value}} </mat-option>
+        <mat-select msInfiniteScroll (infiniteScroll)="getNextBatchCategory()" *ngIf="this.categories" [value]="this.culturalOffer?.category" (selectionChange)="onValueChanged('category',$event)" #selectCategory>
+          <mat-option *ngFor="let category of this.categories" [value]="category.id"> {{category.name}}</mat-option>
         </mat-select>
       </mat-form-field>
 
 
       <mat-form-field appearance="outline" style="display: block">
         <mat-label>Subcategory: </mat-label>
-        <mat-select [compareWith]="compareSubcategory" [(value)]="culturalOfferForm.controls.subcategory" formControlName="subcategory">
-          <mat-option value="{{culturalOfferForm?.controls.subcategory}}"> {{culturalOfferForm.controls.subcategory.value}} </mat-option>
+        <mat-select msInfiniteScroll (infiniteScroll)="getNextBatchSubcategory()" *ngIf="this.subcategories" [value]="this.culturalOffer?.subcategory" (selectionChange)="onValueChanged('subcategory',$event)">
+          <mat-option *ngFor="let subcategory of this.subcategories" [value]="subcategory.id"> {{subcategory.name}}</mat-option>
         </mat-select>
       </mat-form-field>
 
       <mat-form-field appearance="outline" style="display: block">
         <mat-label>Choose start date:</mat-label>
-        <input [value]="culturalOfferForm.controls.startDate.value | date: 'yyyy-dd-MM'" formControlName="startDate" matInput [matDatepicker]="picker">
+        <input [value]="culturalOfferForm.controls.startDate.value | date: 'yyyy-MM-dd'" (dateChange)="onValueChanged('startDate',$event)"
+               matInput [matDatepicker]="picker">
         <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
         <mat-datepicker #picker></mat-datepicker>
       </mat-form-field>
 
       <mat-form-field appearance="outline" style="display: block">
         <mat-label>Choose end date:</mat-label>
-        <input [value]="culturalOfferForm.controls.endDate.value | date: 'yyyy-dd-MM'" matInput [matDatepicker]="picker2">
+        <input [value]="culturalOfferForm.controls.endDate.value | date: 'yyyy-MM-dd'" (dateChange)="onValueChanged('endDate',$event)" matInput
+               [matDatepicker]="picker2">
         <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
-        <mat-datepicker #picker2></mat-datepicker>
+        <mat-datepicker  #picker2></mat-datepicker>
       </mat-form-field>
 
-      <mat-form-field style="width: 100%" appearance="outline">
+      <mat-form-field *ngIf="this.culturalOffer" style="width: 100%" appearance="outline">
         <mat-label for="description">Description:</mat-label>
-        <textarea [value]="culturalOfferForm.controls.description.value" matInput rows="10" id="description" name="description" placeholder="description"></textarea>
+        <textarea [value]="this.culturalOffer.description" (change)="onValueChanged('description',$event)" matInput rows="10" id="description" name="description" placeholder="Description"></textarea>
       </mat-form-field>
 
       <button style="margin-top: 5%;float:right;background-color: green" mat-raised-button type="submit">Save offer</button>
       </form>
     </div>
 
-    <div style="width: 48%;float: right;margin-right: 2%">
-      <img style="width: 85%" [src] = "culturalOfferForm.controls.image.value"/>
-      <button style="margin-right: 23%;margin-top: 5%;background-color: green" mat-raised-button type="submit">Upload picture</button>
-    </div>
+    <div style="width: 48%;float: right;margin-right: 2%" *ngIf="this.culturalOffer">
+      <img style="width: 85%" [src] = "this.culturalOffer.pictures[0]"/>
+      <button style="margin-right: 15%;margin-top: 5%;background-color: green" mat-raised-button type="submit">Upload picture</button>
 
+      <button mat-mini-fab style="background-color: green;margin-right: 5%">
+        <mat-icon style="color: white">add</mat-icon>
+      </button>
+
+      <button mat-mini-fab style="background-color: red">
+        <mat-icon style="color: white">delete</mat-icon>
+      </button>
+    </div>
 
 </div>
 
-<div style="padding-right: 3%;float: right;padding-top: 5%;width: 50%;">
+<div style="padding-right: 3%;float: right;padding-top: 5%;width: 50%;" *ngIf="this.culturalOffer">
 
-  <app-google-map [focusInput]="culturalOfferForm.controls.location.value" [draggable]="true" [input]="" ></app-google-map>
+  <app-google-map [focusInput]="this.culturalOffer.location" [draggable]="true" [input]="" ></app-google-map>
 
 </div>

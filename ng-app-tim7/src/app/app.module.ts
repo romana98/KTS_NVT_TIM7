@@ -9,7 +9,7 @@ import { StoreModule } from '@ngrx/store';
 import { SignInComponent } from './components/sign-in/sign-in.component';
 import {AppRoutingModule} from './app-routing/app-routing.module';
 import { SignUpComponent } from './components/sign-up/sign-up.component';
-import {ReactiveFormsModule} from '@angular/forms';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { EffectsModule } from '@ngrx/effects';
 import * as fromApp from './store/app.reducer';
 import { AuthEffects } from './components/sign-in/store/sign-in.effects';
@@ -100,39 +100,40 @@ import {MatNativeDateModule} from '@angular/material/core';
     CulturalOfferMainpageComponent,
     CulturalOfferAddpageComponent
   ],
-  imports: [
-    BrowserModule,
-    BrowserAnimationsModule,
-    HttpClientModule,
-    AppRoutingModule,
-    StoreModule.forRoot(fromApp.appReducer, {metaReducers}),
-    EffectsModule.forRoot([AuthEffects, SignUpEffects, ActivateAccountEffects, AdministratorEffects, RegisteredEffects,
-      CategoryEffects, SubcategoryEffects, NewsletterEffects, CulturalOfferEffects]),
-    StoreDevtoolsModule.instrument({maxAge: 25, logOnly: environment.production}),
-    ReactiveFormsModule,
-    MatToolbarModule,
-    MatDividerModule,
-    MatFormFieldModule,
-    MatInputModule,
-    MatButtonModule,
-    MatSnackBarModule,
-    MatIconModule,
-    MatProgressBarModule,
-    MatTableModule,
-    MatPaginatorModule,
-    MatCardModule,
-    MatSelectModule,
-    MatSelectInfiniteScrollModule,
-    ScrollingModule,
-    MatTabsModule,
-    MatDialogModule,
-    AgmCoreModule.forRoot({
-      apiKey: 'AIzaSyA299mClrC7nDZzy92CQ4X47y7FmaBKMj4'
-    }),
-    ScrollingModule,
-    MatDatepickerModule,
-    MatNativeDateModule
-  ],
+    imports: [
+        BrowserModule,
+        BrowserAnimationsModule,
+        HttpClientModule,
+        AppRoutingModule,
+        StoreModule.forRoot(fromApp.appReducer, {metaReducers}),
+        EffectsModule.forRoot([AuthEffects, SignUpEffects, ActivateAccountEffects, AdministratorEffects, RegisteredEffects,
+            CategoryEffects, SubcategoryEffects, NewsletterEffects, CulturalOfferEffects]),
+        StoreDevtoolsModule.instrument({maxAge: 25, logOnly: environment.production}),
+        ReactiveFormsModule,
+        MatToolbarModule,
+        MatDividerModule,
+        MatFormFieldModule,
+        MatInputModule,
+        MatButtonModule,
+        MatSnackBarModule,
+        MatIconModule,
+        MatProgressBarModule,
+        MatTableModule,
+        MatPaginatorModule,
+        MatCardModule,
+        MatSelectModule,
+        MatSelectInfiniteScrollModule,
+        ScrollingModule,
+        MatTabsModule,
+        MatDialogModule,
+        AgmCoreModule.forRoot({
+            apiKey: 'AIzaSyA299mClrC7nDZzy92CQ4X47y7FmaBKMj4'
+        }),
+        ScrollingModule,
+        MatDatepickerModule,
+        MatNativeDateModule,
+        FormsModule
+    ],
   providers: [{
     provide: HTTP_INTERCEPTORS, useClass: HttpAuthInterceptor, multi: true
   }],
