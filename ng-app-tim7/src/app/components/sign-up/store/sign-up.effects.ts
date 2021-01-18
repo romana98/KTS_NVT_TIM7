@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import {Injectable, NgZone} from '@angular/core';
 import { Router } from '@angular/router';
 import { Actions, ofType, Effect } from '@ngrx/effects';
 import {switchMap, catchError, map, tap, concatMap} from 'rxjs/operators';
@@ -52,8 +52,10 @@ export class SignUpEffects {
   signUpRedirect = this.actions$.pipe(
     ofType(SignUpActions.SIGN_UP_SUCCESS),
     tap(() => {
-      this.router.navigate(['/']);
+      this.zone.run(() => {
+        this.router.navigate(['/']);
+      });
     })
   );
-  constructor(private actions$: Actions, private http: HttpClient, private router: Router) {}
+  constructor(private actions$: Actions, private http: HttpClient, private router: Router, private zone: NgZone) {}
 }

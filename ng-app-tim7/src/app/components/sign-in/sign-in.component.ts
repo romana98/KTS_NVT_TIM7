@@ -14,14 +14,14 @@ import {MatSnackBar} from '@angular/material/snack-bar';
 export class SignInComponent implements OnInit, OnDestroy {
 
   form: FormGroup;
-  error: string = null;
+  error = '';
 
-  private storeSub: Subscription;
+  storeSub: Subscription;
 
   constructor(
     private fb: FormBuilder,
-    private store: Store<fromApp.AppState>,
-    private snackBar: MatSnackBar
+    public store: Store<fromApp.AppState>,
+    public snackBar: MatSnackBar
   ) {
     this.form = this.fb.group({
       username : [null, Validators.required],
@@ -46,7 +46,7 @@ export class SignInComponent implements OnInit, OnDestroy {
     this.store.dispatch(new AuthActions.SignInStart({ username: auth.username, password: auth.password }));
   }
 
-  private showErrorAlert(message: string) {
+  showErrorAlert(message: string) {
     this.snackBar.open(message, 'Ok', { duration: 2000 });
     this.store.dispatch(new AuthActions.ClearError());
   }

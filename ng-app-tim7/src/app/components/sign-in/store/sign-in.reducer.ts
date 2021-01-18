@@ -6,7 +6,7 @@ export interface State {
   authError: string;
 }
 
-const initialState: State = {
+export const initialState: State = {
   user: localStorage.getItem('user') === null ? null : getUser(),
   authError: null
 };
