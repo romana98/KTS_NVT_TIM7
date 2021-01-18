@@ -9,7 +9,7 @@ export interface State {
   user: UserModel;
 }
 
-const initialState: State = {
+export const initialState: State = {
   admins: {content: []},
   error: null,
   success: null,
@@ -53,12 +53,12 @@ export function administratorReducer(
     case AdminActions.ADD_ADMIN:
       return {
         ...state,
-        bar: false,
+        bar: true,
       };
     case AdminActions.EDIT_ADMIN:
       return {
         ...state,
-        bar: false,
+        bar: true,
       };
     case AdminActions.GET_ADMINS_SUCCESS:
       return {

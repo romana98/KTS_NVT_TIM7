@@ -35,10 +35,10 @@ describe('RegisteredEffects', () => {
 
     let store = {};
     const mockLocalStorage = {
-      getItem: (key: string): any => {
+      getItem: (key: string): string => {
         return key in store ? store[key] : null;
       },
-      setItem: (key: string, value: any) => {
+      setItem: (key: string, value: string) => {
         store[key] = `${value}`;
       },
       clear: () => {
@@ -52,6 +52,9 @@ describe('RegisteredEffects', () => {
       .and.callFake(mockLocalStorage.setItem);
     spyOn(localStorage, 'clear')
       .and.callFake(mockLocalStorage.clear);
+
+    const userLocalStorage = { username: 'mico', id: 5005, accessToken, role: 'ROLE_ADMINISTRATOR' };
+    localStorage.setItem('user', JSON.stringify(userLocalStorage));
   });
 
   afterEach(() => {
@@ -64,8 +67,6 @@ describe('RegisteredEffects', () => {
 
   describe('Get user', () => {
     it('should return an GetRegisteredSuccess action, with the registered data, on success', () => {
-      const userLocalStorage = { username: 'mico', id: 5005, accessToken, role: 'ROLE_ADMINISTRATOR' };
-      localStorage.setItem('user', JSON.stringify(userLocalStorage));
       actions$ = of(new RegisteredActions.GetUser());
       const user = new UserModel('mico', 'mico@admin.com', null );
       effects.registered.subscribe(action => {
@@ -79,8 +80,6 @@ describe('RegisteredEffects', () => {
     });
 
     it('should return an RegisteredFail action, with the registered data, on error', () => {
-      const userLocalStorage = { username: 'mico', id: 5005, accessToken, role: 'ROLE_ADMINISTRATOR' };
-      localStorage.setItem('user', JSON.stringify(userLocalStorage));
       actions$ = of(new RegisteredActions.GetUser());
       const user = new UserModel('mico', 'mico@admin.com', null );
       effects.registered.subscribe(action => {
@@ -94,20 +93,61 @@ describe('RegisteredEffects', () => {
     });
   });
 
-  describe('Get user', () => {
-    it('should return an GetRegisteredSuccess action, with the registered data, on success', () => {
-      const userLocalStorage = { username: 'mico', id: 5005, accessToken, role: 'ROLE_ADMINISTRATOR' };
-      localStorage.setItem('user', JSON.stringify(userLocalStorage));
-      actions$ = of(new RegisteredActions.GetUser());
-      const user = new UserModel('mico', 'mico@admin.com', null );
-      effects.registered.subscribe(action => {
-        expect(action).toEqual(new RegisteredActions.GetRegisteredSuccess(user));
-        expect(localStorage.getItem('signed-in-user')).toEqual(JSON.stringify(user));
+  describe('Edit user', () => {
+    it('should return an RegisteredSuccess action, with the registered data, on success (changed password)', () => {
+
+      const user = {id: JSON.parse(localStorage.getItem('user')).id, username: 'mico', email: 'mico1@admin.com', password: 'password' };
+      actions$ = of(new RegisteredActions.EditProfile(user));
+
+      effects.edit.subscribe(action => {
+        expect(action).toEqual(new RegisteredActions.RegisteredSuccess('Profile updated.'));
       });
 
-      const req = http.expectOne('http://localhost:8080/registered-users/' + JSON.parse(localStorage.getItem('user')).id);
-      expect(req.request.method).toEqual('GET');
-      req.flush(user);
+      const req = http.expectOne('http://localhost:8080/registered-users');
+      expect(req.request.method).toEqual('PUT');
+      expect(req.request.body).toEqual(user);
+      req.flush('');
+    });
+
+    it('should return an RegisteredSuccess action, with the registered data, on success (not changed password)', () => {
+
+      const user = {id: JSON.parse(localStorage.getItem('user')).id, username: 'mico', email: 'mico1@admin.com', password: '' };
+      const userBody = {id: JSON.parse(localStorage.getItem('user')).id, username: 'mico', email: 'mico1@admin.com', password: '________' };
+      actions$ = of(new RegisteredActions.EditProfile(user));
+
+      effects.edit.subscribe(action => {
+        expect(action).toEqual(new RegisteredActions.RegisteredSuccess('Profile updated.'));
+      });
+
+      const req = http.expectOne('http://localhost:8080/registered-users');
+      expect(req.request.method).toEqual('PUT');
+      expect(req.request.body).toEqual(userBody);
+      req.flush('');
+    });
+
+    it('should return an RegisteredFail action, with the registered data, on error', () => {
+
+      const user = {id: JSON.parse(localStorage.getItem('user')).id, username: 'mico', email: 'mico1@admin.com', password: 'password' };
+      actions$ = of(new RegisteredActions.EditProfile(user));
+
+      effects.edit.subscribe(action => {
+        expect(action).toEqual(new RegisteredActions.RegisteredFail('Bad request'));
+      });
+
+      const req = http.expectOne('http://localhost:8080/registered-users');
+      expect(req.request.method).toEqual('PUT');
+      expect(req.request.body).toEqual(user);
+      req.flush( 'Bad request', { status: 400, statusText: 'Bad request' });
+    });
+  });
+
+  describe('Register success', () => {
+    it('should navigate to view profile page', () => {
+      actions$ = of(new RegisteredActions.RegisteredSuccess('Profile updated.'));
+
+      effects.registeredRedirect.subscribe(() => {
+        expect(router.navigate).toHaveBeenCalledWith(['/registered/view-profile']);
+      });
     });
   });
 });

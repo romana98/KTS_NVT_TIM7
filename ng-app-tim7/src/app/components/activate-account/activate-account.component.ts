@@ -1,4 +1,4 @@
-import {AfterContentInit, Component, DoCheck, OnDestroy, OnInit} from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
 import * as ActivateAccountActions from './store/activate-account.actions';
 import {Store} from '@ngrx/store';

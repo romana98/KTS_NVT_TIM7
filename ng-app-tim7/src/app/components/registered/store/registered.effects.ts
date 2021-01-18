@@ -7,7 +7,6 @@ import { HttpClient } from '@angular/common/http';
 import * as RegActions from './registered.actions';
 import {UserModel} from '../../../models/user.model';
 import {Router} from '@angular/router';
-import * as AdminActions from '../../administrator/store/administrator.actions';
 
 const handleSuccess = () => {
   const message = 'Profile updated.';

@@ -1,4 +1,4 @@
-import {initialState, signUpReducer} from './sign-up.reducer';
+import { initialState, signUpReducer } from './sign-up.reducer';
 import * as SignUpActions from './sign-up.actions';
 
 describe('Sign-up Reducer', () => {
