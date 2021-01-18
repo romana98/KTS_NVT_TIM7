@@ -53,25 +53,6 @@ public class AdministratorDashboardE2ETest {
     }
 
     @Test
-    public void deleteAdminTestSuccess() throws InterruptedException {
-
-        mainPagePage.getAdminDashboardNav().click();
-
-        justWait(1000);
-
-       administratorDashboardPage.getDeleteBtn().click();
-
-        justWait(1000);
-
-        String snackBarValue = administratorDashboardPage.getSnackBar().getText();
-
-        administratorDashboardPage.ensureIsNotVisibleDeleteBtn();
-
-        assertEquals("Administrator deleted.\nOk", snackBarValue);
-        assertEquals("http://localhost:4200/administrator/dashboard", driver.getCurrentUrl());
-    }
-
-    @Test
     public void paginationNextBackTestSuccess() throws InterruptedException {
 
         mainPagePage.getAdminDashboardNav().click();

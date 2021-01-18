@@ -1,9 +1,13 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<div style="padding-left: 2%;padding-right: 2%">
 <div style="text-align: center; ">
 <h1 class="mat-display-1;" style="float: top; display: inline-block; margin-top: 1%; margin-right: 1%">{{culturalOfferDetailed.name}}</h1>
   <div [hidden]="hiddenButtons">
-    <button style="margin: auto" mat-flat-button (click)="subscribe()" [disabled]="hideSubscribe">Subscribe</button>
-    <button style="margin: auto" mat-flat-button (click)="subscribe()" [disabled]="!hideSubscribe">Unsubscribe</button>
+    <button style="margin: auto" mat-flat-button id="subscribeButton" (click)="subscribe()" [disabled]="hideSubscribe">Subscribe</button>
+    <button style="margin: auto" mat-flat-button id="unsubscribeButton" (click)="subscribe()" [disabled]="!hideSubscribe">Unsubscribe</button>
+  </div>
+  <div [hidden]="canNotPublish">
+    <button id="publish-newsletter-button" style="margin: auto" mat-flat-button (click)="goToPublish()">Publish Newsletter</button>
   </div>
 </div>
 <br>
@@ -27,7 +31,7 @@ left div: description, comments and newsletters
     </div>
     <br>
     <div style="width: 50%;height: 50% ;float: right; margin-right: 1%">
-      <app-carousel [inputProportion]="47" [inputPictures]="culturalOfferDetailed.pictures"></app-carousel>
+      <app-carousel id="carouselCulturalOffer" [inputProportion]="47" [inputPictures]="culturalOfferDetailed.pictures"></app-carousel>
     </div>
   </div>
   <!--
@@ -35,23 +39,23 @@ left div: description, comments and newsletters
   -->
   <div [hidden] = 'commentsEmpty' style="width: 100%; float: left">
     <div style="float:left; width:5%; margin-top: 10%">
-      <button [disabled]="pageComments === 0" (click)="commentNavigateBefore()"><mat-icon>navigate_before</mat-icon></button>
+      <button [disabled]="pageComments === 0" id="commentNavigateBefore" (click)="commentNavigateBefore()"><mat-icon>navigate_before</mat-icon></button>
     </div>
     <div style="float: left; width: 40%; padding-top: 1%; font-size: small; padding-left: 1%; margin-right: 1%">
       <h1 style="font-size: medium">Comment: </h1>
-      <p>{{comments.content[0].description}}</p>
+      <p id="commentDescription">{{comments.content[0].description}}</p>
       <p>User: {{comments.content[0].registeredUser}}</p>
       <p>Publish date: {{publishedDateComment}}</p>
       <mat-divider></mat-divider>
       <br>
     </div>
     <div style="float:right; width:5%; margin-top: 10%">
-      <button [disabled]="disableNavigateCommentNext" (click)="commentNavigateNext()"><mat-icon>navigate_next</mat-icon></button>
+      <button id="commentNavigateNext" [disabled]="disableNavigateCommentNext" (click)="commentNavigateNext()"><mat-icon>navigate_next</mat-icon></button>
     </div>
     <br>
 
     <div style="width: 47%;height: 50% ;float: right; margin-right: 1%">
-      <app-carousel [inputProportion]="55" [inputPictures]="comments.content[0].picturesId"></app-carousel>
+      <app-carousel id="carouselCommentPictures" [inputProportion]="55" [inputPictures]="comments.content[0].picturesId"></app-carousel>
     </div>
   </div>
   <!--
@@ -59,22 +63,19 @@ left div: description, comments and newsletters
   -->
   <div [hidden] = 'newslettersEmpty' style="width: 100%; float: left">
     <div style="float:left; width:5%; margin-top: 10%">
-      <button [disabled]="pageNewsletters === 0" (click)="newslettersNavigateBefore()"><mat-icon>navigate_before</mat-icon></button>
-
+      <button id="newsletterNavigateBefore" [disabled]="pageNewsletters === 0" (click)="newslettersNavigateBefore()"><mat-icon>navigate_before</mat-icon></button>
     </div>
     <div style="float: left; width: 40%; padding-top: 1%; font-size: small; padding-left: 1%; margin-right: 1%">
       <h1 style="font-size: medium">Newsletter: {{newsletters.content[0].name}}</h1>
-      <p>{{newsletters.content[0].description}}</p>
+      <p id="newsletterDescription">{{newsletters.content[0].description}}</p>
       <p>Publish date: {{publishedDateNewsletter}}</p>
       <br>
       <mat-divider></mat-divider>
       <br>
-
       <br>
     </div>
     <div style="float:right; width:5%; margin-top: 10%">
-      <button [disabled]="disableNavigateNewsletterNext" (click)="newslettersNavigateAfter()"><mat-icon>navigate_next</mat-icon></button>
-
+      <button id="newsletterNavigateNext" [disabled]="disableNavigateNewsletterNext" (click)="newslettersNavigateAfter()"><mat-icon>navigate_next</mat-icon></button>
     </div>
     <br>
 
@@ -90,8 +91,8 @@ right div: rating and add comment
 <div [hidden]="isHidden" style="float: right;width: 49%; padding-top: 2%">
   <div style="width: 100%">
     <div style="float: left; padding-left: 20%">
-      <ngx-star-rating [disabled]="disabledRating" [(ngModel)]="pickedRating" [id]="'pickedRating'" ></ngx-star-rating>
-      <button [disabled]="disabledRating" style="padding-left: 2%" mat-flat-button (click)="rate()">Rate</button>
+      <ngx-star-rating id="starRating" [disabled]="disabledRating" [(ngModel)]="pickedRating" [id]="'pickedRating'" ></ngx-star-rating>
+      <button id="addRateButton" [disabled]="disabledRating" style="padding-left: 2%" mat-flat-button (click)="rate()">Rate</button>
     </div>
   </div>
   <div style="width: 100%; padding-top: 20%">
@@ -104,13 +105,14 @@ right div: rating and add comment
             This field can't be empty!</mat-error >
         </mat-form-field>
         <br>
-        <img style="max-width:400px;max-height:200px;" [src] = "picture!=='' ? picture : 'https://via.placeholder.com/200'"/>
-        <input style="margin-right: 3%" class="ng-hide" type="file" (change)="onFileChanged($event)">
+        <img style="max-width:400px;max-height:200px;" id="pictureInput" [src] = "picture!=='' ? picture : 'https://via.placeholder.com/200'"/>
+        <input id="inputPictureButton" style="margin-right: 3%" class="ng-hide" type="file" (change)="onFileChanged($event)">
         <br>
         <app-carousel [inputProportion]="55" [inputPictures]="pickedPhotos"></app-carousel>
         <br>
-        <button mat-raised-button type="submit" [disabled]="!form.valid">Create comment</button>
+        <button id="addCommentButton" mat-raised-button type="submit" [disabled]="!form.valid">Create comment</button>
       </form>
     </div>
   </div>
+</div>
 </div>

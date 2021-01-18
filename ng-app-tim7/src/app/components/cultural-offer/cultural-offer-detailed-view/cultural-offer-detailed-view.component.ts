@@ -46,6 +46,7 @@ export class CulturalOfferDetailedViewComponent implements OnInit, OnDestroy {
   hiddenButtons = false;
   disableNavigateCommentNext = false;
   disableNavigateNewsletterNext = false;
+  canNotPublish = true;
   // store
   private storeSub: Subscription;
 
@@ -66,6 +67,7 @@ export class CulturalOfferDetailedViewComponent implements OnInit, OnDestroy {
     }else{
       this.isHidden = user.role === 'ROLE_ADMINISTRATOR';
       this.hiddenButtons = user.role === 'ROLE_ADMINISTRATOR';
+      this.canNotPublish = user.role !== 'ROLE_ADMINISTRATOR';
     }
     this.store.dispatch(new CulturalOfferActions.GetComments({page: this.pageComments, size: this.pageSizeComments,
         offerId: this.id}));
@@ -220,6 +222,10 @@ export class CulturalOfferDetailedViewComponent implements OnInit, OnDestroy {
     if (this.picture !== ''){
       this.pickedPhotos.push(this.picture);
     }
+  }
+
+  goToPublish(){
+    this.router.navigate(['/newsletter/add-newsletter', {culturalOfferId: this.id, culturalOfferName: this.culturalOfferDetailed.name}]);
   }
 
   ngOnDestroy() {

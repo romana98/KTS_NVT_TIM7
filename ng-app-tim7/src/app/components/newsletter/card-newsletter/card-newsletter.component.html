@@ -4,7 +4,7 @@
     <img *ngIf="newsletter.picture" mat-card-md-image src={{newsletter.picture}}><br>
     <mat-card-content>{{newsletter.name}}</mat-card-content>
     <mat-card-actions>
-        <button mat-button (click)="openDialog()">DETAILS</button>
-        <button mat-button (click)="emitUnsubscribe()">UNSUBSCRIBE</button>
+        <button mat-button id="{{'details' + newsletter.id}}" (click)="openDialog()">DETAILS</button>
+        <button mat-button id="{{'unsubscribe' + newsletter.id}}" (click)="emitUnsubscribe()">UNSUBSCRIBE</button>
     </mat-card-actions>
 </mat-card>

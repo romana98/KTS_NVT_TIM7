@@ -2,13 +2,13 @@
 <mat-divider></mat-divider>
 <br><br>
 <div style="padding-left: 10%;padding-right: 10%">
-<app-table [dataSource]="admins.content" [columnsToDisplay]="['username', 'email', 'delete']" (Delete)="onDelete($event)" [columnsToIterate]="['username', 'email']"></app-table>
 
-<app-pagination [pageSize]="pageSize"
-                [totalItems]="admins.totalElements"
-                [totalPages]="admins.totalPages"
-                [currentPage]="admins.number"
-                (ChangePage)="onPagination($event)"
-></app-pagination>
+    <app-table [dataSource]="admins.content" [columnsToDisplay]="['username', 'email', 'delete']" (Delete)="onDelete($event)" [columnsToIterate]="['username', 'email']"></app-table>
+
+    <app-pagination [pageSize]="pageSize"
+                    [totalItems]="admins.totalElements"
+                    [totalPages]="admins.totalPages"
+                    [currentPage]="admins.number"
+                    (ChangePage)="onPagination($event)"
+    ></app-pagination>
 </div>
-

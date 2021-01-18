@@ -236,7 +236,7 @@ public class NewsletterControllerIntegrationTest {
         ResponseEntity<String> responseEntity =
                 restTemplate.exchange("/newsletter/cultural-offer/1/by-page?page=0&size=3", HttpMethod.GET, httpEntity, String.class);
 
-        Page<NewsletterDTO> newsletters = objectMapper.readValue(responseEntity.getBody(), new TypeReference<RestResponsePage<NewsletterDTO>>() {});
+        Page<NewsletterDetailsDTO> newsletters = objectMapper.readValue(responseEntity.getBody(), new TypeReference<RestResponsePage<NewsletterDetailsDTO>>() {});
         
         assertEquals(HttpStatus.OK, responseEntity.getStatusCode());
         assertEquals(FIND_ALL_NUMBER_OF_ITEMS, newsletters.getTotalElements());
