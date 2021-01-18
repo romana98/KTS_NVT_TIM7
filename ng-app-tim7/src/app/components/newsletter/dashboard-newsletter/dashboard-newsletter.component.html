@@ -2,12 +2,13 @@
 <mat-divider></mat-divider>
 <br><br>
 <div style="padding-left: 10%;padding-right: 10%">
-<app-table [dataSource]="newsletters.content" [columnsToDisplay]="['publishedDate', 'name', 'culturalOffer', 'delete']" (DoubleClick)="onClick($event)" (Delete)="onDelete($event)" [columnsToIterate]="['publishedDate', 'name', 'culturalOffer']"></app-table>
 
-<app-pagination [pageSize]="pageSize"
+    <app-table [dataSource]="newsletters.content" [columnsToDisplay]="['Date', 'Name', 'Cultural Offer', 'delete']" (DoubleClick)="onClick($event)" (Delete)="onDelete($event)" [columnsToIterate]="['publishedDate', 'name', 'culturalOffer']"></app-table>
+
+    <app-pagination [pageSize]="pageSize"
                 [totalItems]="newsletters.totalElements"
                 [totalPages]="newsletters.totalPages"
                 [currentPage]="newsletters.number"
                 (ChangePage)="onPagination($event)"
-></app-pagination>
+    ></app-pagination>
 </div>

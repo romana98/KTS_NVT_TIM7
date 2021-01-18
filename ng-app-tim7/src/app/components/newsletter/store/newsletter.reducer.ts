@@ -18,7 +18,7 @@ const initialState: State = {
   newsletters: {content: []},
   error: null,
   success: null,
-  newsletter: {id: 0, name: "", description: "", publishedDate: null, culturalOfferId: 0, picture: "" },
+  newsletter: {id: 0, name: '', description: '', publishedDate: null, culturalOfferId: 0, picture: ''},
   bar: false,
   categoriesSelect: {content: []},
   subcategoriesSelect: {content: []},
@@ -60,7 +60,6 @@ export function newsletterReducer(
         bar: true,
       };
     case NewsletterActions.GET_NEWSLETTERS_SUCCESS:
-      console.log(action.payload)
       return {
         ...state,
         newsletters: action.payload
@@ -87,14 +86,16 @@ export function newsletterReducer(
         categoriesSelect: newCategories
       };
     case NewsletterActions.GET_SUBCATEGORIES_SELECT_SUCCESS:
-      const newSubcategories = !action.payload.number ? {content: action.payload.content} : {content: state.subcategoriesSelect.content.concat(action.payload.content)};
+      const newSubcategories = !action.payload.number ? {content: action.payload.content} :
+        {content: state.subcategoriesSelect.content.concat(action.payload.content)};
       return {
         ...state,
         subcategoriesSelect: newSubcategories,
         offersSelect: {content: [], numberOfElements: 0, totalElements: 0, totalPages: 0, number: 0}
       };
     case NewsletterActions.GET_OFFERS_SELECT_SUCCESS:
-      const newOffers = !action.payload.number ? {content: action.payload.content} : {content: state.offersSelect.content.concat(action.payload.content)};
+      const newOffers = !action.payload.number ? {content: action.payload.content} :
+        {content: state.offersSelect.content.concat(action.payload.content)};
       return {
         ...state,
         offersSelect: newOffers
@@ -103,20 +104,20 @@ export function newsletterReducer(
       return {
         ...state,
         categoriesSubscribed: action.payload
-      } 
+      };
     case NewsletterActions.GET_NEWSLETTERS_SUBSCRIBED_SUCCESS:
       return {
         ...state,
         newslettersSubscribed: action.payload
-      } 
+      };
     case NewsletterActions.UNSUBSCRIBE:
       return {
         ...state,
         bar: true,
       };
-    case NewsletterActions.GET_CATEGORIES_SELECT: 
-    case NewsletterActions.GET_SUBCATEGORIES_SELECT: 
-    case NewsletterActions.GET_OFFERS_SELECT: 
+    case NewsletterActions.GET_CATEGORIES_SELECT:
+    case NewsletterActions.GET_SUBCATEGORIES_SELECT:
+    case NewsletterActions.GET_OFFERS_SELECT:
     case NewsletterActions.GET_NEWSLETTER_PAGE:
     case NewsletterActions.GET_NEWSLETTER:
     case NewsletterActions.GET_CATEGORIES_SUBSCRIBED:

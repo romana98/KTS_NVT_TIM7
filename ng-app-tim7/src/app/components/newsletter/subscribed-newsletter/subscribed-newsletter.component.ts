@@ -4,7 +4,7 @@ import * as fromApp from '../../../store/app.reducer';
 import * as NewsletterActions from '../store/newsletter.actions';
 import {Subscription} from 'rxjs';
 import {MatSnackBar} from '@angular/material/snack-bar';
-import {Router} from "@angular/router";
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-subscribed-newsletter',
@@ -19,8 +19,8 @@ export class SubscribedNewsletterComponent implements OnInit, OnDestroy {
   private storeSub: Subscription;
 
   constructor(private store: Store<fromApp.AppState>,
-    private snackBar: MatSnackBar,
-    private router: Router) { }
+              private snackBar: MatSnackBar,
+              private router: Router) {}
 
   ngOnInit(): void {
     this.store.dispatch(new NewsletterActions.GetCategoriesSubscribed({ id: JSON.parse(localStorage.getItem('user')).id }));
@@ -41,7 +41,6 @@ export class SubscribedNewsletterComponent implements OnInit, OnDestroy {
   private showSuccessAlert(message: string) {
     this.snackBar.open(message, 'Ok', { duration: 3000 });
     this.store.dispatch(new NewsletterActions.ClearSuccess());
-    //this.store.dispatch(new NewsletterActions.GetCategoriesSubscribed({ id: JSON.parse(localStorage.getItem('user')).id }));
   }
 
   private showErrorAlert(message: string) {

@@ -79,7 +79,8 @@ export class NewsletterEffects {
     switchMap((data: NewsletterActions.GetSubcategoriesSelect) => {
       return this.http
         .get(
-          'http://localhost:8080/subcategories/' + data.payload.category + '/by-page?page=' + data.payload.page + '&size=' + data.payload.size
+          'http://localhost:8080/subcategories/' + data.payload.category + '/by-page?page=' + data.payload.page +
+          '&size=' + data.payload.size
         )
         .pipe(
           map(dataRes => {
@@ -98,7 +99,8 @@ export class NewsletterEffects {
     switchMap((data: NewsletterActions.GetOffersSelect) => {
       return this.http
         .get(
-          'http://localhost:8080/cultural-offers/subcategory/' + data.payload.subcategory + '/by-page?page=' + data.payload.page + '&size=' + data.payload.size
+          'http://localhost:8080/cultural-offers/subcategory/' + data.payload.subcategory + '/by-page?page=' +
+          data.payload.page + '&size=' + data.payload.size
         )
         .pipe(
           map(dataRes => {
@@ -122,7 +124,8 @@ export class NewsletterEffects {
         )
         .pipe(
           map(dataRes => {
-            const newsletter = new NewsletterModel(dataRes.id, dataRes.name, dataRes.description, dataRes.publishedDate, dataRes.culturalOfferId, dataRes.picture);
+            const newsletter = new NewsletterModel(dataRes.id, dataRes.name, dataRes.description, dataRes.publishedDate,
+              dataRes.culturalOfferId, dataRes.picture);
             return new NewsletterActions.GetNewsletterSuccess(newsletter);
           }),
           catchError(errorRes => {
@@ -143,12 +146,9 @@ export class NewsletterEffects {
         )
         .pipe(
           map(() => {
-            console.log("da")
             return handleSuccess('delete');
           }),
           catchError(errorRes => {
-            console.log("ne")
-            console.log(errorRes)
             return handleError(errorRes);
           })
         );
@@ -233,7 +233,8 @@ export class NewsletterEffects {
     switchMap((data: NewsletterActions.GetNewslettersSubscribed) => {
       return this.http
         .get(
-          'http://localhost:8080/newsletter/subscribed/' + data.payload.id + '/' + data.payload.catId + '/by-page?page=' + data.payload.page + '&size=' + data.payload.size
+          'http://localhost:8080/newsletter/subscribed/' + data.payload.id + '/' + data.payload.catId + '/by-page?page=' +
+            data.payload.page + '&size=' + data.payload.size
         )
         .pipe(
           map(dataRes => {
@@ -250,21 +251,19 @@ export class NewsletterEffects {
   unsubscribe = this.actions$.pipe(
     ofType(NewsletterActions.UNSUBSCRIBE),
     switchMap((userData: NewsletterActions.Unsubscribe) => {
-      console.log(userData.payload)
       return this.http
         .post<any>(
-          'http://localhost:8080/cultural-offers/unsubscribe', 
+          'http://localhost:8080/cultural-offers/unsubscribe',
           {
             idOffer: userData.payload.idOffer,
             idUser: userData.payload.idUser
-          }, { responseType: 'text' as 'json' }
+          }, {responseType: 'text' as 'json'}
         )
         .pipe(
           map(() => {
             return handleSuccess('unsubscribe');
           }),
           catchError(errorRes => {
-            console.log(errorRes)
             return handleError(errorRes);
           })
         );

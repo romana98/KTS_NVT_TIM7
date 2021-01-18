@@ -22,7 +22,7 @@ export const GET_CATEGORIES_SUBSCRIBED = '[Newsletter] Get categories subscribed
 export const GET_CATEGORIES_SUBSCRIBED_SUCCESS = '[Newsletter] Get categories subscribed success';
 export const GET_NEWSLETTERS_SUBSCRIBED = '[Newsletter] Get newsletters subscribed';
 export const GET_NEWSLETTERS_SUBSCRIBED_SUCCESS = '[Newsletter] Get newsletters subscribed success';
-export const UNSUBSCRIBE = "[Newsletter] Unsubscribe";
+export const UNSUBSCRIBE = '[Newsletter] Unsubscribe';
 
 
 export class GetNewsletterPage implements Action {

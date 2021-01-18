@@ -39,7 +39,7 @@ public class SubcategoryDashboardE2ETest {
         signInPage.getUsername().sendKeys("mico");
         signInPage.getPassword().sendKeys("123qweASD");
         signInPage.getSignInBtn().click();
-        justWait(2000);
+        justWait(5000);
     }
 
     @After
@@ -59,7 +59,7 @@ public class SubcategoryDashboardE2ETest {
 
         mainPagePage.getManageSubcategoriesNav().click();
 
-        justWait(500);
+        justWait(1000);
 
         subcategoryDashboardPage.ensureIsDisplayedAddSubcategoryName();
         subcategoryDashboardPage.ensureIsDisplayedSelectCategory();
@@ -68,11 +68,23 @@ public class SubcategoryDashboardE2ETest {
         subcategoryDashboardPage.getSubcategoryNameInput().sendKeys("New subcategory");
         subcategoryDashboardPage.getAddSubcategoryButton().click();
 
-        justWait(500);
+        justWait(1000);
 
         String snackBarText = subcategoryDashboardPage.getSnackBar().getText();
 
         assertEquals("Subcategory added successfully.\nOk", snackBarText);
+        assertEquals("http://localhost:4200/administrator/manage-subcategories/dashboard", driver.getCurrentUrl());
+
+        for(int i = 0;i < 101; i++){
+            driver.findElement(By.xpath("//*[@aria-label=\"Next page\"]")).click();
+        }
+
+        subcategoryDashboardPage.getDeleteButton().click();
+        justWait(1000);
+
+        snackBarText = subcategoryDashboardPage.getSnackBar().getText();
+
+        assertEquals("Subcategory deleted successfully.\nOk", snackBarText);
         assertEquals("http://localhost:4200/administrator/manage-subcategories/dashboard", driver.getCurrentUrl());
 
     }
@@ -82,7 +94,7 @@ public class SubcategoryDashboardE2ETest {
 
         mainPagePage.getManageSubcategoriesNav().click();
 
-        justWait(500);
+        justWait(1000);
 
         subcategoryDashboardPage.ensureIsDisplayedAddSubcategoryName();
         subcategoryDashboardPage.ensureIsDisplayedSelectCategory();
@@ -91,7 +103,7 @@ public class SubcategoryDashboardE2ETest {
         subcategoryDashboardPage.getSubcategoryNameInput().sendKeys("Karneval");
         subcategoryDashboardPage.getAddSubcategoryButton().click();
 
-        justWait(500);
+        justWait(1000);
 
         String snackBarText = subcategoryDashboardPage.getSnackBar().getText();
 
@@ -104,45 +116,68 @@ public class SubcategoryDashboardE2ETest {
     public void testUpdateSubcategorySuccess() throws InterruptedException {
         mainPagePage.getManageSubcategoriesNav().click();
 
-        justWait(500);
+        justWait(1000);
 
         subcategoryDashboardPage.ensureIsDisplayedAddSubcategoryName();
         subcategoryDashboardPage.ensureIsDisplayedSelectCategory();
         subcategoryDashboardPage.getClickedRow().click();
 
-        justWait(500);
+        justWait(1000);
 
         subcategoryDashboardPage.ensureIsDisplayedUpdateSubcategoryName();
         subcategoryDashboardPage.getSubcategoryNameEdit().clear();
         subcategoryDashboardPage.getSubcategoryNameEdit().sendKeys("New subcategory edit");
         subcategoryDashboardPage.getUpdateSubcategoryButton().click();
 
-        justWait(500);
+        justWait(1000);
 
         String snackBarText = subcategoryDashboardPage.getSnackBar().getText();
 
         assertEquals("Subcategory updated successfully.\nOk", snackBarText);
         assertEquals("http://localhost:4200/administrator/manage-subcategories/dashboard", driver.getCurrentUrl());
+
+        for(int i = 0;i < 101; i++){
+            driver.findElement(By.xpath("//*[@aria-label=\"Next page\"]")).click();
+        }
+
+        subcategoryDashboardPage.ensureIsDisplayedAddSubcategoryName();
+        subcategoryDashboardPage.ensureIsDisplayedSelectCategory();
+        subcategoryDashboardPage.getClickedRow().click();
+
+        justWait(1000);
+
+        subcategoryDashboardPage.ensureIsDisplayedUpdateSubcategoryName();
+        subcategoryDashboardPage.getSubcategoryNameEdit().clear();
+        subcategoryDashboardPage.getSubcategoryNameEdit().sendKeys("Muzej");
+        subcategoryDashboardPage.getUpdateSubcategoryButton().click();
+
+        justWait(1000);
+
+        snackBarText = subcategoryDashboardPage.getSnackBar().getText();
+
+        assertEquals("Subcategory updated successfully.\nOk", snackBarText);
+        assertEquals("http://localhost:4200/administrator/manage-subcategories/dashboard", driver.getCurrentUrl());
+
     }
 
     @Test
     public void testUpdateCategoryFail() throws InterruptedException {
         mainPagePage.getManageSubcategoriesNav().click();
 
-        justWait(500);
+        justWait(1000);
 
         subcategoryDashboardPage.ensureIsDisplayedAddSubcategoryName();
         subcategoryDashboardPage.ensureIsDisplayedSelectCategory();
         subcategoryDashboardPage.getClickedRowFail().click();
 
-        justWait(500);
+        justWait(1000);
 
         subcategoryDashboardPage.ensureIsDisplayedUpdateSubcategoryName();
         subcategoryDashboardPage.getSubcategoryNameEdit().clear();
         subcategoryDashboardPage.getSubcategoryNameEdit().sendKeys("Karneval");
         subcategoryDashboardPage.getUpdateSubcategoryButton().click();
 
-        justWait(500);
+        justWait(1000);
 
         String snackBarText = subcategoryDashboardPage.getSnackBar().getText();
 
@@ -151,35 +186,17 @@ public class SubcategoryDashboardE2ETest {
     }
 
     @Test
-    public void testDeleteSuccess() throws InterruptedException {
-        mainPagePage.getManageSubcategoriesNav().click();
-
-        justWait(500);
-
-        subcategoryDashboardPage.ensureIsDisplayedSelectCategory();
-        subcategoryDashboardPage.ensureIsDisplayedAddSubcategoryName();
-        subcategoryDashboardPage.getDeleteButton().click();
-
-        justWait(500);
-
-        String snackBarText = subcategoryDashboardPage.getSnackBar().getText();
-
-        assertEquals("Subcategory deleted successfully.\nOk", snackBarText);
-        assertEquals("http://localhost:4200/administrator/manage-subcategories/dashboard", driver.getCurrentUrl());
-    }
-
-    @Test
     public void testDeleteFail() throws InterruptedException {
 
         mainPagePage.getManageSubcategoriesNav().click();
 
-        justWait(500);
+        justWait(1000);
 
         subcategoryDashboardPage.ensureIsDisplayedSelectCategory();
         subcategoryDashboardPage.ensureIsDisplayedAddSubcategoryName();
         subcategoryDashboardPage.getDeleteButtonFail().click();
 
-        justWait(500);
+        justWait(1000);
 
         String snackBarText = subcategoryDashboardPage.getSnackBar().getText();
 
@@ -193,7 +210,7 @@ public class SubcategoryDashboardE2ETest {
 
         mainPagePage.getManageSubcategoriesNav().click();
 
-        justWait(500);
+        justWait(1000);
 
         driver.findElement(By.xpath("//*[@aria-label=\"Next page\"]")).click();
 
