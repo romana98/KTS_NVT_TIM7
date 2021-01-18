@@ -1,6 +1,7 @@
 package com.project.tim7.e2eTests.e2e;
 
 import com.project.tim7.e2eTests.pages.AddNewsletterPage;
+import com.project.tim7.e2eTests.pages.DetailedCulturalOfferPage;
 import com.project.tim7.e2eTests.pages.MainPagePage;
 import com.project.tim7.e2eTests.pages.NewsletterDashboardPage;
 import com.project.tim7.e2eTests.pages.SignInPage;
@@ -9,6 +10,7 @@ import org.junit.Before;
 import org.junit.Test;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.PageFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.web.client.TestRestTemplate;
@@ -20,6 +22,8 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 
 import java.io.IOException;
 
+//testovi za dodavanje ce proci samo pri prvom pokretanju nakon pokretanja servera, zbog generisanja id-a u bazi
+//testovi za dodavanje nece raditi zajedno
 public class AddAndDashboardNewsletterE2ETest {
 
     private WebDriver driver;
@@ -29,6 +33,7 @@ public class AddAndDashboardNewsletterE2ETest {
 
     private AddNewsletterPage addNewsletterPage;
     private NewsletterDashboardPage newsletterDashboardPage;
+    private DetailedCulturalOfferPage detailedCulturalOfferPage;
     private MainPagePage mainPagePage;
     private SignInPage signInPage;
 
@@ -42,6 +47,7 @@ public class AddAndDashboardNewsletterE2ETest {
         driver.manage().window().maximize();
         addNewsletterPage = PageFactory.initElements(driver, AddNewsletterPage.class);
         newsletterDashboardPage = PageFactory.initElements(driver, NewsletterDashboardPage.class);
+        detailedCulturalOfferPage = PageFactory.initElements(driver, DetailedCulturalOfferPage.class);
         signInPage = PageFactory.initElements(driver, SignInPage.class);
         mainPagePage = PageFactory.initElements(driver, MainPagePage.class);
 
@@ -64,6 +70,54 @@ public class AddAndDashboardNewsletterE2ETest {
             driver.wait(howLong);
         }
     }
+    
+    
+    @Test
+    public void addAndDeleteNewsletterForCulturalOfferTestSuccess() throws InterruptedException {
+    	
+    	Actions actions = new Actions(driver);
+        actions.doubleClick(mainPagePage.getDetailedCulturalOfferRow()).perform();
+        
+        detailedCulturalOfferPage.getPublishNewsletterButton().click();
+    	
+        justWait(1000);
+
+        addNewsletterPage.ensureIsDisplayedName();
+
+        addNewsletterPage.getName().sendKeys("Novi muzej");
+        addNewsletterPage.getDescription().sendKeys("Ovo je novi muzej");
+		String picture = new java.io.File( ".\\src\\test\\resources\\newsletter_picture.jpg" ).getAbsolutePath();        
+        addNewsletterPage.getPicture().sendKeys(picture);    
+        
+        addNewsletterPage.getPublishButton().click();
+
+        justWait(3000);
+
+        String snackBarValue = addNewsletterPage.getSnackBar().getText();
+
+        assertEquals("Newsletter added.\nOk", snackBarValue);
+        assertEquals("http://localhost:4200/newsletter/add-newsletter;culturalOfferId=2;culturalOfferName=Ben%20Caplin%20and%20The%20Casual%20Smokers", driver.getCurrentUrl());
+        
+        mainPagePage.getNewsletterDashboardNav().click();
+   
+        for (int i = 0; i <= 100; i++) {
+        	newsletterDashboardPage.getNextPageBtn().click();
+        }
+        justWait(1000);
+        newsletterDashboardPage.ensureVisibleDeleteBtn();
+
+        newsletterDashboardPage.getDeleteBtn().click();
+
+        justWait(1000);
+
+        String snackBarValueDeleted = newsletterDashboardPage.getSnackBar().getText();
+
+        newsletterDashboardPage.ensureIsNotVisibleDeleteBtn();
+
+        assertEquals("Newsletter deleted.\nOk", snackBarValueDeleted);
+        assertEquals("http://localhost:4200/newsletter/dashboard", driver.getCurrentUrl());
+    }
+    
 
     @Test
     public void addAndDeleteNewsletterTestSuccess() throws InterruptedException {
@@ -79,7 +133,7 @@ public class AddAndDashboardNewsletterE2ETest {
         addNewsletterPage.getOfferSelect().sendKeys("Muzej Vostanih figura");
         addNewsletterPage.getName().sendKeys("Novi muzej");
         addNewsletterPage.getDescription().sendKeys("Ovo je novi muzej");
-		String picture = new java.io.File( ".\\src\\test\\resources\\pictures\\newsletter_picture.jpg" ).getAbsolutePath();        
+		String picture = new java.io.File( ".\\src\\test\\resources\\newsletter_picture.jpg" ).getAbsolutePath();        
         addNewsletterPage.getPicture().sendKeys(picture);    
         
         addNewsletterPage.getPublishButton().click();

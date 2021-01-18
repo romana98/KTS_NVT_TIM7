@@ -7,7 +7,7 @@
     <button style="margin: auto" mat-flat-button id="unsubscribeButton" (click)="subscribe()" [disabled]="!hideSubscribe">Unsubscribe</button>
   </div>
   <div [hidden]="canNotPublish">
-    <button style="margin: auto" mat-flat-button (click)="goToPublish()">Publish Newsletter</button>
+    <button id="publish-newsletter-button" style="margin: auto" mat-flat-button (click)="goToPublish()">Publish Newsletter</button>
   </div>
 </div>
 <br>

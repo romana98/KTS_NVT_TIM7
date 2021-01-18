@@ -51,6 +51,8 @@ public class DetailedCulturalOfferPage {
     private WebElement pictureInput;
     @FindBy(xpath = "//*[@id=\"addCommentButton\"]")
     private WebElement addCommentButton;
+    @FindBy(xpath = "//*[@id=\"publish-newsletter-button\"]")
+    private WebElement publishNewsletterButton;
 
     @FindBy(tagName = "simple-snack-bar")
     private WebElement snackBar;
@@ -138,4 +140,8 @@ public class DetailedCulturalOfferPage {
     public WebElement getCarouselCommentSlide() {
         return carouselCommentSlide;
     }
+
+	public WebElement getPublishNewsletterButton() {
+		return publishNewsletterButton;
+	}
 }

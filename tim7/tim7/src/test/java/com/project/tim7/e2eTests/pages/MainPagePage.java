@@ -31,11 +31,20 @@ public class MainPagePage {
     @FindBy(xpath = "//*[@id=\"newsletter-dashboard-nav\"]")
     private WebElement newsletterDashboardNav;
     
+    @FindBy(xpath = "//*[@id=\"newsletter-subscribed-nav\"]")
+    private WebElement newsletterSubscribedNav;
+    
     @FindBy(xpath = "//*[@id=\"home-nav\"]")
     private WebElement homeNav;
 
     @FindBy(xpath = "//*[@id=\"row2\"]")
     private WebElement detailedCulturalOfferRow;
+    
+    @FindBy(xpath = "//*[@id=\"filter\"]")
+    private WebElement filterInput;
+    
+    @FindBy(xpath = "//*[@id=\"row834\"]")
+    private WebElement offerToSubscribe;
 
     public MainPagePage() {
     }
@@ -76,7 +85,19 @@ public class MainPagePage {
 		return newsletterDashboardNav;
 	}
 	
+	public WebElement getNewsletterSubscribedNav() {
+		return newsletterSubscribedNav;
+	}
+	
 	public WebElement getHomeNav() {
 		return homeNav;
+	}
+	
+	public WebElement getFilterInput() {
+		return filterInput;
+	}
+	
+	public WebElement getOfferToSubscribe() {
+		return offerToSubscribe;
 	}
 }
