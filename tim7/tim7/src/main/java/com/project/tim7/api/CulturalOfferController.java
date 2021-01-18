@@ -37,6 +37,7 @@ public class CulturalOfferController {
     @PreAuthorize("hasRole('ROLE_ADMINISTRATOR')")
     @RequestMapping(method= RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<CulturalOfferDTO> createCulturalOffer(@Valid @RequestBody CulturalOfferDTO culturalOfferDTO){
+        culturalOfferDTO.setId(-1);
         CulturalOffer savedCulturalOffer = culturalOfferService.saveOne(culturalOfferDTO);
 
         CulturalOfferDTO payload = savedCulturalOffer == null ? null : culturalOfferMapper.toDto(savedCulturalOffer);
@@ -161,7 +162,6 @@ public class CulturalOfferController {
 		
 		CulturalOffer subscribed = culturalOfferService.subscribe(subscribeData.idOffer, subscribeData.idUser);
         httpCode = subscribed == null ? HttpStatus.BAD_REQUEST : HttpStatus.OK;
-        toastMessage = subscribed == null ? "Subscription failed!" : "Successfully subscribed!";
 
 		return new ResponseEntity<>(httpCode);
     }
@@ -188,7 +188,6 @@ public class CulturalOfferController {
 		
 		CulturalOffer subscribed = culturalOfferService.unsubscribe(subscribeData.idOffer, subscribeData.idUser);
         httpCode = subscribed == null ? HttpStatus.BAD_REQUEST : HttpStatus.OK;
-        toastMessage = subscribed == null ? "Unsubscription failed!" : "Successfully unsubscribed!";
 
 		return new ResponseEntity<>(httpCode);
     }

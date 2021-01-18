@@ -384,6 +384,24 @@ export class CulturalOfferEffects {
     })
   );
 
+  @Effect()
+  addCulturalOffer = this.actions$.pipe(
+    ofType(culturalOfferActions.ADD_OFFER_ACTION),
+    switchMap((data: culturalOfferActions.AddOfferAction) => {
+      return this.http
+        .post(
+          'http://localhost:8080/cultural-offers/', data.payload)
+        .pipe(
+          map(dataRes => {
+            return new CulturalOfferActions.AddOfferActionSuccess(dataRes);
+          }),
+          catchError(errorRes => {
+            return of(new CulturalOfferActions.ErrorAction(errorRes.message));
+          })
+        );
+    })
+  );
+
 
   constructor(private actions$: Actions, private http: HttpClient, private router: Router) {}
 

@@ -1,4 +1,4 @@
-import {AfterViewInit, Component, OnDestroy, OnInit, ViewChild} from '@angular/core';
+import {AfterViewInit, Component, ElementRef, OnDestroy, OnInit, ViewChild} from '@angular/core';
 import {CulturalofferModel} from '../../../models/culturaloffer.model';
 import {FormBuilder, FormGroup, FormGroupDirective, Validators} from '@angular/forms';
 import {Subscription} from 'rxjs';
@@ -23,7 +23,7 @@ export class CulturalOfferDetailedViewComponent implements OnInit, OnDestroy {
   subscribeButtonValue = 'Subscribe';
   hideSubscribe = false;
   form: FormGroup;
-  picture = '';
+  picture = 0;
   culturalOfferDetailed = {id: 0, name: '', description: '', pictures: ['']};
   id = 0;
   pickedPhotos = [];
@@ -50,6 +50,7 @@ export class CulturalOfferDetailedViewComponent implements OnInit, OnDestroy {
   // store
   private storeSub: Subscription;
 
+  @ViewChild('fileInput') fileInput: ElementRef;
 
   constructor(private fb: FormBuilder, private store: Store<fromApp.AppState>,
               private snackBar: MatSnackBar, private router: Router, private activatedRouter: ActivatedRoute) {
@@ -145,7 +146,7 @@ export class CulturalOfferDetailedViewComponent implements OnInit, OnDestroy {
     }
     this.store.dispatch(new CulturalOfferActions.ClearAction());
     setTimeout(() => this.formGroupDirective.resetForm(), 0);
-    this.picture = '';
+    this.picture = 0;
     this.pickedPhotos = [];
   }
 
@@ -205,7 +206,6 @@ export class CulturalOfferDetailedViewComponent implements OnInit, OnDestroy {
     const pattern = /image-*/;
     const reader = new FileReader();
     if (!file) {
-      this.picture = '';
       return;
     }
     if (!file.type.match(pattern)) {
@@ -214,14 +214,23 @@ export class CulturalOfferDetailedViewComponent implements OnInit, OnDestroy {
     }
     reader.onload = this._handleReaderLoaded.bind(this);
     reader.readAsDataURL(file);
+    this.fileInput.nativeElement.value = '';
   }
 
   _handleReaderLoaded(e) {
     const reader = e.target;
-    this.picture =  reader.result.replace(/(\r\n\t|\n|\r\t)/gm, '');
-    if (this.picture !== ''){
-      this.pickedPhotos.push(this.picture);
+    const picture =  reader.result.replace(/(\r\n\t|\n|\r\t)/gm, '');
+    if (picture !== ''){
+      this.pickedPhotos.push(picture);
     }
+  }
+
+  onPictureChanged(index: number){
+    this.picture = index;
+  }
+
+  onPictureRemove(){
+    this.pickedPhotos.splice(this.picture, 1);
   }
 
   goToPublish(){

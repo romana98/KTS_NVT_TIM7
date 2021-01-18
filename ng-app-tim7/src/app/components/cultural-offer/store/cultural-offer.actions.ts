@@ -37,6 +37,10 @@ export const GET_INITIAL_CATEGORIES_SELECT = '[CulturalOffer] Get initial catego
 export const CATEGORY_CHANGED = '[CulturalOffer] Category changed.';
 export const CATEGORY_CHANGED_SUCCESS = '[CulturalOffer] Category changed success.';
 export const CLEAR_SELECTED_OFFER_ACTION = '[CulturalOffer] Clear selected offer action.';
+export const ADD_OFFER_ACTION = '[CulturalOffer] Add offer action.';
+export const ADD_OFFER_ACTION_SUCCESS = '[CulturalOffer] Add offer action success.';
+
+
 
 export class AlreadySubscribed implements Action{
   type: string = ALREADY_SUBSCRIBED;
@@ -260,6 +264,18 @@ export class ClearSelectedOfferAction {
   constructor() { }
 }
 
+export class AddOfferAction {
+  type: string = ADD_OFFER_ACTION;
+
+  constructor(public payload: any) { }
+}
+
+export class AddOfferActionSuccess {
+  type: string = ADD_OFFER_ACTION_SUCCESS;
+
+  constructor(public payload: any) { }
+}
+
 export type CulturalOfferActions =
   | GetCulturalOfferPage
   | GetCulturalOfferPageSuccess
@@ -289,4 +305,6 @@ export type CulturalOfferActions =
   | FilterSuccessAction
   | GoToDetailed
   | GetOneOfferAction
-  | GetOneOfferActionSuccess;
+  | GetOneOfferActionSuccess
+  | AddOfferAction
+  | AddOfferActionSuccess;

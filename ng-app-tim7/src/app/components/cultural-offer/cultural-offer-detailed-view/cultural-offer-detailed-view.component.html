@@ -108,13 +108,25 @@ right div: rating and add comment
             This field can't be empty!</mat-error >
         </mat-form-field>
         <br>
-        <img style="max-width:400px;max-height:200px;" [src] = "picture!=='' ? picture : 'https://via.placeholder.com/200'"/>
-        <input style="margin-right: 3%" class="ng-hide" type="file" (change)="onFileChanged($event)">
-        <br>
-        <app-carousel [inputProportion]="55" [inputPictures]="pickedPhotos"></app-carousel>
-        <br>
+        <button style="margin-right: 3%;background-color: green" class="ng-hide" type="button" mat-raised-button (click)="fileInput.click()">Upload picture</button>
+        <input (change)="onFileChanged($event)" hidden #fileInput type="file" id="file">
+
+        <div style="margin-top: 3%; margin-bottom:3%" >
+          <app-carousel [inputProportion]="55" [inputPictures]="pickedPhotos" (currentPicture)="onPictureChanged($event)"></app-carousel>
+        </div>
+
+
+
         <button mat-raised-button type="submit" [disabled]="!form.valid">Create comment</button>
+
       </form>
+
+      <div style="float:right; margin-bottom: 4%; margin-right: 2%" [hidden]="pickedPhotos.length === 0">
+        <button mat-mini-fab style="background-color: red;" (click)="onPictureRemove()" >
+          <mat-icon style="color: white">delete</mat-icon>
+        </button>
+      </div>
+
     </div>
   </div>
 </div>

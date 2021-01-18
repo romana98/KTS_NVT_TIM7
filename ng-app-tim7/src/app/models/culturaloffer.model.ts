@@ -15,6 +15,7 @@ export class CulturalofferModel implements Mappable{
     public latitude: number,
     public longitude: number,
     public pictures: string [],
+    public locationName: string,
   ) {}
 
 

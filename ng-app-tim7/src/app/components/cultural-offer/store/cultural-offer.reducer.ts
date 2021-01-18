@@ -178,7 +178,6 @@ export function CulturalOfferReducer(
         culturalOffers : action.payload,
       };
     case CulturalOfferActions.UPDATE_OFFER_ACTION_SUCCESS:
-      console.log(action.payload);
       return {
         ...state,
         selectedOffer : action.payload,
@@ -220,6 +219,14 @@ export function CulturalOfferReducer(
       return {
         ...state,
         selectedOffer: null,
+      };
+    case CulturalOfferActions.ADD_OFFER_ACTION_SUCCESS:
+      console.log(action.payload);
+      return {
+        ...state,
+        selectedOffer: action.payload,
+        errorActionMessage: null,
+        successActionMessage: 'Cultural offer has been successfully saved.'
       };
     case CulturalOfferActions.CLEAR_ACTION:
     default:
