@@ -14,7 +14,7 @@ export interface State {
   newslettersSubscribed: any;
 }
 
-const initialState: State = {
+export const initialState: State = {
   newsletters: {content: []},
   error: null,
   success: null,

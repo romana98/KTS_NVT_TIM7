@@ -6,7 +6,7 @@ import * as fromApp from '../../../store/app.reducer';
 import {MatSnackBar} from '@angular/material/snack-bar';
 import {validateMatchPassword} from '../../../validator/custom-validator-match-password';
 import * as NewsletterActions from '../store/newsletter.actions';
-import {ActivatedRoute} from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 import {NewsletterModel} from '../../../models/newsletter.model';
 
 @Component({
@@ -34,7 +34,8 @@ export class UpdateNewsletterComponent implements OnInit, OnDestroy {
     private fb: FormBuilder,
     private store: Store<fromApp.AppState>,
     private snackBar: MatSnackBar,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private router: Router
   )
   {
     this.form = this.fb.group({
@@ -81,6 +82,7 @@ export class UpdateNewsletterComponent implements OnInit, OnDestroy {
     newsletter.culturalOfferId = this.culturalOfferId;
 
     this.store.dispatch(new NewsletterActions.UpdateNewsletter({ newsletter}));
+    this.router.navigate(['/newsletter/dashboard']);
   }
 
   onFileChanged(e) {

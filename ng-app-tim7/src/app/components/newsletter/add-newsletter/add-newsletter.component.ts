@@ -6,7 +6,8 @@ import * as fromApp from '../../../store/app.reducer';
 import {MatSnackBar} from '@angular/material/snack-bar';
 import {validateMatchPassword} from '../../../validator/custom-validator-match-password';
 import * as NewsletterActions from '../store/newsletter.actions';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
+import { ElementRef } from '@angular/core';
 
 @Component({
   selector: 'app-add-newsletter',
@@ -29,7 +30,7 @@ export class AddNewsletterComponent implements OnInit, OnDestroy {
   categoriesSelect = {content: [], numberOfElements: 0, totalElements: 0, totalPages: 0, number: 0};
   subcategoriesSelect = {content: [], numberOfElements: 0, totalElements: 0, totalPages: 0, number: 0};
   offersSelect = {content: [], numberOfElements: 0, totalElements: 0, totalPages: 0, number: 0};
-  picture = '';
+  //picture = '';
   name = '';
   description = '';
   culturalOfferId = null;
@@ -38,16 +39,20 @@ export class AddNewsletterComponent implements OnInit, OnDestroy {
   culturalOfferIdParam = null;
   culturalOfferNameParam = null;
 
+  @ViewChild('fileInput') fileInput: ElementRef;
+
    constructor(
     private fb: FormBuilder,
     private store: Store<fromApp.AppState>,
     private snackBar: MatSnackBar,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private router: Router
   ) {
     this.form = this.fb.group({
         name : [null, Validators.required],
         description : [null, Validators.required],
         offerSelect : [null],
+        picture: [null]
       });
   }
 
@@ -91,13 +96,16 @@ export class AddNewsletterComponent implements OnInit, OnDestroy {
     const newsletter: any = {};
     newsletter.name = this.form.value.name;
     newsletter.description = this.form.value.description;
-    newsletter.picture = this.picture;
+    newsletter.picture = this.form.value.picture;
     newsletter.publishedDate = new Date();
     newsletter.culturalOfferId = this.culturalOfferIdParam ? this.culturalOfferIdParam : this.culturalOfferId;
 
     this.store.dispatch(new NewsletterActions.AddNewsletter({ name: newsletter.name, description: newsletter.description,
       picture: newsletter.picture, publishedDate: newsletter.publishedDate, culturalOfferId: newsletter.culturalOfferId  }));
-    this.picture = '';
+      this.form.patchValue({
+        picture: ''
+      });
+    this.router.navigate(['/newsletter/dashboard']);
   }
 
   getNextBatchCategories() {
@@ -141,7 +149,9 @@ export class AddNewsletterComponent implements OnInit, OnDestroy {
     const pattern = /image-*/;
     const reader = new FileReader();
     if (!file) {
-      this.picture = '';
+      this.form.patchValue({
+        picture: ''
+      });
       return;
     }
     if (!file.type.match(pattern)) {
@@ -150,10 +160,14 @@ export class AddNewsletterComponent implements OnInit, OnDestroy {
     }
     reader.onload = this._handleReaderLoaded.bind(this);
     reader.readAsDataURL(file);
+    this.fileInput.nativeElement.value = '';
   }
   _handleReaderLoaded(e) {
     const reader = e.target;
-    this.picture = reader.result.replace(/(\r\n\t|\n|\r\t)/gm, '');
+    this.form.patchValue({
+      picture: reader.result.replace(/(\r\n\t|\n|\r\t)/gm, '')
+    });
+    //this.form.controls.picture = reader.result.replace(/(\r\n\t|\n|\r\t)/gm, '');
   }
 
   private showErrorAlert(message: string) {
