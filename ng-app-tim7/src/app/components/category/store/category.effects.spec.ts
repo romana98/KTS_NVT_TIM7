@@ -68,7 +68,7 @@ describe('CategoryEffects', () => {
       const req = http.expectOne('http://localhost:8080/categories');
       expect(req.request.method).toEqual('POST');
       expect(req.request.body).toEqual({name: 'exist category name'});
-      req.flush('Category with that name already exists!', { status: 40, statusText: 'Bad Request' });
+      req.flush('Category with that name already exists!', { status: 400, statusText: 'Bad Request' });
     });
   });
   describe('Delete category', () => {
@@ -130,7 +130,7 @@ describe('CategoryEffects', () => {
       const req = http.expectOne('http://localhost:8080/categories');
       expect(req.request.method).toEqual('PUT');
       expect(req.request.body).toEqual({id: 1, name: 'exist category name'});
-      req.flush('Category with that name already exists!', { status: 40, statusText: 'Bad Request' });
+      req.flush('Category with that name already exists!', { status: 400, statusText: 'Bad Request' });
     });
   });
 });

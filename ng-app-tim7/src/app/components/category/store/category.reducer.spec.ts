@@ -1,6 +1,5 @@
 import {initialState, categoryReducer} from './category.reducer';
 import * as CategoryActions from './category.actions';
-import {init} from 'protractor/built/launcher';
 import {CategoryModel} from '../../../models/category.model';
 
 describe('Category Reducer', () => {

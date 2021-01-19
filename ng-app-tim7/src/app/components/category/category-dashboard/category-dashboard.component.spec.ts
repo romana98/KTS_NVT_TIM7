@@ -46,9 +46,11 @@ describe('CategoryDashboardComponent', () => {
 
   describe('ngOnInit()', () => {
     it('should subscribe to store in ngOnInit lifecycle', () => {
-
-      fixture.detectChanges();
+      const action = new CategoryActions.GetCategoriesPage({page: component.page, size: component.pageSize});
+      const spy = spyOn(store, 'dispatch');
       component.ngOnInit();
+      fixture.detectChanges();
+      expect(spy).toHaveBeenCalledWith(action);
       expect(component.error).toBe(null);
     });
   });
@@ -70,8 +72,8 @@ describe('CategoryDashboardComponent', () => {
       const spy = spyOn(store, 'dispatch');
       spyOn(component.snackBar, 'open');
 
-      fixture.detectChanges();
       component.showErrorAlert('error message');
+      fixture.detectChanges();
       expect(spy).toHaveBeenCalledWith(action);
       expect(component.snackBar.open).toHaveBeenCalledWith('error message', 'Ok', {duration: 3000});
       expect(component.error).toEqual(null);
@@ -84,8 +86,8 @@ describe('CategoryDashboardComponent', () => {
       const spy = spyOn(store, 'dispatch');
       spyOn(component.snackBar, 'open');
 
-      fixture.detectChanges();
       component.showSuccessAlert('success message');
+      fixture.detectChanges();
       expect(spy).toHaveBeenCalledWith(action);
       expect(component.snackBar.open).toHaveBeenCalledWith('success message', 'Ok', {duration: 3000});
       expect(component.success).toEqual(null);
@@ -97,8 +99,8 @@ describe('CategoryDashboardComponent', () => {
       const action = new CategoryActions.GetCategoriesPage({page: 1, size: 10});
       const spy = spyOn(store, 'dispatch');
 
-      fixture.detectChanges();
       component.onPagination(1);
+      fixture.detectChanges();
       expect(spy).toHaveBeenCalledWith(action);
       expect(component.page).toEqual(1);
     });
@@ -111,8 +113,8 @@ describe('CategoryDashboardComponent', () => {
       const action = new CategoryActions.AddCategory({name: component.form.value.categoryNameInput});
       const spy = spyOn(store, 'dispatch');
 
-      fixture.detectChanges();
       component.addCategory();
+      fixture.detectChanges();
       expect(spy).toHaveBeenCalledWith(action);
     });
   });
@@ -122,8 +124,8 @@ describe('CategoryDashboardComponent', () => {
       const action = new CategoryActions.DeleteCategory(1);
       const spy = spyOn(store, 'dispatch');
 
-      fixture.detectChanges();
       component.deleteCategory(1);
+      fixture.detectChanges();
       expect(spy).toHaveBeenCalledWith(action);
     });
   });
@@ -136,8 +138,8 @@ describe('CategoryDashboardComponent', () => {
       const action = new CategoryActions.EditCategory(component.category);
       const spy = spyOn(store, 'dispatch');
 
-      fixture.detectChanges();
       component.editCategory();
+      fixture.detectChanges();
       expect(component.isHidden).toEqual(true);
       expect(spy).toHaveBeenCalledWith(action);
     });
@@ -148,8 +150,8 @@ describe('CategoryDashboardComponent', () => {
       const action = new CategoryActions.GetCategory(1);
       const spy = spyOn(store, 'dispatch');
 
-      fixture.detectChanges();
       component.editModeOn(1);
+      fixture.detectChanges();
       expect(spy).toHaveBeenCalledWith(action);
     });
   });

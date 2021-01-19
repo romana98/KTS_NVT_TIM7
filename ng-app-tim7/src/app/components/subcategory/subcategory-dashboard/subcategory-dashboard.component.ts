@@ -27,13 +27,13 @@ export class SubcategoryDashboardComponent implements OnInit, OnDestroy {
   form: FormGroup;
   formEdit: FormGroup;
   isHidden = true;
-  private storeSub: Subscription;
+  storeSub: Subscription;
   categories = {content: [], numberOfElements: 0, totalElements: 0, totalPages: 0, number: 0};
   constructor(
     private zone: NgZone,
     private fb: FormBuilder,
     private store: Store<fromApp.AppState>,
-    private snackBar: MatSnackBar
+    public snackBar: MatSnackBar
   ) {
     this.form = this.fb.group({
       subcategoryNameInput : [null, Validators.required],
@@ -65,7 +65,7 @@ export class SubcategoryDashboardComponent implements OnInit, OnDestroy {
     });
   }
 
-  private showSuccessAlert(message: string) {
+  showSuccessAlert(message: string) {
     this.pageCategory = 0;
     this.snackBar.open(message, 'Ok', { duration: 3000 });
     this.store.dispatch(new SubcategoryActions.ClearSuccess());
@@ -74,7 +74,7 @@ export class SubcategoryDashboardComponent implements OnInit, OnDestroy {
     setTimeout(() => this.formGroupDirective.resetForm(), 0);
   }
 
-  private showErrorAlert(message: string) {
+  showErrorAlert(message: string) {
     this.snackBar.open(message, 'Ok', { duration: 3000 });
     this.store.dispatch(new SubcategoryActions.ClearError());
   }
@@ -106,10 +106,10 @@ export class SubcategoryDashboardComponent implements OnInit, OnDestroy {
   }
 
   addSubcategory() {
-    console.log(this.form.value.categoryNameSelect);
     this.store.dispatch(new SubcategoryActions.AddSubcategory({name: this.form.value.subcategoryNameInput,
       categoryName: this.form.value.categoryNameSelect}));
   }
+
   getNextBatch() {
     this.pageCategory++;
     this.store.dispatch(new SubcategoryActions.GetCategoriesPage({page: this.pageCategory, size: this.pageSizeCategories}));
