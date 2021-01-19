@@ -73,7 +73,7 @@ public class PictureService implements ServiceInterface<Picture> {
 	}
 
 	public Set<Picture> getPictures(ArrayList<String> pictures) {
-
+		//it was too late we're kinda sorry
 		Set<Picture> commentPictures = new HashSet<Picture>();
 		for(String picture : pictures) {
 			Picture p = findByPicture(picture);

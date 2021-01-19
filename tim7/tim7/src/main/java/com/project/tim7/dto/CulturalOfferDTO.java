@@ -17,10 +17,10 @@ public class CulturalOfferDTO {
     @NotBlank
     private String description;
 
-    @PastOrPresent
+
     private Date startDate;
 
-    @PastOrPresent
+
     private Date endDate;
 
     @NotNull
