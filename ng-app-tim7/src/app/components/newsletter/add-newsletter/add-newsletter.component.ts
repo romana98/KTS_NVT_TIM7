@@ -30,7 +30,7 @@ export class AddNewsletterComponent implements OnInit, OnDestroy {
   categoriesSelect = {content: [], numberOfElements: 0, totalElements: 0, totalPages: 0, number: 0};
   subcategoriesSelect = {content: [], numberOfElements: 0, totalElements: 0, totalPages: 0, number: 0};
   offersSelect = {content: [], numberOfElements: 0, totalElements: 0, totalPages: 0, number: 0};
-  //picture = '';
+  picture = '';
   name = '';
   description = '';
   culturalOfferId = null;
@@ -102,7 +102,7 @@ export class AddNewsletterComponent implements OnInit, OnDestroy {
 
     this.store.dispatch(new NewsletterActions.AddNewsletter({ name: newsletter.name, description: newsletter.description,
       picture: newsletter.picture, publishedDate: newsletter.publishedDate, culturalOfferId: newsletter.culturalOfferId  }));
-      this.form.patchValue({
+    this.form.patchValue({
         picture: ''
       });
     this.router.navigate(['/newsletter/dashboard']);
@@ -167,7 +167,7 @@ export class AddNewsletterComponent implements OnInit, OnDestroy {
     this.form.patchValue({
       picture: reader.result.replace(/(\r\n\t|\n|\r\t)/gm, '')
     });
-    //this.form.controls.picture = reader.result.replace(/(\r\n\t|\n|\r\t)/gm, '');
+    // this.form.controls.picture = reader.result.replace(/(\r\n\t|\n|\r\t)/gm, '');
   }
 
   private showErrorAlert(message: string) {

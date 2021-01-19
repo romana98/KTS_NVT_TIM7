@@ -60,21 +60,21 @@
             </tr>
             <tr>
                 <td>
-                    <!--<input id="picture" name="picture" class="ng-hide" type="file" (change)="onFileChanged($event)">-->
-                    <button style="margin-right: 3%;background-color: green" class="ng-hide" type="button" mat-raised-button (click)="fileInput.click()">Upload picture</button>
-                    <input (change)="onFileChanged($event)" hidden #fileInput type="file" id="picture">
-                    <input [formControl]="form.controls.picture" matInput/>
-                </td>
-            </tr>
+                    <input id="picture" name="picture" class="ng-hide" type="file" (change)="onFileChanged($event)">
+                  <!--<button style="margin-right: 3%;background-color: green" class="ng-hide" type="button" mat-raised-button (click)="fileInput.click()">Upload picture</button>
+                  <input (change)="onFileChanged($event)" hidden #fileInput type="file" id="picture">
+                  <input [formControl]="form.controls.picture" matInput/>-->
+              </td>
+          </tr>
 
-        </table>
-    </div>
+      </table>
+  </div>
 
-    
 
-    <div>
-      <button mat-raised-button id="publish-button" name="publish-button" type="submit" [disabled]="!form.valid">Publish newsletter</button>
-    </div>
-  </form>
+
+  <div>
+    <button mat-raised-button id="publish-button" name="publish-button" type="submit" [disabled]="!form.valid">Publish newsletter</button>
+  </div>
+</form>
 </div>
 
