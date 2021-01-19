@@ -37,10 +37,10 @@ public class CulturalOfferController {
     @PreAuthorize("hasRole('ROLE_ADMINISTRATOR')")
     @RequestMapping(method= RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<CulturalOfferDTO> createCulturalOffer(@Valid @RequestBody CulturalOfferDTO culturalOfferDTO){
+        culturalOfferDTO.setId(-1);
         CulturalOffer savedCulturalOffer = culturalOfferService.saveOne(culturalOfferDTO);
 
         CulturalOfferDTO payload = savedCulturalOffer == null ? null : culturalOfferMapper.toDto(savedCulturalOffer);
-
         //Setting response to either OK if Cultural Offer is saved, otherwise BAD_REQUEST.
         return new ResponseEntity<>(payload, savedCulturalOffer == null ? HttpStatus.BAD_REQUEST: HttpStatus.OK);
     }
@@ -74,7 +74,7 @@ public class CulturalOfferController {
         //Checking if cultural offer was found and returning status code 200 with DTO for success or 400 and NULL for fail.
         HttpStatus httpCode = culturalOffer == null ? HttpStatus.BAD_REQUEST : HttpStatus.OK;
         CulturalOfferDTO payload = culturalOffer == null ? null : culturalOfferMapper.toDto(culturalOffer);
-
+        System.out.println(payload);
         return new ResponseEntity<>(payload, httpCode);
     }
 
@@ -87,8 +87,9 @@ public class CulturalOfferController {
     @RequestMapping(method = RequestMethod.PUT, consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<CulturalOfferDTO> updateCulturalOffer(@Valid @RequestBody CulturalOfferDTO culturalOfferDTO){
 
-        CulturalOffer updatedCulturalOffer = culturalOfferService.update(culturalOfferDTO);
 
+        CulturalOffer updatedCulturalOffer = culturalOfferService.update(culturalOfferDTO);
+        System.out.println(culturalOfferMapper.toDto(updatedCulturalOffer));
         return updatedCulturalOffer != null ?
                 new ResponseEntity<>(culturalOfferMapper.toDto(updatedCulturalOffer), HttpStatus.OK) :
                 new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
@@ -161,7 +162,6 @@ public class CulturalOfferController {
 		
 		CulturalOffer subscribed = culturalOfferService.subscribe(subscribeData.idOffer, subscribeData.idUser);
         httpCode = subscribed == null ? HttpStatus.BAD_REQUEST : HttpStatus.OK;
-        toastMessage = subscribed == null ? "Subscription failed!" : "Successfully subscribed!";
 
 		return new ResponseEntity<>(httpCode);
     }
@@ -188,7 +188,6 @@ public class CulturalOfferController {
 		
 		CulturalOffer subscribed = culturalOfferService.unsubscribe(subscribeData.idOffer, subscribeData.idUser);
         httpCode = subscribed == null ? HttpStatus.BAD_REQUEST : HttpStatus.OK;
-        toastMessage = subscribed == null ? "Unsubscription failed!" : "Successfully unsubscribed!";
 
 		return new ResponseEntity<>(httpCode);
     }
