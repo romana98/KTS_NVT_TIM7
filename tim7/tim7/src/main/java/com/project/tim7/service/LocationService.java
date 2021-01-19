@@ -31,6 +31,10 @@ public class LocationService implements ServiceInterface<Location> {
 		return locationRepository.findById(id).orElse(null);
 	}
 
+	public Location findOneByLongitudeAndLatitude(double longitude, double latitude) {
+		return locationRepository.findByLatitudeAndLongitude(latitude,longitude);
+	}
+
 	@Override
 	public Location saveOne(Location entity) {
 		Location location = locationRepository.findByLatitudeAndLongitude(entity.getLatitude(),entity.getLongitude());

@@ -12,6 +12,7 @@
   [useKeyboard]="true"
   [useMouseWheel]="false"
   orientation="ltr"
+  (change)="pictureChanged($event)"
 >
   <mat-carousel-slide
     #matCarouselSlide
@@ -21,3 +22,4 @@
     [hideOverlay]="false"
   ></mat-carousel-slide>
 </mat-carousel>
+
