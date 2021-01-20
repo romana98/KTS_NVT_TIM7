@@ -1,6 +1,7 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { NavigationNonSignedInComponent } from './navigation-non-signed-in.component';
+import {MatToolbarModule} from '@angular/material/toolbar';
 
 describe('NavigationNonSignedInComponent', () => {
   let component: NavigationNonSignedInComponent;
@@ -8,7 +9,8 @@ describe('NavigationNonSignedInComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ NavigationNonSignedInComponent ]
+      declarations: [ NavigationNonSignedInComponent ],
+      imports: [MatToolbarModule]
     })
     .compileComponents();
   }));

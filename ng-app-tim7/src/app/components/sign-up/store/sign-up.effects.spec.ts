@@ -5,7 +5,6 @@ import * as SignUpActions from './sign-up.actions';
 import { SignUpEffects } from './sign-up.effects';
 import {Action} from '@ngrx/store';
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
-import {RouterTestingModule} from '@angular/router/testing';
 import {Router} from '@angular/router';
 
 describe('SignUpEffects', () => {

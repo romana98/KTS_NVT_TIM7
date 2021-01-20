@@ -5,11 +5,7 @@ import { Component, OnInit } from '@angular/core';
   templateUrl: './navigation-non-signed-in.component.html',
   styleUrls: ['./navigation-non-signed-in.component.css']
 })
-export class NavigationNonSignedInComponent implements OnInit {
+export class NavigationNonSignedInComponent {
 
   constructor() { }
-
-  ngOnInit(): void {
-  }
-
 }

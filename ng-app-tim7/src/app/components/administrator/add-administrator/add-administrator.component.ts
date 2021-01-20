@@ -14,7 +14,7 @@ import * as AdminActions from '../store/administrator.actions';
 })
 export class AddAdministratorComponent implements OnInit, OnDestroy {
   @ViewChild(FormGroupDirective) formGroupDirective: FormGroupDirective;
-  private storeSub: Subscription;
+  storeSub: Subscription;
   form: FormGroup;
   error: string = null;
   success: string = null;
@@ -22,7 +22,7 @@ export class AddAdministratorComponent implements OnInit, OnDestroy {
   constructor(
     private fb: FormBuilder,
     private store: Store<fromApp.AppState>,
-    private snackBar: MatSnackBar
+    public snackBar: MatSnackBar
   ) {
     this.form = this.fb.group({
         username : [null, Validators.required],
@@ -64,13 +64,13 @@ export class AddAdministratorComponent implements OnInit, OnDestroy {
     this.store.dispatch(new AdminActions.AddAdmin({ username: user.username, email: user.email, password: user.password }));
   }
 
-  private showErrorAlert(message: string) {
+  showErrorAlert(message: string) {
     this.snackBar.open(message, 'Ok', { duration: 2000 });
     this.store.dispatch(new AdminActions.ClearError());
   }
 
-  private showSuccessAlert(message: string) {
-    this.snackBar.open(message, 'Ok', { duration: 3000 });
+  showSuccessAlert(message: string) {
+    this.snackBar.open(message, 'Ok', { duration: 2000 });
     this.store.dispatch(new AdminActions.ClearSuccess());
     setTimeout(() => this.formGroupDirective.resetForm(), 0);
   }

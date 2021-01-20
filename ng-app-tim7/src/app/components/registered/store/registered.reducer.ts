@@ -8,7 +8,7 @@ export interface State {
   user: UserModel;
 }
 
-const initialState: State = {
+export const initialState: State = {
   error: null,
   success: null,
   bar: false,

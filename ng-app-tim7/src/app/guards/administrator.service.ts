@@ -18,6 +18,7 @@ export class AdministratorGuard implements CanActivate {
   canActivate(): Observable<boolean> {
     return this.store.select('auth').pipe(
       map(authState => {
+        console.log(authState.user);
         return authState.user;
       }),
       map(user => {

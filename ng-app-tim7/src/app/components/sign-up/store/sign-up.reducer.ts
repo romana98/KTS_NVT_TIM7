@@ -1,4 +1,4 @@
-import * as SignUpActions from './sign-up.actions';;
+import * as SignUpActions from './sign-up.actions';
 
 export interface State {
   error: string;
@@ -50,6 +50,5 @@ export function signUpReducer(
       return {
         ...state
       };
-
   }
 }
