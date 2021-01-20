@@ -10,7 +10,7 @@ export class CarouselComponent implements OnInit {
   @Input() inputPictures: string[];
   @Input() inputProportion: number;
 
-  //Returning index of currently selected picture in inputPictures array on every change.
+  // Returning index of currently selected picture in inputPictures array on every change.
   @Output() currentPicture: EventEmitter<number> = new EventEmitter<number>();
 
   constructor() { }

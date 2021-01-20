@@ -1,4 +1,6 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { NewsletterModel } from 'src/app/models/newsletter.model';
 
 import { DialogNewsletterComponent } from './dialog-newsletter.component';
 
@@ -8,7 +10,9 @@ describe('DialogNewsletterComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ DialogNewsletterComponent ]
+      declarations: [ DialogNewsletterComponent ],
+      providers: [{ provide: MatDialogRef, useValue: {} }, { provide: MAT_DIALOG_DATA, useValue:
+        new NewsletterModel(1, 'Title', 'Description', new Date(), 1, 'img.jpg', 'CulturalOffer1') }]
     })
     .compileComponents();
   }));

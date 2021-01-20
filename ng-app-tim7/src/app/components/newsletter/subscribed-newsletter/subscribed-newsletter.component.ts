@@ -16,11 +16,10 @@ export class SubscribedNewsletterComponent implements OnInit, OnDestroy {
   categoriesSubscribed = [];
   success: string = null;
   error: string = null;
-  private storeSub: Subscription;
+  storeSub: Subscription;
 
   constructor(private store: Store<fromApp.AppState>,
-              private snackBar: MatSnackBar,
-              private router: Router) {}
+              public snackBar: MatSnackBar) {}
 
   ngOnInit(): void {
     this.store.dispatch(new NewsletterActions.GetCategoriesSubscribed({ id: JSON.parse(localStorage.getItem('user')).id }));
@@ -38,12 +37,12 @@ export class SubscribedNewsletterComponent implements OnInit, OnDestroy {
     });
   }
 
-  private showSuccessAlert(message: string) {
+  showSuccessAlert(message: string) {
     this.snackBar.open(message, 'Ok', { duration: 3000 });
     this.store.dispatch(new NewsletterActions.ClearSuccess());
   }
 
-  private showErrorAlert(message: string) {
+  showErrorAlert(message: string) {
     this.snackBar.open(message, 'Ok', { duration: 3000 });
     this.store.dispatch(new NewsletterActions.ClearError());
   }

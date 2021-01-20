@@ -1,4 +1,4 @@
-import {Component, OnDestroy, OnInit, ViewChild} from '@angular/core';
+import {Component, ElementRef, OnDestroy, OnInit, ViewChild} from '@angular/core';
 import {FormBuilder, FormGroup, FormGroupDirective, Validators} from '@angular/forms';
 import {Subscription} from 'rxjs';
 import {Store} from '@ngrx/store';
@@ -6,7 +6,7 @@ import * as fromApp from '../../../store/app.reducer';
 import {MatSnackBar} from '@angular/material/snack-bar';
 import {validateMatchPassword} from '../../../validator/custom-validator-match-password';
 import * as NewsletterActions from '../store/newsletter.actions';
-import {ActivatedRoute} from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 import {NewsletterModel} from '../../../models/newsletter.model';
 
 @Component({
@@ -17,7 +17,7 @@ import {NewsletterModel} from '../../../models/newsletter.model';
 export class UpdateNewsletterComponent implements OnInit, OnDestroy {
 
   @ViewChild(FormGroupDirective) formGroupDirective: FormGroupDirective;
-  private storeSub: Subscription;
+  storeSub: Subscription;
   form: FormGroup;
   error: string = null;
   success: string = null;
@@ -30,16 +30,20 @@ export class UpdateNewsletterComponent implements OnInit, OnDestroy {
   culturalOfferId = null;
   picture = null;
 
+  @ViewChild('fileInput') fileInput: ElementRef;
+
   constructor(
     private fb: FormBuilder,
     private store: Store<fromApp.AppState>,
-    private snackBar: MatSnackBar,
-    private route: ActivatedRoute
+    public snackBar: MatSnackBar,
+    private route: ActivatedRoute,
+    private router: Router
   )
   {
     this.form = this.fb.group({
       name : [null, Validators.required],
       description : [null, Validators.required],
+      picture: [null]
     });
   }
 
@@ -72,15 +76,11 @@ export class UpdateNewsletterComponent implements OnInit, OnDestroy {
   }
 
   submit() {
-    const newsletter: any = {};
-    newsletter.id = this.id;
-    newsletter.name = this.name;
-    newsletter.description = this.description;
-    newsletter.picture = this.picture;
-    newsletter.publishedDate = this.publishedDate;
-    newsletter.culturalOfferId = this.culturalOfferId;
+    const newsletter = new NewsletterModel(this.id, this.form.value.name, this.form.value.description, this.publishedDate,
+      this.culturalOfferId, this.form.value.picture, '');
 
-    this.store.dispatch(new NewsletterActions.UpdateNewsletter({ newsletter}));
+    this.store.dispatch(new NewsletterActions.UpdateNewsletter({ newsletter }));
+    this.router.navigate(['/newsletter/dashboard']);
   }
 
   onFileChanged(e) {
@@ -88,6 +88,9 @@ export class UpdateNewsletterComponent implements OnInit, OnDestroy {
     const pattern = /image-*/;
     const reader = new FileReader();
     if (!file) {
+      this.form.patchValue({
+        picture: ''
+      });
       this.picture = '';
       return;
     }
@@ -95,20 +98,32 @@ export class UpdateNewsletterComponent implements OnInit, OnDestroy {
       alert('invalid format');
       return;
     }
-    reader.onload = this._handleReaderLoaded.bind(this);
+    reader.onload = this.handleReaderLoaded.bind(this);
     reader.readAsDataURL(file);
+    this.fileInput.nativeElement.value = '';
   }
-  _handleReaderLoaded(e) {
+  handleReaderLoaded(e) {
     const reader = e.target;
+    this.form.patchValue({
+      picture: reader.result.replace(/(\r\n\t|\n|\r\t)/gm, '')
+    });
     this.picture = reader.result.replace(/(\r\n\t|\n|\r\t)/gm, '');
   }
 
-  private showErrorAlert(message: string) {
+  onPictureRemove(event: any) {
+    event.preventDefault();
+    this.form.patchValue({
+      picture: ''
+    });
+    this.picture = '';
+  }
+
+  showErrorAlert(message: string) {
     this.snackBar.open(message, 'Ok', { duration: 2000 });
     this.store.dispatch(new NewsletterActions.ClearError());
   }
 
-  private showSuccessAlert(message: string) {
+  showSuccessAlert(message: string) {
     this.snackBar.open(message, 'Ok', { duration: 3000 });
     this.store.dispatch(new NewsletterActions.ClearSuccess());
     setTimeout(() => this.formGroupDirective.resetForm(), 0);
