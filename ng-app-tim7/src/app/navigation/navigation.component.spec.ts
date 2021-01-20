@@ -1,7 +1,7 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { NavigationComponent } from './navigation.component';
-import * as AuthActions from '../components/sign-in/store/sign-in.actions';
+import * as AuthActions from '../features/sign-in/store/sign-in.actions';
 import {Store, StoreModule} from '@ngrx/store';
 import * as fromApp from '../store/app.reducer';
 import {NavigationAdministratorComponent} from './navigation-administrator/navigation-administrator.component';

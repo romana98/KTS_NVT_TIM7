@@ -4,11 +4,11 @@ import { HttpAuthInterceptor } from './http-auth.interceptor';
 import {HttpClientTestingModule, HttpTestingController} from '@angular/common/http/testing';
 import {HTTP_INTERCEPTORS} from '@angular/common/http';
 import {UserModel} from '../models/user.model';
-import {RegisteredEffects} from '../components/registered/store/registered.effects';
+import {RegisteredEffects} from '../features/user-administration/registered-administration/store/registered.effects';
 import {Observable, of} from 'rxjs';
 import {Action} from '@ngrx/store';
 import {provideMockActions} from '@ngrx/effects/testing';
-import * as RegisteredActions from '../components/registered/store/registered.actions';
+import * as RegisteredActions from '../features/user-administration/registered-administration/store/registered.actions';
 import {Router} from '@angular/router';
 
 describe('HttpAuthInterceptor', () => {

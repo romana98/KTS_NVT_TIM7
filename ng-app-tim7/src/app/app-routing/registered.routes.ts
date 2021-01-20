@@ -1,8 +1,8 @@
 import {Routes} from '@angular/router';
-import {ViewProfileComponent} from '../components/user/view-profile/view-profile.component';
+import {ViewProfileComponent} from '../features/user-administration/view/view-profile/view-profile.component';
 import {RegisteredGuard} from '../guards/registered.service';
-import {EditProfileComponent} from '../components/user/edit-profile/edit-profile.component';
-import {CulturalOfferMainpageComponent} from '../components/cultural-offer/cultural-offer-mainpage/cultural-offer-mainpage.component';
+import {EditProfileComponent} from '../features/user-administration/view/edit-profile/edit-profile.component';
+import {CulturalOfferMainpageComponent} from '../features/cultural-offer-administration/view/cultural-offer-mainpage/cultural-offer-mainpage.component';
 
 export const regRoutes: Routes = [
   {

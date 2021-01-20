@@ -1,8 +1,8 @@
 import {Routes} from '@angular/router';
-import { AddNewsletterComponent } from '../components/newsletter/add-newsletter/add-newsletter.component';
-import {DashboardNewsletterComponent} from '../components/newsletter/dashboard-newsletter/dashboard-newsletter.component';
-import { SubscribedNewsletterComponent } from '../components/newsletter/subscribed-newsletter/subscribed-newsletter.component';
-import { UpdateNewsletterComponent } from '../components/newsletter/update-newsletter/update-newsletter.component';
+import { AddNewsletterComponent } from '../features/newsletter-administration/view/add-newsletter/add-newsletter.component';
+import {DashboardNewsletterComponent} from '../features/newsletter-administration/view/dashboard-newsletter/dashboard-newsletter.component';
+import { SubscribedNewsletterComponent } from '../features/newsletter-administration/view/subscribed-newsletter/subscribed-newsletter.component';
+import { UpdateNewsletterComponent } from '../features/newsletter-administration/view/update-newsletter/update-newsletter.component';
 import {AdministratorGuard} from '../guards/administrator.service';
 import { RegisteredGuard } from '../guards/registered.service';
 

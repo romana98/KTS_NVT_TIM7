@@ -1,15 +1,15 @@
 import {ActionReducer, ActionReducerMap, MetaReducer} from '@ngrx/store';
 import { localStorageSync } from 'ngrx-store-localstorage';
 
-import * as fromAuth from '../components/sign-in/store/sign-in.reducer';
-import * as fromSignUp from '../components/sign-up/store/sign-up.reducer';
-import * as fromActivate from '../components/activate-account/store/activate-account.reducer';
-import * as fromAdmin from '../components/administrator/store/administrator.reducer';
-import * as fromReg from '../components/registered/store/registered.reducer';
-import * as fromNewsletter from '../components/newsletter/store/newsletter.reducer';
-import * as fromCategory from '../components/category/store/category.reducer';
-import * as fromSubcategory from '../components/subcategory/store/subcategory.reducer';
-import * as fromCulturalOffer from '../components/cultural-offer/store/cultural-offer.reducer';
+import * as fromAuth from '../features/sign-in/store/sign-in.reducer';
+import * as fromSignUp from '../features/sign-up/store/sign-up.reducer';
+import * as fromActivate from '../features/activate-account/store/activate-account.reducer';
+import * as fromAdmin from '../features/user-administration/administrator-administration/store/administrator.reducer';
+import * as fromReg from '../features/user-administration/registered-administration/store/registered.reducer';
+import * as fromNewsletter from '../features/newsletter-administration/store/newsletter.reducer';
+import * as fromCategory from '../features/category-administration/store/category.reducer';
+import * as fromSubcategory from '../features/subcategory-administration/store/subcategory.reducer';
+import * as fromCulturalOffer from '../features/cultural-offer-administration/store/cultural-offer.reducer';
 
 export interface AppState {
   auth: fromAuth.State;

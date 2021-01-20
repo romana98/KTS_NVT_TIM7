@@ -1,13 +1,13 @@
 import {Routes} from '@angular/router';
-import {DashboardAdministratorComponent} from '../components/administrator/dashboard-administrator/dashboard-administrator.component';
+import {DashboardAdministratorComponent} from '../features/user-administration/administrator-administration/view/dashboard-administrator/dashboard-administrator.component';
 import {AdministratorGuard} from '../guards/administrator.service';
-import {AddAdministratorComponent} from '../components/administrator/add-administrator/add-administrator.component';
-import {ViewProfileComponent} from '../components/user/view-profile/view-profile.component';
-import {EditProfileComponent} from '../components/user/edit-profile/edit-profile.component';
-import {CategoryDashboardComponent} from '../components/category/category-dashboard/category-dashboard.component';
-import {SubcategoryDashboardComponent} from '../components/subcategory/subcategory-dashboard/subcategory-dashboard.component';
-import {CulturalOfferDashboardComponent} from '../components/cultural-offer/cultural-offer-dashboard/cultural-offer-dashboard.component';
-import {CulturalOfferAddpageComponent} from '../components/cultural-offer/cultural-offer-addpage/cultural-offer-addpage.component';
+import {AddAdministratorComponent} from '../features/user-administration/administrator-administration/view/add-administrator/add-administrator.component';
+import {ViewProfileComponent} from '../features/user-administration/view/view-profile/view-profile.component';
+import {EditProfileComponent} from '../features/user-administration/view/edit-profile/edit-profile.component';
+import {CategoryDashboardComponent} from '../features/category-administration/view/category-dashboard/category-dashboard.component';
+import {SubcategoryDashboardComponent} from '../features/subcategory-administration/view/subcategory-dashboard/subcategory-dashboard.component';
+import {CulturalOfferDashboardComponent} from '../features/cultural-offer-administration/view/cultural-offer-dashboard/cultural-offer-dashboard.component';
+import {CulturalOfferAddpageComponent} from '../features/cultural-offer-administration/view/cultural-offer-addpage/cultural-offer-addpage.component';
 
 export const adminRoutes: Routes = [
   {

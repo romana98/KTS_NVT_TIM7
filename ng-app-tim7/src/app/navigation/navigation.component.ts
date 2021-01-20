@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {Store} from '@ngrx/store';
 import * as fromApp from '../store/app.reducer';
-import * as AuthActions from '../components/sign-in/store/sign-in.actions';
+import * as AuthActions from '../features/sign-in/store/sign-in.actions';
 import {map} from 'rxjs/operators';
 
 @Component({

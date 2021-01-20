@@ -1,146 +1,59 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-
 import { AppComponent } from './app.component';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { NavigationComponent } from './navigation/navigation.component';
-import {MatToolbarModule} from '@angular/material/toolbar';
-import { StoreModule } from '@ngrx/store';
-import { SignInComponent } from './components/sign-in/sign-in.component';
-import {AppRoutingModule} from './app-routing/app-routing.module';
-import { SignUpComponent } from './components/sign-up/sign-up.component';
-import {FormsModule, ReactiveFormsModule} from '@angular/forms';
-import { EffectsModule } from '@ngrx/effects';
-import * as fromApp from './store/app.reducer';
-import { AuthEffects } from './components/sign-in/store/sign-in.effects';
-import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
-import {MatDividerModule} from '@angular/material/divider';
-import {MatFormFieldModule} from '@angular/material/form-field';
-import {MatInputModule} from '@angular/material/input';
-import {MatButtonModule} from '@angular/material/button';
-import {MatSnackBarModule} from '@angular/material/snack-bar';
-import { StoreDevtoolsModule } from '@ngrx/store-devtools';
-import { environment } from '../environments/environment';
-import {MatIconModule} from '@angular/material/icon';
-import { NavigationAdministratorComponent } from './navigation/navigation-administrator/navigation-administrator.component';
-import { NavigationRegisteredComponent } from './navigation/navigation-registered/navigation-registered.component';
-import { NavigationNonSignedInComponent } from './navigation/navigation-non-signed-in/navigation-non-signed-in.component';
-import {metaReducers} from './store/app.reducer';
-import {SignUpEffects} from './components/sign-up/store/sign-up.effects';
-import {MatProgressBarModule} from '@angular/material/progress-bar';
-import { ActivateAccountComponent } from './components/activate-account/activate-account.component';
-import {ActivateAccountEffects} from './components/activate-account/store/activate-account.effects';
-import { TableComponent } from './components/common/table/table.component';
-import {MatTableModule} from '@angular/material/table';
-import { DashboardAdministratorComponent } from './components/administrator/dashboard-administrator/dashboard-administrator.component';
-import {AdministratorEffects} from './components/administrator/store/administrator.effects';
+import {HTTP_INTERCEPTORS} from '@angular/common/http';
 import {HttpAuthInterceptor} from './interceptors/http-auth.interceptor';
-import {MatPaginatorModule} from '@angular/material/paginator';
-import { PaginationComponent } from './components/common/pagination/pagination.component';
-import { AddAdministratorComponent } from './components/administrator/add-administrator/add-administrator.component';
-import { ViewProfileComponent } from './components/user/view-profile/view-profile.component';
-import {MatCardModule} from '@angular/material/card';
-import {RegisteredEffects} from './components/registered/store/registered.effects';
-import { EditProfileComponent } from './components/user/edit-profile/edit-profile.component';
-import { DashboardNewsletterComponent } from './components/newsletter/dashboard-newsletter/dashboard-newsletter.component';
-import {NewsletterEffects} from './components/newsletter/store/newsletter.effects';
-import { CategoryDashboardComponent } from './components/category/category-dashboard/category-dashboard.component';
-import {CategoryEffects} from './components/category/store/category.effects';
-import { SubcategoryDashboardComponent } from './components/subcategory/subcategory-dashboard/subcategory-dashboard.component';
-import {SubcategoryEffects} from './components/subcategory/store/subcategory.effects';
-import {MatSelectModule} from '@angular/material/select';
-import {MatSelectInfiniteScrollModule} from 'ng-mat-select-infinite-scroll';
-import {ScrollingModule} from '@angular/cdk/scrolling';
-import { UpdateNewsletterComponent } from './components/newsletter/update-newsletter/update-newsletter.component';
-import { GoogleMapComponent } from './components/common/google-map/google-map.component';
-import { AgmCoreModule } from '@agm/core';
-import { AddNewsletterComponent } from './components/newsletter/add-newsletter/add-newsletter.component';
-import { SubscribedNewsletterComponent } from './components/newsletter/subscribed-newsletter/subscribed-newsletter.component';
-import {MatTabsModule} from '@angular/material/tabs';
-import { CategoryNewsletterComponent } from './components/newsletter/category-newsletter/category-newsletter.component';
-import { CardNewsletterComponent } from './components/newsletter/card-newsletter/card-newsletter.component';
-import { DialogNewsletterComponent } from './components/newsletter/dialog-newsletter/dialog-newsletter.component';
-import {MatDialogModule} from '@angular/material/dialog';
-import { CulturalOfferDashboardComponent } from './components/cultural-offer/cultural-offer-dashboard/cultural-offer-dashboard.component';
-import {CulturalOfferEffects} from './components/cultural-offer/store/cultural-offer.effects';
-import { CulturalOfferMainpageComponent } from './components/cultural-offer/cultural-offer-mainpage/cultural-offer-mainpage.component';
-import { CulturalOfferAddpageComponent } from './components/cultural-offer/cultural-offer-addpage/cultural-offer-addpage.component';
-import {MatDatepickerModule} from '@angular/material/datepicker';
-import {MatNativeDateModule} from '@angular/material/core';
-import { CulturalOfferDetailedViewComponent } from './components/cultural-offer/cultural-offer-detailed-view/cultural-offer-detailed-view.component';
-import { MatCarouselModule } from '@ngmodule/material-carousel';
-import {NgxStarRatingModule} from 'ngx-star-rating';
-import { CarouselComponent } from './components/common/carousel/carousel.component';
-
+import {SharedModule} from './shared/shared.module';
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import {StoreModule} from '@ngrx/store';
+import {metaReducers} from './store/app.reducer';
+import * as fromApp from './store/app.reducer';
+import {StoreDevtoolsModule} from '@ngrx/store-devtools';
+import {environment} from '../environments/environment';
+import {CategoryAdministrationModule} from './features/category-administration/category-administration.module';
+import {ActivateAccountModule} from './features/activate-account/activate-account.module';
+import {CulturalOfferAdministrationModule} from './features/cultural-offer-administration/cultural-offer-administration.module';
+import {NewsletterAdministrationModule} from './features/newsletter-administration/newsletter-administration.module';
+import {SignInModule} from './features/sign-in/sign-in.module';
+import {SignUpModule} from './features/sign-up/sign-up.module';
+import {SubcategoryAdministrationModule} from './features/subcategory-administration/subcategory-administration.module';
+import {UserAdministrationModule} from './features/user-administration/user-administration.module';
+import {NavigationModule} from './navigation/navigation.module';
+import {EffectsModule} from '@ngrx/effects';
+import {AuthEffects} from './features/sign-in/store/sign-in.effects';
+import {NewsletterEffects} from './features/newsletter-administration/store/newsletter.effects';
+import {SignUpEffects} from './features/sign-up/store/sign-up.effects';
+import {ActivateAccountEffects} from './features/activate-account/store/activate-account.effects';
+import {AdministratorEffects} from './features/user-administration/administrator-administration/store/administrator.effects';
+import {RegisteredEffects} from './features/user-administration/registered-administration/store/registered.effects';
+import {CategoryEffects} from './features/category-administration/store/category.effects';
+import {SubcategoryEffects} from './features/subcategory-administration/store/subcategory.effects';
+import {CulturalOfferEffects} from './features/cultural-offer-administration/store/cultural-offer.effects';
 
 @NgModule({
   declarations: [
-    AppComponent,
-    NavigationComponent,
-    SignInComponent,
-    SignUpComponent,
-    NavigationAdministratorComponent,
-    NavigationRegisteredComponent,
-    NavigationNonSignedInComponent,
-    ActivateAccountComponent,
-    TableComponent,
-    DashboardAdministratorComponent,
-    PaginationComponent,
-    AddAdministratorComponent,
-    ViewProfileComponent,
-    EditProfileComponent,
-    CategoryDashboardComponent,
-    SubcategoryDashboardComponent,
-    DashboardNewsletterComponent,
-    AddNewsletterComponent,
-    UpdateNewsletterComponent,
-    SubscribedNewsletterComponent,
-    CategoryNewsletterComponent,
-    CardNewsletterComponent,
-    DialogNewsletterComponent,
-    GoogleMapComponent,
-    CulturalOfferDashboardComponent,
-    CulturalOfferMainpageComponent,
-    CulturalOfferAddpageComponent,
-    CulturalOfferDetailedViewComponent,
-    CarouselComponent
+    AppComponent
   ],
   imports: [
+    NavigationModule,
     BrowserModule,
     BrowserAnimationsModule,
-    HttpClientModule,
-    AppRoutingModule,
+    SharedModule,
+    ActivateAccountModule,
+    CulturalOfferAdministrationModule,
+    NewsletterAdministrationModule,
+    SignInModule,
+    SignUpModule,
+    SubcategoryAdministrationModule,
+    UserAdministrationModule,
+    CategoryAdministrationModule,
     StoreModule.forRoot(fromApp.appReducer, {metaReducers}),
     EffectsModule.forRoot([AuthEffects, SignUpEffects, ActivateAccountEffects, AdministratorEffects, RegisteredEffects,
       CategoryEffects, SubcategoryEffects, NewsletterEffects, CulturalOfferEffects]),
     StoreDevtoolsModule.instrument({maxAge: 25, logOnly: environment.production}),
-    ReactiveFormsModule,
-    MatToolbarModule,
-    MatDividerModule,
-    MatFormFieldModule,
-    MatInputModule,
-    MatButtonModule,
-    MatSnackBarModule,
-    MatIconModule,
-    MatProgressBarModule,
-    MatTableModule,
-    MatPaginatorModule,
-    MatCardModule,
-    MatSelectModule,
-    MatSelectInfiniteScrollModule,
-    ScrollingModule,
-    MatTabsModule,
-    MatDialogModule,
-    AgmCoreModule.forRoot({
-      apiKey: 'AIzaSyA299mClrC7nDZzy92CQ4X47y7FmaBKMj4'
-    }),
-    ScrollingModule,
-    MatDatepickerModule,
-    MatNativeDateModule,
-    MatCarouselModule.forRoot(),
-    NgxStarRatingModule,
-    FormsModule
+    StoreDevtoolsModule.instrument({maxAge: 25, logOnly: environment.production})
   ],
+  exports: [],
   providers: [{
     provide: HTTP_INTERCEPTORS, useClass: HttpAuthInterceptor, multi: true
   }],
