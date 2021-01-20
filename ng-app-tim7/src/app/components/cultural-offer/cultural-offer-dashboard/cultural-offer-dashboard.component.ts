@@ -45,11 +45,11 @@ export class CulturalOfferDashboardComponent implements OnInit, OnDestroy{
 
   }
   onClick(id: number){
-    this.router.navigate(['administrator/editCulturalOffer', { id: id }]);
+    this.router.navigate(['administrator/editCulturalOffer', { id }]);
   }
 
   onDelete(id: number){
-    this.store.dispatch(new CulturalOfferActions.DeleteCulturalOffer({id: id, page: this.page, page_size: this.pageSize}));
+    this.store.dispatch(new CulturalOfferActions.DeleteCulturalOffer({id, page: this.page, page_size: this.pageSize}));
   }
 
   onPagination(page: number){

@@ -20,7 +20,6 @@ export class CardNewsletterComponent implements OnInit {
     public dialog: MatDialog) { }
 
   ngOnInit(): void {
-    console.log(this.newsletter)
   }
 
   openDialog(): void {
