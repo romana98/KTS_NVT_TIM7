@@ -18,9 +18,9 @@ export class DashboardNewsletterComponent implements OnInit, OnDestroy {
   newsletters = {content: [], numberOfElements: 0, totalElements: 0, totalPages: 0, number: 0};
   success: string = null;
   error: string = null;
-  private storeSub: Subscription;
+  storeSub: Subscription;
   constructor(private store: Store<fromApp.AppState>,
-              private snackBar: MatSnackBar,
+              public snackBar: MatSnackBar,
               private router: Router) {}
 
   ngOnInit(): void {
@@ -52,13 +52,13 @@ export class DashboardNewsletterComponent implements OnInit, OnDestroy {
     this.store.dispatch(new NewsletterActions.GetNewsletterPage({page: this.page, size: this.pageSize }));
   }
 
-  private showSuccessAlert(message: string) {
+  showSuccessAlert(message: string) {
     this.snackBar.open(message, 'Ok', { duration: 3000 });
     this.store.dispatch(new NewsletterActions.ClearSuccess());
     this.store.dispatch(new NewsletterActions.GetNewsletterPage({page: this.page, size: this.pageSize }));
   }
 
-  private showErrorAlert(message: string) {
+  showErrorAlert(message: string) {
     this.snackBar.open(message, 'Ok', { duration: 3000 });
     this.store.dispatch(new NewsletterActions.ClearError());
   }

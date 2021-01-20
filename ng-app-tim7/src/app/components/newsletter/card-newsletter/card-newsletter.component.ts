@@ -1,6 +1,7 @@
 import {Component, EventEmitter, OnDestroy, OnInit, Output} from '@angular/core';
 import { Input } from '@angular/core';
 import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
+import { NewsletterModel } from 'src/app/models/newsletter.model';
 import { DialogNewsletterComponent } from '../dialog-newsletter/dialog-newsletter.component';
 
 
@@ -11,7 +12,7 @@ import { DialogNewsletterComponent } from '../dialog-newsletter/dialog-newslette
 })
 export class CardNewsletterComponent implements OnInit {
 
-  @Input() newsletter: any;
+  @Input() newsletter: NewsletterModel;
   @Output() newItemEvent = new EventEmitter<number>();
   success: string = null;
   error: string = null;
@@ -26,9 +27,6 @@ export class CardNewsletterComponent implements OnInit {
     const dialogRef = this.dialog.open(DialogNewsletterComponent, {
       width: '800px',
       data: this.newsletter,
-    });
-
-    dialogRef.afterClosed().subscribe(result => {
     });
   }
 

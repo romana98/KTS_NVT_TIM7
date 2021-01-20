@@ -5,6 +5,7 @@ import * as fromApp from '../../../store/app.reducer';
 import * as NewsletterActions from '../store/newsletter.actions';
 import {Subscription} from 'rxjs';
 import {MatSnackBar} from '@angular/material/snack-bar';
+import { CategoryModel } from 'src/app/models/category.model';
 
 @Component({
   selector: 'app-category-newsletter',
@@ -13,20 +14,22 @@ import {MatSnackBar} from '@angular/material/snack-bar';
 })
 export class CategoryNewsletterComponent implements OnInit, OnDestroy {
 
-  @Input() category: any;
+  @Input() category: CategoryModel;
   page = 0;
   pageSize = 5;
   newslettersSubscribed = {content: [], numberOfElements: 0, totalElements: 0, totalPages: 0, number: 0};
   success: string = null;
   error: string = null;
-  private storeSub: Subscription;
+  storeSub: Subscription;
 
   constructor(private store: Store<fromApp.AppState>,
-              private snackBar: MatSnackBar) {}
+              public snackBar: MatSnackBar) {}
 
   ngOnInit(): void {
     this.store.dispatch(new NewsletterActions.GetNewslettersSubscribed({ page: this.page, size: this.pageSize,
-      catId: this.category.id, id: JSON.parse(localStorage.getItem('user')).id }));
+      id: JSON.parse(localStorage.getItem('user')).id,
+      catId: this.category.id,
+      }));
     this.storeSub = this.store.select('newsletter').subscribe(state => {
       this.newslettersSubscribed = state.newslettersSubscribed;
 
@@ -54,14 +57,14 @@ export class CategoryNewsletterComponent implements OnInit, OnDestroy {
       catId: this.category.id, id: JSON.parse(localStorage.getItem('user')).id }));
   }
 
-  private showSuccessAlert(message: string) {
+  showSuccessAlert(message: string) {
     this.snackBar.open(message, 'Ok', { duration: 3000 });
     this.store.dispatch(new NewsletterActions.ClearSuccess());
     this.store.dispatch(new NewsletterActions.GetNewslettersSubscribed({ page: this.page, size: this.pageSize,
       catId: this.category.id, id: JSON.parse(localStorage.getItem('user')).id }));
   }
 
-  private showErrorAlert(message: string) {
+  showErrorAlert(message: string) {
     this.snackBar.open(message, 'Ok', { duration: 3000 });
     this.store.dispatch(new NewsletterActions.ClearError());
   }

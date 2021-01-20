@@ -8,6 +8,8 @@ import {validateMatchPassword} from '../../../validator/custom-validator-match-p
 import * as NewsletterActions from '../store/newsletter.actions';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ElementRef } from '@angular/core';
+import { distinctUntilChanged } from 'rxjs/operators';
+import { NewsletterModel } from 'src/app/models/newsletter.model';
 
 @Component({
   selector: 'app-add-newsletter',
@@ -17,7 +19,7 @@ import { ElementRef } from '@angular/core';
 export class AddNewsletterComponent implements OnInit, OnDestroy {
 
   @ViewChild(FormGroupDirective) formGroupDirective: FormGroupDirective;
-  private storeSub: Subscription;
+  public storeSub: Subscription;
   form: FormGroup;
   error: string = null;
   success: string = null;
@@ -30,9 +32,10 @@ export class AddNewsletterComponent implements OnInit, OnDestroy {
   categoriesSelect = {content: [], numberOfElements: 0, totalElements: 0, totalPages: 0, number: 0};
   subcategoriesSelect = {content: [], numberOfElements: 0, totalElements: 0, totalPages: 0, number: 0};
   offersSelect = {content: [], numberOfElements: 0, totalElements: 0, totalPages: 0, number: 0};
-  //picture = '';
+  picture = '';
   name = '';
   description = '';
+  publishedDate = null;
   culturalOfferId = null;
   categoryId = null;
   subcategoryId = null;
@@ -44,7 +47,7 @@ export class AddNewsletterComponent implements OnInit, OnDestroy {
    constructor(
     private fb: FormBuilder,
     private store: Store<fromApp.AppState>,
-    private snackBar: MatSnackBar,
+    public snackBar: MatSnackBar,
     private route: ActivatedRoute,
     private router: Router
   ) {
@@ -59,7 +62,7 @@ export class AddNewsletterComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.culturalOfferIdParam = this.route.snapshot.paramMap.get('culturalOfferId');
     this.culturalOfferNameParam = this.route.snapshot.paramMap.get('culturalOfferName');
-    this.form.get('offerSelect').valueChanges.subscribe(val => {
+    this.form.get('offerSelect').valueChanges.pipe(distinctUntilChanged()).subscribe(val => {
       const toValidate = 'offerSelect';
       if (!this.culturalOfferIdParam) {
           this.form.controls[toValidate].setValidators([Validators.required]);
@@ -68,7 +71,7 @@ export class AddNewsletterComponent implements OnInit, OnDestroy {
           this.form.controls[toValidate].clearValidators();
           this.form.controls[toValidate].updateValueAndValidity();
       }
-  });
+    });
     this.store.dispatch(new NewsletterActions.GetCategoriesSelect({ page: this.pageCategory, size: this.pageSize }));
     this.storeSub = this.store.select('newsletter').subscribe(state => {
       this.categoriesSelect = state.categoriesSelect;
@@ -93,18 +96,15 @@ export class AddNewsletterComponent implements OnInit, OnDestroy {
   }
 
   submit() {
-    const newsletter: any = {};
-    newsletter.name = this.form.value.name;
-    newsletter.description = this.form.value.description;
-    newsletter.picture = this.form.value.picture;
-    newsletter.publishedDate = new Date();
-    newsletter.culturalOfferId = this.culturalOfferIdParam ? this.culturalOfferIdParam : this.culturalOfferId;
-
-    this.store.dispatch(new NewsletterActions.AddNewsletter({ name: newsletter.name, description: newsletter.description,
-      picture: newsletter.picture, publishedDate: newsletter.publishedDate, culturalOfferId: newsletter.culturalOfferId  }));
-      this.form.patchValue({
-        picture: ''
-      });
+    if (!this.publishedDate) { this.publishedDate = new Date(); }
+    const newsletter = new NewsletterModel(0, this.form.value.name, this.form.value.description, this.publishedDate,
+      this.culturalOfferIdParam ? this.culturalOfferIdParam : this.culturalOfferId, this.form.value.picture, '');
+    this.store.dispatch(new NewsletterActions.AddNewsletter(newsletter));
+    this.form.patchValue({
+      picture: ''
+    });
+    this.picture = '';
+    this.publishedDate = null;
     this.router.navigate(['/newsletter/dashboard']);
   }
 
@@ -125,57 +125,65 @@ export class AddNewsletterComponent implements OnInit, OnDestroy {
       this.subcategoryId }));
   }
 
-  onChangeCategories(event) {
+  onChangeCategories(event: any) {
     this.pageSubcategory = 0;
     this.categoryId = event.value.id;
     this.store.dispatch(new NewsletterActions.GetSubcategoriesSelect({ page: this.pageSubcategory, size: this.pageSize,
       category: event.value.id }));
   }
 
-  onChangeSubcategories(event) {
+  onChangeSubcategories(event: any) {
     this.pageOffer = 0;
     this.subcategoryId = event.value.id;
     this.store.dispatch(new NewsletterActions.GetOffersSelect({ page: this.pageOffer, size: this.pageSize, subcategory:
       event.value.id }));
   }
 
-  onChangeOffers(event) {
+  onChangeOffers(event: any) {
     this.culturalOfferId = event.value.id;
-    console.log(this.culturalOfferId);
   }
 
-  onFileChanged(e) {
-    const file = e.dataTransfer ? e.dataTransfer.files[0] : e.target.files[0];
+  onFileChanged = (event: any) => {
+    const file = event.dataTransfer ? event.dataTransfer.files[0] : event.target.files[0];
     const pattern = /image-*/;
     const reader = new FileReader();
     if (!file) {
       this.form.patchValue({
         picture: ''
       });
+      this.picture = '';
       return;
     }
     if (!file.type.match(pattern)) {
       alert('invalid format');
       return;
     }
-    reader.onload = this._handleReaderLoaded.bind(this);
+    reader.onload = this.handleReaderLoaded.bind(this);
     reader.readAsDataURL(file);
     this.fileInput.nativeElement.value = '';
   }
-  _handleReaderLoaded(e) {
-    const reader = e.target;
+  handleReaderLoaded = (event: any) => {
+    const reader = event.target;
+    this.picture = reader.result.replace(/(\r\n\t|\n|\r\t)/gm, '');
     this.form.patchValue({
       picture: reader.result.replace(/(\r\n\t|\n|\r\t)/gm, '')
     });
-    //this.form.controls.picture = reader.result.replace(/(\r\n\t|\n|\r\t)/gm, '');
   }
 
-  private showErrorAlert(message: string) {
+  onPictureRemove(event) {
+    event.preventDefault();
+    this.form.patchValue({
+      picture: ''
+    });
+    this.picture = '';
+  }
+
+  showErrorAlert(message: string) {
     this.snackBar.open(message, 'Ok', { duration: 2000 });
     this.store.dispatch(new NewsletterActions.ClearError());
   }
 
-  private showSuccessAlert(message: string) {
+  showSuccessAlert(message: string) {
     this.snackBar.open(message, 'Ok', { duration: 3000 });
     this.store.dispatch(new NewsletterActions.ClearSuccess());
     setTimeout(() => this.formGroupDirective.resetForm(), 0);
@@ -188,3 +196,4 @@ export class AddNewsletterComponent implements OnInit, OnDestroy {
   }
 
 }
+

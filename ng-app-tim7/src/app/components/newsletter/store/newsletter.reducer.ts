@@ -18,7 +18,7 @@ export const initialState: State = {
   newsletters: {content: []},
   error: null,
   success: null,
-  newsletter: {id: 0, name: '', description: '', publishedDate: null, culturalOfferId: 0, picture: ''},
+  newsletter: {id: 0, name: '', description: '', publishedDate: null, culturalOfferId: 0, picture: '', culturaloffer: ''},
   bar: false,
   categoriesSelect: {content: []},
   subcategoriesSelect: {content: []},

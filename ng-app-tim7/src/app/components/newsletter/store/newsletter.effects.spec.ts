@@ -61,17 +61,18 @@ describe('NewsletterEffects', () => {
 
   describe('Get newsletter page', () => {
     it('should return GetNewsletterSuccess action, with newsletters data', () => {
+      const date = new Date();
       actions$ = of(new NewsletterActions.GetNewsletterPage({page: 1, size: 1}));
       effects.newsletters.subscribe(action => {
         expect(action).toEqual(new NewsletterActions.GetNewslettersSuccess({
-            content: [new NewsletterModel(1, 'Title', 'Description', new Date(), 1, 'img.jpg')]
+            content: [new NewsletterModel(1, 'Title', 'Description', date, 1, 'img.jpg', '')]
         }));
       });
 
       const req = http.expectOne('http://localhost:8080/newsletter/by-page?page=1&size=1');
       expect(req.request.method).toEqual('GET');
       req.flush({
-        content: [new NewsletterModel(1, 'Title', 'Description', new Date(), 1, 'img.jpg')]
+        content: [new NewsletterModel(1, 'Title', 'Description', date, 1, 'img.jpg', '')]
       });
     });
   });
@@ -131,7 +132,7 @@ describe('NewsletterEffects', () => {
     it('should return GetNewsletterSuccess action, with newsletter data', () => {
       const date = new Date();
       const newsletter = new NewsletterModel(
-          1, 'Title', 'Description', date, 1, 'img.jpg'
+          1, 'Title', 'Description', date, 1, 'img.jpg', ''
       );
       actions$ = of(new NewsletterActions.GetNewsletter({id: 1}));
       effects.newsletter.subscribe(action => {
@@ -242,7 +243,7 @@ describe('NewsletterEffects', () => {
   describe('Update newsletter', () => {
     it('should update newsletter and return NewsletterSuccess action', () => {
       const date = new Date();
-      const newsletter = new NewsletterModel(1, 'Title', 'Description', date, 1, 'img.jpg');
+      const newsletter = new NewsletterModel(1, 'Title', 'Description', date, 1, 'img.jpg', '');
       actions$ = of(new NewsletterActions.UpdateNewsletter({newsletter}));
       effects.edit.subscribe(action => {
         expect(action).toEqual(new NewsletterActions.NewsletterSuccess(

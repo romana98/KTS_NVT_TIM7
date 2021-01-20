@@ -71,7 +71,8 @@ describe('Newsletter Reducer', () => {
             description: 'Description',
             picture: 'img.jpg',
             publishedDate: new Date(),
-            culturalOfferId : 1
+            culturalOfferId : 1,
+            culturaloffer: ''
         };
         const action = new NewsletterActions.UpdateNewsletter({ newsletter });
         const result = newsletterReducer(initialState, action);
@@ -85,12 +86,12 @@ describe('Newsletter Reducer', () => {
 
     describe('[Newsletter] Get newsletter success', () => {
       it('should get newsletter', () => {
-        const newsletter = new NewsletterModel(1, 'Title', 'Description', new Date(), 1, 'img.jpg');
+        const newsletter = new NewsletterModel(1, 'Title', 'Description', new Date(), 1, 'img.jpg', '');
         const action = new NewsletterActions.GetNewsletterSuccess(newsletter);
         const result = newsletterReducer(initialState, action);
 
         const newsletterResult = new NewsletterModel(action.payload.id, action.payload.name,
-            action.payload.description, action.payload.publishedDate, action.payload.culturalOfferId, action.payload.picture);
+            action.payload.description, action.payload.publishedDate, action.payload.culturalOfferId, action.payload.picture, '');
         expect(result).toEqual({
           ...initialState,
           newsletter: newsletterResult
@@ -100,7 +101,7 @@ describe('Newsletter Reducer', () => {
 
     describe('[Newsletter] Get newsletters success', () => {
         it('should get newsletters', () => {
-          const newsletters = {content: [new NewsletterModel(1, 'Title', 'Description', new Date(), 1, 'img.jpg')]};
+          const newsletters = {content: [new NewsletterModel(1, 'Title', 'Description', new Date(), 1, 'img.jpg', '')]};
           const action = new NewsletterActions.GetNewslettersSuccess(newsletters);
           const result = newsletterReducer(initialState, action);
 

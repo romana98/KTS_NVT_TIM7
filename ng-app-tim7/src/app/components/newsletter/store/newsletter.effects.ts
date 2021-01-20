@@ -125,7 +125,7 @@ export class NewsletterEffects {
         .pipe(
           map(dataRes => {
             const newsletter = new NewsletterModel(dataRes.id, dataRes.name, dataRes.description, dataRes.publishedDate,
-              dataRes.culturalOfferId, dataRes.picture);
+              dataRes.culturalOfferId, dataRes.picture, '');
             return new NewsletterActions.GetNewsletterSuccess(newsletter);
           }),
           catchError(errorRes => {
