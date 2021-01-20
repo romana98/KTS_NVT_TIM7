@@ -35,10 +35,8 @@ const handleAuthentication = (accessToken: string) => {
 
 const handleError = (errorRes: any) => {
   let errorMessage = 'An unknown error occurred!';
-  switch (errorRes.error.error) {
-    case 'Unauthorized':
+  if (!( typeof errorRes.error === 'string')) {
       errorMessage = 'Bad credentials!';
-      break;
   }
   return of(new AuthActions.AuthenticateFail(errorMessage));
 };

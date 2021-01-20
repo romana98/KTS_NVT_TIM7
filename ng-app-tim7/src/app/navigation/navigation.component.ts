@@ -29,7 +29,7 @@ export class NavigationComponent implements OnInit {
     ).subscribe(value => this.role = value);
   }
 
-  signOut = (): void => {
+  signOut = ($event: void): void => {
     this.store.dispatch(new AuthActions.SignOut());
   }
 }

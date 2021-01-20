@@ -41,9 +41,8 @@ describe('SignInComponent', () => {
 
   describe('ngOnInit()', () => {
     it('should subscribe to store in ngOnInit lifecycle', () => {
-
-      fixture.detectChanges();
       component.ngOnInit();
+      fixture.detectChanges();
       expect(component.error).toBe(null);
     });
 /*
@@ -59,12 +58,13 @@ describe('SignInComponent', () => {
 
   describe('submit()', () => {
     it('should dispatch SignInStart action', () => {
+      expect(component.form.valid).toBeFalsy();
       const action = new AuthActions.SignInStart({ username: 'username', password: 'password' });
       const spy = spyOn(store, 'dispatch');
       component.form.controls.username.setValue('username');
       component.form.controls.password.setValue('password');
-      fixture.detectChanges();
       component.submit();
+      fixture.detectChanges();
       expect(spy).toHaveBeenCalledWith(action);
     });
   });
@@ -74,9 +74,8 @@ describe('SignInComponent', () => {
       const action = new AuthActions.ClearError();
       const spy = spyOn(store, 'dispatch');
       spyOn(component.snackBar, 'open');
-
-      fixture.detectChanges();
       component.showErrorAlert('error message');
+      fixture.detectChanges();
       expect(spy).toHaveBeenCalledWith(action);
       expect(component.snackBar.open).toHaveBeenCalledWith('error message', 'Ok', {duration: 2000});
       expect(component.error).toEqual(null);

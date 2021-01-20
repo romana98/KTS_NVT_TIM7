@@ -7,7 +7,7 @@ import {Action} from '@ngrx/store';
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
 import {Router} from '@angular/router';
 
-describe('AuthEffects', () => {
+describe('SignInEffects', () => {
   let actions$: Observable<Action>;
   let effects: AuthEffects;
   let http: HttpTestingController;
@@ -77,7 +77,7 @@ describe('AuthEffects', () => {
       const req = http.expectOne('http://localhost:8080/auth/log-in');
       expect(req.request.method).toEqual('POST');
       expect(req.request.body).toEqual({username: 'mico', password: '123qweASD'});
-      req.flush(accessToken);
+      req.flush({accessToken});
     });
 
     it('should return an AuthenticateFail action, with the sign-in data, on error', () => {

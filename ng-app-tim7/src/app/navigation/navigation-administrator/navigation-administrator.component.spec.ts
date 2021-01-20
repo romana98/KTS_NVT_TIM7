@@ -1,6 +1,7 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { NavigationAdministratorComponent } from './navigation-administrator.component';
+import {MatToolbarModule} from '@angular/material/toolbar';
 
 describe('NavigationAdministratorComponent', () => {
   let component: NavigationAdministratorComponent;
@@ -8,7 +9,8 @@ describe('NavigationAdministratorComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ NavigationAdministratorComponent ]
+      declarations: [ NavigationAdministratorComponent ],
+      imports: [MatToolbarModule]
     })
     .compileComponents();
   }));
@@ -21,5 +23,15 @@ describe('NavigationAdministratorComponent', () => {
 
   it('should create', () => {
     expect(component).toBeTruthy();
+  });
+
+  describe('signOutUser()', () => {
+    it('should emit signOut()', () => {
+
+      const spy = spyOn(component.signOut, 'emit');
+      component.signOutUser();
+      fixture.detectChanges();
+      expect(spy).toHaveBeenCalledWith();
+    });
   });
 });

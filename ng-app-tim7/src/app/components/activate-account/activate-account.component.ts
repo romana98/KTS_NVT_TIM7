@@ -13,14 +13,14 @@ import {Subscription} from 'rxjs';
 })
 export class ActivateAccountComponent implements OnInit, OnDestroy {
 
-  private storeSub: Subscription;
+  storeSub: Subscription;
   error: string;
   success: string;
   id: number;
 
   constructor(private activatedRoute: ActivatedRoute,
               private store: Store<fromApp.AppState>,
-              private snackBar: MatSnackBar) { }
+              public snackBar: MatSnackBar) { }
 
   ngOnInit(): void {
     this.storeSub = this.store.select('activate').subscribe(state => {
@@ -40,13 +40,13 @@ export class ActivateAccountComponent implements OnInit, OnDestroy {
     });
   }
 
-  private showErrorAlert(message: string) {
-    this.snackBar.open(message, 'Ok', { duration: 3000 });
+  showErrorAlert(message: string) {
+    this.snackBar.open(message, 'Ok', { duration: 2000 });
     this.store.dispatch(new ActivateAccountActions.ClearError());
   }
 
-  private showSuccessAlert(message: string) {
-    this.snackBar.open(message, 'Ok', { duration: 3000 });
+  showSuccessAlert(message: string) {
+    this.snackBar.open(message, 'Ok', { duration: 2000 });
     this.store.dispatch(new ActivateAccountActions.ClearSuccess());
   }
 

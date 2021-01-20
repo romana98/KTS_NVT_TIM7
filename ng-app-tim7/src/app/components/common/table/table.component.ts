@@ -6,9 +6,9 @@ import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChange
   styleUrls: ['./table.component.css']
 })
 export class TableComponent implements OnInit, OnChanges {
-  @Input() dataSource;
-  @Input() columnsToDisplay;
-  @Input() columnsToIterate;
+  @Input() dataSource = [];
+  @Input() columnsToDisplay = [];
+  @Input() columnsToIterate = [];
   @Output() Delete = new EventEmitter<number>();
   @Output() Click = new EventEmitter<number>();
   @Output() DoubleClick = new EventEmitter<number>();
