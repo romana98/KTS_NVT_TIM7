@@ -66,7 +66,7 @@ public class DetailedCulturalOfferE2ETest {
 
         detailedCulturalOfferPage.getCarouselOfferNext().click();
         justWait(1000);
-        assertEquals("flex-direction: row; height: auto; transform: translateX(-380px);", detailedCulturalOfferPage.getCarouselOfferSlide().getAttribute("style"));
+        assertEquals("flex-direction: row; height: auto; transform: translateX(-365px);", detailedCulturalOfferPage.getCarouselOfferSlide().getAttribute("style"));
 
         detailedCulturalOfferPage.getCarouselOfferBefore().click();
         justWait(1000);
@@ -89,7 +89,7 @@ public class DetailedCulturalOfferE2ETest {
 
         detailedCulturalOfferPage.getCarouselCommentNext().click();
         justWait(1000);
-        assertEquals("flex-direction: row; height: auto; transform: translateX(-357px);", detailedCulturalOfferPage.getCarouselCommentSlide().getAttribute("style"));
+        assertEquals("flex-direction: row; height: auto; transform: translateX(-342px);", detailedCulturalOfferPage.getCarouselCommentSlide().getAttribute("style"));
 
         detailedCulturalOfferPage.getCarouselCommentBefore().click();
         justWait(1000);
@@ -177,8 +177,8 @@ public class DetailedCulturalOfferE2ETest {
         justWait(1000);
 
         detailedCulturalOfferPage.getCommentInput().sendKeys("New comment!");
-        detailedCulturalOfferPage.getPictureInput().sendKeys(new java.io.File( ".\\src\\test\\resources\\offer_photo.jpg" ).getAbsolutePath());
-        detailedCulturalOfferPage.getPictureInput().sendKeys(new java.io.File(".\\src\\test\\resources\\offer_photo2.jpg").getAbsolutePath());
+        // detailedCulturalOfferPage.getPictureInput().sendKeys(new java.io.File( ".\\src\\test\\resources\\offer_photo.jpg" ).getAbsolutePath());
+        // detailedCulturalOfferPage.getPictureInput().sendKeys(new java.io.File(".\\src\\test\\resources\\offer_photo2.jpg").getAbsolutePath());
 
         justWait(1000);
 

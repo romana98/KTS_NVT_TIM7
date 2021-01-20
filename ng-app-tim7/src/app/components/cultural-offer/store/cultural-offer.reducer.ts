@@ -16,7 +16,7 @@ export interface State {
   alreadySubscribed: boolean;
 }
 
-const initialState: State = {
+export const initialState: State = {
   culturalOffers : {content: []},
   selectedOffer: null,
   errorActionMessage: null,
