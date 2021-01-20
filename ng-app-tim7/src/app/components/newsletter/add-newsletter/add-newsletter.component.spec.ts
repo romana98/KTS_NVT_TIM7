@@ -18,6 +18,7 @@ import { MatSelectModule, SELECT_PANEL_PADDING_X } from '@angular/material/selec
 import { MatProgressBar, MatProgressBarModule } from '@angular/material/progress-bar';
 import { NewsletterModel } from 'src/app/models/newsletter.model';
 
+
 describe('AddNewsletterComponent', () => {
   let component: AddNewsletterComponent;
   let fixture: ComponentFixture<AddNewsletterComponent>;
