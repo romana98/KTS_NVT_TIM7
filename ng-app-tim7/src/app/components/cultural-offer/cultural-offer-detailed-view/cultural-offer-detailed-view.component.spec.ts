@@ -277,4 +277,14 @@ describe('CulturalOfferDetailedViewComponent', () => {
       expect(component.pickedPhotos.length).toEqual(1);
     });
   });
+  describe('goToPublish', () => {
+    it('should navigate to add newsletter', () => {
+      component.culturalOfferDetailed.name = 'CulturalOffer1';
+      component.goToPublish();
+      expect(router.navigate).toHaveBeenCalledWith(['/newsletter/add-newsletter',
+        {culturalOfferId: 1, culturalOfferName: 'CulturalOffer1'}]);
+});
+  });
+
+
 });
