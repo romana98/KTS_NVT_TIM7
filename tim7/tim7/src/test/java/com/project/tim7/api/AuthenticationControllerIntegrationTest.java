@@ -17,10 +17,6 @@ import org.springframework.http.*;
 
 import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.junit4.SpringRunner;
-import org.springframework.web.client.ResourceAccessException;
-
-
-import static com.project.tim7.constants.AdministratorConstants.ADMIN_ID;
 import static com.project.tim7.constants.AdministratorConstants.DB_EMAIL;
 import static com.project.tim7.constants.AdministratorConstants.DB_PASSWORD;
 import static com.project.tim7.constants.AdministratorConstants.DB_USERNAME;
@@ -53,32 +49,23 @@ public class AuthenticationControllerIntegrationTest {
     @Test
     public void testCreateAuthenticationTokenInvalidUsername() {
 
-        ResourceAccessException exception = assertThrows(ResourceAccessException.class, () -> {
-
-            restTemplate.postForEntity("/auth/log-in",
+        ResponseEntity<?> responseEntity =
+                restTemplate.postForEntity("/auth/log-in",
                     new UserLoginDTO(DB_USERNAME_NONEXIST,DB_PASSWORD_RAW), UserTokenStateDTO.class);
-        });
 
 
-        String expectedMessage = "I/O error on POST request";
-        String actualMessage = exception.getMessage() == null ? "" : exception.getMessage();
-
-        assertTrue(actualMessage.contains(expectedMessage));
+        assertEquals(HttpStatus.UNAUTHORIZED, responseEntity.getStatusCode());
     }
 
     @Test
     public void testCreateAuthenticationTokenInvalidPassword() {
-        ResourceAccessException exception = assertThrows(ResourceAccessException.class, () -> {
 
+        ResponseEntity<?> responseEntity =
             restTemplate.postForEntity("/auth/log-in",
                     new UserLoginDTO(DB_USERNAME,DB_PASSWORD), UserTokenStateDTO.class);
-        });
 
 
-        String expectedMessage = "I/O error on POST request";
-        String actualMessage = exception.getMessage() == null ? "" : exception.getMessage();
-
-        assertTrue(actualMessage.contains(expectedMessage));
+        assertEquals(HttpStatus.UNAUTHORIZED, responseEntity.getStatusCode());
     }
 
     @Test

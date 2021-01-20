@@ -12,25 +12,25 @@ import {MatSnackBar} from '@angular/material/snack-bar';
 })
 export class DashboardAdministratorComponent implements OnInit, OnDestroy {
   page = 0;
-  pageSize = 15;
+  pageSize = 10;
   admins = {content: [], numberOfElements: 0, totalElements: 0, totalPages: 0, number: 0};
   success: string = null;
   error: string = null;
-  private storeSub: Subscription;
+  storeSub: Subscription;
   constructor(private store: Store<fromApp.AppState>,
-              private snackBar: MatSnackBar) {}
+              public snackBar: MatSnackBar) {}
 
   ngOnInit(): void {
     this.store.dispatch(new AdminActions.GetAdminPage({ page: this.page, size: this.pageSize }));
     this.storeSub = this.store.select('administrator').subscribe(state => {
-     this.admins = state.admins;
+      this.admins = state.admins;
 
-     this.success = state.success;
-     this.error = state.error;
-     if (this.success) {
+      this.success = state.success;
+      this.error = state.error;
+      if (this.success) {
         this.showSuccessAlert(this.success);
       }
-     if (this.error) {
+      if (this.error) {
         this.showErrorAlert(this.error);
       }
     });
@@ -43,14 +43,14 @@ export class DashboardAdministratorComponent implements OnInit, OnDestroy {
     this.store.dispatch(new AdminActions.GetAdminPage({page: this.page, size: this.pageSize }));
   }
 
-  private showSuccessAlert(message: string) {
-    this.snackBar.open(message, 'Ok', { duration: 3000 });
+  showSuccessAlert(message: string) {
+    this.snackBar.open(message, 'Ok', { duration: 2000 });
     this.store.dispatch(new AdminActions.ClearSuccess());
     this.store.dispatch(new AdminActions.GetAdminPage({page: this.page, size: this.pageSize }));
   }
 
-  private showErrorAlert(message: string) {
-    this.snackBar.open(message, 'Ok', { duration: 3000 });
+  showErrorAlert(message: string) {
+    this.snackBar.open(message, 'Ok', { duration: 2000 });
     this.store.dispatch(new AdminActions.ClearError());
   }
 

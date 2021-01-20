@@ -15,7 +15,7 @@ import {CategoryModel} from '../../../models/category.model';
 export class CategoryDashboardComponent implements OnInit, OnDestroy {
   @ViewChild(FormGroupDirective) formGroupDirective: FormGroupDirective;
   page = 0;
-  pageSize = 15;
+  pageSize = 10;
   categories = {content: [], numberOfElements: 0, totalElements: 0, totalPages: 0, number: 0};
   category = null;
   success: string = null;
@@ -23,11 +23,11 @@ export class CategoryDashboardComponent implements OnInit, OnDestroy {
   form: FormGroup;
   formEdit: FormGroup;
   isHidden = true;
-  private storeSub: Subscription;
+  storeSub: Subscription;
   constructor(
     private fb: FormBuilder,
     private store: Store<fromApp.AppState>,
-    private snackBar: MatSnackBar
+    public snackBar: MatSnackBar
   ) {
     this.form = this.fb.group({
       categoryNameInput : [null, Validators.required]
@@ -54,14 +54,14 @@ export class CategoryDashboardComponent implements OnInit, OnDestroy {
     });
   }
 
-  private showSuccessAlert(message: string) {
+  showSuccessAlert(message: string) {
     this.snackBar.open(message, 'Ok', { duration: 3000 });
     this.store.dispatch(new CategoryActions.ClearSuccess());
     this.store.dispatch(new CategoryActions.GetCategoriesPage({page: this.page, size: this.pageSize}));
     setTimeout(() => this.formGroupDirective.resetForm(), 0);
   }
 
-  private showErrorAlert(message: string) {
+  showErrorAlert(message: string) {
     this.snackBar.open(message, 'Ok', { duration: 3000 });
     this.store.dispatch(new CategoryActions.ClearError());
   }

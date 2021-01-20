@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import {Injectable, NgZone} from '@angular/core';
 import { Router } from '@angular/router';
 import { Actions, ofType, Effect } from '@ngrx/effects';
 import { switchMap, catchError, map, tap } from 'rxjs/operators';
@@ -35,10 +35,8 @@ const handleAuthentication = (accessToken: string) => {
 
 const handleError = (errorRes: any) => {
   let errorMessage = 'An unknown error occurred!';
-  switch (errorRes.error.error) {
-    case 'Unauthorized':
+  if (!( typeof errorRes.error === 'string')) {
       errorMessage = 'Bad credentials!';
-      break;
   }
   return of(new AuthActions.AuthenticateFail(errorMessage));
 };
@@ -74,7 +72,9 @@ export class AuthEffects {
   authRedirect = this.actions$.pipe(
     ofType(AuthActions.AUTHENTICATE_SUCCESS),
     tap(() => {
-      this.router.navigate(['/']);
+      this.zone.run(() => {
+        this.router.navigate(['/']);
+      });
     })
   );
 
@@ -83,9 +83,11 @@ export class AuthEffects {
     ofType(AuthActions.SIGN_OUT),
     tap(() => {
       localStorage.clear();
-      this.router.navigate(['/']);
+      this.zone.run(() => {
+        this.router.navigate(['/']);
+      });
     })
   );
 
-  constructor(private actions$: Actions, private http: HttpClient, private router: Router) {}
+  constructor(private actions$: Actions, public http: HttpClient, private router: Router, private zone: NgZone) {}
 }

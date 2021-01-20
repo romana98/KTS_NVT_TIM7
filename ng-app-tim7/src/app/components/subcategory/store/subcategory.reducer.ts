@@ -9,7 +9,7 @@ export interface State {
   categoriesSelect: any;
 }
 
-const initialState: State = {
+export const initialState: State = {
   subcategories: {content: []},
   subcategory: new SubcategoryModel(-1, '', -1, ''),
   error: null,

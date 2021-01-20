@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.mail.MailException;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -103,17 +104,14 @@ public class RegisteredService implements ServiceInterface<Registered> {
 		regUser.setVerified(true);
 		return regRepo.save(regUser);
 	}
-	
+
 	public Registered registerUser(Registered existReg) {
 		Registered newReg = saveOne(existReg);
 		if(newReg == null)
 			return null;
 
-        try {
-			emailService.sendVerificationMail(newReg.getEmail(), newReg.getId());
-		} catch (MailException e) {
-			e.printStackTrace();
-		}
+		emailService.sendVerificationMail(newReg.getEmail(), newReg.getId());
+
         return newReg;
 	}
 

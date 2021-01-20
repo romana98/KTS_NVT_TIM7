@@ -1,14 +1,14 @@
 <mat-toolbar color="primary">
 
-  <a routerLink="/" style="margin-left: 3%;" ><mat-icon [ngStyle]="{'color':'white'}">emoji_people</mat-icon></a>
+  <a routerLink="/" id="home-nav" style="margin-left: 3%;" ><mat-icon [ngStyle]="{'color':'white'}">emoji_people</mat-icon></a>
   <span>CulturalOffers</span>
 
   <span class="example-spacer"> </span>
-  <a routerLink="/newsletter/subscribed-newsletter" style="margin-left: 5%;" ><button mat-flat-button color="primary" >Newsletter</button></a>
+  <a routerLink="/newsletter/subscribed-newsletter" style="margin-left: 5%;" ><button mat-flat-button color="primary" id="newsletter-subscribed-nav">Newsletter</button></a>
 
   <span class="example-spacer" style="width: 80%"> </span>
-  <a routerLink="/registered/view-profile" style="margin-left: 5%;" ><mat-icon [ngStyle]="{'color':'white'}">face</mat-icon></a>
+  <a routerLink="/registered/view-profile" id="view-profile" style="margin-left: 5%;" ><mat-icon [ngStyle]="{'color':'white'}">face</mat-icon></a>
 
-  <a routerLink="/" style="margin-left: 2%;" ><mat-icon (click)="signOut()" [ngStyle]="{'color':'white'}">exit_to_app</mat-icon></a>
+  <a routerLink="/" style="margin-left: 2%;" ><mat-icon (click)="signOutUser()" [ngStyle]="{'color':'white'}">exit_to_app</mat-icon></a>
 
 </mat-toolbar>

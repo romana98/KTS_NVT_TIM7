@@ -29,6 +29,7 @@
     "@ngrx/store": "^10.1.2",
     "@ngrx/store-devtools": "^10.1.2",
     "@types/leaflet": "^1.5.19",
+    "jasmine-marbles": "^0.6.0",
     "leaflet": "^1.7.1",
     "ng-mat-select-infinite-scroll": "^2.1.1",
     "ngrx-store-localstorage": "^10.1.1",

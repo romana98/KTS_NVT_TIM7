@@ -4,13 +4,13 @@
 
 <div style="display: block; text-align: center; margin: 10%;">
 
-  <mat-card>{{user.username}}</mat-card>
+  <mat-card id="username">{{user.username}}</mat-card>
   <br>
-  <mat-card>{{user.email}}</mat-card>
+  <mat-card id="email">{{user.email}}</mat-card>
   <br>
   <br>
     <div>
-      <button mat-raised-button (click)="goToEdit()">Edit Profile</button>
+      <button mat-raised-button id="edit-profile-button" (click)="goToEdit()">Edit Profile</button>
     </div>
 </div>
 

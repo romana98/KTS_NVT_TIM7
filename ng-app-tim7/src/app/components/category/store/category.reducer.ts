@@ -8,7 +8,7 @@ export interface State {
   success: string;
 }
 
-const initialState: State = {
+export const initialState: State = {
   categories: {content: []},
   category: new CategoryModel(-1, ''),
   error: null,

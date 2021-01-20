@@ -1,5 +1,6 @@
 package com.project.tim7.service;
 
+import org.awaitility.Duration;
 import org.junit.runner.RunWith;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
@@ -18,6 +19,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import static org.awaitility.Awaitility.await;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
@@ -33,10 +35,12 @@ public class EmailServiceTest {
     public SmtpServerRule smtpServerRule = new SmtpServerRule(2525);
 
     @Test
-    public void testSendVerificationMail() throws MessagingException, IOException {
-        emailService.sendVerificationMail(RECIPIENT1, RECIPIENT1_ID);
+    public void testSendVerificationMail() throws MessagingException, IOException, InterruptedException {
 
+        emailService.sendVerificationMail(RECIPIENT1, RECIPIENT1_ID);
+        java.lang.Thread.sleep(10000);
         MimeMessage[] receivedMessages = smtpServerRule.getMessages();
+
         assertEquals(1, receivedMessages.length);
 
         MimeMessage current = receivedMessages[0];
@@ -47,12 +51,12 @@ public class EmailServiceTest {
     }
     
     @Test
-    public void sendNewsletterToSubscribed() throws MessagingException, IOException {
+    public void sendNewsletterToSubscribed() throws MessagingException, IOException, InterruptedException {
     	List<String> emails = new ArrayList<>(); 
     	emails.add(RECIPIENT2);
     	emails.add(RECIPIENT3);
         emailService.sendNewsletterToSubscribed(emails, OFFER_NAME, NEWSLETTER_NAME, NEWSLETTER_DESCRIPTION);
-
+        java.lang.Thread.sleep(10000);
         MimeMessage[] receivedMessages = smtpServerRule.getMessages();
         assertEquals(2, receivedMessages.length);
 

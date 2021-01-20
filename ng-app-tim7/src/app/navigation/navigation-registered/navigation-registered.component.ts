@@ -1,15 +1,16 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 
 @Component({
   selector: 'app-navigation-registered',
   templateUrl: './navigation-registered.component.html',
   styleUrls: ['./navigation-registered.component.css']
 })
-export class NavigationRegisteredComponent implements OnInit {
-  @Input() signOut: () => void;
+export class NavigationRegisteredComponent {
+  @Output() signOut = new EventEmitter<void>();
   constructor() { }
 
-  ngOnInit(): void {
+  signOutUser(){
+    this.signOut.emit();
   }
 
 }

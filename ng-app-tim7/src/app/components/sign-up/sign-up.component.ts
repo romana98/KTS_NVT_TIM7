@@ -19,12 +19,12 @@ export class SignUpComponent implements OnInit, OnDestroy {
   success: string = null;
   bar = false;
 
-  private storeSub: Subscription;
+  storeSub: Subscription;
 
   constructor(
     private fb: FormBuilder,
     private store: Store<fromApp.AppState>,
-    private snackBar: MatSnackBar
+    public snackBar: MatSnackBar
   ) {
     this.form = this.fb.group({
       username : [null, Validators.required],
@@ -66,13 +66,13 @@ export class SignUpComponent implements OnInit, OnDestroy {
     this.store.dispatch(new SignUpActions.SignUpStart({ username: user.username, email: user.email, password: user.password }));
   }
 
-  private showErrorAlert(message: string) {
+  showErrorAlert(message: string) {
     this.snackBar.open(message, 'Ok', { duration: 2000 });
     this.store.dispatch(new SignUpActions.ClearError());
   }
 
-  private showSuccessAlert(message: string) {
-    this.snackBar.open(message, 'Ok', { duration: 3000 });
+  showSuccessAlert(message: string) {
+    this.snackBar.open(message, 'Ok', { duration: 2000 });
     this.store.dispatch(new SignUpActions.ClearSuccess());
   }
 

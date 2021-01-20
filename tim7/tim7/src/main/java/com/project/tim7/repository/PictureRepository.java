@@ -10,7 +10,9 @@ import com.project.tim7.model.Picture;
 public interface PictureRepository extends JpaRepository<Picture, Integer>  {
 
 	Picture findByPicture(String picture);
-	
-	@Query("SELECT COUNT (n.id) FROM Newsletter n WHERE n.picture.id = ?1")
+
+	@Query(value = "SELECT COUNT(id) FROM newsletters WHERE newsletters.picture_id = ?1 AND newsletters.picture_id IN "
+			+ "(SELECT id FROM pictures WHERE pictures.cultural_offer_id IS NULL AND pictures.comment_id IS NULL);", nativeQuery=true)
 	long countPictureInNewsletters(int id);
+
 }

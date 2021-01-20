@@ -32,17 +32,21 @@
             </tr>
             <tr>
                 <td>
-                    <input class="ng-hide" type="file" (change)="onFileChanged($event)">
+                  <button style="margin-right: 3%;background-color: green" class="ng-hide" type="button" mat-raised-button (click)="fileInput.click()">Upload picture</button>
+                  <input (change)="onFileChanged($event)" hidden #fileInput type="file" id="picture">
                 </td>
+                <div style="float:right; padding-bottom: 10%; margin-right: 6%" [hidden]="picture===''">
+                  <button mat-mini-fab style="background-color: red;" (click)="onPictureRemove($event)" >
+                  <mat-icon style="color: white">delete</mat-icon>
+                  </button>
+              </div>
             </tr>
         </table>
     </div>
-
-    
-
     <div>
-      <button mat-raised-button type="submit" [disabled]="!form.valid">Update newsletter</button>
+      <button mat-raised-button id="update-button" type="submit" [disabled]="!form.valid">Update newsletter</button>
     </div>
   </form>
+    
 </div>
 

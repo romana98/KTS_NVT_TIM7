@@ -48,12 +48,13 @@ export class CulturalOfferDetailedViewComponent implements OnInit, OnDestroy {
   disableNavigateNewsletterNext = false;
   canNotPublish = true;
   // store
-  private storeSub: Subscription;
+  storeSub: Subscription;
+  publishedDateNewComment = null;
 
   @ViewChild('fileInput') fileInput: ElementRef;
 
   constructor(private fb: FormBuilder, private store: Store<fromApp.AppState>,
-              private snackBar: MatSnackBar, private router: Router, private activatedRouter: ActivatedRoute) {
+              public snackBar: MatSnackBar, private router: Router, private activatedRouter: ActivatedRoute) {
     this.form = this.fb.group({
       commentInput : [null, Validators.required]
     });
@@ -133,7 +134,7 @@ export class CulturalOfferDetailedViewComponent implements OnInit, OnDestroy {
     });
   }
 
-  private showSuccessAlert(message: string) {
+  showSuccessAlert(message: string) {
     this.pageComments = 0;
     this.snackBar.open(message, 'Ok', { duration: 3000 });
     if (message === 'Successfully subscribed!' || message === 'Successfully unsubscribed!'){
@@ -150,22 +151,37 @@ export class CulturalOfferDetailedViewComponent implements OnInit, OnDestroy {
     this.pickedPhotos = [];
   }
 
-  private showErrorAlert(message: string) {
+  showErrorAlert(message: string) {
     this.snackBar.open(message, 'Ok', { duration: 3000 });
     this.store.dispatch(new CulturalOfferActions.ClearAction());
   }
 
   rate() {
     const user = JSON.parse(localStorage.getItem('user'));
-    this.store.dispatch(new CulturalOfferActions.Rate({offerId: this.culturalOfferDetailed.id,
-      rate: this.pickedRating, registeredId: user.id}));
+    if (user === null){
+      this.store.dispatch(new CulturalOfferActions.Rate({offerId: this.culturalOfferDetailed.id,
+        rate: this.pickedRating, registeredId: -1}));
+    }else{
+      this.store.dispatch(new CulturalOfferActions.Rate({offerId: this.culturalOfferDetailed.id,
+        rate: this.pickedRating, registeredId: user.id}));
+    }
     this.disabledRating = true;
   }
 
   addComment() {
     const user = JSON.parse(localStorage.getItem('user'));
-    this.store.dispatch(new CulturalOfferActions.CreateComment({description: this.form.value.commentInput, publishedDate: new Date(),
-      registeredId: user.id, picturesId: this.pickedPhotos, culturalOfferId: this.culturalOfferDetailed.id}));
+    if (this.publishedDateNewComment === null){
+      this.publishedDateNewComment = new Date();
+    }
+    if (user === null){
+      this.store.dispatch(new CulturalOfferActions.CreateComment(
+        {description: this.form.value.commentInput, publishedDate: this.publishedDateNewComment,
+        registeredId: -1, picturesId: this.pickedPhotos, culturalOfferId: this.culturalOfferDetailed.id}));
+    }else{
+      this.store.dispatch(new CulturalOfferActions.CreateComment(
+        {description: this.form.value.commentInput, publishedDate: this.publishedDateNewComment,
+        registeredId: user.id, picturesId: this.pickedPhotos, culturalOfferId: this.culturalOfferDetailed.id}));
+    }
   }
 
   commentNavigateBefore() {
@@ -195,9 +211,17 @@ export class CulturalOfferDetailedViewComponent implements OnInit, OnDestroy {
   subscribe() {
     const user = JSON.parse(localStorage.getItem('user'));
     if (this.hideSubscribe === false){
-      this.store.dispatch(new CulturalOfferActions.Subscribe({offerId: this.culturalOfferDetailed.id, userId: user.id}));
+      if (user === null){
+        this.store.dispatch(new CulturalOfferActions.Subscribe({offerId: this.culturalOfferDetailed.id, userId: -1}));
+      }else{
+        this.store.dispatch(new CulturalOfferActions.Subscribe({offerId: this.culturalOfferDetailed.id, userId: user.id}));
+      }
     }else{
-      this.store.dispatch(new CulturalOfferActions.Unsubscribe({offerId: this.culturalOfferDetailed.id, userId: user.id}));
+      if (user === null){
+        this.store.dispatch(new CulturalOfferActions.Unsubscribe({offerId: this.culturalOfferDetailed.id, userId: -1}));
+      }else{
+        this.store.dispatch(new CulturalOfferActions.Unsubscribe({offerId: this.culturalOfferDetailed.id, userId: user.id}));
+      }
     }
   }
 
@@ -208,6 +232,7 @@ export class CulturalOfferDetailedViewComponent implements OnInit, OnDestroy {
     if (!file) {
       return;
     }
+    console.log(file);
     if (!file.type.match(pattern)) {
       alert('invalid format');
       return;

@@ -1,5 +1,4 @@
 import * as SignUpActions from './sign-up.actions';
-import {UserModel} from '../../../models/user.model';
 
 export interface State {
   error: string;
@@ -7,7 +6,7 @@ export interface State {
   bar: boolean;
 }
 
-const initialState: State = {
+export const initialState: State = {
   error: null,
   success: null,
   bar: false
@@ -51,6 +50,5 @@ export function signUpReducer(
       return {
         ...state
       };
-
   }
 }

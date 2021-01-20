@@ -25,7 +25,7 @@ public class EmailService {
 	private Environment env;
 	
 	@Async
-	public void sendVerificationMail(String email, int id) throws MailException {
+	public void sendVerificationMail(String email, int id){
 	
 		SimpleMailMessage mail = new SimpleMailMessage();
 		mail.setTo(email);

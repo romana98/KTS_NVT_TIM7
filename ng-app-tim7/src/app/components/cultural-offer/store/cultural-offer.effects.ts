@@ -4,7 +4,6 @@ import * as culturalOfferActions from '../../cultural-offer/store/cultural-offer
 import {catchError, map, switchMap} from 'rxjs/operators';
 import * as CulturalOfferActions from './cultural-offer.actions';
 import {HttpClient} from '@angular/common/http';
-import {Router} from '@angular/router';
 import {of} from 'rxjs';
 
 @Injectable()
@@ -84,7 +83,7 @@ export class CulturalOfferEffects {
     })
   );
 
-  @Effect()
+  @Effect() // done
   comments = this.actions$.pipe(
     ofType(culturalOfferActions.GET_COMMENTS),
     switchMap((data: culturalOfferActions.GetComments) => {
@@ -120,7 +119,7 @@ export class CulturalOfferEffects {
     })
   );
 
-  @Effect()
+  @Effect() // done
   newsletters = this.actions$.pipe(
     ofType(culturalOfferActions.GET_NEWSLETTERS),
     switchMap((data: culturalOfferActions.GetNewsletters) => {
@@ -139,7 +138,7 @@ export class CulturalOfferEffects {
     })
   );
 
-  @Effect()
+  @Effect() // done
   averageRating = this.actions$.pipe(
     ofType(culturalOfferActions.GET_AVERAGE_RATING),
     switchMap((data: culturalOfferActions.GetAverageRating) => {
@@ -177,7 +176,7 @@ export class CulturalOfferEffects {
     })
   );
 
-  @Effect()
+  @Effect() // done
   rate = this.actions$.pipe(
     ofType(culturalOfferActions.RATE),
     switchMap((data: culturalOfferActions.Rate) => {
@@ -221,7 +220,7 @@ export class CulturalOfferEffects {
     })
   );
 
-  @Effect()
+  @Effect() // done
   comment = this.actions$.pipe(
     ofType(culturalOfferActions.CREATE_COMMENT),
     switchMap((data: culturalOfferActions.CreateComment) => {
@@ -246,7 +245,7 @@ export class CulturalOfferEffects {
     })
   );
 
-  @Effect()
+  @Effect() // done
   alreadyRated = this.actions$.pipe(
     ofType(culturalOfferActions.ALREADY_RATED),
     switchMap((data: culturalOfferActions.AlreadyRated) => {
@@ -264,7 +263,7 @@ export class CulturalOfferEffects {
     })
   );
 
-  @Effect()
+  @Effect() // done
   subscribe = this.actions$.pipe(
     ofType(culturalOfferActions.SUBSCRIBE),
     switchMap((data: culturalOfferActions.Subscribe) => {
@@ -286,7 +285,7 @@ export class CulturalOfferEffects {
     })
   );
 
-  @Effect()
+  @Effect() // done
   unsubscribe = this.actions$.pipe(
     ofType(culturalOfferActions.UNSUBSCRIBE),
     switchMap((data: culturalOfferActions.Unsubscribe) => {
@@ -307,7 +306,7 @@ export class CulturalOfferEffects {
         );
     })
   );
-  @Effect()
+  @Effect() // done
   alreadySubscribed = this.actions$.pipe(
     ofType(culturalOfferActions.ALREADY_SUBSCRIBED),
     switchMap((data: culturalOfferActions.AlreadySubscribed) => {
@@ -403,6 +402,6 @@ export class CulturalOfferEffects {
   );
 
 
-  constructor(private actions$: Actions, private http: HttpClient, private router: Router) {}
+  constructor(private actions$: Actions, private http: HttpClient) {}
 
 }

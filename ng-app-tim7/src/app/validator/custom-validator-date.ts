@@ -1,6 +1,6 @@
 import { AbstractControl, ValidatorFn } from '@angular/forms';
 
-//date1 is start date, date2 is end date
+// date1 is start date, date2 is end date
 export function validateDate(date1, date2): ValidatorFn {
   return (c: AbstractControl): {[key: string]: any} | null => {
     const field1ToCompare = c.get(date1) ? c.get(date1).value : 0;

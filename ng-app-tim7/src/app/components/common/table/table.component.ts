@@ -1,22 +1,20 @@
-import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
+import { Component, EventEmitter, Input, OnChanges, Output, SimpleChanges } from '@angular/core';
 
 @Component({
   selector: 'app-table',
   templateUrl: './table.component.html',
   styleUrls: ['./table.component.css']
 })
-export class TableComponent implements OnInit, OnChanges {
-  @Input() dataSource;
-  @Input() columnsToDisplay;
-  @Input() columnsToIterate;
+export class TableComponent implements OnChanges {
+
+  @Input() dataSource = [];
+  @Input() columnsToDisplay = [];
+  @Input() columnsToIterate = [];
   @Output() Delete = new EventEmitter<number>();
   @Output() Click = new EventEmitter<number>();
   @Output() DoubleClick = new EventEmitter<number>();
   constructor() {
 
-  }
-
-  ngOnInit(): void {
   }
 
   ngOnChanges(changes: SimpleChanges): void {

@@ -10,7 +10,7 @@
     <mat-form-field>
       <mat-label>Select category: </mat-label>
       <mat-select msInfiniteScroll (infiniteScroll)="getNextBatch()" id="categoryNameSelect" name="categoryNameSelect" required [formControl]="form.controls.categoryNameSelect">
-          <mat-option *ngFor="let category of categories.content" [value]="category.name"> {{category.name}}</mat-option>
+          <mat-option *ngFor="let category of categories.content" id="{{category.name}}" [value]="category.name"> {{category.name}}</mat-option>
         </mat-select>
     </mat-form-field>
     <br>
@@ -22,7 +22,7 @@
         This field can't be empty!</mat-error >
     </mat-form-field>
     <br>
-    <button mat-raised-button type="submit" [disabled]="!form.valid">Add subcategory</button>
+    <button id="addSubcategoryButton" mat-raised-button type="submit" [disabled]="!form.valid">Add subcategory</button>
 
   </form>
   <br><br><br><br>
@@ -46,13 +46,13 @@
           This field can't be empty!</mat-error >
       </mat-form-field>
       <br>
-      <button mat-raised-button type="submit" [disabled]="!formEdit.valid">Update subcategory</button>
+      <button id="updateSubcategoryButton" mat-raised-button type="submit" [disabled]="!formEdit.valid">Update subcategory</button>
 
     </form>
   </div>
 
 </div>
-<div style="width: 50%; height: 50%; float: right">
+<div style="width: 50%; height: 50%; float: right; padding-right: 10%">
   <app-table [dataSource]="subcategories.content" [columnsToDisplay]="['Name', 'Category name', 'delete']" [columnsToIterate]="['name', 'categoryName']" (Click)="editModeOn($event)" (Delete)="deleteSubcategory($event)"></app-table>
 
   <app-pagination [pageSize]="pageSize"
