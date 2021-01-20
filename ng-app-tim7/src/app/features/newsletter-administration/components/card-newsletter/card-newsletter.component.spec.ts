@@ -68,9 +68,9 @@ describe('CardNewsletterComponent', () => {
     it('should emit unsubscribe event', () => {
 
       fixture.detectChanges();
-      spyOn(component.newItemEvent, 'emit');
+      spyOn(component.newEvent, 'emit');
       component.emitUnsubscribe();
-      expect(component.newItemEvent.emit).toHaveBeenCalledWith(1);
+      expect(component.newEvent.emit).toHaveBeenCalledWith(1);
 
     });
   });

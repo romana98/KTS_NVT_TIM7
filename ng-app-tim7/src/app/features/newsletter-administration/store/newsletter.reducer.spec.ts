@@ -52,8 +52,8 @@ describe('Newsletter Reducer', () => {
 
     describe('[Newsletter] Add newsletter', () => {
         it('should start add newsletter', () => {
-           const action = new NewsletterActions.AddNewsletter({ name: 'Title', description: 'Description',
-            picture: 'img.jpg', publishedDate: new Date(), culturalOfferId: 1  });
+           const action = new NewsletterActions.AddNewsletter(
+             new NewsletterModel(0, 'Title', 'Description', new Date(), 1, 'img.jpg', 'CulturalOffer1'));
            const result = newsletterReducer(initialState, action);
 
            expect(result).toEqual({
@@ -65,16 +65,8 @@ describe('Newsletter Reducer', () => {
 
     describe('[Newsletter] Update newsletter', () => {
       it('should start update newsletter', () => {
-        const newsletter: NewsletterModel = {
-            id: 1,
-            name: 'TitleUpdated',
-            description: 'Description',
-            picture: 'img.jpg',
-            publishedDate: new Date(),
-            culturalOfferId : 1,
-            culturaloffer: ''
-        };
-        const action = new NewsletterActions.UpdateNewsletter({ newsletter });
+        const action = new NewsletterActions.UpdateNewsletter(
+          new NewsletterModel(1, 'TitleUpdated', 'Description', new Date(), 1, 'img.jpg', 'CulturalOffer1'));
         const result = newsletterReducer(initialState, action);
 
         expect(result).toEqual({

@@ -6,7 +6,7 @@
         <ng-container *ngFor="let category of categoriesSubscribed">
             <mat-tab label={{category.name}}> 
                 <ng-template matTabContent>
-                    <app-category-newsletter [category]=category></app-category-newsletter>
+                    <app-category-newsletter [category]=category (newEvent)="getCategories()"></app-category-newsletter>
                 </ng-template>
             </mat-tab>
         </ng-container>

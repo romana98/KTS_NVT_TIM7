@@ -161,14 +161,7 @@ export class NewsletterEffects {
     switchMap((userData: NewsletterActions.AddNewsletter) => {
       return this.http
         .post<NewsletterModel>(
-          'http://localhost:8080/newsletter',
-          {
-            name: userData.payload.name,
-            description: userData.payload.description,
-            picture: userData.payload.picture,
-            culturalOfferId: userData.payload.culturalOfferId,
-            publishedDate: userData.payload.publishedDate
-          }
+          'http://localhost:8080/newsletter', userData.payload
         )
         .pipe(
           map(() => {
@@ -187,15 +180,7 @@ export class NewsletterEffects {
     switchMap((userData: NewsletterActions.UpdateNewsletter) => {
       return this.http
         .put<NewsletterModel>(
-          'http://localhost:8080/newsletter',
-          {
-            id: userData.payload.newsletter.id,
-            name: userData.payload.newsletter.name,
-            description: userData.payload.newsletter.description,
-            publishedDate: userData.payload.newsletter.publishedDate,
-            culturalOfferId: userData.payload.newsletter.culturalOfferId,
-            picture: userData.payload.newsletter.picture,
-          }
+          'http://localhost:8080/newsletter', userData.payload
         )
         .pipe(
           map(() => {

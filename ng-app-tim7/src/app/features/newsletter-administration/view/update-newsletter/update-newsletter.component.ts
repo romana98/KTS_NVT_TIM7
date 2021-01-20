@@ -57,6 +57,9 @@ export class UpdateNewsletterComponent implements OnInit, OnDestroy {
       this.publishedDate = state.newsletter.publishedDate;
       this.culturalOfferId = state.newsletter.culturalOfferId;
       this.picture = state.newsletter.picture;
+      this.form.patchValue({
+        picture: state.newsletter.picture
+      });
       this.error = state.error;
       this.success = state.success;
       this.bar = state.bar;
@@ -79,7 +82,7 @@ export class UpdateNewsletterComponent implements OnInit, OnDestroy {
     const newsletter = new NewsletterModel(this.id, this.form.value.name, this.form.value.description, this.publishedDate,
       this.culturalOfferId, this.form.value.picture, '');
 
-    this.store.dispatch(new NewsletterActions.UpdateNewsletter({ newsletter }));
+    this.store.dispatch(new NewsletterActions.UpdateNewsletter( newsletter ));
     this.router.navigate(['/newsletter/dashboard']);
   }
 

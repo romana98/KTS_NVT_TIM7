@@ -13,7 +13,7 @@ import { DialogNewsletterComponent } from '../dialog-newsletter/dialog-newslette
 export class CardNewsletterComponent implements OnInit {
 
   @Input() newsletter: NewsletterModel;
-  @Output() newItemEvent = new EventEmitter<number>();
+  @Output() newEvent = new EventEmitter<number>();
   success: string = null;
   error: string = null;
 
@@ -31,7 +31,7 @@ export class CardNewsletterComponent implements OnInit {
   }
 
   emitUnsubscribe(): void {
-    this.newItemEvent.emit(this.newsletter.culturalOfferId);
+    this.newEvent.emit(this.newsletter.culturalOfferId);
   }
 
 }

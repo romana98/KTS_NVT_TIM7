@@ -80,6 +80,19 @@ describe('SubscribedNewsletterComponent', () => {
     });
   });
 
+  describe('getCategories()', () => {
+    it('should dispatch get categories for subscribed user', () => {
+
+      const action = new NewsletterActions.GetCategoriesSubscribed({id: 1});
+      const spy = spyOn(store, 'dispatch');
+      fixture.detectChanges();
+      component.ngOnInit();
+      expect(spy).toHaveBeenCalledWith(action);
+      expect(component.error).toBe(null);
+
+    });
+  });
+
   describe('showErrorAlert()', () => {
     it('should dispatch ClearAction action', () => {
       const action = new NewsletterActions.ClearError();

@@ -37,9 +37,14 @@ export class SubscribedNewsletterComponent implements OnInit, OnDestroy {
     });
   }
 
+  getCategories(): void {
+    this.store.dispatch(new NewsletterActions.GetCategoriesSubscribed({ id: JSON.parse(localStorage.getItem('user')).id }));
+  }
+
   showSuccessAlert(message: string) {
     this.snackBar.open(message, 'Ok', { duration: 3000 });
     this.store.dispatch(new NewsletterActions.ClearSuccess());
+    this.store.dispatch(new NewsletterActions.GetCategoriesSubscribed({ id: JSON.parse(localStorage.getItem('user')).id }));
   }
 
   showErrorAlert(message: string) {

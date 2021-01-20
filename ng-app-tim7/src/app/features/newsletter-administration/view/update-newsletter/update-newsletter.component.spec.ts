@@ -67,8 +67,8 @@ describe('UpdateNewsletterComponent', () => {
 
   describe('submit()', () => {
     it('should dispatch UpdateNewsletter action and navigate to newsletter dashboard', () => {
-      const action = new NewsletterActions.UpdateNewsletter({newsletter: new NewsletterModel(1, 'TitleUpdated', 'Description',
-        new Date('2020-12-12'), 1, 'img.jpg', '') });
+      const action = new NewsletterActions.UpdateNewsletter(new NewsletterModel(1, 'TitleUpdated', 'Description',
+        new Date('2020-12-12'), 1, 'img.jpg', ''));
       const spy = spyOn(store, 'dispatch');
       component.form.controls.name.setValue('TitleUpdated');
       component.form.controls.description.setValue('Description');

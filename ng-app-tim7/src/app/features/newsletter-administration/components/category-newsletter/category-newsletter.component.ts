@@ -1,4 +1,4 @@
-import { Input } from '@angular/core';
+import { EventEmitter, Input, Output } from '@angular/core';
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {Store} from '@ngrx/store';
 import * as fromApp from '../../../../store/app.reducer';
@@ -15,6 +15,7 @@ import { CategoryModel } from 'src/app/models/category.model';
 export class CategoryNewsletterComponent implements OnInit, OnDestroy {
 
   @Input() category: CategoryModel;
+  @Output() newEvent = new EventEmitter();
   page = 0;
   pageSize = 5;
   newslettersSubscribed = {content: [], numberOfElements: 0, totalElements: 0, totalPages: 0, number: 0};
@@ -53,6 +54,7 @@ export class CategoryNewsletterComponent implements OnInit, OnDestroy {
   unsubscribe(idOffer: number) {
     this.store.dispatch(new NewsletterActions.Unsubscribe({ idOffer,
       idUser: JSON.parse(localStorage.getItem('user')).id }));
+    this.newEvent.emit();
     this.store.dispatch(new NewsletterActions.GetNewslettersSubscribed({ page: this.page, size: this.pageSize,
       catId: this.category.id, id: JSON.parse(localStorage.getItem('user')).id }));
   }

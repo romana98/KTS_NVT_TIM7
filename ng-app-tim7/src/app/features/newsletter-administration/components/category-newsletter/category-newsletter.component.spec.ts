@@ -103,9 +103,11 @@ describe('CategoryNewsletterComponent', () => {
       const actionGet = new NewsletterActions.GetNewslettersSubscribed({page: 0, size: 5, catId: 1, id: 1});
       const spy = spyOn(store, 'dispatch');
       fixture.detectChanges();
+      spyOn(component.newEvent, 'emit');
       component.unsubscribe(1);
       expect(spy).toHaveBeenCalledWith(action);
       expect(spy).toHaveBeenCalledWith(actionGet);
+      expect(component.newEvent.emit).toHaveBeenCalled();
 
     });
   });

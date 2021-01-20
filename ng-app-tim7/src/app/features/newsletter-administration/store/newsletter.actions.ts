@@ -94,13 +94,13 @@ export class DeleteNewsletter implements Action {
 export class AddNewsletter implements Action {
   readonly type = ADD_NEWSLETTER;
 
-  constructor(public payload: { name: string; description: string, picture: string, publishedDate: Date, culturalOfferId: number }) {}
+  constructor(public payload: NewsletterModel) {}
 }
 
 export class UpdateNewsletter implements Action {
   readonly type = UPDATE_NEWSLETTER;
 
-  constructor(public payload: { newsletter: NewsletterModel }) {}
+  constructor(public payload: NewsletterModel) {}
 }
 
 export class Unsubscribe implements Action {

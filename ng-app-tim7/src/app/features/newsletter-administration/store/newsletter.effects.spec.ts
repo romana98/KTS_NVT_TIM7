@@ -208,13 +208,9 @@ describe('NewsletterEffects', () => {
   describe('Add newsletter', () => {
     it('should add newsletter and return NewsletterSuccess action', () => {
       const date = new Date();
-      actions$ = of(new NewsletterActions.AddNewsletter({
-        name: 'Title',
-        description: 'Description',
-        picture: 'img.jpg',
-        culturalOfferId: 1,
-        publishedDate: date
-      }));
+      actions$ = of(new NewsletterActions.AddNewsletter(
+        new NewsletterModel(0, 'Title', 'Description', date, 1, 'img.jpg', 'CulturalOffer1')
+      ));
       effects.add.subscribe(action => {
         expect(action).toEqual(new NewsletterActions.NewsletterSuccess(
             'Newsletter added.'
@@ -223,13 +219,8 @@ describe('NewsletterEffects', () => {
 
       const req = http.expectOne('http://localhost:8080/newsletter');
       expect(req.request.method).toEqual('POST');
-      expect(req.request.body).toEqual({
-        name: 'Title',
-        description: 'Description',
-        picture: 'img.jpg',
-        culturalOfferId: 1,
-        publishedDate: date
-      });
+      expect(req.request.body).toEqual(
+        new NewsletterModel(0, 'Title', 'Description', date, 1, 'img.jpg', 'CulturalOffer1'));
       req.flush({
         name: 'Title',
         description: 'Description',
@@ -244,7 +235,7 @@ describe('NewsletterEffects', () => {
     it('should update newsletter and return NewsletterSuccess action', () => {
       const date = new Date();
       const newsletter = new NewsletterModel(1, 'Title', 'Description', date, 1, 'img.jpg', '');
-      actions$ = of(new NewsletterActions.UpdateNewsletter({newsletter}));
+      actions$ = of(new NewsletterActions.UpdateNewsletter(newsletter));
       effects.edit.subscribe(action => {
         expect(action).toEqual(new NewsletterActions.NewsletterSuccess(
             'Newsletter updated.'
@@ -253,14 +244,8 @@ describe('NewsletterEffects', () => {
 
       const req = http.expectOne('http://localhost:8080/newsletter');
       expect(req.request.method).toEqual('PUT');
-      expect(req.request.body).toEqual({
-        id: 1,
-        name: 'Title',
-        description: 'Description',
-        picture: 'img.jpg',
-        culturalOfferId: 1,
-        publishedDate: date
-      });
+      expect(req.request.body).toEqual(
+        new NewsletterModel(1, 'Title', 'Description', date, 1, 'img.jpg', ''));
       req.flush({
         name: 'Title',
         description: 'Description',

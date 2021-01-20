@@ -72,6 +72,9 @@ export class AddNewsletterComponent implements OnInit, OnDestroy {
           this.form.controls[toValidate].updateValueAndValidity();
       }
     });
+    this.form.patchValue({
+      picture: ''
+    });
     this.store.dispatch(new NewsletterActions.GetCategoriesSelect({ page: this.pageCategory, size: this.pageSize }));
     this.storeSub = this.store.select('newsletter').subscribe(state => {
       this.categoriesSelect = state.categoriesSelect;
