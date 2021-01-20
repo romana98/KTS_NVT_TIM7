@@ -91,7 +91,7 @@ right div: rating and add comment
 <div [hidden]="isHidden" style="float: right;width: 49%; padding-top: 2%">
   <div style="width: 100%">
     <div style="float: left; padding-left: 20%">
-      <ngx-star-rating id="starRating" [disabled]="disabledRating" [(ngModel)]="pickedRating" [id]="'pickedRating'" ></ngx-star-rating>
+      <ngx-star-rating id="starRating" [disabled]="disabledRating" ngDefaultControl [(ngModel)]="pickedRating" [id]="'pickedRating'" ></ngx-star-rating>
       <button id="addRateButton" [disabled]="disabledRating" style="padding-left: 2%" mat-flat-button (click)="rate()">Rate</button>
     </div>
   </div>
@@ -112,7 +112,7 @@ right div: rating and add comment
           <app-carousel [inputProportion]="55" [inputPictures]="pickedPhotos" (currentPicture)="onPictureChanged($event)"></app-carousel>
         </div>
 
-        <button mat-raised-button type="submit" [disabled]="!form.valid">Create comment</button>
+        <button id="addCommentButton" mat-raised-button type="submit" [disabled]="!form.valid">Create comment</button>
 
       </form>
 

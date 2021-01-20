@@ -1,6 +1,7 @@
 import { Action } from '@ngrx/store';
 import {CulturalofferModel} from '../../../models/culturaloffer.model';
 
+// default - done
 export const GET_CULTURALOFFER_PAGE = '[CulturalOffer] Get cultural-offer page';
 export const GET_CULTURALOFFER_PAGE_SUCCESS = '[CulturalOffer] Get cultural-offer page success';
 export const ERROR_ACTION = '[CulturalOffer] Action Error';
@@ -9,21 +10,21 @@ export const SUCCESS_ACTION = '[CulturalOffer] Action Success';
 export const CLEAR_ACTION = '[CulturalOffer] Action clean';
 export const FILTER_ACTION = '[CulturalOffer] Action Filter';
 export const FILTER_SUCCESS_ACTION = '[CulturalOffer] Action Filter Success';
-export const GO_TO_DETAILED = '[CulturalOffer] Go To Detailed';
-export const GET_COMMENTS = '[CulturalOffer] Get comments';
-export const GET_COMMENTS_SUCCESS = '[CulturalOffer] Get Comments Success';
-export const GET_NEWSLETTERS = '[CulturalOffer] Get newsletters';
-export const GET_NEWSLETTERS_SUCCESS = '[CulturalOffer] Get newsletter success';
-export const GET_AVERAGE_RATING = '[CulturalOffer] Get average rating';
-export const GET_AVERAGE_RATING_SUCCESS = '[CulturalOffer] Get average rating success';
-export const RATE = '[CulturalOffer] Rate';
-export const ALREADY_RATED = '[CulturalOffer] Already rated';
-export const ALREADY_RATED_SUCCESS = '[CulturalOffer] Already rated success';
-export const CREATE_COMMENT = '[CulturalOffer] Create comment';
-export const SUBSCRIBE = '[CulturalOffer] Subscribe';
-export const UNSUBSCRIBE = '[CulturalOffer] Unsubscribe';
-export const ALREADY_SUBSCRIBED = '[CulturalOffer] Already subscribed';
-export const ALREADY_SUBSCRIBED_VALUE = '[CulturalOffer] Already subscribed value';
+export const GO_TO_DETAILED = '[CulturalOffer] Go To Detailed'; // done
+export const GET_COMMENTS = '[CulturalOffer] Get comments'; // done
+export const GET_COMMENTS_SUCCESS = '[CulturalOffer] Get Comments Success'; // done
+export const GET_NEWSLETTERS = '[CulturalOffer] Get newsletters'; // done
+export const GET_NEWSLETTERS_SUCCESS = '[CulturalOffer] Get newsletter success'; // done
+export const GET_AVERAGE_RATING = '[CulturalOffer] Get average rating'; // done
+export const GET_AVERAGE_RATING_SUCCESS = '[CulturalOffer] Get average rating success'; // done
+export const RATE = '[CulturalOffer] Rate'; // done
+export const ALREADY_RATED = '[CulturalOffer] Already rated'; // done
+export const ALREADY_RATED_SUCCESS = '[CulturalOffer] Already rated success'; // done
+export const CREATE_COMMENT = '[CulturalOffer] Create comment'; // done
+export const SUBSCRIBE = '[CulturalOffer] Subscribe'; // done
+export const UNSUBSCRIBE = '[CulturalOffer] Unsubscribe'; // done
+export const ALREADY_SUBSCRIBED = '[CulturalOffer] Already subscribed'; // done
+export const ALREADY_SUBSCRIBED_VALUE = '[CulturalOffer] Already subscribed value'; // TODO
 export const GET_ONE_OFFER_ACTION = '[CulturalOffer] Get one offer';
 export const GET_ONE_OFFER_ACTION_SUCCESS = '[CulturalOffer] get one offer Success';
 export const UPDATE_OFFER_ACTION = '[CulturalOffer] Add one offer';
