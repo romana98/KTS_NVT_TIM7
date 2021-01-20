@@ -44,7 +44,7 @@ export class ActivateAccountEffects {
   );
 
   @Effect({ dispatch: false })
-  signUpRedirect = this.actions$.pipe(
+  activateRedirect = this.actions$.pipe(
     ofType(ActivateAccountActions.ACTIVATE_SUCCESS, ActivateAccountActions.ACTIVATE_FAIL),
     tap(() => {
       this.router.navigate(['/']);

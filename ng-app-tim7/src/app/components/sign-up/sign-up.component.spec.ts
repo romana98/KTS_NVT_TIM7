@@ -44,8 +44,8 @@ describe('SignUpComponent', () => {
   describe('ngOnInit()', () => {
     it('should subscribe to store in ngOnInit lifecycle', () => {
 
-      fixture.detectChanges();
       component.ngOnInit();
+      fixture.detectChanges();
       expect(component.error).toBe(null);
       expect(component.success).toBe(null);
       expect(component.bar).toBe(false);
@@ -54,25 +54,26 @@ describe('SignUpComponent', () => {
 
   describe('submit()', () => {
     it('should dispatch SignInStart action', () => {
+      expect(component.form.valid).toBeFalsy();
       const action = new SignUpActions.SignUpStart({ username: 'username', email: 'email', password: 'password' });
       const spy = spyOn(store, 'dispatch');
       component.form.controls.username.setValue('username');
       component.form.controls.email.setValue('email');
       component.form.controls.password.setValue('password');
-      fixture.detectChanges();
       component.submit();
+      fixture.detectChanges();
       expect(spy).toHaveBeenCalledWith(action);
     });
   });
 
   describe('showErrorAlert()', () => {
-    it('should dispatch ClearAction action', () => {
+    it('should dispatch ClearError action', () => {
       const action = new SignUpActions.ClearError();
       const spy = spyOn(store, 'dispatch');
       spyOn(component.snackBar, 'open');
 
-      fixture.detectChanges();
       component.showErrorAlert('error message');
+      fixture.detectChanges();
       expect(spy).toHaveBeenCalledWith(action);
       expect(component.snackBar.open).toHaveBeenCalledWith('error message', 'Ok', {duration: 2000});
       expect(component.error).toEqual(null);
@@ -85,8 +86,8 @@ describe('SignUpComponent', () => {
       const spy = spyOn(store, 'dispatch');
       spyOn(component.snackBar, 'open');
 
-      fixture.detectChanges();
       component.showSuccessAlert('success message');
+      fixture.detectChanges();
       expect(spy).toHaveBeenCalledWith(action);
       expect(component.snackBar.open).toHaveBeenCalledWith('success message', 'Ok', {duration: 2000});
       expect(component.success).toEqual(null);

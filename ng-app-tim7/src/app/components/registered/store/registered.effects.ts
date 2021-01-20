@@ -25,7 +25,7 @@ const handleError = (errorRes: any) => {
 @Injectable()
 export class RegisteredEffects {
   @Effect()
-  admin = this.actions$.pipe(
+  registered = this.actions$.pipe(
     ofType(RegActions.GET_REG),
     switchMap((data: RegActions.GetUser) => {
       return this.http
@@ -34,7 +34,9 @@ export class RegisteredEffects {
         )
         .pipe(
           map(dataRes => {
-            return new RegActions.GetRegisteredSuccess(new UserModel(dataRes.username, dataRes.email, dataRes.password));
+            const user = new UserModel(dataRes.username, dataRes.email, dataRes.password);
+            localStorage.setItem('signed-in-user', JSON.stringify(user));
+            return new RegActions.GetRegisteredSuccess(user);
           }),
           catchError(errorRes => {
             return handleError(errorRes);
@@ -68,7 +70,7 @@ export class RegisteredEffects {
   );
 
   @Effect({ dispatch: false })
-  signUpRedirect = this.actions$.pipe(
+  registeredRedirect = this.actions$.pipe(
     ofType(RegActions.REG_SUCCESS),
     tap(() => {
       this.router.navigate(['/registered/view-profile']);

@@ -1,7 +1,6 @@
 import {Component, EventEmitter, Input, OnChanges, OnInit, Output, ViewChild} from '@angular/core';
 import {AgmMap, LatLngLiteral} from '@agm/core';
 import {Mappable} from '../../../models/mappable.interface';
-import {HttpClient} from '@angular/common/http';
 import {MapDataModel} from '../../../models/map-data.model';
 
 @Component({
@@ -9,7 +8,7 @@ import {MapDataModel} from '../../../models/map-data.model';
   templateUrl: './google-map.component.html',
   styleUrls: ['./google-map.component.css']
 })
-export class GoogleMapComponent implements OnInit, OnChanges {
+export class GoogleMapComponent implements OnChanges {
   @ViewChild(AgmMap) agmMap: AgmMap;
   /*
   Expecting Mappable interface in model:
@@ -26,12 +25,9 @@ export class GoogleMapComponent implements OnInit, OnChanges {
   centerLatitude;
   centerLongitude;
   zoom = 10;
+  location = '';
 
-  constructor(private http: HttpClient) { }
-
-  ngOnInit(): void {
-
-  }
+  constructor() { }
 
   ngOnChanges(): void{
     if (this.focusInput !== undefined){
@@ -47,6 +43,7 @@ export class GoogleMapComponent implements OnInit, OnChanges {
     const opencage = require('opencage-api-client');
     opencage.geocode({q: '' + coords.lat + ', ' + coords.lng, key: 'df145e8c933d49e399e5d6703a1e88b1'}).then(data => {
       if (data.status.code === 200) {
+        this.location = data.results[0].formatted;
         this.DragEnd.emit(new MapDataModel(coords.lat, coords.lng, data.results[0].formatted));
       }
     }).catch(error => {

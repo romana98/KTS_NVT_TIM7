@@ -5,7 +5,7 @@ export interface State {
   success: string;
 }
 
-const initialState: State = {
+export const initialState: State = {
   error: null,
   success: null
 };

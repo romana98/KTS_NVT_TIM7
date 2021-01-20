@@ -5,7 +5,7 @@ import {Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges
   templateUrl: './pagination.component.html',
   styleUrls: ['./pagination.component.css']
 })
-export class PaginationComponent implements OnInit, OnChanges {
+export class PaginationComponent implements OnChanges {
 
   @Input() pageSize = 0;
   @Input() totalItems = 0;
@@ -15,8 +15,6 @@ export class PaginationComponent implements OnInit, OnChanges {
 
   constructor() { }
 
-  ngOnInit() {
-  }
 
   ngOnChanges(changes: SimpleChanges): void {
     for (const propName in changes) {

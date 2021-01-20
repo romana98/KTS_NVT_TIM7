@@ -7,7 +7,6 @@ import {MatSnackBar} from '@angular/material/snack-bar';
 import {validateMatchPassword} from '../../../validator/custom-validator-match-password';
 import * as AdminActions from '../../administrator/store/administrator.actions';
 import * as RegisteredActions from '../../registered/store/registered.actions';
-import {UserModel} from '../../../models/user.model';
 import {validateLength} from '../../../validator/custom-validator-zero-min-eight-length';
 import {Router} from '@angular/router';
 
@@ -19,7 +18,7 @@ import {Router} from '@angular/router';
 export class EditProfileComponent implements OnInit, OnDestroy {
 
   user: string;
-  private storeSub: Subscription;
+  storeSub: Subscription;
   form: FormGroup;
   error: string = null;
   success: string = null;
@@ -29,7 +28,7 @@ export class EditProfileComponent implements OnInit, OnDestroy {
   constructor(
     private fb: FormBuilder,
     private store: Store<fromApp.AppState>,
-    private snackBar: MatSnackBar,
+    public snackBar: MatSnackBar,
     private router: Router
   ) {
     this.form = this.fb.group({
@@ -79,13 +78,13 @@ export class EditProfileComponent implements OnInit, OnDestroy {
       { id: JSON.parse(localStorage.getItem('user')).id,  username: this.user, email: user.email, password: user.password }));
   }
 
-  private showErrorAlert(message: string) {
+  showErrorAlert(message: string) {
     this.snackBar.open(message, 'Ok', { duration: 2000 });
     this.store.dispatch(new this.Actions.ClearError());
   }
 
-  private showSuccessAlert(message: string) {
-    this.snackBar.open(message, 'Ok', { duration: 3000 });
+  showSuccessAlert(message: string) {
+    this.snackBar.open(message, 'Ok', { duration: 2000 });
     this.store.dispatch(new this.Actions.ClearSuccess());
   }
 

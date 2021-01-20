@@ -3,9 +3,9 @@
 </div>
 
 <div *ngIf="role === 'ROLE_ADMINISTRATOR'">
-  <app-navigation-administrator [signOut]="signOut"></app-navigation-administrator>
+  <app-navigation-administrator (signOut)="signOut($event)"></app-navigation-administrator>
 </div>
 
 <div *ngIf="role === 'ROLE_REGISTERED'">
-  <app-navigation-registered [signOut]="signOut"></app-navigation-registered>
+  <app-navigation-registered (signOut)="signOut($event)"></app-navigation-registered>
 </div>
