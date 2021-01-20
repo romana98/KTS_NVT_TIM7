@@ -226,12 +226,12 @@ describe('AdministratorEffects', () => {
     });
   });
 
-  describe('Register success', () => {
+  describe('Administrator success', () => {
     it('should navigate to view profile page', () => {
-      actions$ = of(new AdminActions.AdminSuccess('Profile updated.'));
+      actions$ = of(new AdminActions.AdminSuccessEdit('Profile updated.'));
 
       effects.adminSuccessEdit.subscribe(() => {
-        expect(router.navigate).toHaveBeenCalledWith(['/registered/view-profile']);
+        expect(router.navigate).toHaveBeenCalledWith(['/administrator/view-profile']);
       });
     });
   });
