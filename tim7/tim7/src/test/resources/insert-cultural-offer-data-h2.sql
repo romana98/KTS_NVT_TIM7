@@ -4,9 +4,7 @@ insert into newsletters (id, name, published_date, cultural_offer_id, picture_id
 insert into newsletters (id, name, published_date, cultural_offer_id, picture_id, description) values (2, 'Newsletter2', '2020-11-19', 1, 1, 'Pellentesque ultrices mattis odio.');
 insert into newsletters (id, name, published_date, cultural_offer_id, picture_id, description) values (3, 'Newsletter3', '2020-01-31', 1, 1, 'Etiam faucibus cursus urna. Ut tellus.');
 
-insert into comments (id, published_date, cultural_offer_id, registered_id, description) values (1, '2018-11-11', 1, 2, 'comment description');
-insert into comments (id, published_date, cultural_offer_id, registered_id, description) values (2, '2018-11-11', 1, 2, 'comment description');
-
 insert into subscribed_cultural_offers (cultural_offer_id, registered_id) values (1, 2);
 insert into subscribed_cultural_offers (cultural_offer_id, registered_id) values (1, 3);
 
+update comments set cultural_offer_id = 1;

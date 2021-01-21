@@ -1,0 +1,1 @@
+delete from subscribed_cultural_offers where registered_id = 6;

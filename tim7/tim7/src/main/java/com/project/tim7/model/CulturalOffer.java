@@ -191,4 +191,22 @@ public class CulturalOffer {
 	public void setSubscribed(Set<Registered> subscribed) {
 		this.subscribed = subscribed;
 	}
+
+	@Override
+	public String toString() {
+		return "CulturalOffer{" +
+				"id=" + id +
+				", name='" + name + '\'' +
+				", description='" + description + '\'' +
+				", startDate=" + startDate +
+				", endDate=" + endDate +
+				", pictures=" + pictures +
+				", newsletters=" + newsletters +
+				", subcategory=" + subcategory +
+				", subscribed=" + subscribed +
+				", location=" + location +
+				", comments=" + comments +
+				", ratings=" + ratings +
+				'}';
+	}
 }

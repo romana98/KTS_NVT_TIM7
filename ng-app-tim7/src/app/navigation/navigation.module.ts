@@ -7,6 +7,7 @@ import {MaterialModule} from '../shared/material.module';
 import {MatToolbarModule} from '@angular/material/toolbar';
 import {MatIconModule} from '@angular/material/icon';
 import {AppRoutingModule} from '../app-routing/app-routing.module';
+import {MatMenuModule} from '@angular/material/menu';
 
 @NgModule({
   declarations: [
@@ -15,12 +16,13 @@ import {AppRoutingModule} from '../app-routing/app-routing.module';
     NavigationRegisteredComponent,
     NavigationNonSignedInComponent
   ],
-  imports: [
-    AppRoutingModule,
-    MaterialModule,
-    MatToolbarModule,
-    MatIconModule
-  ],
+    imports: [
+        AppRoutingModule,
+        MaterialModule,
+        MatToolbarModule,
+        MatIconModule,
+        MatMenuModule
+    ],
   exports: [NavigationComponent,
     NavigationAdministratorComponent,
     NavigationRegisteredComponent,

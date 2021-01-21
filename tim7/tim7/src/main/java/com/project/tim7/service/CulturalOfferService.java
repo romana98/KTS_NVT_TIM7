@@ -92,7 +92,7 @@ public class CulturalOfferService implements ServiceInterface<CulturalOffer> {
 		//Extracting Location and Subcategory if they exist in Data Transfer Object.
 		Location location = locationService.findOneByLongitudeAndLatitude(entity.getLongitude(),entity.getLatitude());
 		Subcategory subcategory = subcategoryService.findOne(entity.getSubcategory());
-
+		System.out.println(subcategory);
 		if(location == null){
 			Location newLocation = new Location();
 			newLocation.setLatitude(entity.getLatitude());
@@ -199,7 +199,10 @@ public class CulturalOfferService implements ServiceInterface<CulturalOffer> {
 	public boolean delete(int id) {
 		CulturalOffer culturalOffer = findOne(id);
 		if(culturalOffer != null){
-			culturalOfferRepo.delete(culturalOffer);
+			culturalOffer.setPictures(new HashSet<>());
+			culturalOffer.setComments(new HashSet<>());
+			CulturalOffer co = culturalOfferRepo.save(culturalOffer);
+			culturalOfferRepo.deleteById(co.getId());
 			return true;
 		}
 		return false;
@@ -232,6 +235,7 @@ public class CulturalOfferService implements ServiceInterface<CulturalOffer> {
 	}
 
 	public boolean checkIfSubscribed(int idOffer, int idUser){
+		CulturalOffer co = culturalOfferRepo.findById(idOffer).orElse(null);
 		if (culturalOfferRepo.checkIfsubscriptionExists(idOffer, idUser) != 0){
 			return true;
 		}else{
@@ -252,7 +256,7 @@ public class CulturalOfferService implements ServiceInterface<CulturalOffer> {
 			return null;
 		culturalOffer.getSubscribed().remove(registered);
 		registered.getSubscribedCulturalOffers().remove(culturalOffer);
-		return saveOne(culturalOffer);	
+		return saveOne(culturalOffer);
 	}
 
 	public Page<CulturalOffer> filter(FilterDTO filterDTO, Pageable pageable) {

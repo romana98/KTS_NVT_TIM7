@@ -392,6 +392,8 @@ export class CulturalOfferEffects {
           'http://localhost:8080/cultural-offers/', data.payload)
         .pipe(
           map(dataRes => {
+            console.log(data.payload);
+            console.log(dataRes);
             return new CulturalOfferActions.AddOfferActionSuccess(dataRes);
           }),
           catchError(errorRes => {

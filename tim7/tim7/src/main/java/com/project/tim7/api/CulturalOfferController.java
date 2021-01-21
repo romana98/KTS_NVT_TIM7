@@ -89,7 +89,6 @@ public class CulturalOfferController {
 
 
         CulturalOffer updatedCulturalOffer = culturalOfferService.update(culturalOfferDTO);
-        System.out.println(culturalOfferMapper.toDto(updatedCulturalOffer));
         return updatedCulturalOffer != null ?
                 new ResponseEntity<>(culturalOfferMapper.toDto(updatedCulturalOffer), HttpStatus.OK) :
                 new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
