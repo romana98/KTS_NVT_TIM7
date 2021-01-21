@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import {async, ComponentFixture, fakeAsync, TestBed, tick} from '@angular/core/testing';
 
 import { GoogleMapComponent } from './google-map.component';
 import {AgmCoreModule, MapsAPILoader} from '@agm/core';
@@ -45,11 +45,9 @@ describe('GoogleMapComponent', () => {
   describe('dragEnd()', () => {
     it('should emit dragEnd()', () => {
 
-      const spy = spyOn(component.DragEnd, 'emit');
       component.dragEnd( {lat: 10.1, lng: 12.2});
       fixture.detectChanges();
-      // tslint:disable-next-line:only-arrow-functions
-      setTimeout(function() {expect(spy).toHaveBeenCalledWith(new MapDataModel(10.1, 12.2, component.location)); }, 10000);
+      expect(component.location).toEqual('');
     });
   });
   describe('changedZoom()', () => {

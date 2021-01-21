@@ -38,7 +38,7 @@ public class CategoryDashboardE2ETest {
         signInPage.getUsername().sendKeys("mico");
         signInPage.getPassword().sendKeys("123qweASD");
         signInPage.getSignInBtn().click();
-        justWait(4000);
+        justWait(6000);
     }
 
     @After

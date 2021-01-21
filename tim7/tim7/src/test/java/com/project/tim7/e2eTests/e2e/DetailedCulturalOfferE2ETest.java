@@ -177,8 +177,8 @@ public class DetailedCulturalOfferE2ETest {
         justWait(1000);
 
         detailedCulturalOfferPage.getCommentInput().sendKeys("New comment!");
-        // detailedCulturalOfferPage.getPictureInput().sendKeys(new java.io.File( ".\\src\\test\\resources\\offer_photo.jpg" ).getAbsolutePath());
-        // detailedCulturalOfferPage.getPictureInput().sendKeys(new java.io.File(".\\src\\test\\resources\\offer_photo2.jpg").getAbsolutePath());
+        detailedCulturalOfferPage.getPictureInput().sendKeys(new java.io.File( ".\\src\\test\\resources\\offer_photo.jpg" ).getAbsolutePath());
+        detailedCulturalOfferPage.getPictureInput().sendKeys(new java.io.File(".\\src\\test\\resources\\offer_photo2.jpg").getAbsolutePath());
 
         justWait(1000);
 

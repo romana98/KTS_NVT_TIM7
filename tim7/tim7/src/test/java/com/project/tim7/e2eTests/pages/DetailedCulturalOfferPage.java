@@ -47,7 +47,7 @@ public class DetailedCulturalOfferPage {
 
     @FindBy(xpath = "//*[@id=\"commentInput\"]")
     private WebElement commentInput;
-    @FindBy(xpath = "//*[@id=\"inputPictureButton\"]")
+    @FindBy(xpath = "//*[@id=\"file\"]")
     private WebElement pictureInput;
     @FindBy(xpath = "//*[@id=\"addCommentButton\"]")
     private WebElement addCommentButton;

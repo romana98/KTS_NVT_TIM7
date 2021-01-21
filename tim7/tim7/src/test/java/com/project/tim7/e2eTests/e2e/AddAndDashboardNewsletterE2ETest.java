@@ -56,7 +56,7 @@ public class AddAndDashboardNewsletterE2ETest {
         signInPage.getUsername().sendKeys("mico");
         signInPage.getPassword().sendKeys("123qweASD");
         signInPage.getSignInBtn().click();
-        justWait(1500);
+        justWait(3000);
     }
 
     @After
@@ -96,7 +96,7 @@ public class AddAndDashboardNewsletterE2ETest {
         String snackBarValue = addNewsletterPage.getSnackBar().getText();
 
         assertEquals("Newsletter added.\nOk", snackBarValue);
-        assertEquals("http://localhost:4200/newsletter/add-newsletter;culturalOfferId=2;culturalOfferName=Ben%20Caplin%20and%20The%20Casual%20Smokers", driver.getCurrentUrl());
+        assertEquals("http://localhost:4200/newsletter/dashboard", driver.getCurrentUrl());
         
         mainPagePage.getNewsletterDashboardNav().click();
    
@@ -143,7 +143,7 @@ public class AddAndDashboardNewsletterE2ETest {
         String snackBarValue = addNewsletterPage.getSnackBar().getText();
 
         assertEquals("Newsletter added.\nOk", snackBarValue);
-        assertEquals("http://localhost:4200/newsletter/add-newsletter", driver.getCurrentUrl());
+        assertEquals("http://localhost:4200/newsletter/dashboard", driver.getCurrentUrl());
         
         mainPagePage.getNewsletterDashboardNav().click();
    

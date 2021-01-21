@@ -53,7 +53,7 @@ public class NewsletterE2ETest {
         signInPage.getUsername().sendKeys("minchboard3d");
         signInPage.getPassword().sendKeys("123qweASD");
         signInPage.getSignInBtn().click();
-        justWait(1500);
+        justWait(5000);
     }
 
     @After

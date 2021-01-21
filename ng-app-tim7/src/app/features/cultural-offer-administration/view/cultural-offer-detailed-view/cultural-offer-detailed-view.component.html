@@ -46,7 +46,6 @@ left div: description, comments and newsletters
       <p id="commentDescription">{{comments.content[0].description}}</p>
       <p>User: {{comments.content[0].registeredUser}}</p>
       <p>Publish date: {{publishedDateComment}}</p>
-      <mat-divider></mat-divider>
       <br>
     </div>
     <div style="float:right; width:5%; margin-top: 10%">
@@ -61,7 +60,7 @@ left div: description, comments and newsletters
   <!--
   newsletters div
   -->
-  <div [hidden] = 'newslettersEmpty' style="width: 100%; float: left">
+  <div [hidden] = 'newslettersEmpty' style="width: 100%; float: left; padding-top: 5%">
     <div style="float:left; width:5%; margin-top: 10%">
       <button id="newsletterNavigateBefore" [disabled]="pageNewsletters === 0" (click)="newslettersNavigateBefore()"><mat-icon>navigate_before</mat-icon></button>
     </div>
@@ -70,7 +69,6 @@ left div: description, comments and newsletters
       <p id="newsletterDescription">{{newsletters.content[0].description}}</p>
       <p>Publish date: {{publishedDateNewsletter}}</p>
       <br>
-      <mat-divider></mat-divider>
       <br>
       <br>
     </div>
@@ -80,7 +78,7 @@ left div: description, comments and newsletters
     <br>
 
     <div style="width: 47%;height: 50% ;float: right; margin-right: 1%">
-      <img [src]="newsletters.content[0].picture"/>
+      <img style="max-height: 50%; max-width: 50%" [src]="newsletters.content[0].picture"/>
     </div>
   </div>
 </div>

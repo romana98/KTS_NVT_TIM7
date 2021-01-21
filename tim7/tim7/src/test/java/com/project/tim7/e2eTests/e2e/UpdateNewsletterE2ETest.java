@@ -91,7 +91,7 @@ public class UpdateNewsletterE2ETest {
         String snackBarValue = updateNewsletterPage.getSnackBar().getText();
 
         assertEquals("Newsletter updated.\nOk", snackBarValue);
-        assertEquals("http://localhost:4200/newsletter/update-newsletter/1000", driver.getCurrentUrl());
+        assertEquals("http://localhost:4200/newsletter/dashboard", driver.getCurrentUrl());
         
         mainPagePage.getNewsletterDashboardNav().click();
    
