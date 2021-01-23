@@ -54,52 +54,6 @@ public class DetailedCulturalOfferE2ETest {
     }
 
     @Test
-    public void testCarouselCulturalOffer() throws InterruptedException {
-        Actions actions = new Actions(driver);
-        actions.doubleClick(mainPagePage.getDetailedCulturalOfferRow()).perform();
-
-        justWait(2000);
-
-        assertEquals("http://localhost:4200/detailed-cultural-offer?offer_id=2", driver.getCurrentUrl());
-
-        justWait(1000);
-
-        detailedCulturalOfferPage.getCarouselOfferNext().click();
-        justWait(1000);
-        assertEquals("flex-direction: row; height: auto; transform: translateX(-365px);", detailedCulturalOfferPage.getCarouselOfferSlide().getAttribute("style"));
-
-        detailedCulturalOfferPage.getCarouselOfferBefore().click();
-        justWait(1000);
-        assertEquals("flex-direction: row; height: auto; transform: translateX(0px);", detailedCulturalOfferPage.getCarouselOfferSlide().getAttribute("style"));
-
-        assertEquals("http://localhost:4200/detailed-cultural-offer?offer_id=2", driver.getCurrentUrl());
-
-    }
-
-    @Test
-    public void testCarouselComment() throws InterruptedException{
-        Actions actions = new Actions(driver);
-        actions.doubleClick(mainPagePage.getDetailedCulturalOfferRow()).perform();
-
-        justWait(2000);
-
-        assertEquals("http://localhost:4200/detailed-cultural-offer?offer_id=2", driver.getCurrentUrl());
-
-        justWait(1000);
-
-        detailedCulturalOfferPage.getCarouselCommentNext().click();
-        justWait(1000);
-        assertEquals("flex-direction: row; height: auto; transform: translateX(-342px);", detailedCulturalOfferPage.getCarouselCommentSlide().getAttribute("style"));
-
-        detailedCulturalOfferPage.getCarouselCommentBefore().click();
-        justWait(1000);
-        assertEquals("flex-direction: row; height: auto; transform: translateX(0px);", detailedCulturalOfferPage.getCarouselCommentSlide().getAttribute("style"));
-
-        assertEquals("http://localhost:4200/detailed-cultural-offer?offer_id=2", driver.getCurrentUrl());
-
-    }
-
-    @Test
     public void testCommentNavigation() throws InterruptedException{
         Actions actions = new Actions(driver);
         actions.doubleClick(mainPagePage.getDetailedCulturalOfferRow()).perform();

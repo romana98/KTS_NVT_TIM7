@@ -1,5 +1,6 @@
 package com.project.tim7;
 
+import com.project.tim7.e2eTests.e2e.AddAdministratorE2ETest;
 import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
 import org.junit.runners.Suite.SuiteClasses;

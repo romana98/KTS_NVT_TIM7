@@ -101,9 +101,10 @@ public class SubcategoryDashboardE2ETest {
 
         subcategoryDashboardPage.getCategoryNameSelect().sendKeys("Manifestacija");
         subcategoryDashboardPage.getSubcategoryNameInput().sendKeys("Karneval");
+        justWait(2000);
         subcategoryDashboardPage.getAddSubcategoryButton().click();
 
-        justWait(1000);
+        justWait(2000);
 
         String snackBarText = subcategoryDashboardPage.getSnackBar().getText();
 

@@ -97,7 +97,8 @@ public class AddAndDashboardNewsletterE2ETest {
 
         assertEquals("Newsletter added.\nOk", snackBarValue);
         assertEquals("http://localhost:4200/newsletter/dashboard", driver.getCurrentUrl());
-        
+
+        mainPagePage.getNewsletterMenu().click();
         mainPagePage.getNewsletterDashboardNav().click();
    
         for (int i = 0; i <= 100; i++) {
@@ -121,7 +122,7 @@ public class AddAndDashboardNewsletterE2ETest {
 
     @Test
     public void addAndDeleteNewsletterTestSuccess() throws InterruptedException {
-    	
+        mainPagePage.getNewsletterMenu().click();
         mainPagePage.getPublishNewsletterNav().click();
 
         justWait(1000);
@@ -144,16 +145,14 @@ public class AddAndDashboardNewsletterE2ETest {
 
         assertEquals("Newsletter added.\nOk", snackBarValue);
         assertEquals("http://localhost:4200/newsletter/dashboard", driver.getCurrentUrl());
-        
-        mainPagePage.getNewsletterDashboardNav().click();
    
         for (int i = 0; i <= 100; i++) {
         	newsletterDashboardPage.getNextPageBtn().click();
         }
         justWait(1000);
-        newsletterDashboardPage.ensureVisibleDeleteBtn();
+        newsletterDashboardPage.ensureVisibleDeleteBtn2();
 
-        newsletterDashboardPage.getDeleteBtn().click();
+        newsletterDashboardPage.getDeleteBtn2().click();
 
         justWait(1000);
 
@@ -167,7 +166,7 @@ public class AddAndDashboardNewsletterE2ETest {
     
     @Test
     public void paginationNextBackTestSuccess() throws InterruptedException {
-
+        mainPagePage.getNewsletterMenu().click();
         mainPagePage.getNewsletterDashboardNav().click();
 
         justWait(1000);

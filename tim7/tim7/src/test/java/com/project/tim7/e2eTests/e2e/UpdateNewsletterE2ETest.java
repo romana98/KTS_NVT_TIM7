@@ -70,7 +70,7 @@ public class UpdateNewsletterE2ETest {
 
     @Test
     public void updateNewsletterTestSuccess() throws InterruptedException {
-    	
+        mainPagePage.getNewsletterMenu().click();
         mainPagePage.getNewsletterDashboardNav().click();
 
         justWait(1000);
@@ -92,7 +92,8 @@ public class UpdateNewsletterE2ETest {
 
         assertEquals("Newsletter updated.\nOk", snackBarValue);
         assertEquals("http://localhost:4200/newsletter/dashboard", driver.getCurrentUrl());
-        
+
+        mainPagePage.getNewsletterMenu().click();
         mainPagePage.getNewsletterDashboardNav().click();
    
         for (int i = 0; i <= 99; i++) {
@@ -103,12 +104,14 @@ public class UpdateNewsletterE2ETest {
         
         updateNewsletterPage.ensureIsDisplayedName();
         updateNewsletterPage.getName().sendKeys("Newsletter1000");
-        
+
+        justWait(1000);
+
         updateNewsletterPage.getUpdateButton().click();
 
-        justWait(3000);
+        justWait(1000);
 
-        String snackBarValueRestore = updateNewsletterPage.getSnackBar().getText();
+        String snackBarValueRestore = newsletterDashboardPage.getSnackBar().getText();
 
         assertEquals("Newsletter updated.\nOk", snackBarValueRestore);
     }

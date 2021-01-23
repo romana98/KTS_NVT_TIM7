@@ -10,6 +10,9 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 public class AddAdministratorPage {
     private WebDriver driver;
 
+    @FindBy(xpath = "//*[@id=\"administratorMenu\"]")
+    private WebElement administratorMenu;
+
     @FindBy(xpath = "//*[@id=\"username\"]")
     private WebElement username;
 
@@ -76,4 +79,8 @@ public class AddAdministratorPage {
     public WebElement getSnackBar() { return snackBar; }
 
     public WebElement getError(){return error; }
+
+    public WebElement getAdministratorMenu() {
+        return administratorMenu;
+    }
 }

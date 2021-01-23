@@ -113,7 +113,7 @@ export class CulturalOfferEffects {
             return new CulturalOfferActions.UpdateOfferActionSuccess(dataRes);
           }),
           catchError(errorRes => {
-            return of(new CulturalOfferActions.ErrorAction(errorRes.message));
+            return of(new CulturalOfferActions.ErrorAction('Cultural offer already exists.'));
           })
         );
     })
@@ -392,12 +392,11 @@ export class CulturalOfferEffects {
           'http://localhost:8080/cultural-offers/', data.payload)
         .pipe(
           map(dataRes => {
-            console.log(data.payload);
-            console.log(dataRes);
             return new CulturalOfferActions.AddOfferActionSuccess(dataRes);
           }),
           catchError(errorRes => {
-            return of(new CulturalOfferActions.ErrorAction(errorRes.message));
+            console.log(errorRes.status);
+            return of(new CulturalOfferActions.ErrorAction('Cultural offer already exists.'));
           })
         );
     })

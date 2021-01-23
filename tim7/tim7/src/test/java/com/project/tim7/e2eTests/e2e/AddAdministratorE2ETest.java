@@ -49,7 +49,7 @@ public class AddAdministratorE2ETest {
         signInPage.getUsername().sendKeys("mico");
         signInPage.getPassword().sendKeys("123qweASD");
         signInPage.getSignInBtn().click();
-        justWait(3000);
+        justWait(7000);
     }
 
     @After
@@ -66,7 +66,7 @@ public class AddAdministratorE2ETest {
 
     @Test
     public void addAdminTestSuccess() throws InterruptedException {
-
+        mainPagePage.getAdministratorMenu().click();
         mainPagePage.getAddAdminNav().click();
 
         justWait(1000);
@@ -90,9 +90,11 @@ public class AddAdministratorE2ETest {
         assertEquals("Administrator added.\nOk", snackBarValue);
         assertEquals("http://localhost:4200/administrator/add-administrator", driver.getCurrentUrl());
 
+        addAdministratorPage.getAdministratorMenu().click();
         addAdministratorPage.getAdminDashboardNavigate().click();
         justWait(2000);
         driver.findElement(By.xpath("//*[@aria-label=\"Next page\"]")).click();
+        justWait(2000);
         administratorDashboardPage.getDeleteBtn().click();
         justWait(1000);
 
@@ -106,7 +108,7 @@ public class AddAdministratorE2ETest {
 
     @Test
     public void addAdminTestExistUsernameError() throws InterruptedException {
-
+        mainPagePage.getAdministratorMenu().click();
         mainPagePage.getAddAdminNav().click();
 
         justWait(1000);
@@ -133,7 +135,7 @@ public class AddAdministratorE2ETest {
 
     @Test
     public void addAdminTestExistEmailError() throws InterruptedException {
-
+        mainPagePage.getAdministratorMenu().click();
         mainPagePage.getAddAdminNav().click();
 
         justWait(1000);
@@ -160,6 +162,7 @@ public class AddAdministratorE2ETest {
 
     @Test
     public void addAdminTestPasswordMatchError() throws InterruptedException {
+        mainPagePage.getAdministratorMenu().click();
         mainPagePage.getAddAdminNav().click();
 
         justWait(1000);
@@ -182,6 +185,7 @@ public class AddAdministratorE2ETest {
 
     @Test
     public void addAdminPasswordShortError() throws InterruptedException {
+        mainPagePage.getAdministratorMenu().click();
         mainPagePage.getAddAdminNav().click();
 
         justWait(1000);
@@ -206,6 +210,7 @@ public class AddAdministratorE2ETest {
 
     @Test
     public void addAdminEmailError() throws InterruptedException {
+        mainPagePage.getAdministratorMenu().click();
         mainPagePage.getAddAdminNav().click();
 
         justWait(1000);
@@ -230,6 +235,7 @@ public class AddAdministratorE2ETest {
 
     @Test
     public void addAdminUsernameError() throws InterruptedException {
+        mainPagePage.getAdministratorMenu().click();
         mainPagePage.getAddAdminNav().click();
 
         justWait(1000);

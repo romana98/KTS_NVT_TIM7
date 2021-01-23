@@ -10,6 +10,15 @@ public class MainPagePage {
     private WebDriver driver;
 
     //navigation
+    @FindBy(xpath = "//*[@id=\"newsletterMenu\"]")
+    private WebElement newsletterMenu;
+
+    @FindBy(xpath = "//*[@id=\"administratorMenu\"]")
+    private WebElement administratorMenu;
+
+    @FindBy(xpath = "//*[@id=\"culturalOfferMenu\"]")
+    private WebElement culturalOfferMenu;
+
     @FindBy(xpath = "//*[@id=\"add-admin-navigate\"]")
     private WebElement addAdminNav;
 
@@ -45,6 +54,31 @@ public class MainPagePage {
     
     @FindBy(xpath = "//*[@id=\"row834\"]")
     private WebElement offerToSubscribe;
+
+    @FindBy(className = "mat-paginator-range-label")
+    private WebElement currentPage;
+
+    @FindBy(xpath = "//*[@id=\"filterTypeSelect\"]")
+    private WebElement filterTypeSelect;
+
+    @FindBy(xpath = "//*[@aria-label=\"Next page\"]")
+    private WebElement nextPageBtn;
+
+    @FindBy(xpath = "//*[@aria-label=\"Previous page\"]")
+    private WebElement previousPageBtn;
+
+    @FindBy(xpath = "//*[@id=\"map\"]")
+    private WebElement map;
+
+    @FindBy(xpath = "//*[@id=\"row3\"]")
+    private WebElement clickedRow;
+
+
+    @FindBy(xpath = "//*[@id=\"culturaloffer-add-nav\"]")
+    private WebElement culturalOfferAddNav;
+
+    @FindBy(xpath = "//*[@id=\"culturaloffer-dashboard-nav\"]")
+    private WebElement culturalOfferDashboardNav;
 
     public MainPagePage() {
     }
@@ -100,4 +134,48 @@ public class MainPagePage {
 	public WebElement getOfferToSubscribe() {
 		return offerToSubscribe;
 	}
+
+    public WebElement getNewsletterMenu() {
+        return newsletterMenu;
+    }
+
+    public WebElement getAdministratorMenu() {
+        return administratorMenu;
+    }
+
+    public WebElement getCulturalOfferMenu() {
+        return culturalOfferMenu;
+    }
+
+    public WebElement getCurrentPage() {
+        return currentPage;
+    }
+
+    public WebElement getFilterTypeSelect() {
+        return filterTypeSelect;
+    }
+
+    public WebElement getNextPageBtn() {
+        return nextPageBtn;
+    }
+
+    public WebElement getPreviousPageBtn() {
+        return previousPageBtn;
+    }
+
+    public WebElement getMap() {
+        return map;
+    }
+
+    public WebElement getClickedRow() {
+        return clickedRow;
+    }
+
+    public WebElement getCulturalOfferAddNav() {
+        return culturalOfferAddNav;
+    }
+
+    public WebElement getCulturalOfferDashboardNav() {
+        return culturalOfferDashboardNav;
+    }
 }

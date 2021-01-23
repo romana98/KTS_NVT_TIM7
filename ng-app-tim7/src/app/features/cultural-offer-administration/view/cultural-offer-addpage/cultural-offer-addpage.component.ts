@@ -55,7 +55,7 @@ export class CulturalOfferAddpageComponent implements OnInit, OnDestroy {
         name: ['', Validators.required],
         startDate: ['', Validators.required],
         endDate: ['', Validators.required],
-        description: [null, Validators.required]
+        description: ['', Validators.required]
       },
       {
         validator:  validateDate('startDate', 'endDate')
@@ -79,6 +79,11 @@ export class CulturalOfferAddpageComponent implements OnInit, OnDestroy {
           this.error = state.errorActionMessage;
           this.success = state.successActionMessage;
 
+          if (this.error !== null){
+            this.showMessage(this.error);
+            return;
+          }
+
           if (state.selectedOffer === null){
             if (!this.editOffer){
               this.bakeCategoriesAndSubcategories(state.categoriesSelect?.content, state.subcategoriesSelect?.content);
@@ -88,6 +93,7 @@ export class CulturalOfferAddpageComponent implements OnInit, OnDestroy {
 
 
           if (this.editOffer && state.selectedOffer){
+            console.log("Im in fucking side");
             this.culturalOffer = JSON.parse(JSON.stringify(state.selectedOffer));
 
             const category = {
@@ -116,19 +122,14 @@ export class CulturalOfferAddpageComponent implements OnInit, OnDestroy {
             this.culturalOfferForm.controls.endDate.setValue(state.selectedOffer?.endDate);
             this.culturalOfferForm.controls.description.setValue(state.selectedOffer?.description);
 
-
             this.editOffer = false;
             this.offerId = state.selectedOffer.id;
 
           }
-          else{
+          else {
             this.bakeCategoriesAndSubcategories(
-              JSON.parse(JSON.stringify(state.categoriesSelect.content)),
-              JSON.parse(JSON.stringify(state.subcategoriesSelect.content)));
-          }
-
-          if (this.error !== null){
-            this.showMessage(this.error);
+              state.categoriesSelect?.content,
+              state.subcategoriesSelect?.content);
           }
 
           if (this.success !== null){
@@ -140,6 +141,8 @@ export class CulturalOfferAddpageComponent implements OnInit, OnDestroy {
 
   private bakeCategoriesAndSubcategories(categories: any, subcategories: any){
       if (categories && subcategories){
+          categories = JSON.parse(JSON.stringify(categories));
+          subcategories = JSON.parse(JSON.stringify(subcategories));
           this.categories = categories;
           this.subcategories = subcategories;
 
@@ -162,13 +165,20 @@ export class CulturalOfferAddpageComponent implements OnInit, OnDestroy {
 
   onValueChanged(key: string, value: any) {
     if (key.includes('Date')){
-      this.culturalOffer[key] = new Date(value.target.value).getTime();
+      //this.culturalOffer[key] = new Date(value.target.value).getTime();
+      console.log(key);
       this.culturalOfferForm.controls[key].patchValue(new Date(value.target.value).getTime());
       return;
     }
     else if (key.includes('name')){
+      console.log(key);
       this.culturalOfferForm.controls[key].patchValue(value.target.value);
+     // this.culturalOffer.name = value.target.value;
+      if (this.culturalOffer.id !== -1){
+        return;
+      }
       this.offerId = 0;
+
     }
     else if (key.includes('category')) {
       this.culturalOffer[key] = value.value;
@@ -177,10 +187,14 @@ export class CulturalOfferAddpageComponent implements OnInit, OnDestroy {
           {categoryId: this.culturalOffer.category, page: 0 , page_size: 10}));
       }
     }
-    else{
-      this.culturalOffer[key] = value.target.value;
+    else if (key.includes('subcategory')) {
+      this.culturalOffer[key] = value.value;
+    }
+    else if (key.includes('description')) {
+      console.log(key);
       this.culturalOfferForm.controls[key].patchValue(value.target.value);
     }
+    console.log(this.culturalOfferForm.value);
 
   }
 
@@ -196,14 +210,20 @@ export class CulturalOfferAddpageComponent implements OnInit, OnDestroy {
   }
 
   onSubmitClicked(){
-    this.culturalOffer.name = this.culturalOfferForm.value.name;
-    console.log(this.offerId);
+    this.culturalOffer = JSON.parse(JSON.stringify(this.culturalOffer));
+    this.culturalOffer.name = JSON.parse(JSON.stringify(this.culturalOfferForm.value.name));
+    this.culturalOffer.startDate = JSON.parse(JSON.stringify(this.culturalOfferForm.value.startDate));
+    this.culturalOffer.endDate = JSON.parse(JSON.stringify(this.culturalOfferForm.value.endDate));
+    this.culturalOffer.description = JSON.parse(JSON.stringify(this.culturalOfferForm.value.description));
     if (this.offerId === 0){
+      console.log("add acton");
+
       this.store.dispatch(new CulturalOfferActions.ClearSelectedOfferAction());
       this.editOffer = true;
       this.store.dispatch(new CulturalOfferActions.AddOfferAction(this.culturalOffer));
     }
     else{
+      console.log("update acton");
       this.store.dispatch(new CulturalOfferActions.ClearSelectedOfferAction());
       this.editOffer = true;
       this.store.dispatch(new CulturalOfferActions.UpdateOfferAction(this.culturalOffer));

@@ -70,7 +70,6 @@ public class NewsletterE2ETest {
 
     @Test
     public void viewNewsletterDetailsTestSuccess() throws InterruptedException {
-    	
         mainPagePage.getNewsletterSubscribedNav().click();
         
         justWait(1000);
@@ -89,7 +88,6 @@ public class NewsletterE2ETest {
     
     @Test
     public void unsibscribeTestSuccess() throws InterruptedException {
-    	
         mainPagePage.getNewsletterSubscribedNav().click();
         
         justWait(1000);

@@ -12,6 +12,9 @@ public class NewsletterDashboardPage {
 
     @FindBy(xpath = "//*[@id=\"1001\"]")
     private WebElement deleteBtn;
+
+    @FindBy(xpath = "//*[@id=\"1002\"]")
+    private WebElement deleteBtn2;
     
     @FindBy(xpath = "//*[@id=\"row1000\"]")
     private WebElement clickedRow;
@@ -41,6 +44,18 @@ public class NewsletterDashboardPage {
     
     public void ensureVisibleDeleteBtn() {
         (new WebDriverWait(driver, 30)).until(ExpectedConditions.elementToBeClickable(By.id("1001")));
+    }
+
+    public void ensureIsNotVisibleDeleteBtn2() {
+        (new WebDriverWait(driver, 20)).until(ExpectedConditions.invisibilityOfElementLocated(By.id("1002")));
+    }
+
+    public void ensureVisibleDeleteBtn2() {
+        (new WebDriverWait(driver, 30)).until(ExpectedConditions.elementToBeClickable(By.id("1002")));
+    }
+
+    public WebElement getDeleteBtn2() {
+        return deleteBtn2;
     }
 
     public WebElement getDeleteBtn() {
