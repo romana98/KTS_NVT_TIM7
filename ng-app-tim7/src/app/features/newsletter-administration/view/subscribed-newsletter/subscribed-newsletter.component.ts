@@ -4,7 +4,6 @@ import * as fromApp from '../../../../store/app.reducer';
 import * as NewsletterActions from '../../store/newsletter.actions';
 import {Subscription} from 'rxjs';
 import {MatSnackBar} from '@angular/material/snack-bar';
-import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-subscribed-newsletter',

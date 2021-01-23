@@ -1,14 +1,11 @@
-import {AfterViewInit, Component, ElementRef, OnDestroy, OnInit, ViewChild} from '@angular/core';
-import {CulturalofferModel} from '../../../../models/culturaloffer.model';
+import {Component, ElementRef, OnDestroy, OnInit, ViewChild} from '@angular/core';
 import {FormBuilder, FormGroup, FormGroupDirective, Validators} from '@angular/forms';
 import {Subscription} from 'rxjs';
 import {Store} from '@ngrx/store';
 import * as fromApp from '../../../../store/app.reducer';
 import {MatSnackBar} from '@angular/material/snack-bar';
-import * as SubcategoryActions from '../../../subcategory-administration/store/subcategory.actions';
 import * as CulturalOfferActions from '../../store/cultural-offer.actions';
 import {ActivatedRoute, Router} from '@angular/router';
-import * as CategoryActions from '../../../category-administration/store/category.actions';
 
 
 @Component({
@@ -232,7 +229,6 @@ export class CulturalOfferDetailedViewComponent implements OnInit, OnDestroy {
     if (!file) {
       return;
     }
-    console.log(file);
     if (!file.type.match(pattern)) {
       alert('invalid format');
       return;

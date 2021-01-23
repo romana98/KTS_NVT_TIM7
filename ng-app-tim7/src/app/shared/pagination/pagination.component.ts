@@ -25,7 +25,7 @@ export class PaginationComponent implements OnChanges {
     }
   }
 
-  get(element: string){
+  get(element: string): number {
     switch (element) {
       case 'pageSize':
         return this.pageSize;

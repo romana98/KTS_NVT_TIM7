@@ -221,7 +221,6 @@ export function CulturalOfferReducer(
         selectedOffer: null,
       };
     case CulturalOfferActions.ADD_OFFER_ACTION_SUCCESS:
-      console.log(action.payload);
       return {
         ...state,
         selectedOffer: action.payload,
