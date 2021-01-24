@@ -35,6 +35,13 @@ public class CulturalOfferDashboardPage {
     @FindBy(xpath = "//*[@id=\"row3\"]")
     private WebElement clickedRow;
 
+    @FindBy(xpath = "//*[@id=\"row4\"]")
+    private WebElement clickedRow2;
+
+    public WebElement getClickedRow2() {
+        return clickedRow2;
+    }
+
     public WebElement getClickedRow() {
         return clickedRow;
     }

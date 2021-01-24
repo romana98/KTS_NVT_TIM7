@@ -49,7 +49,7 @@ public class AddAdministratorE2ETest {
         signInPage.getUsername().sendKeys("mico");
         signInPage.getPassword().sendKeys("123qweASD");
         signInPage.getSignInBtn().click();
-        justWait(7000);
+        justWait(4000);
     }
 
     @After

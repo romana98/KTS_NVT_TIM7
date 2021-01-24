@@ -43,7 +43,7 @@ public class UpdateCulturalOfferE2ETest {
         signInPage.getUsername().sendKeys("mico");
         signInPage.getPassword().sendKeys("123qweASD");
         signInPage.getSignInBtn().click();
-        justWait(4000);
+        justWait(5000);
     }
 
     @After
@@ -62,14 +62,7 @@ public class UpdateCulturalOfferE2ETest {
         updateCulturalOfferPage.getNameField().clear();
         updateCulturalOfferPage.getNameField().sendKeys(name);
 
-//        updateCulturalOfferPage.getCategoryField().clear();
-//        updateCulturalOfferPage.getCategoryField().sendKeys("3");
-//
-//        updateCulturalOfferPage.getSubcategoryField().clear();
-//        updateCulturalOfferPage.getSubcategoryField().sendKeys("13");
-        //updateCulturalOfferPage.getStartDateField().sendKeys(dateStart);
-
-        //updateCulturalOfferPage.getEndDateField().sendKeys(dateEnd);
+        updateCulturalOfferPage.getPictureField().sendKeys(picture);
 
         updateCulturalOfferPage.getDescriptionField().clear();
         updateCulturalOfferPage.getDescriptionField().sendKeys(description);
@@ -139,7 +132,7 @@ public class UpdateCulturalOfferE2ETest {
 
         justWait(2000);
 
-        culturalOfferDashboardPage.getClickedRow().click();
+        culturalOfferDashboardPage.getClickedRow2().click();
 
         justWait(1000);
 
@@ -156,7 +149,7 @@ public class UpdateCulturalOfferE2ETest {
         String snackBarValue = updateCulturalOfferPage.getSnackBar().getText();
 
         assertEquals("Cultural offer already exists.\nOk", snackBarValue);
-        assertEquals("http://localhost:4200/administrator/editCulturalOffer;id=3", driver.getCurrentUrl());
+        assertEquals("http://localhost:4200/administrator/editCulturalOffer;id=4", driver.getCurrentUrl());
     }
 
     @Test
@@ -186,36 +179,5 @@ public class UpdateCulturalOfferE2ETest {
         assertEquals("Name must be filled!", matError);
         assertEquals("http://localhost:4200/administrator/editCulturalOffer;id=3", driver.getCurrentUrl());
     }
-
-    @Test
-    public void addCulturalOfferTestFailDateInvalid() throws InterruptedException {
-        mainPagePage.getCulturalOfferMenu().click();
-        mainPagePage.getCulturalOfferDashboardNav().click();
-
-        justWait(2000);
-
-        culturalOfferDashboardPage.getClickedRow().click();
-
-        justWait(1000);
-
-        updateCulturalOffer("NewOffer","2021-03-20","2021-02-20",
-                new File( ".\\src\\test\\resources\\offer_photo.jpg" ).getAbsolutePath(),
-                "Description123");
-
-        justWait(2000);
-
-        updateCulturalOfferPage.getSaveButton().click();
-
-        justWait(1000);
-
-
-        String matError = updateCulturalOfferPage.getError().getText();
-
-        assertEquals("Dates are not in order!", matError);
-        assertEquals("http://localhost:4200/administrator/editCulturalOffer;id=3", driver.getCurrentUrl());
-    }
-
-
-
 
 }

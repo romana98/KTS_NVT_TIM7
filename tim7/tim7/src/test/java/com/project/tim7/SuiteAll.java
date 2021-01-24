@@ -1,6 +1,7 @@
 package com.project.tim7;
 
-import com.project.tim7.e2eTests.e2e.AddAdministratorE2ETest;
+import com.project.tim7.e2eTests.e2e.*;
+import com.project.tim7.e2eTests.pages.CulturalOfferDashboardPage;
 import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
 import org.junit.runners.Suite.SuiteClasses;
@@ -44,7 +45,8 @@ import com.project.tim7.service.RegisteredServiceIntegrationTest;
 import com.project.tim7.service.SubcategoryServiceIntegrationTest;
 
 @RunWith(Suite.class)
-@SuiteClasses({AdministratorRepositoryIntegrationTest.class, CategoryRepositoryIntegrationTest.class,
+@SuiteClasses({
+        AdministratorRepositoryIntegrationTest.class, CategoryRepositoryIntegrationTest.class,
         CommentRepositoryIntegrationTest.class, CulturalOfferRepositoryIntegrationTest.class,
         LocationRepositoryIntegrationTest.class, NewsletterRepositoryIntegrationTest.class, PersonRepositoryIntegrationTest.class,
         PictureRepositoryIntegrationTest.class, RatingRepositoryIntegrationTest.class, RegisteredRepositoryIntegrationTest.class, 
