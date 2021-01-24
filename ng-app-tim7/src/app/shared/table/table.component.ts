@@ -34,14 +34,12 @@ export class TableComponent implements OnChanges {
   doubleClicked(id: number){
     this.DoubleClick.emit(id);
   }
-  get(element: string){
+  get(element: string): string[]{
     switch (element) {
       case 'dataSource':
         return this.dataSource;
       case 'columnsToDisplay':
         return this.columnsToDisplay;
-      case 'Delete':
-        return this.Delete;
       default:
         return this.columnsToIterate;
     }

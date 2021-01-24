@@ -395,7 +395,6 @@ export class CulturalOfferEffects {
             return new CulturalOfferActions.AddOfferActionSuccess(dataRes);
           }),
           catchError(errorRes => {
-            console.log(errorRes.status);
             return of(new CulturalOfferActions.ErrorAction('Cultural offer already exists.'));
           })
         );

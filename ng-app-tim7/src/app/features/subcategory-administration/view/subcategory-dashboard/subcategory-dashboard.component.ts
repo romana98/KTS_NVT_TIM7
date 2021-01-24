@@ -6,7 +6,6 @@ import * as fromApp from '../../../../store/app.reducer';
 import {MatSnackBar} from '@angular/material/snack-bar';
 import * as SubcategoryActions from '../../store/subcategory.actions';
 import {SubcategoryModel} from '../../../../models/subcategory.model';
-// import {CdkVirtualScrollViewport} from '@angular/cdk/scrolling';
 
 @Component({
   selector: 'app-subcategory-dashboard',
@@ -15,7 +14,6 @@ import {SubcategoryModel} from '../../../../models/subcategory.model';
 })
 export class SubcategoryDashboardComponent implements OnInit, OnDestroy {
   @ViewChild(FormGroupDirective) formGroupDirective: FormGroupDirective;
-  // @ViewChild('scroller') scroller: CdkVirtualScrollViewport;
   page = 0;
   pageSize = 10;
   pageSizeCategories = 10;

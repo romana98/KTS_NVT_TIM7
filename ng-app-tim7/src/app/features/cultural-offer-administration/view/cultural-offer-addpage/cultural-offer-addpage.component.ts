@@ -93,7 +93,6 @@ export class CulturalOfferAddpageComponent implements OnInit, OnDestroy {
 
 
           if (this.editOffer && state.selectedOffer){
-            console.log("Im in fucking side");
             this.culturalOffer = JSON.parse(JSON.stringify(state.selectedOffer));
 
             const category = {
@@ -165,13 +164,11 @@ export class CulturalOfferAddpageComponent implements OnInit, OnDestroy {
 
   onValueChanged(key: string, value: any) {
     if (key.includes('Date')){
-      //this.culturalOffer[key] = new Date(value.target.value).getTime();
-      console.log(key);
+      // this.culturalOffer[key] = new Date(value.target.value).getTime();
       this.culturalOfferForm.controls[key].patchValue(new Date(value.target.value).getTime());
       return;
     }
     else if (key.includes('name')){
-      console.log(key);
       this.culturalOfferForm.controls[key].patchValue(value.target.value);
      // this.culturalOffer.name = value.target.value;
       if (this.culturalOffer.id !== -1){
@@ -191,10 +188,8 @@ export class CulturalOfferAddpageComponent implements OnInit, OnDestroy {
       this.culturalOffer[key] = value.value;
     }
     else if (key.includes('description')) {
-      console.log(key);
       this.culturalOfferForm.controls[key].patchValue(value.target.value);
     }
-    console.log(this.culturalOfferForm.value);
 
   }
 
@@ -216,14 +211,12 @@ export class CulturalOfferAddpageComponent implements OnInit, OnDestroy {
     this.culturalOffer.endDate = JSON.parse(JSON.stringify(this.culturalOfferForm.value.endDate));
     this.culturalOffer.description = JSON.parse(JSON.stringify(this.culturalOfferForm.value.description));
     if (this.offerId === 0){
-      console.log("add acton");
 
       this.store.dispatch(new CulturalOfferActions.ClearSelectedOfferAction());
       this.editOffer = true;
       this.store.dispatch(new CulturalOfferActions.AddOfferAction(this.culturalOffer));
     }
     else{
-      console.log("update acton");
       this.store.dispatch(new CulturalOfferActions.ClearSelectedOfferAction());
       this.editOffer = true;
       this.store.dispatch(new CulturalOfferActions.UpdateOfferAction(this.culturalOffer));

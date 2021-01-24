@@ -2,6 +2,7 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { NavigationAdministratorComponent } from './navigation-administrator.component';
 import {MatToolbarModule} from '@angular/material/toolbar';
+import {MatMenuModule} from '@angular/material/menu';
 
 describe('NavigationAdministratorComponent', () => {
   let component: NavigationAdministratorComponent;
@@ -10,7 +11,7 @@ describe('NavigationAdministratorComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [ NavigationAdministratorComponent ],
-      imports: [MatToolbarModule]
+      imports: [MatToolbarModule, MatMenuModule]
     })
     .compileComponents();
   }));

@@ -47,7 +47,6 @@ export class GoogleMapComponent implements OnChanges {
         this.DragEnd.emit(new MapDataModel(coords.lat, coords.lng, data.results[0].formatted));
       }
     }).catch(error => {
-      console.log('error', error.message);
     });
   }
 

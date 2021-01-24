@@ -4,7 +4,6 @@ import {Subscription} from 'rxjs';
 import {Store} from '@ngrx/store';
 import * as fromApp from '../../../../store/app.reducer';
 import {MatSnackBar} from '@angular/material/snack-bar';
-import {validateMatchPassword} from '../../../../validator/custom-validator-match-password';
 import * as NewsletterActions from '../../store/newsletter.actions';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ElementRef } from '@angular/core';
