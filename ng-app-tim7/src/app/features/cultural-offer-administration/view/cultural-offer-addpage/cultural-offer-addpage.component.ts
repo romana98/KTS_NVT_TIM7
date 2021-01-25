@@ -19,7 +19,7 @@ export class CulturalOfferAddpageComponent implements OnInit, OnDestroy {
 
   success: string = null;
   error: string = null;
-  private storeSub: Subscription;
+  storeSub: Subscription;
   culturalOfferForm: FormGroup;
   editOffer: boolean;
   categoryPage = 1;
@@ -49,8 +49,8 @@ export class CulturalOfferAddpageComponent implements OnInit, OnDestroy {
 
   @ViewChild('fileInput') fileInput: ElementRef;
 
-  constructor(private route: ActivatedRoute, private store: Store<fromApp.AppState>, private snackBar: MatSnackBar,
-              private fb: FormBuilder) {
+  constructor(public route: ActivatedRoute, public store: Store<fromApp.AppState>, public snackBar: MatSnackBar,
+              public fb: FormBuilder) {
     this.culturalOfferForm = this.fb.group({
         name: ['', Validators.required],
         startDate: ['', Validators.required],
@@ -138,7 +138,7 @@ export class CulturalOfferAddpageComponent implements OnInit, OnDestroy {
         });
   }
 
-  private bakeCategoriesAndSubcategories(categories: any, subcategories: any){
+  bakeCategoriesAndSubcategories(categories: any, subcategories: any){
       if (categories && subcategories){
           categories = JSON.parse(JSON.stringify(categories));
           subcategories = JSON.parse(JSON.stringify(subcategories));
@@ -157,7 +157,7 @@ export class CulturalOfferAddpageComponent implements OnInit, OnDestroy {
       }
   }
 
-  private showMessage(message: string) {
+  showMessage(message: string) {
     this.snackBar.open(message, 'Ok', { duration: 3000 });
     this.store.dispatch(new CulturalOfferActions.ClearAction());
   }
@@ -201,7 +201,7 @@ export class CulturalOfferAddpageComponent implements OnInit, OnDestroy {
   getNextBatchSubcategory(){
     this.subcategoryPage++;
     this.store.dispatch(new CulturalOfferActions.CategoryChangedAction(
-      {categoryId: this.culturalOffer.category, page: this.subcategoryPage , page_size: 10 * this.subcategoryPage}));
+      {categoryId: this.culturalOffer.category, page: 0 , page_size: 10 * this.subcategoryPage}));
   }
 
   onSubmitClicked(){
@@ -212,12 +212,12 @@ export class CulturalOfferAddpageComponent implements OnInit, OnDestroy {
     this.culturalOffer.description = JSON.parse(JSON.stringify(this.culturalOfferForm.value.description));
     if (this.offerId === 0){
 
-      this.store.dispatch(new CulturalOfferActions.ClearSelectedOfferAction());
+      this.store.dispatch(new CulturalOfferActions.ClearSelectedOfferAction(''));
       this.editOffer = true;
       this.store.dispatch(new CulturalOfferActions.AddOfferAction(this.culturalOffer));
     }
     else{
-      this.store.dispatch(new CulturalOfferActions.ClearSelectedOfferAction());
+      this.store.dispatch(new CulturalOfferActions.ClearSelectedOfferAction(''));
       this.editOffer = true;
       this.store.dispatch(new CulturalOfferActions.UpdateOfferAction(this.culturalOffer));
     }
@@ -264,7 +264,7 @@ export class CulturalOfferAddpageComponent implements OnInit, OnDestroy {
   ngOnDestroy(): void {
     if (this.storeSub) {
       this.storeSub.unsubscribe();
-      this.store.dispatch(new CulturalOfferActions.ClearSelectedOfferAction());
+      this.store.dispatch(new CulturalOfferActions.ClearSelectedOfferAction(''));
     }
   }
 

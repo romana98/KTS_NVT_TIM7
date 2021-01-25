@@ -227,7 +227,6 @@ export function CulturalOfferReducer(
         errorActionMessage: null,
         successActionMessage: 'Cultural offer has been successfully saved.'
       };
-    case CulturalOfferActions.CLEAR_ACTION:
     default:
       return {
         ...state,

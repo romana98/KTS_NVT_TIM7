@@ -148,7 +148,7 @@ export class GetCulturalOfferPageSuccess implements Action {
 export class DeleteCulturalOffer implements Action {
   type: string = DELETE_CULTURALOFFER;
 
-  constructor(public payload: { id: number, page: number, page_size: number}) {}
+  constructor(public payload: { id: number }) {}
 }
 
 export class ErrorAction implements Action {
@@ -262,7 +262,7 @@ export class CategoryChangedActionSuccess {
 export class ClearSelectedOfferAction {
   type: string = CLEAR_SELECTED_OFFER_ACTION;
 
-  constructor() { }
+  constructor(public payload: any) { }
 }
 
 export class AddOfferAction {
@@ -308,4 +308,5 @@ export type CulturalOfferActions =
   | GetOneOfferAction
   | GetOneOfferActionSuccess
   | AddOfferAction
-  | AddOfferActionSuccess;
+  | AddOfferActionSuccess
+  | ClearSelectedOfferAction;

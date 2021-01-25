@@ -9,7 +9,7 @@ import {of} from 'rxjs';
 @Injectable()
 export class CulturalOfferEffects {
   @Effect()
-  culturalOffers = this.actions$.pipe(
+  getCulturalOffers = this.actions$.pipe(
     ofType(culturalOfferActions.GET_CULTURALOFFER_PAGE),
     switchMap((data: culturalOfferActions.GetCulturalOfferPage) => {
       return this.http.get(
@@ -20,7 +20,7 @@ export class CulturalOfferEffects {
             return new CulturalOfferActions.GetCulturalOfferPageSuccess(dataRes);
           }),
           catchError(errorRes => {
-            return of(new CulturalOfferActions.ErrorAction(errorRes.message));
+            return of(new CulturalOfferActions.ErrorAction('Something went wrong while fetching cultural offers!'));
           })
         );
     })
@@ -38,7 +38,7 @@ export class CulturalOfferEffects {
             return new CulturalOfferActions.SuccessAction('Cultural offer successfully deleted.');
           }),
           catchError(errorRes => {
-            return of(new CulturalOfferActions.ErrorAction('Cultural offer cant be removed'));
+            return of(new CulturalOfferActions.ErrorAction('Cultural offer cant be removed!'));
           })
         );
     })
@@ -57,7 +57,7 @@ export class CulturalOfferEffects {
             return new CulturalOfferActions.FilterSuccessAction(dataRes);
           }),
           catchError(errorRes => {
-            return of(new CulturalOfferActions.ErrorAction(errorRes.message));
+            return of(new CulturalOfferActions.ErrorAction('Error has occurred while performing filter!'));
           })
         );
     })
@@ -77,7 +77,7 @@ export class CulturalOfferEffects {
             return new CulturalOfferActions.CategoryChangedActionSuccess(dataRes);
           }),
           catchError(errorRes => {
-            return of(new CulturalOfferActions.ErrorAction(errorRes.message));
+            return of(new CulturalOfferActions.ErrorAction('Something went wrong while fetching subcategories!'));
           })
         );
     })
@@ -170,7 +170,7 @@ export class CulturalOfferEffects {
               {page: 0, page_size: 10, categories: dataRes});
           }),
           catchError(errorRes => {
-            return of(new CulturalOfferActions.ErrorAction(errorRes.message));
+            return of(new CulturalOfferActions.ErrorAction('Something went wrong while fetching categories.'));
           })
         );
     })
@@ -214,7 +214,7 @@ export class CulturalOfferEffects {
               {categories: data.payload.categories, subcategories: dataRes});
           }),
           catchError(errorRes => {
-            return of(new CulturalOfferActions.ErrorAction(errorRes.message));
+            return of(new CulturalOfferActions.ErrorAction('Something went wrong while fetching categories and subcategories!'));
           })
         );
     })
@@ -336,7 +336,7 @@ export class CulturalOfferEffects {
             return new CulturalOfferActions.GetSubCategories({page: 0, page_size: 10, culturalOffer: dataRes});
           }),
           catchError(errorRes => {
-            return of(new CulturalOfferActions.ErrorAction(errorRes.message));
+            return of(new CulturalOfferActions.ErrorAction('Something went wrong while cultural offer!'));
           })
         );
     })
@@ -357,7 +357,7 @@ export class CulturalOfferEffects {
               {page: 0, page_size: 10, subcategories: dataRes, culturalOffer: data.payload.culturalOffer});
           }),
           catchError(errorRes => {
-            return of(new CulturalOfferActions.ErrorAction(errorRes.message));
+            return of(new CulturalOfferActions.ErrorAction('Something went wrong while fetching subcategories!'));
           })
         );
     })
@@ -377,7 +377,7 @@ export class CulturalOfferEffects {
               {categories: dataRes, subcategories: data.payload.subcategories, culturalOffer: data.payload.culturalOffer});
           }),
           catchError(errorRes => {
-            return of(new CulturalOfferActions.ErrorAction(errorRes.message));
+            return of(new CulturalOfferActions.ErrorAction('Something went wrong while fetching categories.'));
           })
         );
     })

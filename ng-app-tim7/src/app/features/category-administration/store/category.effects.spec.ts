@@ -33,7 +33,7 @@ describe('CategoryEffects', () => {
     it('SUCCESS: should return a GetCategoriesByPageSuccess action with page of categories as a payload', () => {
       actions$ = of(new CategoryActions.GetCategoriesPage({page: 0, size: 10}));
       effects.categories.subscribe(action => {
-        expect(action).toEqual(new CategoryActions.GetCategoriesByPageSuccess({content: [{id: 1, name: 'category'}]}));
+        expect(action).toEqual(new CategoryActions.GetCategoriesByPageSuccess({content: [{id:  1, name: 'category'}]}));
       });
       const req = http.expectOne('http://localhost:8080/categories/by-page?page=0&size=10');
       expect(req.request.method).toEqual('GET');

@@ -20,10 +20,10 @@ export class CulturalOfferDashboardComponent implements OnInit, OnDestroy{
   culturalOffers: CulturalofferModel[];
   success: string = null;
   error: string = null;
-  private storeSub: Subscription;
+  public storeSub: Subscription;
 
-  constructor(private router: Router, private store: Store<fromApp.AppState>,
-              private snackBar: MatSnackBar) {}
+  constructor(public router: Router, public store: Store<fromApp.AppState>,
+              public snackBar: MatSnackBar) {}
 
   ngOnInit(): void {
     this.store.dispatch(new CulturalOfferActions.GetCulturalOfferPage({ page: this.page, size: this.pageSize }));
@@ -49,7 +49,7 @@ export class CulturalOfferDashboardComponent implements OnInit, OnDestroy{
   }
 
   onDelete(id: number){
-    this.store.dispatch(new CulturalOfferActions.DeleteCulturalOffer({id, page: this.page, page_size: this.pageSize}));
+    this.store.dispatch(new CulturalOfferActions.DeleteCulturalOffer({id}));
   }
 
   onPagination(page: number){
@@ -57,13 +57,13 @@ export class CulturalOfferDashboardComponent implements OnInit, OnDestroy{
     this.store.dispatch(new CulturalOfferActions.GetCulturalOfferPage({page: this.page, size: this.pageSize }));
   }
 
-  private showSuccessAlert(message: string) {
+  showSuccessAlert(message: string) {
     this.snackBar.open(message, 'Ok', { duration: 3000 });
     this.store.dispatch(new CulturalOfferActions.ClearAction());
     this.store.dispatch(new CulturalOfferActions.GetCulturalOfferPage({page: this.page, size: this.pageSize }));
   }
 
-  private showErrorAlert(message: string) {
+  showErrorAlert(message: string) {
     this.snackBar.open(message, 'Ok', { duration: 3000 });
     this.store.dispatch(new CulturalOfferActions.ClearAction());
   }
