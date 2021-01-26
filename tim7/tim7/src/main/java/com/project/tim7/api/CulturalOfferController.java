@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 import java.util.List;
 
+@CrossOrigin(origins = "https://localhost:4200")
 @RestController
 @RequestMapping(value="/cultural-offers")
 public class CulturalOfferController {
@@ -36,10 +37,10 @@ public class CulturalOfferController {
     @PreAuthorize("hasRole('ROLE_ADMINISTRATOR')")
     @RequestMapping(method= RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<CulturalOfferDTO> createCulturalOffer(@Valid @RequestBody CulturalOfferDTO culturalOfferDTO){
+        culturalOfferDTO.setId(-1);
         CulturalOffer savedCulturalOffer = culturalOfferService.saveOne(culturalOfferDTO);
 
         CulturalOfferDTO payload = savedCulturalOffer == null ? null : culturalOfferMapper.toDto(savedCulturalOffer);
-
         //Setting response to either OK if Cultural Offer is saved, otherwise BAD_REQUEST.
         return new ResponseEntity<>(payload, savedCulturalOffer == null ? HttpStatus.BAD_REQUEST: HttpStatus.OK);
     }
@@ -54,10 +55,10 @@ public class CulturalOfferController {
     public ResponseEntity<String> deleteCulturalOffer(@PathVariable("id") int id){
 
         boolean deletedSuccess = culturalOfferService.delete(id);
-        String toastMessage = deletedSuccess ? "Successfully deleted cultural offer." : "Removal of cultural offer failed.";
+        //String toastMessage = deletedSuccess ? "Successfully deleted cultural offer." : "Removal of cultural offer failed.";
         HttpStatus statusCode = deletedSuccess ? HttpStatus.OK : HttpStatus.BAD_REQUEST;
 
-        return new ResponseEntity<>(toastMessage, statusCode);
+        return new ResponseEntity<>(null, statusCode);
     }
 
     /**
@@ -73,7 +74,7 @@ public class CulturalOfferController {
         //Checking if cultural offer was found and returning status code 200 with DTO for success or 400 and NULL for fail.
         HttpStatus httpCode = culturalOffer == null ? HttpStatus.BAD_REQUEST : HttpStatus.OK;
         CulturalOfferDTO payload = culturalOffer == null ? null : culturalOfferMapper.toDto(culturalOffer);
-
+        System.out.println(payload);
         return new ResponseEntity<>(payload, httpCode);
     }
 
@@ -86,8 +87,8 @@ public class CulturalOfferController {
     @RequestMapping(method = RequestMethod.PUT, consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<CulturalOfferDTO> updateCulturalOffer(@Valid @RequestBody CulturalOfferDTO culturalOfferDTO){
 
-        CulturalOffer updatedCulturalOffer = culturalOfferService.update(culturalOfferDTO);
 
+        CulturalOffer updatedCulturalOffer = culturalOfferService.update(culturalOfferDTO);
         return updatedCulturalOffer != null ?
                 new ResponseEntity<>(culturalOfferMapper.toDto(updatedCulturalOffer), HttpStatus.OK) :
                 new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
@@ -99,7 +100,6 @@ public class CulturalOfferController {
      * @param pageable - Page object with number of elements to return and number of page.
      * @return - Returning desired number of objects according to page object.
      */
-    @PreAuthorize("hasRole('ROLE_ADMINISTRATOR')")
     @RequestMapping(value= "/by-page",method = RequestMethod.GET)
     public ResponseEntity<Page<CulturalOfferDTO>> getAllCulturalOffersPaged(Pageable pageable) {
         Page<CulturalOffer> page = culturalOfferService.findAll(pageable);
@@ -122,6 +122,21 @@ public class CulturalOfferController {
     	Page<CulturalOfferDTO> culturalOfferDTOPage = new PageImpl<>(culturalOfferDTOs, page.getPageable(), page.getTotalElements());
 
     	return new ResponseEntity<>(culturalOfferDTOPage, HttpStatus.OK);
+    }
+    
+    /**
+     * Get cultural offers of one subcategory
+     * @param id - subcateory id
+     * @return - Returning cultural offer of one subcategory
+     */
+    @PreAuthorize("hasRole('ROLE_ADMINISTRATOR')")
+    @RequestMapping(value= "/subcategory/{id}/by-page",method = RequestMethod.GET)
+    public ResponseEntity<Page<CulturalOfferDTO>> getAllCulturalOffersBySubcategoryPaged(@PathVariable("id") int id, Pageable pageable) {
+        Page<CulturalOffer> page = culturalOfferService.findBySubcategory(id, pageable);
+        List<CulturalOfferDTO> culturalOfferDTOS = culturalOfferMapper.toCulturalOfferDTOList(page.toList());
+        Page<CulturalOfferDTO> culturalOfferDTOPage = new PageImpl<>(culturalOfferDTOS,page.getPageable(),page.getTotalElements());
+
+        return new ResponseEntity<>(culturalOfferDTOPage, HttpStatus.OK);
     }
 
     /**
@@ -146,9 +161,8 @@ public class CulturalOfferController {
 		
 		CulturalOffer subscribed = culturalOfferService.subscribe(subscribeData.idOffer, subscribeData.idUser);
         httpCode = subscribed == null ? HttpStatus.BAD_REQUEST : HttpStatus.OK;
-        toastMessage = subscribed == null ? "Subscription failed!" : "Successfully subscribed!";
 
-		return new ResponseEntity<>(toastMessage,httpCode);
+		return new ResponseEntity<>(httpCode);
     }
     
     /**
@@ -173,11 +187,22 @@ public class CulturalOfferController {
 		
 		CulturalOffer subscribed = culturalOfferService.unsubscribe(subscribeData.idOffer, subscribeData.idUser);
         httpCode = subscribed == null ? HttpStatus.BAD_REQUEST : HttpStatus.OK;
-        toastMessage = subscribed == null ? "Unsubscription failed!" : "Successfully unsubscribed!";
 
-		return new ResponseEntity<>(toastMessage,httpCode);
+		return new ResponseEntity<>(httpCode);
     }
 
+    @PreAuthorize("hasRole('ROLE_REGISTERED')")
+    @RequestMapping(value= "/alreadySubscribed/{offerId}", method = RequestMethod.GET)
+    public ResponseEntity<String> alreadySubscribed(@PathVariable int offerId){
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        Person person = (Person) authentication.getPrincipal();
+        boolean alreadySubscribed = culturalOfferService.checkIfSubscribed(offerId, person.getId());
+        if(alreadySubscribed){
+            return new ResponseEntity<>(HttpStatus.OK);
+        }else{
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+    }
 
     static class Subscribe {
         public int idOffer;

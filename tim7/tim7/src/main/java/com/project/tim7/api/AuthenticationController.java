@@ -5,13 +5,11 @@ import com.project.tim7.dto.UserLoginDTO;
 import com.project.tim7.dto.UserTokenStateDTO;
 import com.project.tim7.helper.RegisteredMapper;
 import com.project.tim7.model.Administrator;
+import com.project.tim7.model.Authority;
 import com.project.tim7.model.Person;
 import com.project.tim7.model.Registered;
 import com.project.tim7.security.TokenUtils;
-import com.project.tim7.service.AdministratorService;
-import com.project.tim7.service.CustomUserDetailsService;
-import com.project.tim7.service.EmailService;
-import com.project.tim7.service.RegisteredService;
+import com.project.tim7.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -27,6 +25,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
+import java.util.List;
 
 //123qweASD
 @RestController
@@ -47,6 +46,9 @@ public class AuthenticationController {
 
     @Autowired
     private AdministratorService adminService;
+
+    @Autowired
+    AuthorityService authorityService;
     
     @Autowired
 	private PasswordEncoder passwordEncoder;
@@ -72,11 +74,10 @@ public class AuthenticationController {
 
         // Kreiraj token za tog korisnika
         Person person = (Person) authentication.getPrincipal();
-        String jwt = tokenUtils.generateToken(person.getUsername()); // prijavljujemo se na sistem sa email adresom
-        int expiresIn = tokenUtils.getExpiredIn();
-        
+        String jwt = tokenUtils.generateToken(person.getUsername(), person.getId(), person.getAuthorities().get(0).getAuthority()); // prijavljujemo se na sistem sa email adresom
+
         // Vrati token kao odgovor na uspesnu autentifikaciju
-        return ResponseEntity.ok(new UserTokenStateDTO(jwt, expiresIn));
+        return ResponseEntity.ok(new UserTokenStateDTO(jwt));
     }
 
     // Endpoint za registraciju novog korisnika
@@ -90,6 +91,12 @@ public class AuthenticationController {
         }
         existReg = regMapper.toEntity(userRequest);
         existReg.setPassword(passwordEncoder.encode(userRequest.getPassword()));
+
+        long role = 2;
+        List<Authority> auth = authorityService.findById(role);
+        existReg.setAuthorities(auth);
+        existReg.setVerified(false);
+
         Registered newReg = regService.registerUser(existReg);
 
         if(newReg == null){
@@ -99,14 +106,14 @@ public class AuthenticationController {
     }
     
     // Endpoint za aktivaciju naloga
-    @PostMapping("/activate")
-    public ResponseEntity<?> activate(@RequestBody Integer id) {
+    @PostMapping("/activate/{id}")
+    public ResponseEntity<?> activate(@PathVariable Integer id) {
     	Registered regUser = regService.activateAccount(id);
 
     	if(regUser == null)
         	return new ResponseEntity<>("Activation failed.", HttpStatus.BAD_REQUEST);
 
-    	return new ResponseEntity<>("Activation succeeded.", HttpStatus.OK);
+    	return new ResponseEntity<>(HttpStatus.OK);
     }
 
     // U slucaju isteka vazenja JWT tokena, endpoint koji se poziva da se token osvezi
@@ -121,7 +128,7 @@ public class AuthenticationController {
             String refreshedToken = tokenUtils.refreshToken(token);
             int expiresIn = tokenUtils.getExpiredIn();
 
-            return ResponseEntity.ok(new UserTokenStateDTO(refreshedToken, expiresIn));
+            return ResponseEntity.ok(new UserTokenStateDTO(refreshedToken));
         } else {
             UserTokenStateDTO userTokenState = new UserTokenStateDTO();
             return ResponseEntity.badRequest().body(userTokenState);

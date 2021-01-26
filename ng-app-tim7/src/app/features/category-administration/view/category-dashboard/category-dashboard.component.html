@@ -1,0 +1,51 @@
+<h1 class="mat-display-1;" style="text-align: center;  margin-top: 1%;">Categories</h1>
+<mat-divider></mat-divider>
+<br><br>
+<div style="float: left; margin-left: 1%; font-size: large">
+
+  <mat-label>Add category</mat-label>
+
+  <form  [formGroup]="form" (ngSubmit)="addCategory()" style="padding-left: 25px;">
+
+    <mat-form-field>
+      <mat-label for="categoryNameInput">Name:</mat-label>
+      <input matInput id="categoryNameInput" name="categoryNameInput" placeholder="Category name" [formControl]="form.controls.categoryNameInput">
+      <mat-error *ngIf="form.controls.categoryNameInput.touched && form.controls.categoryNameInput.errors?.required">
+        This field can't be empty!</mat-error >
+    </mat-form-field>
+    <br>
+    <button id="addCategoryBtn" mat-raised-button type="submit" [disabled]="!form.valid">Add category</button>
+
+  </form>
+
+  <br><br><br><br>
+
+  <div [hidden]="this.isHidden">
+
+    <mat-label>Edit category</mat-label>
+
+    <form  [formGroup]="formEdit" (ngSubmit)="editCategory()" style="padding-left: 25px;">
+
+      <mat-form-field>
+        <mat-label for="categoryNameEdit">Name:</mat-label>
+        <input matInput id="categoryNameEdit" name="categoryNameEdit" placeholder="Category name" [formControl]="formEdit.controls.categoryNameEdit">
+        <mat-error *ngIf="formEdit.controls.categoryNameEdit.touched && formEdit.controls.categoryNameEdit.errors?.required">
+          This field can't be empty!</mat-error >
+      </mat-form-field>
+      <br>
+      <button id="updateCategoryBtn" mat-raised-button type="submit" [disabled]="!formEdit.valid">Update category</button>
+
+    </form>
+  </div>
+
+</div>
+<div style="width: 50%; height: 50%; float: right; padding-right: 10%">
+  <app-table [dataSource]="categories.content" [columnsToDisplay]="['name', 'delete']" [columnsToIterate]="['name']" (Click)="editModeOn($event)" (Delete)="deleteCategory($event)"></app-table>
+
+  <app-pagination [pageSize]="pageSize"
+                  [totalItems]="categories.totalElements"
+                  [totalPages]="categories.totalPages"
+                  [currentPage]="categories.number"
+                  (ChangePage)="onPagination($event)"
+  ></app-pagination>
+</div>

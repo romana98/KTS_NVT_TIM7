@@ -28,5 +28,11 @@ public class CategoryConstants {
     public static final String CONTROLLER_OLD_CATEGORY_NAME = "Category2";
     public static final String CONTROLLER_NEW_INVALID_CATEGORY_NAME = "Category1";
     public static final int CONTROLLER_INVALID_CATEGORY_ID = 100;
+    
+    public static final int SUBSCRIBED_CATEGORIES = 1;
+    public static final int USER_ID_SUBSCRIBED = 3;
+    public static final String USERNAME_SUBSCRIBED = "nijeMico";
+
+    
 
 }

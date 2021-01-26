@@ -57,6 +57,8 @@ public class CulturalOfferConstants {
     public static final String SAVE_ONE_CULTURAL_OFFER_NAME_FAIL = "Exit";
     public static final String SAVE_ONE_CULTURAL_OFFER_STARTDATE = "2019-02-03";
     public static final int SAVE_ONE_CULTURAL_OFFER_LOCATION = 1;
+    public static final double SAVE_ONE_CULTURAL_OFFER_LONGITUDE_1 = 19.83694;
+    public static final double SAVE_ONE_CULTURAL_OFFER_LATITUDE_1 = 45.25167;
     public static final int SAVE_ONE_CULTURAL_OFFER_LOCATION_FAIL = 7;
     public static final int SAVE_ONE_CULTURAL_OFFER_SUBCATEGORY = 1;
     public static final int SAVE_ONE_CULTURAL_OFFER_SUBCATEGORY_FAIL = 6;
@@ -132,6 +134,7 @@ public class CulturalOfferConstants {
     public static final String OLD_CULTURAL_OFFER_STARTDATE = "2020-07-11";
     public static final int OLD_CULTURAL_OFFER_LOCATION = 1;
     public static final int OLD_CULTURAL_OFFER_SUBCATEGORY = 1;
+    public static final int EXPECTED_OFFERS_BY_SUBCATEGORY = 2;
 
 
 

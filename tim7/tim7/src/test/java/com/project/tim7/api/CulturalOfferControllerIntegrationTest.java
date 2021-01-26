@@ -155,32 +155,7 @@ public class CulturalOfferControllerIntegrationTest {
 
         CulturalOfferDTO culturalOffer = new CulturalOfferDTO(SAVE_ONE_CULTURAL_OFFER_NAME,SAVE_ONE_CULTURAL_OFFER_DESCRIPTION,
                 new SimpleDateFormat("yyyy-MM-dd").parse(SAVE_ONE_CULTURAL_OFFER_STARTDATE),new SimpleDateFormat("yyyy-MM-dd").parse(SAVE_ONE_CULTURAL_OFFER_ENDDATE),
-                SAVE_ONE_CULTURAL_OFFER_LOCATION,SAVE_ONE_CULTURAL_OFFER_SUBCATEGORY_FAIL, pictures );
-
-        HttpEntity<Object> httpEntity = new HttpEntity<>(culturalOffer,headers);
-
-        ResponseEntity<CulturalOfferDTO> responseEntity =
-                restTemplate.exchange("/cultural-offers", HttpMethod.POST, httpEntity,
-                        CulturalOfferDTO.class);
-
-        CulturalOfferDTO culturalOfferAdded = responseEntity.getBody();
-
-        assertEquals(HttpStatus.BAD_REQUEST, responseEntity.getStatusCode());
-        assertNull(culturalOfferAdded);
-    }
-
-    //Creating cultural offer with two same pictures.
-    @Test
-    public void testCreateCulturalOfferInvalidPictures() throws ParseException {
-    	login();
-
-        ArrayList<String> pictures = new ArrayList<>();
-        pictures.add(SAVE_ONE_CULTURAL_OFFER_PICTURE1);
-        pictures.add(SAVE_ONE_CULTURAL_OFFER_PICTURE2);
-
-        CulturalOfferDTO culturalOffer = new CulturalOfferDTO(SAVE_ONE_CULTURAL_OFFER_NAME,SAVE_ONE_CULTURAL_OFFER_DESCRIPTION,
-                new SimpleDateFormat("yyyy-MM-dd").parse(SAVE_ONE_CULTURAL_OFFER_STARTDATE),new SimpleDateFormat("yyyy-MM-dd").parse(SAVE_ONE_CULTURAL_OFFER_ENDDATE),
-                SAVE_ONE_CULTURAL_OFFER_LOCATION,SAVE_ONE_CULTURAL_OFFER_SUBCATEGORY_FAIL, pictures );
+                SAVE_ONE_CULTURAL_OFFER_SUBCATEGORY_FAIL, SAVE_ONE_CULTURAL_OFFER_LOCATION, pictures );
 
         HttpEntity<Object> httpEntity = new HttpEntity<>(culturalOffer,headers);
 
@@ -219,7 +194,10 @@ public class CulturalOfferControllerIntegrationTest {
 
         CulturalOfferDTO culturalOfferRestore = new CulturalOfferDTO(OLD_CULTURAL_OFFER_ID,OLD_CULTURAL_OFFER_NAME,OLD_CULTURAL_OFFER_DESCRIPTION,
                 new SimpleDateFormat("yyyy-MM-dd").parse(OLD_CULTURAL_OFFER_STARTDATE),new SimpleDateFormat("yyyy-MM-dd").parse(OLD_CULTURAL_OFFER_ENDDATE),
-                OLD_CULTURAL_OFFER_LOCATION,OLD_CULTURAL_OFFER_SUBCATEGORY, pictures );
+                OLD_CULTURAL_OFFER_SUBCATEGORY ,OLD_CULTURAL_OFFER_LOCATION, pictures );
+
+        culturalOfferRestore.setLatitude(SAVE_ONE_CULTURAL_OFFER_LATITUDE_1);
+        culturalOfferRestore.setLongitude(SAVE_ONE_CULTURAL_OFFER_LONGITUDE_1);
 
         culturalOfferService.update(culturalOfferRestore);
 
@@ -237,6 +215,9 @@ public class CulturalOfferControllerIntegrationTest {
         CulturalOfferDTO culturalOffer = new CulturalOfferDTO(UPDATE_ONE_CULTURAL_OFFER_ID_FAIL,UPDATE_ONE_CULTURAL_OFFER_NAME,UPDATE_ONE_CULTURAL_OFFER_DESCRIPTION,
                 new SimpleDateFormat("yyyy-MM-dd").parse(UPDATE_ONE_CULTURAL_OFFER_STARTDATE),new SimpleDateFormat("yyyy-MM-dd").parse(UPDATE_ONE_CULTURAL_OFFER_ENDDATE),
                 UPDATE_ONE_CULTURAL_OFFER_LOCATION,UPDATE_ONE_CULTURAL_OFFER_SUBCATEGORY, pictures );
+
+        culturalOffer.setLatitude(SAVE_ONE_CULTURAL_OFFER_LATITUDE_1);
+        culturalOffer.setLongitude(SAVE_ONE_CULTURAL_OFFER_LONGITUDE_1);
 
         HttpEntity<Object> httpEntity = new HttpEntity<>(culturalOffer,headers);
 
@@ -298,30 +279,6 @@ public class CulturalOfferControllerIntegrationTest {
         assertNull(culturalOfferAdded);
     }
 
-    //Updating cultural offer with not existing location.
-    @Test
-    public void testUpdateCulturalOfferInvalidSubcategory() throws ParseException {
-    	login();
-        ArrayList<String> pictures = new ArrayList<>();
-        pictures.add(UPDATE_ONE_CULTURAL_OFFER_PICTURE1);
-        pictures.add(UPDATE_ONE_CULTURAL_OFFER_PICTURE2);
-
-        CulturalOfferDTO culturalOffer = new CulturalOfferDTO(UPDATE_ONE_CULTURAL_OFFER_ID,UPDATE_ONE_CULTURAL_OFFER_NAME,UPDATE_ONE_CULTURAL_OFFER_DESCRIPTION,
-                new SimpleDateFormat("yyyy-MM-dd").parse(UPDATE_ONE_CULTURAL_OFFER_STARTDATE),new SimpleDateFormat("yyyy-MM-dd").parse(UPDATE_ONE_CULTURAL_OFFER_ENDDATE),
-                UPDATE_ONE_CULTURAL_OFFER_LOCATION,SAVE_ONE_CULTURAL_OFFER_SUBCATEGORY_FAIL, pictures );
-
-        HttpEntity<Object> httpEntity = new HttpEntity<>(culturalOffer,headers);
-
-        ResponseEntity<CulturalOfferDTO> responseEntity =
-                restTemplate.exchange("/cultural-offers", HttpMethod.PUT, httpEntity,
-                        CulturalOfferDTO.class);
-
-        CulturalOfferDTO culturalOfferAdded = responseEntity.getBody();
-
-        assertEquals(HttpStatus.BAD_REQUEST, responseEntity.getStatusCode());
-        assertNull(culturalOfferAdded);
-    }
-
     //Delete cultural offer with given id.
     @Test
     @Sql(scripts = "classpath:insert-cultural-offer-data-h2.sql", executionPhase = Sql.ExecutionPhase.AFTER_TEST_METHOD)
@@ -335,6 +292,7 @@ public class CulturalOfferControllerIntegrationTest {
 
         assertEquals(HttpStatus.OK, responseEntity.getStatusCode());
     }
+
     //Delete non existing cultural offer.
     @Test
     public void testDeleteCulturalOfferInvalid(){
@@ -616,10 +574,23 @@ public class CulturalOfferControllerIntegrationTest {
         headers.setContentType(MediaType.APPLICATION_JSON);
         headers.add("Content-Type", "application/json");
     }
-    
+
+    @Test
+    public void testCheckIfSubscribed(){
+        loginRegUnsubscribe();
+        HttpEntity<Object> httpEntity = new HttpEntity<>(headers);
+
+        ResponseEntity<String> responseEntity =
+                restTemplate.exchange("/cultural-offers/alreadySubscribed/1", HttpMethod.GET, httpEntity,
+                        String.class);
+
+        assertEquals(HttpStatus.OK, responseEntity.getStatusCode());
+    }
+
     //Subscribe success
     @Test
     @Transactional
+    @Sql(scripts = "classpath:insert-data-subcribed.sql", executionPhase = Sql.ExecutionPhase.AFTER_TEST_METHOD)
     public void testSubscribeSuccess() throws JsonProcessingException {
     	loginRegSubscribe();
         Subscribe data = new Subscribe();
@@ -633,7 +604,6 @@ public class CulturalOfferControllerIntegrationTest {
                         String.class);
 
         assertEquals(HttpStatus.OK, responseEntity.getStatusCode());
-        culturalOfferService.unsubscribe(CULTURAL_OFFER_ID, REGISTERED_ID_NOT_SUBSCRIBED);
     }
     
     //Subscribe fail
@@ -689,6 +659,23 @@ public class CulturalOfferControllerIntegrationTest {
                         String.class);
 
         assertEquals(HttpStatus.BAD_REQUEST, responseEntity.getStatusCode());
+    }
+    
+    @Test
+    public void testGetCulturalOfferBySubcategory() throws JsonProcessingException {
+    	login();
+        HttpEntity<Object> httpEntity = new HttpEntity<>(headers);
+
+        ObjectMapper objectMapper = new ObjectMapper();
+
+        ResponseEntity<String> responseEntity =
+                restTemplate.exchange("/cultural-offers/subcategory/1/by-page?page=0&size=2", HttpMethod.GET, httpEntity,
+                        String.class);
+
+        Page<CulturalOfferDTO> culturalOffers = objectMapper.readValue(responseEntity.getBody(), new TypeReference<RestResponsePage<CulturalOfferDTO>>() {});
+         
+        assertEquals(HttpStatus.OK, responseEntity.getStatusCode());
+        assertEquals(EXPECTED_OFFERS_BY_SUBCATEGORY, culturalOffers.getNumberOfElements());
     }
 
 }

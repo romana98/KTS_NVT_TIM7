@@ -1,3 +1,4 @@
+SET DateStyle TO MDY;
 insert into cultural_offers (name, start_date, end_date, location_id, subcategory_id, description) values ('Exit', '7/8/2020', '2020-07-11 22:34:31 UTC', 1, 7, 'Proslava 20. godišnjice EXIT festivala biće održana u njegovom poznatom punom formatu od 8. do 11. jula 2021. na Petrovaradinskoj tvrđavi.');
 insert into cultural_offers (name, start_date, end_date, location_id, subcategory_id, description) values ('Ben Caplin and The Casual Smokers', '12/4/2021', '2019-12-05 06:42:55 UTC', 2, 9, 'Kanadski trubadur, Ben Kaplan (Caplan), ovoga puta sa svojim bendom vraća se u Beograd gde će nastupati 5. decembra u Jazz kantini Lisabon u organizaciji koncertne agencije Rock svirke sa početkom u 20h.');
 insert into cultural_offers (name, start_date, end_date, location_id, subcategory_id, description) values ('Ozaloscena porodica: Branislav Nusic', '2/11/2019', '2019-02-18 06:34:52 UTC', 3, 10, 'Po motivima Branislava Nusica.');

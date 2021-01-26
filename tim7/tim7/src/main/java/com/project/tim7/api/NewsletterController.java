@@ -129,6 +129,22 @@ public class NewsletterController {
         return new ResponseEntity<Page<NewsletterDetailsDTO>>(pageNewsletterDTOS, HttpStatus.OK);
     }
 	
+	@PreAuthorize("hasRole('ROLE_REGISTERED')")
+    @RequestMapping(value= "/subscribed/{id-user}/{id-cat}/by-page",method = RequestMethod.GET)
+    public ResponseEntity<?> findNewsletterForUserByCategory(@PathVariable("id-user") int idUser, @PathVariable("id-cat") int idCat, Pageable pageable) {
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+		Person person = (Person) authentication.getPrincipal();
+		if(person.getId() != idUser) {
+			return new ResponseEntity<String>("Authentication failed!", HttpStatus.BAD_REQUEST);
+		}
+		
+        Page<Newsletter> page = newsletterService.findNewsletterForUserByCategory(idUser, idCat, pageable);
+        List<NewsletterDetailsDTO> dtos = toNewsletterDetailsDTOList(page.toList());
+        Page<NewsletterDetailsDTO> pageNewsletterDTOS = new PageImpl<>(dtos,page.getPageable(),page.getTotalElements());
+
+        return new ResponseEntity<Page<NewsletterDetailsDTO>>(pageNewsletterDTOS, HttpStatus.OK);
+    }
+	
     @RequestMapping(value= "/cultural-offer/{id-offer}", method = RequestMethod.GET)
 	public ResponseEntity<?> findNewsletterForCulturalOffer(@PathVariable("id-offer") int idOffer){
 		List<Newsletter> newsletters = newsletterService.findNewsletterForCulturalOffer(idOffer);
@@ -139,10 +155,10 @@ public class NewsletterController {
     @RequestMapping(value= "/cultural-offer/{id-offer}/by-page", method = RequestMethod.GET)
 	public ResponseEntity<?> findNewsletterForCulturalOffer(@PathVariable("id-offer") int idOffer, Pageable pageable){
 		Page<Newsletter> page = newsletterService.findNewsletterForCulturalOffer(idOffer, pageable);
-        List<NewsletterDTO> dtos = toNewsletterDTOList(page.toList());
-        Page<NewsletterDTO> pageNewsletterDTOS = new PageImpl<>(dtos,page.getPageable(),page.getTotalElements());
+        List<NewsletterDetailsDTO> dtos = toNewsletterDetailsDTOList(page.toList());
+        Page<NewsletterDetailsDTO> pageNewsletterDTOS = new PageImpl<>(dtos,page.getPageable(),page.getTotalElements());
 
-        return new ResponseEntity<Page<NewsletterDTO>>(pageNewsletterDTOS, HttpStatus.OK);
+        return new ResponseEntity<Page<NewsletterDetailsDTO>>(pageNewsletterDTOS, HttpStatus.OK);
 	}
 	
 	@PreAuthorize("hasRole('ROLE_ADMINISTRATOR') || hasRole('ROLE_REGISTERED')")

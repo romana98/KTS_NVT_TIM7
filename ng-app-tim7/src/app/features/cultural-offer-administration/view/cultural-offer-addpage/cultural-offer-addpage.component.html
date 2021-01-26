@@ -1,0 +1,82 @@
+<h1 class="mat-display-1;" style="text-align: center;  margin-top: 2%;font-size: xx-large">Cultural Offer</h1>
+
+<div style="float: left; width: 40%; padding-top: 5%; padding-left: 2%;">
+
+    <div style="float: right;width: 50%">
+      <form [formGroup]="culturalOfferForm" (ngSubmit)="onSubmitClicked()">
+      <mat-form-field appearance="outline" style="display: block">
+        <mat-label> Name </mat-label>
+        <input [formControl]="culturalOfferForm.controls.name" (change)="onValueChanged('name',$event)" matInput id="name" name="name" placeholder="Name">
+        <mat-error *ngIf="culturalOfferForm.controls.name.touched && culturalOfferForm.controls.name.errors?.required">
+          Name must be filled!</mat-error >
+      </mat-form-field>
+
+
+      <mat-form-field appearance="outline" style="display: block">
+        <mat-label>Category: </mat-label>
+        <mat-select msInfiniteScroll (infiniteScroll)="getNextBatchCategory()" *ngIf="this.categories" [value]="this.culturalOffer?.category" (selectionChange)="onValueChanged('category',$event)" id="category">
+          <mat-option *ngFor="let category of this.categories" [value]="category.id"> {{category.name}}</mat-option>
+        </mat-select>
+      </mat-form-field>
+
+
+      <mat-form-field appearance="outline" style="display: block">
+        <mat-label>Subcategory: </mat-label>
+        <mat-select id="subcategory" msInfiniteScroll (infiniteScroll)="getNextBatchSubcategory()" *ngIf="this.subcategories" [value]="this.culturalOffer?.subcategory" (selectionChange)="onValueChanged('subcategory',$event)">
+          <mat-option *ngFor="let subcategory of this.subcategories" [value]="subcategory.id"> {{subcategory.name}}</mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" style="display: block">
+        <mat-label>Choose start date:</mat-label>
+        <input id="startDate" [value]="culturalOfferForm.controls.startDate.value | date: 'yyyy-MM-dd'" (dateChange)="onValueChanged('startDate',$event)"
+               matInput [matDatepicker]="picker">
+        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-datepicker #picker></mat-datepicker>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" style="display: block">
+        <mat-label>Choose end date:</mat-label>
+        <input id="endDate" [value]="culturalOfferForm.controls.endDate.value | date: 'yyyy-MM-dd'" (dateChange)="onValueChanged('endDate',$event)" matInput
+               [matDatepicker]="picker2">
+        <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+        <mat-datepicker  #picker2></mat-datepicker>
+      </mat-form-field>
+
+        <mat-error *ngIf="culturalOfferForm.hasError('testBefore')">
+          Dates are not in order!</mat-error >
+
+      <mat-form-field *ngIf="this.culturalOffer" style="width: 100%" appearance="outline">
+        <mat-label for="description">Description:</mat-label>
+        <textarea [value]="this.culturalOffer.description" (change)="onValueChanged('description',$event)" matInput rows="10" id="description" name="description" placeholder="Description"></textarea>
+        <mat-error *ngIf="culturalOfferForm.controls.description.touched && culturalOfferForm.controls.description.errors?.required">
+          Description must not be empty!</mat-error>
+      </mat-form-field>
+
+
+      <button id="saveButton" [disabled]="culturalOfferForm.invalid" style="margin-top: 5%;float:right;background-color: green" mat-raised-button type="submit">Save offer</button>
+      </form>
+    </div>
+
+    <div style="width: 48%;float: right;margin-right: 2%" *ngIf="this.culturalOffer">
+      <app-carousel style="width: 85%" (currentPicture)="onPictureChanged($event)" [inputPictures]="culturalOffer.pictures" [inputProportion]="60"></app-carousel>
+      <button style="margin-right: 30%;margin-top: 5%;background-color: green" type="button" mat-raised-button (click)="fileInput.click()">Upload picture</button>
+      <input (change)="onFileChanged($event)" hidden #fileInput type="file" id="file">
+
+      <div style="float:right; margin-top: 4%; margin-right: 2%" [hidden]="this.culturalOffer.pictures?.length === 0">
+        <button id="removeButton" mat-mini-fab style="background-color: red;" (click)="onPictureRemove()" >
+          <mat-icon style="color: white">delete</mat-icon>
+        </button>
+      </div>
+
+    </div>
+
+</div>
+
+<div style="padding-right: 3%;float: right;padding-top: 5%;width: 50%;" *ngIf="this.culturalOffer">
+
+  <app-google-map
+    [focusInput]="{id: this.culturalOffer.location, latitude: this.culturalOffer.latitude, longitude: this.culturalOffer.longitude}"
+    [draggable]="true" [input]="[this.culturalOffer]" (DragEnd)="onLocationChanged($event)"></app-google-map>
+
+</div>

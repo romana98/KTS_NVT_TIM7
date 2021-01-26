@@ -1,0 +1,36 @@
+<mat-toolbar color="primary">
+
+  <a routerLink="/" id="home-nav" style="margin-left: 0.1%;" ><mat-icon [ngStyle]="{'color':'white'}">emoji_people</mat-icon></a>
+  <span>CulturalOffers</span>
+
+  <span style="padding-left:5%" class="example-spacer"> </span>
+
+
+  <button mat-button [matMenuTriggerFor]="administratorMenu" id="administratorMenu">Administrator</button>
+  <mat-menu #administratorMenu="matMenu">
+    <a routerLink="/administrator/add-administrator" style="margin-left: 5%;" ><button style="width: 90%;margin-bottom: 5%"mat-flat-button color="primary" id="add-admin-navigate">Add Administrator</button></a>
+    <a routerLink="/administrator/dashboard" style="margin-left: 5%;" ><button mat-flat-button style="width: 90%;margin-bottom: 5%" color="primary" id="admin-dashboard-navigate">Administrator Dashboard</button></a>
+  </mat-menu>
+
+  <a routerLink="/administrator/manage-categories/dashboard" style="margin-left: 0.3%;"><button  mat-flat-button color="primary" id="category-dashboard-nav">Categories</button></a>
+  <a routerLink="/administrator/manage-subcategories/dashboard" style="margin-left: 0.3%"><button  mat-flat-button color="primary" id="subcategory-dashboard-nav">Subcategories</button></a>
+
+  <button mat-button [matMenuTriggerFor]="newsletterMenu" id="newsletterMenu">Newsletter</button>
+  <mat-menu #newsletterMenu="matMenu">
+    <a routerLink="/newsletter/dashboard" style="margin-left: 5%;" ><button style="width: 90%;margin-bottom: 5%" mat-flat-button color="primary" id="newsletter-dashboard-nav">Newsletter</button></a>
+    <a routerLink="/newsletter/add-newsletter" style="margin-left: 5%;" ><button style="width: 90%;margin-bottom: 5%" mat-flat-button color="primary" id="publish-newsletter-nav">Publish newsletter</button></a>
+  </mat-menu>
+
+
+  <button mat-button [matMenuTriggerFor]="culturalOfferMenu" id="culturalOfferMenu">Cultural Offers</button>
+  <mat-menu #culturalOfferMenu="matMenu">
+    <a routerLink="/administrator/culturalOfferDashboard" style="margin-left: 5%;" ><button style="width: 90%;margin-bottom: 5%" mat-flat-button color="primary" id="culturaloffer-dashboard-nav">Cultural Offer Dashboard</button></a>
+    <a routerLink="/administrator/addCulturalOffer" style="margin-left: 5%;" ><button style="width: 90%;margin-bottom: 5%" mat-flat-button color="primary" id="culturaloffer-add-nav" >Add Cultural Offer</button></a>
+  </mat-menu>
+
+  <span style="width: 35%"></span>
+
+  <a routerLink="/administrator/view-profile" style="margin-right: 2%;" id="view-profile"><mat-icon [ngStyle]="{'color':'white'}">face</mat-icon></a>
+  <a routerLink="/" style="margin-left: 0.5%;" ><mat-icon (click)="signOutUser()" [ngStyle]="{'color':'white'}">exit_to_app</mat-icon></a>
+
+</mat-toolbar>

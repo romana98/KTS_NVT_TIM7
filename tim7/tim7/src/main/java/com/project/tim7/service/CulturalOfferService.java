@@ -68,7 +68,7 @@ public class CulturalOfferService implements ServiceInterface<CulturalOffer> {
 	@Override
 	public CulturalOffer saveOne(CulturalOffer entity) {
 		if (entity != null){
-			this.culturalOfferRepo.save(entity);
+			entity = this.culturalOfferRepo.save(entity);
 			return entity;
 		}
 		return null;
@@ -87,13 +87,21 @@ public class CulturalOfferService implements ServiceInterface<CulturalOffer> {
 			return null;
 		}
 
-		CulturalOffer culturalOffer = new CulturalOffer(entity.getId(), entity.getName(),entity.getStartDate(), entity.getDescription(), entity.getEndDate());
+		CulturalOffer culturalOffer = new CulturalOffer(entity.getId(), entity.getName(),entity.getEndDate(), entity.getDescription(), entity.getStartDate());
 
 		//Extracting Location and Subcategory if they exist in Data Transfer Object.
-		Location location = locationService.findOne(entity.getLocation());
+		Location location = locationService.findOneByLongitudeAndLatitude(entity.getLongitude(),entity.getLatitude());
 		Subcategory subcategory = subcategoryService.findOne(entity.getSubcategory());
+		System.out.println(subcategory);
+		if(location == null){
+			Location newLocation = new Location();
+			newLocation.setLatitude(entity.getLatitude());
+			newLocation.setLongitude(entity.getLongitude());
+			newLocation.setName(entity.getLocationName());
+			location = locationService.saveOne(newLocation);
+		}
 
-		if(location == null || subcategory == null){
+		if(subcategory == null){
 			return null;
 		}
 
@@ -129,7 +137,7 @@ public class CulturalOfferService implements ServiceInterface<CulturalOffer> {
 		culturalOffer.setStartDate(entity.getStartDate());
 		culturalOffer.setLocation(entity.getLocation());
 		culturalOffer.setSubcategory(entity.getSubcategory());
-		if(entity.getPictures() == null){
+		if(entity.getPictures() != null){
 			culturalOffer.setPictures(entity.getPictures());
 		}
 		culturalOfferRepo.save(culturalOffer);
@@ -150,10 +158,18 @@ public class CulturalOfferService implements ServiceInterface<CulturalOffer> {
 		}
 
 		//Extracting non-primary attributes Location and Subcategory if they exist in Data Transfer Object.
-		Location location = locationService.findOne(entity.getLocation());
+		Location location = locationService.findOneByLongitudeAndLatitude(entity.getLongitude(),entity.getLatitude());
 		Subcategory subcategory = subcategoryService.findOne(entity.getSubcategory());
 
-		if(location == null || subcategory == null){
+		if(location == null){
+			Location newLocation = new Location();
+			newLocation.setLatitude(entity.getLatitude());
+			newLocation.setLongitude(entity.getLongitude());
+			newLocation.setName(entity.getLocationName());
+			location = locationService.saveOne(newLocation);
+		}
+
+		if(subcategory == null){
 			return null;
 		}
 
@@ -183,7 +199,10 @@ public class CulturalOfferService implements ServiceInterface<CulturalOffer> {
 	public boolean delete(int id) {
 		CulturalOffer culturalOffer = findOne(id);
 		if(culturalOffer != null){
-			culturalOfferRepo.delete(culturalOffer);
+			culturalOffer.setPictures(new HashSet<>());
+			culturalOffer.setComments(new HashSet<>());
+			CulturalOffer co = culturalOfferRepo.save(culturalOffer);
+			culturalOfferRepo.deleteById(co.getId());
 			return true;
 		}
 		return false;
@@ -191,6 +210,10 @@ public class CulturalOfferService implements ServiceInterface<CulturalOffer> {
 
 	public long getCulturalOfferReferencingCount(int id) {
 		return culturalOfferRepo.countBySubcategoryId(id);
+	}
+	
+	public Page<CulturalOffer> findBySubcategory(int id, Pageable pageable) {
+		return culturalOfferRepo.findBySubcategory(id, pageable);
 	}
 
 	/**
@@ -210,6 +233,15 @@ public class CulturalOfferService implements ServiceInterface<CulturalOffer> {
 		registered.getSubscribedCulturalOffers().add(culturalOffer);
 		return saveOne(culturalOffer);	
 	}
+
+	public boolean checkIfSubscribed(int idOffer, int idUser){
+		CulturalOffer co = culturalOfferRepo.findById(idOffer).orElse(null);
+		if (culturalOfferRepo.checkIfsubscriptionExists(idOffer, idUser) != 0){
+			return true;
+		}else{
+			return false;
+		}
+	}
 	
 	/**
 	 * Unsubscribing registered user from cultural offer
@@ -224,7 +256,7 @@ public class CulturalOfferService implements ServiceInterface<CulturalOffer> {
 			return null;
 		culturalOffer.getSubscribed().remove(registered);
 		registered.getSubscribedCulturalOffers().remove(culturalOffer);
-		return saveOne(culturalOffer);	
+		return saveOne(culturalOffer);
 	}
 
 	public Page<CulturalOffer> filter(FilterDTO filterDTO, Pageable pageable) {

@@ -1,0 +1,52 @@
+<h1 class="mat-display-1;" style="text-align: center;  margin-top: 1%;">Update Newsletter</h1>
+<mat-divider></mat-divider>
+<mat-progress-bar mode="indeterminate" *ngIf="bar"></mat-progress-bar>
+
+<div style="display: block; text-align: center; margin: 3%;">
+  <br>
+  <form [formGroup]="form"  (ngSubmit)="submit()" style="display: inline-block; width: 100%">
+
+    <div>
+      <mat-form-field  [style.width.%]="79">
+        <mat-label for="name">Title:</mat-label>
+        <input [(ngModel)]="name" matInput id="name" name="name" placeholder="title" [formControl]="form.controls.name">
+        <mat-error *ngIf="form.controls.name.touched && form.controls.name.errors?.required">
+          This field can't be empty!</mat-error >
+      </mat-form-field>
+    </div>
+
+    <div>
+        <table [style.width.%]="80" [style.margin-left.%]="6.5" [style.margin-bottom.%]="1">
+            <tr>
+                <td [style.width.%]="70" rowspan="2">
+                    <mat-form-field [style.width.%]="80" [style.margin.%]="1">
+                        <mat-label for="description">Description:</mat-label>
+                        <textarea [(ngModel)]="description" matInput rows="15" id="description" name="description" placeholder="description" [formControl]="form.controls.description"></textarea>
+                        <mat-error *ngIf="form.controls.description.touched && form.controls.description.errors?.required">
+                            This field can't be empty!</mat-error >
+                    </mat-form-field>
+                </td>
+                <td>
+                    <img style="max-width:400px;max-height:200px;" [src] = "picture!=='' ? picture : 'https://via.placeholder.com/200'"/>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                  <button style="margin-right: 3%;background-color: green" class="ng-hide" type="button" mat-raised-button (click)="fileInput.click()">Upload picture</button>
+                  <input (change)="onFileChanged($event)" hidden #fileInput type="file" id="picture">
+                </td>
+                <div style="float:right; padding-bottom: 10%; margin-right: 6%" [hidden]="picture===''">
+                  <button mat-mini-fab style="background-color: red;" (click)="onPictureRemove($event)" >
+                  <mat-icon style="color: white">delete</mat-icon>
+                  </button>
+              </div>
+            </tr>
+        </table>
+    </div>
+    <div>
+      <button mat-raised-button id="update-button" type="submit" [disabled]="!form.valid">Update newsletter</button>
+    </div>
+  </form>
+    
+</div>
+

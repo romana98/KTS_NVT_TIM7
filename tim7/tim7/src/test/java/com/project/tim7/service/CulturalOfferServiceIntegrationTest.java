@@ -24,7 +24,6 @@ import java.util.List;
 
 import static com.project.tim7.constants.CommentConstants.PAGEABLE_PAGE;
 import static com.project.tim7.constants.CommentConstants.PAGEABLE_SIZE;
-import static com.project.tim7.constants.CulturalOfferConstants.UPDATE_ONE_CULTURAL_OFFER_PICTURE2;
 import static org.junit.jupiter.api.Assertions.*;
 import static com.project.tim7.constants.CulturalOfferConstants.*;
 
@@ -80,6 +79,8 @@ public class CulturalOfferServiceIntegrationTest {
         culturalOffer.setName(SAVE_ONE_CULTURAL_OFFER_NAME);
         culturalOffer.setStartDate(new SimpleDateFormat("yyyy-MM-dd").parse(SAVE_ONE_CULTURAL_OFFER_STARTDATE));
         culturalOffer.setLocation(SAVE_ONE_CULTURAL_OFFER_LOCATION);
+        culturalOffer.setLatitude(SAVE_ONE_CULTURAL_OFFER_LATITUDE_1);
+        culturalOffer.setLongitude(SAVE_ONE_CULTURAL_OFFER_LONGITUDE_1);
         culturalOffer.setSubcategory(SAVE_ONE_CULTURAL_OFFER_SUBCATEGORY);
         culturalOffer.setPictures(pictures);
 
@@ -98,28 +99,6 @@ public class CulturalOfferServiceIntegrationTest {
     @Test
     public void testSaveOneInvalidCulturalOffer(){
         CulturalOfferDTO culturalOffer = new CulturalOfferDTO();
-
-        CulturalOffer culturalOfferAdded = culturalOfferService.saveOne(culturalOffer);
-
-        assertNull(culturalOfferAdded);
-    }
-
-    //Not valid Location added.
-    @Test
-    public void testSaveOneInvalidLocation() throws ParseException {
-        CulturalOfferDTO culturalOffer = new CulturalOfferDTO();
-
-        ArrayList<String> pictures = new ArrayList<>();
-        pictures.add(SAVE_ONE_CULTURAL_OFFER_PICTURE1);
-        pictures.add(SAVE_ONE_CULTURAL_OFFER_PICTURE2);
-
-        culturalOffer.setDescription(SAVE_ONE_CULTURAL_OFFER_DESCRIPTION);
-        culturalOffer.setEndDate(new SimpleDateFormat("yyyy-MM-dd").parse(SAVE_ONE_CULTURAL_OFFER_ENDDATE));
-        culturalOffer.setName(SAVE_ONE_CULTURAL_OFFER_NAME);
-        culturalOffer.setStartDate(new SimpleDateFormat("yyyy-MM-dd").parse(SAVE_ONE_CULTURAL_OFFER_STARTDATE));
-        culturalOffer.setSubcategory(SAVE_ONE_CULTURAL_OFFER_SUBCATEGORY);
-        culturalOffer.setLocation(SAVE_ONE_CULTURAL_OFFER_LOCATION_FAIL);
-        culturalOffer.setPictures(pictures);
 
         CulturalOffer culturalOfferAdded = culturalOfferService.saveOne(culturalOffer);
 
@@ -185,6 +164,8 @@ public class CulturalOfferServiceIntegrationTest {
         culturalOffer.setName(UPDATE_ONE_CULTURAL_OFFER_NAME);
         culturalOffer.setStartDate(new SimpleDateFormat("yyyy-MM-dd").parse(UPDATE_ONE_CULTURAL_OFFER_STARTDATE));
         culturalOffer.setLocation(UPDATE_ONE_CULTURAL_OFFER_LOCATION);
+        culturalOffer.setLatitude(SAVE_ONE_CULTURAL_OFFER_LATITUDE_1);
+        culturalOffer.setLongitude(SAVE_ONE_CULTURAL_OFFER_LONGITUDE_1);
         culturalOffer.setSubcategory(UPDATE_ONE_CULTURAL_OFFER_SUBCATEGORY);
         culturalOffer.setPictures(pictures);
 
@@ -513,6 +494,26 @@ public class CulturalOfferServiceIntegrationTest {
     public void testUnsubscribeDoesntExist() {
     	CulturalOffer offer = culturalOfferService.unsubscribe(CULTURAL_OFFER_ID, REGISTERED_ID_NOT_SUBSCRIBED);
     	assertNull(offer);
+    }
+    
+    //Get by subcategory
+    @Test
+    public void testFindBySubcategory(){
+        Pageable pageable = PageRequest.of(PAGEABLE_PAGE, PAGEABLE_SIZE);
+        Page<CulturalOffer> page = culturalOfferService.findBySubcategory(OLD_CULTURAL_OFFER_SUBCATEGORY, pageable);
+        assertEquals(EXPECTED_OFFERS_BY_SUBCATEGORY, page.getNumberOfElements());
+    }
+
+    @Test
+    public void checkIfSubscribedTrue(){
+        boolean subscribed = culturalOfferService.checkIfSubscribed(1, 2);
+        assertTrue(subscribed);
+    }
+
+    @Test
+    public void checkIfSubscribedFalse(){
+        boolean subscribed = culturalOfferService.checkIfSubscribed(2,2);
+        assertFalse(subscribed);
     }
 
 }

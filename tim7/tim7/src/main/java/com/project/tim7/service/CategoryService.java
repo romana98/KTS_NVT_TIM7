@@ -83,4 +83,12 @@ public class CategoryService implements ServiceInterface<Category> {
 		}
 	}
 
+	public Category findByName(String name) {
+		return categoryRepo.findByName(name);
+	}
+	
+	public List<Category> findSubscribedCategories(int id) {
+
+		return categoryRepo.findSubscribedCategories(id);
+	}
 }

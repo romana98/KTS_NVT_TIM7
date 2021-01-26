@@ -1,0 +1,17 @@
+
+<h1 class="mat-display-1;" style="text-align: center;  margin-top: 1%;">My Profile</h1>
+<mat-divider></mat-divider>
+
+<div style="display: block; text-align: center; margin: 10%;">
+
+  <mat-card id="username">{{user.username}}</mat-card>
+  <br>
+  <mat-card id="email">{{user.email}}</mat-card>
+  <br>
+  <br>
+    <div>
+      <button mat-raised-button id="edit-profile-button" (click)="goToEdit()">Edit Profile</button>
+    </div>
+</div>
+
+

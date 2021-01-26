@@ -1,0 +1,126 @@
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<div style="padding-left: 2%;padding-right: 2%">
+<div style="text-align: center; ">
+<h1 class="mat-display-1;" style="float: top; display: inline-block; margin-top: 1%; margin-right: 1%">{{culturalOfferDetailed.name}}</h1>
+  <div [hidden]="hiddenButtons">
+    <button style="margin: auto" mat-flat-button id="subscribeButton" (click)="subscribe()" [disabled]="hideSubscribe">Subscribe</button>
+    <button style="margin: auto" mat-flat-button id="unsubscribeButton" (click)="subscribe()" [disabled]="!hideSubscribe">Unsubscribe</button>
+  </div>
+  <div [hidden]="canNotPublish">
+    <button id="publish-newsletter-button" style="margin: auto" mat-flat-button (click)="goToPublish()">Publish Newsletter</button>
+  </div>
+</div>
+<br>
+<mat-divider></mat-divider>
+<!--
+left div: description, comments and newsletters
+-->
+<div style="float: left; width: 50%;">
+  <!--
+  offer details div(description and avg rating)
+  -->
+  <div style="width: 100%">
+    <div style="float: left; width: 47%; padding-top: 1%; font-size: small; padding-left: 1%; margin-right: 1%">
+      <h1 style="font-size: medium">Description: </h1>
+      <p>{{culturalOfferDetailed.description}}</p>
+      <p>Average rating: {{averageRating}}</p>
+      <br>
+      <mat-divider></mat-divider>
+      <br>
+      <br>
+    </div>
+    <br>
+    <div style="width: 50%;height: 50% ;float: right; margin-right: 1%">
+      <app-carousel id="carouselCulturalOffer" [inputProportion]="47" [inputPictures]="culturalOfferDetailed.pictures"></app-carousel>
+    </div>
+  </div>
+  <!--
+  comments div
+  -->
+  <div [hidden] = 'commentsEmpty' style="width: 100%; float: left">
+    <div style="float:left; width:5%; margin-top: 10%">
+      <button [disabled]="pageComments === 0" id="commentNavigateBefore" (click)="commentNavigateBefore()"><mat-icon>navigate_before</mat-icon></button>
+    </div>
+    <div style="float: left; width: 40%; padding-top: 1%; font-size: small; padding-left: 1%; margin-right: 1%">
+      <h1 style="font-size: medium">Comment: </h1>
+      <p id="commentDescription">{{comments.content[0].description}}</p>
+      <p>User: {{comments.content[0].registeredUser}}</p>
+      <p>Publish date: {{publishedDateComment}}</p>
+      <br>
+    </div>
+    <div style="float:right; width:5%; margin-top: 10%">
+      <button id="commentNavigateNext" [disabled]="disableNavigateCommentNext" (click)="commentNavigateNext()"><mat-icon>navigate_next</mat-icon></button>
+    </div>
+    <br>
+
+    <div style="width: 47%;height: 50% ;float: right; margin-right: 1%">
+      <app-carousel id="carouselCommentPictures" [inputProportion]="55" [inputPictures]="comments.content[0].picturesId"></app-carousel>
+    </div>
+  </div>
+  <!--
+  newsletters div
+  -->
+  <div [hidden] = 'newslettersEmpty' style="width: 100%; float: left; padding-top: 5%">
+    <div style="float:left; width:5%; margin-top: 10%">
+      <button id="newsletterNavigateBefore" [disabled]="pageNewsletters === 0" (click)="newslettersNavigateBefore()"><mat-icon>navigate_before</mat-icon></button>
+    </div>
+    <div style="float: left; width: 40%; padding-top: 1%; font-size: small; padding-left: 1%; margin-right: 1%">
+      <h1 style="font-size: medium">Newsletter: {{newsletters.content[0].name}}</h1>
+      <p id="newsletterDescription">{{newsletters.content[0].description}}</p>
+      <p>Publish date: {{publishedDateNewsletter}}</p>
+      <br>
+      <br>
+      <br>
+    </div>
+    <div style="float:right; width:5%; margin-top: 10%">
+      <button id="newsletterNavigateNext" [disabled]="disableNavigateNewsletterNext" (click)="newslettersNavigateAfter()"><mat-icon>navigate_next</mat-icon></button>
+    </div>
+    <br>
+
+    <div style="width: 47%;height: 50% ;float: right; margin-right: 1%">
+      <img style="max-height: 50%; max-width: 50%" [src]="newsletters.content[0].picture"/>
+    </div>
+  </div>
+</div>
+
+<!--
+right div: rating and add comment
+-->
+<div [hidden]="isHidden" style="float: right;width: 49%; padding-top: 2%">
+  <div style="width: 100%">
+    <div style="float: left; padding-left: 20%">
+      <ngx-star-rating id="starRating" [disabled]="disabledRating" ngDefaultControl [(ngModel)]="pickedRating" [id]="'pickedRating'" ></ngx-star-rating>
+      <button id="addRateButton" [disabled]="disabledRating" style="padding-left: 2%" mat-flat-button (click)="rate()">Rate</button>
+    </div>
+  </div>
+  <div style="width: 100%; padding-top: 20%">
+    <div style="float: left; width: 47%; padding-top: 1%; font-size: small; padding-left: 20%">
+      <form  [formGroup]="form" (ngSubmit)="addComment()">
+        <mat-form-field>
+          <mat-label for="commentInput">Comment:</mat-label>
+          <textarea matInput id="commentInput" name="commentInput" placeholder="Insert comment here" [formControl]="form.controls.commentInput"></textarea>
+          <mat-error *ngIf="form.controls.commentInput.touched && form.controls.commentInput.errors?.required">
+            This field can't be empty!</mat-error >
+        </mat-form-field>
+        <br>
+        <button style="margin-right: 3%;background-color: green" class="ng-hide" type="button" mat-raised-button (click)="fileInput.click()">Upload picture</button>
+        <input (change)="onFileChanged($event)" hidden #fileInput type="file" id="file">
+
+        <div style="margin-top: 3%; margin-bottom:3%" >
+          <app-carousel [inputProportion]="55" [inputPictures]="pickedPhotos" (currentPicture)="onPictureChanged($event)"></app-carousel>
+        </div>
+
+        <button id="addCommentButton" mat-raised-button type="submit" [disabled]="!form.valid">Create comment</button>
+
+      </form>
+
+      <div style="float:right; margin-bottom: 4%; margin-right: 2%" [hidden]="pickedPhotos.length === 0">
+        <button mat-mini-fab style="background-color: red;" (click)="onPictureRemove()" >
+          <mat-icon style="color: white">delete</mat-icon>
+        </button>
+      </div>
+
+    </div>
+  </div>
+</div>
+</div>

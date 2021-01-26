@@ -20,13 +20,16 @@ public class NewsletterDTO {
 	
 	@NotNull
 	private int culturalOfferId;
+	
+	private String culturalOffer;
 
-	public NewsletterDTO(int id, @NotBlank String name, @PastOrPresent Date publishedDate, int culturalOfferId) {
+	public NewsletterDTO(int id, @NotBlank String name, @PastOrPresent Date publishedDate, int culturalOfferId, String culturalOffer) {
 		super();
 		this.id = id;
 		this.name = name;
 		this.publishedDate = publishedDate;
 		this.culturalOfferId = culturalOfferId;
+		this.culturalOffer = culturalOffer;
 	}
 	
 	public NewsletterDTO() {}
@@ -62,6 +65,16 @@ public class NewsletterDTO {
 	public void setCulturalOfferId(int culturalOfferId) {
 		this.culturalOfferId = culturalOfferId;
 	}
+
+	public String getCulturalOffer() {
+		return culturalOffer;
+	}
+
+	public void setCulturalOffer(String culturalOffer) {
+		this.culturalOffer = culturalOffer;
+	}
+	
+	
 	
 	
 }

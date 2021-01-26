@@ -1,0 +1,15 @@
+<h1 class="mat-display-1;" style="text-align: center;  margin-top: 1%;">Newsletter</h1>
+<mat-divider></mat-divider>
+<br>
+<div [style.margin-left.%]="3" [style.margin-right.%]="3">
+    <mat-tab-group >
+        <ng-container *ngFor="let category of categoriesSubscribed">
+            <mat-tab label={{category.name}}> 
+                <ng-template matTabContent>
+                    <app-category-newsletter [category]=category (newEvent)="getCategories()"></app-category-newsletter>
+                </ng-template>
+            </mat-tab>
+        </ng-container>
+    </mat-tab-group>
+</div>
+

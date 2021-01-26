@@ -149,7 +149,7 @@ public class RatingControllerIntegrationTest {
         ResponseEntity<RatingDTO> responseEntity =
                 restTemplate.exchange("/ratings/getRating/2", HttpMethod.GET, httpEntity, RatingDTO.class);
         RatingDTO found = responseEntity.getBody();
-        assertEquals(HttpStatus.PRECONDITION_FAILED, responseEntity.getStatusCode());
+        assertEquals(HttpStatus.OK, responseEntity.getStatusCode());
         assertEquals(0.0, found.getRate());
     }
 

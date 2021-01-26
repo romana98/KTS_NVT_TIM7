@@ -25,13 +25,13 @@ public class EmailService {
 	private Environment env;
 	
 	@Async
-	public void sendVerificationMail(String email, int id) throws MailException {
+	public void sendVerificationMail(String email, int id){
 	
 		SimpleMailMessage mail = new SimpleMailMessage();
 		mail.setTo(email);
 		mail.setFrom(env.getProperty("spring.mail.username"));
 		mail.setSubject("Please verify your email address");
-		mail.setText("http://localhost:4200/activateAccount?id=" + id + "&email=" + email);
+		mail.setText("http://localhost:4200/activateAccount?id=" + id);
 		javaMailSender.send(mail);
 
 	}
