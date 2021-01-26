@@ -7,15 +7,14 @@ import {MatDividerModule} from '@angular/material/divider';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatInputModule} from '@angular/material/input';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
-import {BrowserModule, By} from '@angular/platform-browser';
+import {BrowserModule} from '@angular/platform-browser';
 import {of} from 'rxjs';
 import * as NewsletterActions from '../../store/newsletter.actions';
-import { ActivatedRoute, convertToParamMap, Router } from '@angular/router';
-import { RouterTestingModule } from '@angular/router/testing';
-import { MatSelectModule, SELECT_PANEL_PADDING_X } from '@angular/material/select';
-import { MatProgressBar, MatProgressBarModule } from '@angular/material/progress-bar';
-import { NewsletterModel } from 'src/app/models/newsletter.model';
+import { Router } from '@angular/router';
+import { MatSelectModule} from '@angular/material/select';
+import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { DashboardNewsletterComponent } from './dashboard-newsletter.component';
+import {SharedModule} from '../../../../shared/shared.module';
 
 describe('DashboardNewsletterComponent', () => {
   let component: DashboardNewsletterComponent;
@@ -31,7 +30,7 @@ describe('DashboardNewsletterComponent', () => {
     TestBed.configureTestingModule({
       declarations: [ DashboardNewsletterComponent ],
       imports: [FormsModule, ReactiveFormsModule,  StoreModule.forRoot(fromApp.appReducer), MatSnackBarModule, MatDividerModule,
-        BrowserModule, BrowserAnimationsModule, MatFormFieldModule, MatInputModule, MatSelectModule, MatProgressBarModule ],
+        BrowserModule, BrowserAnimationsModule, MatFormFieldModule, MatInputModule, MatSelectModule, MatProgressBarModule, SharedModule ],
       providers: [Store, {provide: Router, useValue: mockRouter}]
     })
     .compileComponents();

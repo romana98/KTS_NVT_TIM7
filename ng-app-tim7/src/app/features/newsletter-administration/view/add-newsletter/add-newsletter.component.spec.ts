@@ -17,6 +17,7 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { MatSelectModule, SELECT_PANEL_PADDING_X } from '@angular/material/select';
 import { MatProgressBar, MatProgressBarModule } from '@angular/material/progress-bar';
 import { NewsletterModel } from 'src/app/models/newsletter.model';
+import {MatIconModule} from '@angular/material/icon';
 
 
 describe('AddNewsletterComponent', () => {
@@ -34,7 +35,7 @@ describe('AddNewsletterComponent', () => {
     TestBed.configureTestingModule({
       declarations: [ AddNewsletterComponent ],
       imports: [FormsModule, ReactiveFormsModule,  StoreModule.forRoot(fromApp.appReducer), MatSnackBarModule, MatDividerModule,
-        BrowserModule, BrowserAnimationsModule, MatFormFieldModule, MatInputModule, MatSelectModule, MatProgressBarModule ],
+        BrowserModule, BrowserAnimationsModule, MatFormFieldModule, MatInputModule, MatSelectModule, MatProgressBarModule, MatIconModule ],
       providers: [Store, {provide: ActivatedRoute,
         useValue: { snapshot: { paramMap: convertToParamMap( { culturalOfferId: 1,  culturalOfferName: 'CulturalOffer1' } ) } }},
         {provide: Router, useValue: mockRouter}]

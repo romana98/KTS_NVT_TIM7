@@ -18,6 +18,7 @@ import { NewsletterModel } from 'src/app/models/newsletter.model';
 import { CardNewsletterComponent } from './card-newsletter.component';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { DialogNewsletterComponent } from '../dialog-newsletter/dialog-newsletter.component';
+import {MatCardModule} from '@angular/material/card';
 
 describe('CardNewsletterComponent', () => {
   let component: CardNewsletterComponent;
@@ -29,7 +30,7 @@ describe('CardNewsletterComponent', () => {
       declarations: [ CardNewsletterComponent ],
       imports: [FormsModule, ReactiveFormsModule,  StoreModule.forRoot(fromApp.appReducer), MatSnackBarModule, MatDividerModule,
         BrowserModule, BrowserAnimationsModule, MatFormFieldModule, MatInputModule, MatSelectModule, MatProgressBarModule,
-        MatDialogModule ],
+        MatDialogModule, MatCardModule ],
       providers: [MatDialog]
     })
     .compileComponents();
